@@ -8,11 +8,11 @@ from tkinter import Canvas
 screen = tk.Tk()
 screen.title("FSR3.0 Mod Setup Utility - 0.1v")
 screen.geometry("400x700")
-screen.iconbitmap("D:\Prog\Fsr3 auto installer\images\FSR-3-Supported-GPUs-Games.ico")
+screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
 screen.configure(bg='black')
 
-img_bg = Image.open('D:\Prog\Fsr3 auto installer\images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
+img_bg = Image.open('D:\Prog\Fsr3\images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
 img_res = img_bg.resize((200,300))
 img_tk =ImageTk.PhotoImage(img_res)
 x_img = (400 - 200)//2
@@ -29,7 +29,7 @@ select_label = tk.Label(screen, text="Game select:",font=font_select,bg='black',
 select_label.pack(anchor='w',pady=10)
 
 fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_label.place(x=280,y=33)
+fsr_label.place(x=300,y=33)
 
 def rectangle_event(event): #configuration listbox
     global listbox_visible
@@ -45,13 +45,12 @@ listbox = tk.Listbox(screen,bg='white',selectbackground='white',width=30,height=
 listbox.pack(side=tk.RIGHT,expand=True,padx=(0,115),pady=(0,500))
 listbox.pack_forget()
 scroll_listbox = tk.Scrollbar(listbox,orient=tk.VERTICAL,command=listbox.yview)
-scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(163,0),pady=(13,50))
+scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(13,50))
 listbox.config(yscrollcommand=scroll_listbox.set)
 scroll_listbox.config(command=listbox.yview)
 
-canvas_options = Canvas(screen,width=180,height=15,bg='white')
+canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
-#canvas_options.create_rectangle(30,30,310,270,fill="green")
 
 def update_rec_color():#color setting fsr_rec
     global color_rec
@@ -62,7 +61,7 @@ def update_rec_color():#color setting fsr_rec
     fsr_canvas.itemconfig(fsr_rec,fill=color_rec)
     
 fsr_canvas= Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
-fsr_canvas.place(x=315,y=37)
+fsr_canvas.place(x=335,y=37)
 color_rec_bool = True
 color_rec = 'white'
 fsr_rec = fsr_canvas.create_rectangle(0,0,50,30,fill=color_rec,outline='')
@@ -89,16 +88,8 @@ def fsr_listbox_visible(event):
             fsr_listbox.place_forget()
             fsr_visible = False
         else:
-            fsr_listbox.place(x=315,y=58)
+            fsr_listbox.place(x=335,y=58)
             fsr_visible = True
-
-fsr_version={
-    'SDK':'SDK',
-    '2.0':'2.0',
-    '2.1':'2.1',
-    '2.2':'2.2',
-    'RDR2':'RDR2', 
-}
 
 fsr_game_version={
     'Horizon Zero Dawn':'2.2',
@@ -140,12 +131,12 @@ x=0
 y=0
 def update_canvas():#canva_options text configuration
     global x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
-    fsr_canvas.delete('text') 
     if fsr_view_listbox == False:
         canvas_options.delete('text')
-
+        
     index = listbox.curselection()
     if index:
+        fsr_canvas.delete('text')
         select_option = listbox.get(index)
         x = 2
         y = 8
@@ -158,7 +149,6 @@ def update_canvas():#canva_options text configuration
     if select_option == 'Select FSR version':
         fsr_view_listbox = True
         color_rec_bool = True
-        fsr_canvas.delete('text')
     else:
         fsr_view_listbox = False
         color_rec_bool = False
@@ -166,15 +156,12 @@ def update_canvas():#canva_options text configuration
     update_rec_color()
 
 def update_fsr_v(event=None):
-    global fsr_version,select_fsr,select_option
-    
+    global select_fsr,select_option
     index_fsr = fsr_listbox.curselection()
     if index_fsr:
         select_fsr = fsr_listbox.get(index_fsr) 
         fsr_canvas.delete('text')
-        fsr_canvas.create_text(2,8,anchor='w',text=fsr_version.get(select_fsr,''),fill='black',tag='text')
-    elif select_option == 'Select FSR version':
-        fsr_canvas.delete('text')
+        fsr_canvas.create_text(2,8,anchor='w',text=select_fsr,fill='black',tag='text')
     fsr_canvas.update()
     
 options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
