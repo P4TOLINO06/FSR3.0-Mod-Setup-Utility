@@ -3,10 +3,10 @@ from PIL import ImageTk, Image, ImageDraw, ImageFont
 from customtkinter import *
 from customtkinter import CTk
 from tkinter.font import Font
-from tkinter import Canvas
+from tkinter import Canvas,filedialog
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.1v")
+screen.title("FSR3.0 Mod Setup Utility - 0.2v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -30,6 +30,49 @@ select_label.pack(anchor='w',pady=10)
 
 fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0')
 fsr_label.place(x=300,y=33)
+canvas_options = Canvas(screen,width=200,height=15,bg='white')
+canvas_options.place(x=90,y=37)
+
+select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
+select_folder_canvas.place(x=335,y=75)
+select_folder_canvas.create_text(4,8,anchor='w',font=(font_select,9,'bold'),text='Select',fill='black',)
+select_folder_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
+select_folder_label.place(x=309,y=70)
+
+def open_explorer(event=None): #Function to select the game folder and create the selected path text on the Canvas
+    select_folder =filedialog.askdirectory()
+    game_folder_canvas.delete('text')
+    game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
+      
+game_folder_canvas = Canvas(screen,width=200,height=15,bg='white')
+game_folder_canvas.place(x=90,y=75)
+
+game_folder_label = tk.Label(screen,text = 'Game folder:',font=font_select,bg='black',fg='#C0C0C0')
+game_folder_label.place(x=0,y=70)
+
+mod_version_label = tk.Label(screen,text='Mod version:',font=font_select,bg='black',fg='#C0C0C0')
+mod_version_label.place(x=0,y=108)
+
+mod_version_canvas = Canvas(screen,width=200,height=15,bg='white')
+mod_version_canvas.place(x=90,y=113)
+
+mod_version_listbox = tk.Listbox(screen,bg='white',width=34,height=0)
+mod_version_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,170),pady=(0,480))
+mod_version_listbox.pack_forget()
+scroll_mod_listbox = tk.Scrollbar(mod_version_listbox,orient=tk.VERTICAL,command=mod_version_listbox.yview)
+scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(6,26))
+mod_version_listbox.config(yscrollcommand=scroll_mod_listbox.set)
+scroll_mod_listbox.config(command=mod_version_listbox.yview)
+
+mod_listbox_visible = False
+def mod_listbox_view(event):
+    global mod_listbox_visible
+    if mod_listbox_visible:
+        mod_version_listbox.place_forget()
+        mod_listbox_visible = False
+    else:
+        mod_version_listbox.place(x=90,y=135)
+        mod_listbox_visible = True
 
 def rectangle_event(event): #configuration listbox
     global listbox_visible
@@ -48,9 +91,6 @@ scroll_listbox = tk.Scrollbar(listbox,orient=tk.VERTICAL,command=listbox.yview)
 scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(13,50))
 listbox.config(yscrollcommand=scroll_listbox.set)
 scroll_listbox.config(command=listbox.yview)
-
-canvas_options = Canvas(screen,width=200,height=15,bg='white')
-canvas_options.place(x=90,y=37)
 
 def update_rec_color():#color setting fsr_rec
     global color_rec
@@ -126,6 +166,7 @@ fsr_game_version={
 
 select_option = None
 select_fsr = None
+select_mod = None
 
 x=0
 y=0
@@ -154,6 +195,12 @@ def update_canvas():#canva_options text configuration
         color_rec_bool = False
         fsr_listbox.place_forget()
     update_rec_color()
+    
+options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
+        'Horizon Zero Dawn','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Palworld','Ratchet & Clank-Rift Apart',
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Last of Us','The Medium','The Witcher 3']#add options
+for option in options:
+    listbox.insert(tk.END,option)
 
 def update_fsr_v(event=None):
     global select_fsr,select_option
@@ -164,20 +211,30 @@ def update_fsr_v(event=None):
         fsr_canvas.create_text(2,8,anchor='w',text=select_fsr,fill='black',tag='text')
     fsr_canvas.update()
     
-options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
-           'Horizon Zero Dawn','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Palworld','Ratchet & Clank-Rift Apart',
-           'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Last of Us','The Medium','The Witcher 3']#add options
-for option in options:
-    listbox.insert(tk.END,option)
-
 fsr_options = ['SDK','2.0','2.1','2.2','RDR2']
 for fsr_op in fsr_options:
     fsr_listbox.insert(tk.END,fsr_op)
+    
+def update_mod_version(event=None):
+    global select_mod
+    index_mod = mod_version_listbox.curselection()
+    if index_mod:
+        select_mod = mod_version_listbox.get(index_mod)
+        mod_version_canvas.delete('text')
+        mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
+    mod_version_canvas.update()
 
-canvas_options.bind("<Button-1>",rectangle_event)
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8','0.9','0.10','0.10.1','0.10.1h1','0.10.2h1']
+for mod_op in mod_options:
+    mod_version_listbox.insert(tk.END,mod_op)
+
+canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
 listbox.bind("<<ListboxSelect>>",lambda event:update_canvas())
 fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
+select_folder_canvas.bind('<Button-1>',open_explorer)
+mod_version_canvas.bind('<Button-1>',mod_listbox_view)
+mod_version_listbox.bind("<<ListboxSelect>>",update_mod_version)
 #screen.bind('<Button1-1>',close_all_listbox)
 
 screen.mainloop()
