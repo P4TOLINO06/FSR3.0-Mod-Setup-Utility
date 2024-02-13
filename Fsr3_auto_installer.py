@@ -3,10 +3,10 @@ from PIL import ImageTk, Image, ImageDraw, ImageFont
 from customtkinter import *
 from customtkinter import CTk
 from tkinter.font import Font
-from tkinter import Canvas,filedialog
+from tkinter import Canvas,filedialog,ttk
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.2v")
+screen.title("FSR3.0 Mod Setup Utility - 0.3v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -32,6 +32,57 @@ fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0'
 fsr_label.place(x=300,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
+
+def cbox_fakegpu():
+    if fakegpu_cbox_var.get() == 1:
+        print('0')
+        fakegpu_cbox_var.set == 0
+    else:
+        fakegpu_cbox_var.set == 1
+        print('1')
+
+fakegpu_label = tk.Label(screen,text='Fake NVIDIA GPU',font=font_select,bg='black',fg='#C0C0C0')
+fakegpu_label.place(x=0,y=185)
+fakegpu_cbox_var = tk.IntVar()
+fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fakegpu_cbox_var,command=cbox_fakegpu)
+fakegpu_cbox.place(x=120,y=186)
+
+asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
+asi_label.place(x=0,y=146)
+asi_optional_label = tk.Label(screen,text='optional',font=(font_select, 7),bg='black',fg='#696969')
+asi_optional_label.place(x=10,y=166)
+asi_canvas = Canvas(screen,width=205,height=19,bg='white',highlightthickness=0)
+asi_canvas.place(x=90,y=150)
+asi_listbox = tk.Listbox(screen,bg='white',width=34,height=0,highlightthickness=0)
+asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
+asi_listbox.pack_forget()
+select_asi_label = tk.Label(screen,text='ASI:',font=font_select,bg='black',fg='#C0C0C0')
+select_asi_label.place(x=300,y=145)
+select_asi_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
+select_asi_canvas.place(x=335,y=149)
+select_asi_listbox = tk.Listbox(screen,bg='white',width=8,height=0,highlightthickness=0)
+select_asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(320,0),pady=(0,413))
+select_asi_listbox.pack_forget()
+asi_listbox_visible = False
+def asi_listbox_view(event):
+    global asi_listbox_visible
+    if asi_listbox_visible:
+        asi_listbox.place_forget()
+        asi_listbox_visible = False
+    else:
+        asi_listbox.place(x=90,y=171)
+        asi_listbox_visible = True
+select_asi_visible = False  
+select_asi_notvisible = False      
+def select_asi_view(event):
+    global select_asi_visible,select_asi_notvisible
+    if select_asi_notvisible:
+        if select_asi_visible:
+            select_asi_listbox.place_forget()
+            select_asi_visible = False
+        else:
+            select_asi_listbox.place(x=335,y=170)
+            select_asi_visible = True
 
 select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_folder_canvas.place(x=335,y=75)
@@ -99,6 +150,17 @@ def update_rec_color():#color setting fsr_rec
     else:
         color_rec = '#C0C0C0'
     fsr_canvas.itemconfig(fsr_rec,fill=color_rec)
+
+select_asi_color = 'white'
+select_asi_bool = True
+select_asi_rec = select_asi_canvas.create_rectangle(0,0,50,30,fill=select_asi_color,outline='')
+def update_asi_color():
+    global select_asi_color
+    if select_asi_notvisible == True:
+        select_asi_color = 'white'
+    else:
+        select_asi_color = '#C0C0C0'
+    select_asi_canvas.itemconfig(select_asi_rec,fill=select_asi_color)
     
 fsr_canvas= Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
 fsr_canvas.place(x=335,y=37)
@@ -167,6 +229,8 @@ fsr_game_version={
 select_option = None
 select_fsr = None
 select_mod = None
+select_asi = None
+option_asi = None
 
 x=0
 y=0
@@ -227,6 +291,41 @@ def update_mod_version(event=None):
 mod_options = ['0.7.4','0.7.5','0.7.6','0.8','0.9','0.10','0.10.1','0.10.1h1','0.10.2h1']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
+    
+def update_asi(event=None):
+    global option_asi,select_asi_bool,select_asi_notvisible
+    index_asi = asi_listbox.curselection()
+    if index_asi:
+        option_asi = asi_listbox.get(index_asi)
+        asi_canvas.delete('text')
+        asi_canvas.create_text(2,8,anchor='w',text=option_asi,fill='black',tags='text')
+    if option_asi == 'ASI Loader for RDR2':
+        select_asi_notvisible = False
+        select_asi_notvisible = False
+        select_asi_canvas.delete('text')
+        select_asi_listbox.place_forget() 
+    else:
+        select_asi_notvisible = True
+        select_asi_bool = True
+    update_asi_color()
+    asi_canvas.update()
+    
+asi_options = ['Select ASI Loader','ASI Loader for RDR2']
+for asi_op in asi_options:
+    asi_listbox.insert(tk.END,asi_op)
+
+def update_select_asi(event=None):
+    global select_asi
+    index_select_asi = select_asi_listbox.curselection()
+    if index_select_asi:
+        select_asi = select_asi_listbox.get(index_select_asi)
+        select_asi_canvas.delete('text')
+        select_asi_canvas.create_text(2,8,anchor='w',text=select_asi,fill='black',tags='text')
+    select_asi_canvas.update()
+    
+select_asi_options =  ['2.0','2.1','2.2','SDK']
+for select_asi_op in select_asi_options:
+    select_asi_listbox.insert(tk.END,select_asi_op)
 
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
@@ -235,6 +334,10 @@ fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
 select_folder_canvas.bind('<Button-1>',open_explorer)
 mod_version_canvas.bind('<Button-1>',mod_listbox_view)
 mod_version_listbox.bind("<<ListboxSelect>>",update_mod_version)
+asi_canvas.bind('<Button-1>',asi_listbox_view)
+asi_listbox.bind('<<ListboxSelect>>',update_asi)
+select_asi_canvas.bind('<Button-1>',select_asi_view)
+select_asi_listbox.bind('<<ListboxSelect>>',update_select_asi)
 #screen.bind('<Button1-1>',close_all_listbox)
 
 screen.mainloop()
