@@ -6,7 +6,7 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,ttk
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.3v")
+screen.title("FSR3.0 Mod Setup Utility - 0.4v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -45,7 +45,106 @@ fakegpu_label = tk.Label(screen,text='Fake NVIDIA GPU',font=font_select,bg='blac
 fakegpu_label.place(x=0,y=185)
 fakegpu_cbox_var = tk.IntVar()
 fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fakegpu_cbox_var,command=cbox_fakegpu)
-fakegpu_cbox.place(x=120,y=186)
+fakegpu_cbox.place(x=120,y=187)
+
+def cbox_ue():
+    if ue_cbox_var.get() == 1:
+        ue_cbox_var.set == 0
+        print('0')
+    else:
+        ue_cbox_var.set == 1
+        print('1')
+        
+ue_label = tk.Label(screen,text='UE Compatibility Mode',bg='black',font=font_select,fg='#C0C0C0')
+ue_label.place(x=200,y=185)
+ue_cbox_var = tk.IntVar()
+ue_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ue_cbox_var,command=cbox_ue)
+ue_cbox.place(x=355,y=187)
+
+def cbox_nvapi():
+    if nvapi_cbox_var.get() == 1:
+        print('0')
+        nvapi_cbox_var.set == 0
+    else:
+        print('1')
+        nvapi_cbox_var.set == 1
+
+nvapi_label = tk.Label(screen,text='NVAPI Results',font=font_select,bg='black',fg='#C0C0C0')
+nvapi_label.place(x=0,y=215)
+nvapi_cbox_var = tk.IntVar()
+nvapi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvapi_cbox_var,command=cbox_nvapi)
+nvapi_cbox.place(x=120,y=217)
+
+def cbox_macos():
+    if macos_sup_var.get() == 1:
+        print('0')
+        macos_sup_var.set == 0
+    else:
+        print('1')
+        macos_sup_var.set == 1
+macos_sup_label = tk.Label(screen,text='MacOS Crossover Support',font=font_select,bg='black',fg='#C0C0C0')
+macos_sup_label.place(x=200,y=215)
+macos_sup_var = tk.IntVar()
+macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
+macos_sup_cbox.place(x=372,y=217)
+
+def cbox_editor():
+    if open_editor_var.get() == 1:
+        print('0')
+        open_editor_var.set == 0
+    else:
+        print('1')
+        open_editor_var.set == 1
+open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
+open_editor_label.place(x=200,y=245)
+open_editor_var = tk.IntVar()
+open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=open_editor_var,command=cbox_editor)
+open_editor_cbox.place(x=325,y=247)
+
+def cbox_sharpness():
+    if sharpness_var.get() == 1:
+        print('0')
+        sharpness_var.set == 0
+    else:
+        print('1')
+        sharpness_var.set == 1
+sharpness_label = tk.Label(screen,text='Sharpness Override',font=font_select,bg='black',fg='#C0C0C0')
+sharpness_label.place(x=0,y=245)
+sharpness_var = tk.IntVar()
+sharpness_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=sharpness_var,command=cbox_sharpness)
+sharpness_cbox.place(x=130,y=247)
+sharpness_value_label = tk.Label(screen,text='Sharpness Value:',font=font_select,bg='black',fg='#C0C0C0')
+sharpness_value_label.place(x=0,y=277)
+sharpness_value_canvas = tk.Canvas(screen,width=80,height=19,bg='white',highlightthickness=0)
+sharpness_value_canvas.place(x=140,y=282)
+sharpness_value_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+sharpness_value_label_up.place(x=120,y=276)
+sharpness_value_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+sharpness_value_label_down.place(x=225,y=268)
+cont_value_up = 0
+cont_value_up_f = 0
+def cont_sharpness_value_up(event=None):
+    global cont_value_up,cont_value_up_f
+    cont_value_up_f = f'{cont_value_up:.1f}'
+    if cont_value_up < 0.9:
+        cont_value_up+=0.1
+    sharpness_value_canvas.delete('text')
+    sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
+
+def cont_sharpness_value_down(event=None):
+    global cont_value_up_f,cont_value_up
+    if cont_value_up > 0.1:
+        cont_value_up-=0.1
+        cont_value_up_f = f'{cont_value_up:.1f}'
+    sharpness_value_canvas.delete('text')
+    sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
+    sharpness_value_canvas.update()
+
+#sharpness_value_button = tk.Button(screen,bg='white',width=2,padx=0,pady=0,highlightthickness=0)
+#sharpness_value_button.place(x=129,y=282)
+
+#mod_oparates_label = tk.Label(screen,text='Mod Operates',font=font_select,bg='black',fg='#C0C0C0')
+#mod_oparates_label.place(x=0,y=200)
 
 asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
 asi_label.place(x=0,y=146)
@@ -86,7 +185,7 @@ def select_asi_view(event):
 
 select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_folder_canvas.place(x=335,y=75)
-select_folder_canvas.create_text(4,8,anchor='w',font=(font_select,9,'bold'),text='Select',fill='black',)
+select_folder_canvas.create_text(4,8,anchor='w',font=(font_select,9,'bold'),text='Select',fill='black')
 select_folder_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
 select_folder_label.place(x=309,y=70)
 
@@ -338,6 +437,8 @@ asi_canvas.bind('<Button-1>',asi_listbox_view)
 asi_listbox.bind('<<ListboxSelect>>',update_asi)
 select_asi_canvas.bind('<Button-1>',select_asi_view)
 select_asi_listbox.bind('<<ListboxSelect>>',update_select_asi)
+sharpness_value_label_up.bind('<Button-1>',cont_sharpness_value_up)
+sharpness_value_label_down.bind('<Button-1>',cont_sharpness_value_down)
 #screen.bind('<Button1-1>',close_all_listbox)
 
 screen.mainloop()
