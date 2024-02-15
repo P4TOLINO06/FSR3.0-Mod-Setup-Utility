@@ -6,7 +6,7 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,ttk
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.4v")
+screen.title("FSR3.0 Mod Setup Utility - 0.5v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -16,7 +16,7 @@ img_bg = Image.open('D:\Prog\Fsr3\images\gray-amd-logo-n657xc6ettzratsr...-remov
 img_res = img_bg.resize((200,300))
 img_tk =ImageTk.PhotoImage(img_res)
 x_img = (400 - 200)//2
-y_img = (700 - 300)//2
+y_img = (1200 - 300)//2
 
 bg_label = tk.Label(screen,image=img_tk,bg='black')
 bg_label.place(x=x_img,y=y_img)
@@ -32,6 +32,71 @@ fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0'
 fsr_label.place(x=300,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
+
+def cbox_custom_fsr(event=None):
+    if custom_fsr_var.get() == 1:
+        fsr_balanced_canvas.configure(bg='white')
+        fsr_ultraq_canvas.configure(bg='white')
+        fsr_ultrap_canvas.configure(bg='white')
+        fsr_performance_canvas.configure(bg='white')
+        fsr_quality_canvas.configure(bg='white')
+    else:
+        fsr_balanced_canvas.configure(bg='#C0C0C0')
+        fsr_ultraq_canvas.configure(bg='#C0C0C0')
+        fsr_ultrap_canvas.configure(bg='#C0C0C0')
+        fsr_performance_canvas.configure(bg='#C0C0C0')
+        fsr_quality_canvas.configure(bg='#C0C0C0')
+        
+custom_fsr_label = tk.Label(screen,text='Resolution Override  -  Custom FSR',font=font_select,bg='black',fg='#C0C0C0')
+custom_fsr_label.place(x=0,y=345)
+custom_fsr_var = IntVar()
+custom_fsr_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=custom_fsr_var,command=cbox_custom_fsr)
+custom_fsr_cbox.place(x=230,y=347)
+
+fsr_ultraq_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
+fsr_ultraq_canvas.place(x=140,y=380)
+fsr_ultraq_label = tk.Label(screen,text='FSR Ultra Quality:',font=font_select,bg='black',fg='#C0C0C0')
+fsr_ultraq_label.place(x=0,y=375)
+fsr_ultraq_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+fsr_ultraq_label_up.place(x=120,y=375)
+fsr_ultraq_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+fsr_ultraq_label_down.place(x=193,y=367)
+
+fsr_quality_label = tk.Label(screen,text='FSR Quality:',font=font_select,bg='black',fg='#C0C0C0')
+fsr_quality_label.place(x=220,y=375)
+fsr_quality_canvas = tk.Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
+fsr_quality_canvas.place(x=325,y=380)
+fsr_quality_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+fsr_quality_label_up.place(x=305,y=375)
+fsr_quality_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+fsr_quality_label_down.place(x=378,y=366)
+
+fsr_balanced_label = tk.Label(screen,text='FSR Balanced:',font=font_select,bg='black',fg='#C0C0C0')
+fsr_balanced_label.place(x=0,y=407)
+fsr_balanced_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+fsr_balanced_label_up.place(x=95,y=407)
+fsr_balanced_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
+fsr_balanced_canvas.place(x=115,y=412)
+fsr_balanced_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg="#B0C4DE")
+fsr_balanced_label_down.place(x=169,y=399)
+
+fsr_performance_label = tk.Label(screen,text='FSR Performance:',font=font_select,bg='black',fg='#C0C0C0')
+fsr_performance_label.place(x=190,y=407)
+fsr_performance_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+fsr_performance_label_up.place(x=306,y=407)
+fsr_performance_canvas = tk.Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
+fsr_performance_canvas.place(x=325,y=412)
+fsr_performance_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+fsr_performance_label_down.place(x=378,y=398)
+
+fsr_ultrap_label = tk.Label(screen,text='FSR Ultra Performance:',font=font_select,bg='black',fg='#C0C0C0')
+fsr_ultrap_label.place(x=0,y=439)
+fsr_ultrap_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+fsr_ultrap_label_up.place(x=150,y=438)
+fsr_ultrap_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
+fsr_ultrap_canvas.place(x=170,y=443)
+fsr_ultrap_label_down = tk.Label(screen,tegitxt='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+fsr_ultrap_label_down.place(x=225,y=430)
 
 def cbox_fakegpu():
     if fakegpu_cbox_var.get() == 1:
@@ -91,23 +156,26 @@ macos_sup_cbox.place(x=372,y=217)
 def cbox_editor():
     if open_editor_var.get() == 1:
         print('0')
-        open_editor_var.set == 0
+        open_editor_var.set = 0
     else:
         print('1')
-        open_editor_var.set == 1
+        open_editor_var.set = 1
 open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
 open_editor_label.place(x=200,y=245)
 open_editor_var = tk.IntVar()
 open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=open_editor_var,command=cbox_editor)
 open_editor_cbox.place(x=325,y=247)
 
+unlock_sharp_up_down = False
 def cbox_sharpness():
+    global unlock_sharp_up_down
     if sharpness_var.get() == 1:
-        print('0')
-        sharpness_var.set == 0
+        unlock_sharp_up_down = True
+        sharpness_value_canvas.configure(bg='white')
     else:
-        print('1')
-        sharpness_var.set == 1
+        unlock_sharp_up_down = False
+        sharpness_value_canvas.configure(bg='#C0C0C0')
+        
 sharpness_label = tk.Label(screen,text='Sharpness Override',font=font_select,bg='black',fg='#C0C0C0')
 sharpness_label.place(x=0,y=245)
 sharpness_var = tk.IntVar()
@@ -115,36 +183,58 @@ sharpness_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highl
 sharpness_cbox.place(x=130,y=247)
 sharpness_value_label = tk.Label(screen,text='Sharpness Value:',font=font_select,bg='black',fg='#C0C0C0')
 sharpness_value_label.place(x=0,y=277)
-sharpness_value_canvas = tk.Canvas(screen,width=80,height=19,bg='white',highlightthickness=0)
+sharpness_value_canvas = tk.Canvas(screen,width=80,height=19,bg='#C0C0C0',highlightthickness=0)
 sharpness_value_canvas.place(x=140,y=282)
 sharpness_value_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
 sharpness_value_label_up.place(x=120,y=276)
 sharpness_value_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
 sharpness_value_label_down.place(x=225,y=268)
+
 cont_value_up = 0
 cont_value_up_f = 0
 def cont_sharpness_value_up(event=None):
-    global cont_value_up,cont_value_up_f
+    global cont_value_up,cont_value_up_f,unlock_sharp_up_down
     cont_value_up_f = f'{cont_value_up:.1f}'
-    if cont_value_up < 0.9:
+    if unlock_sharp_up_down and cont_value_up < 1:
         cont_value_up+=0.1
-    sharpness_value_canvas.delete('text')
-    sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
+        sharpness_value_canvas.delete('text')
+        sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
+        sharpness_value_label_up.configure(fg='black')
+        sharpness_value_canvas.update()
+
+def color_sharpness_value_up(event=None):
+    sharpness_value_label_up.configure(fg='#B0C4DE')
 
 def cont_sharpness_value_down(event=None):
-    global cont_value_up_f,cont_value_up
-    if cont_value_up > 0.1:
+    global cont_value_up_f,cont_value_up,unlock_sharp_up_down
+    if unlock_sharp_up_down and cont_value_up > 0.1:
         cont_value_up-=0.1
         cont_value_up_f = f'{cont_value_up:.1f}'
-    sharpness_value_canvas.delete('text')
-    sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
-    sharpness_value_canvas.update()
+        sharpness_value_canvas.delete('text')
+        sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
+        sharpness_value_canvas.update()
+        sharpness_value_label_down.configure(fg='black')
 
-#sharpness_value_button = tk.Button(screen,bg='white',width=2,padx=0,pady=0,highlightthickness=0)
-#sharpness_value_button.place(x=129,y=282)
+def color_sharpness_value_down(event=None):
+    sharpness_value_label_down.configure(fg='#B0C4DE')
+    
+mod_operates_label = tk.Label(screen,text='Mod Operates:',font=font_select,bg='black',fg='#C0C0C0')
+mod_operates_label.place(x=0,y=310)
+mod_operates_canvas = tk.Canvas(screen,width=150,height=19,bg='white',highlightthickness=0)
+mod_operates_canvas.place(x=100,y=314)
+mod_operates_listbox = tk.Listbox(screen,bg='white',width=25,height=0,highlightthickness=0)
+mod_operates_listbox.place(x=100,y=335)
+mod_operates_listbox.place_forget()
 
-#mod_oparates_label = tk.Label(screen,text='Mod Operates',font=font_select,bg='black',fg='#C0C0C0')
-#mod_oparates_label.place(x=0,y=200)
+mod_op_list_visible = False
+def mod_operates_view(event):
+    global mod_op_list_visible
+    if mod_op_list_visible:
+        mod_operates_listbox.place_forget()
+        mod_op_list_visible = False
+    else:
+        mod_operates_listbox.place(x=100,y=335)
+        mod_op_list_visible = True
 
 asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
 asi_label.place(x=0,y=146)
@@ -162,6 +252,7 @@ select_asi_canvas.place(x=335,y=149)
 select_asi_listbox = tk.Listbox(screen,bg='white',width=8,height=0,highlightthickness=0)
 select_asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(320,0),pady=(0,413))
 select_asi_listbox.pack_forget()
+
 asi_listbox_visible = False
 def asi_listbox_view(event):
     global asi_listbox_visible
@@ -171,6 +262,7 @@ def asi_listbox_view(event):
     else:
         asi_listbox.place(x=90,y=171)
         asi_listbox_visible = True
+        
 select_asi_visible = False  
 select_asi_notvisible = False      
 def select_asi_view(event):
@@ -330,6 +422,7 @@ select_fsr = None
 select_mod = None
 select_asi = None
 option_asi = None
+select_mod_operates = None
 
 x=0
 y=0
@@ -426,6 +519,19 @@ select_asi_options =  ['2.0','2.1','2.2','SDK']
 for select_asi_op in select_asi_options:
     select_asi_listbox.insert(tk.END,select_asi_op)
 
+def update_mod_operates(event=None):
+    global select_mod_operates
+    index_select_mod_op = mod_operates_listbox.curselection()
+    if index_select_mod_op:
+        select_mod_operates = mod_operates_listbox.get(index_select_mod_op)
+        mod_operates_canvas.delete('text')
+        mod_operates_canvas.create_text(2,8,anchor='w',text=select_mod_operates,fill='black',tags='text')
+    mod_operates_canvas.update()
+
+mod_op_list = ['Default','Enable Game Only','Built-in Upscaling','Replace DLSS-FG']
+for mod_operates_ins in mod_op_list:
+    mod_operates_listbox.insert(tk.END,mod_operates_ins)
+
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
 listbox.bind("<<ListboxSelect>>",lambda event:update_canvas())
@@ -438,7 +544,12 @@ asi_listbox.bind('<<ListboxSelect>>',update_asi)
 select_asi_canvas.bind('<Button-1>',select_asi_view)
 select_asi_listbox.bind('<<ListboxSelect>>',update_select_asi)
 sharpness_value_label_up.bind('<Button-1>',cont_sharpness_value_up)
+sharpness_value_label_up.bind('<ButtonRelease-1>',color_sharpness_value_up)
 sharpness_value_label_down.bind('<Button-1>',cont_sharpness_value_down)
+sharpness_value_label_down.bind('<ButtonRelease-1>',color_sharpness_value_down)
+mod_operates_listbox.bind('<<ListboxSelect>>',update_mod_operates)
+mod_operates_canvas.bind('<Button-1>',mod_operates_view)
+
 #screen.bind('<Button1-1>',close_all_listbox)
 
 screen.mainloop()
