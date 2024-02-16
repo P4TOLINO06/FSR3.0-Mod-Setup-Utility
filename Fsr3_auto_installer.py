@@ -6,7 +6,7 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,ttk
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.5v")
+screen.title("FSR3.0 Mod Setup Utility - 0.5.1v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -33,14 +33,18 @@ fsr_label.place(x=300,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
 
+custom_fsr_act = False
 def cbox_custom_fsr(event=None):
+    global custom_fsr_act
     if custom_fsr_var.get() == 1:
         fsr_balanced_canvas.configure(bg='white')
         fsr_ultraq_canvas.configure(bg='white')
         fsr_ultrap_canvas.configure(bg='white')
         fsr_performance_canvas.configure(bg='white')
         fsr_quality_canvas.configure(bg='white')
+        custom_fsr_act = True
     else:
+        custom_fsr_act = False
         fsr_balanced_canvas.configure(bg='#C0C0C0')
         fsr_ultraq_canvas.configure(bg='#C0C0C0')
         fsr_ultrap_canvas.configure(bg='#C0C0C0')
@@ -95,9 +99,133 @@ fsr_ultrap_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',
 fsr_ultrap_label_up.place(x=150,y=438)
 fsr_ultrap_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
 fsr_ultrap_canvas.place(x=170,y=443)
-fsr_ultrap_label_down = tk.Label(screen,tegitxt='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+fsr_ultrap_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
 fsr_ultrap_label_down.place(x=225,y=430)
 
+fsr_ultraq_up_count = 25
+fsr_ultraq_up_count_f = 25
+def fsr_ultraq_up_custom(event=None):
+    global custom_fsr_act,fsr_ultraq_up_count
+    fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
+    if custom_fsr_act and fsr_ultraq_up_count <= 100:
+        fsr_ultraq_up_count += 1
+        fsr_ultraq_canvas.delete('text')
+        fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
+        fsr_ultrap_canvas.update()
+        fsr_ultraq_label_up.configure(fg='black')
+def color_fsr_ultraq_up(event=None):
+    fsr_ultraq_label_up.configure(fg='#B0C4DE')
+
+def fsr_ultraq_down_custom(event=None):
+    global fsr_ultraq_up_count,fsr_ultraq_up_count_f
+    if custom_fsr_act and fsr_ultraq_up_count > 25:
+        fsr_ultraq_up_count -= 1
+        fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
+        fsr_ultraq_canvas.delete('text')
+        fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
+        fsr_ultraq_label_down.configure(fg='black')
+        fsr_ultraq_canvas.update()
+def color_fsr_ultraq_down(event=None):
+    fsr_ultraq_label_down.configure(fg='#B0C4DE')
+
+fsr_quality_up_count = 25 
+fsr_quality_up_count_f = 25
+
+def fsr_quality_up_custom(event=None):
+    global fsr_quality_up_count,fsr_quality_up_count_f
+    fsr_quality_up_count_f = f'{fsr_quality_up_count:.0f}'
+    if custom_fsr_act and fsr_quality_up_count <= 100:
+        fsr_quality_up_count += 1
+        fsr_quality_canvas.delete('text')
+        fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')       
+        fsr_quality_label_up.configure(fg='black')
+        fsr_quality_canvas.update()
+def color_fsr_quality_up(event=None):
+    fsr_quality_label_up.configure(fg='#B0C4DE')
+
+def fsr_quality_down_custom(event=None):
+    global fsr_quality_up_count,fsr_quality_up_count_f
+    if custom_fsr_act and fsr_quality_up_count > 25:
+        fsr_quality_up_count -= 1
+        fsr_quality_up_count_f = f'{fsr_quality_up_count:.0f}'
+        fsr_quality_canvas.delete('text')
+        fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')
+        fsr_quality_label_down.configure(fg='black')
+def color_fsr_quality_down(event=None):
+    fsr_quality_label_down.configure(fg='#B0C4DE')
+
+fsr_balanced_up_count = 25
+fsr_balanced_up_count_f = 25
+def fsr_balanced_up_custom(event=None):
+    global fsr_balanced_up_count,fsr_balanced_up_count_f
+    fsr_balanced_up_count_f = f'{fsr_balanced_up_count:.0f}'
+    if custom_fsr_act and fsr_balanced_up_count <= 100:
+        fsr_balanced_up_count += 1
+        fsr_balanced_canvas.delete('text')
+        fsr_balanced_canvas.create_text(2,8,anchor='w',text=fsr_balanced_up_count_f,tags='text')
+        fsr_balanced_label_up.configure(fg='black')
+def color_fsr_balanced_up(event=None):
+    fsr_balanced_label_up.configure(fg='#B0C4DE')
+
+def fsr_balanced_down_custom(event=None):
+    global fsr_balanced_up_count,fsr_balanced_up_count_f
+    if custom_fsr_act and fsr_balanced_up_count > 25:
+        fsr_balanced_up_count -= 1
+        fsr_balanced_up_count_f = f'{fsr_balanced_up_count:.0f}'
+        fsr_balanced_canvas.delete('text')
+        fsr_balanced_canvas.create_text(2,8,anchor='w',text=fsr_balanced_up_count_f,fill='black',tags='text')
+        fsr_balanced_label_down.configure(fg='black')
+def color_fsr_balanced_down(event=None):
+    fsr_balanced_label_down.configure(fg='#B0C4DE')
+
+fsr_perf_up_count = 25
+fsr_perf_up_count_f = 25
+def fsr_perf_up_custom(event=None):
+    global fsr_perf_up_count,fsr_perf_up_count_f
+    fsr_perf_up_count_f = f'{fsr_perf_up_count:.0f}'
+    if custom_fsr_act and fsr_perf_up_count <= 100:
+        fsr_perf_up_count += 1
+        fsr_performance_canvas.delete('text')
+        fsr_performance_canvas.create_text(2,8,anchor='w',text=fsr_perf_up_count_f,tags='text')
+        fsr_performance_label_up.configure(fg='black')
+def color_fsr_perf_up(event=None):
+    fsr_performance_label_up.configure(fg='#B0C4DE')
+
+def fsr_perf_down_custom(event=None):
+    global fsr_perf_up_count,fsr_perf_up_count_f
+    if custom_fsr_act and fsr_perf_up_count > 25:
+        fsr_perf_up_count -= 1
+        fsr_perf_up_count_f = f'{fsr_perf_up_count:.0f}'
+        fsr_performance_canvas.delete('text')
+        fsr_performance_canvas.create_text(2,8,anchor='w',text=fsr_perf_up_count_f,tags='text')
+        fsr_performance_label_down.configure(fg='black')
+def color_fsr_perf_down(event=None):
+    fsr_performance_label_down.configure(fg='#B0C4DE')
+
+fsr_ultrap_count_up = 25
+fsr_ultrap_count_up_f = 25
+def fsr_ultrap_up_custom(event=None):
+    global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
+    if custom_fsr_act and fsr_ultrap_count_up <= 100:
+        fsr_ultrap_count_up += 1
+        fsr_ultrap_canvas.delete('text')
+        fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
+        fsr_ultrap_label_up.configure(fg='black')
+def color_fsr_ultrap_up(event=None):
+    fsr_ultrap_label_up.configure(fg='#B0C4DE')
+
+def fsr_ultrap_down_custom(event=None):
+    global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    if custom_fsr_act and fsr_ultrap_count_up > 25:
+        fsr_ultrap_count_up -= 1
+        fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
+        fsr_ultrap_canvas.delete('text')
+        fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
+        fsr_ultrap_label_down.configure(fg='black')
+def color_fsr_ultrap_down(event=None):
+    fsr_ultrap_label_down.configure(fg='#B0C4DE')
+    
 def cbox_fakegpu():
     if fakegpu_cbox_var.get() == 1:
         print('0')
@@ -355,7 +483,7 @@ def update_asi_color():
     
 fsr_canvas= Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
 fsr_canvas.place(x=335,y=37)
-color_rec_bool = True
+color_rec_bool = False
 color_rec = 'white'
 fsr_rec = fsr_canvas.create_rectangle(0,0,50,30,fill=color_rec,outline='')
 fsr_vtext = ""
@@ -426,30 +554,31 @@ select_mod_operates = None
 
 x=0
 y=0
-def update_canvas():#canva_options text configuration
+def update_canvas():#canvas_options text configuration
     global x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
-    if fsr_view_listbox == False:
+    if fsr_view_listbox == True:
         canvas_options.delete('text')
         
     index = listbox.curselection()
     if index:
-        fsr_canvas.delete('text')
         select_option = listbox.get(index)
         x = 2
         y = 8
-        canvas_options.create_text(x,y,anchor='w',text=select_option,fill='black',tag='text')
-        fsr_canvas.create_text(2,8,anchor='w',text=fsr_game_version.get(select_option,''),fill='black',tag='text')
         if select_option != 'Select FSR version': 
+            fsr_view_listbox = False
+            color_rec_bool = False
             canvas_options.delete('text')  
+            fsr_canvas.delete('text')
             canvas_options.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
             fsr_canvas.create_text(2, 8, anchor='w', text=fsr_game_version.get(select_option, ''), fill='black', tag='text')
+        else:
+            fsr_listbox.place_forget()
     if select_option == 'Select FSR version':
         fsr_view_listbox = True
         color_rec_bool = True
-    else:
-        fsr_view_listbox = False
-        color_rec_bool = False
-        fsr_listbox.place_forget()
+        canvas_options.delete('text')
+        fsr_canvas.delete('text')
+        canvas_options.create_text(x, y, anchor='w', text='Select FSR version', fill='black', tag='text')
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
@@ -480,7 +609,7 @@ def update_mod_version(event=None):
         mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8','0.9','0.10','0.10.1','0.10.1h1','0.10.2h1']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8','0.9','0.10','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
     
@@ -549,6 +678,26 @@ sharpness_value_label_down.bind('<Button-1>',cont_sharpness_value_down)
 sharpness_value_label_down.bind('<ButtonRelease-1>',color_sharpness_value_down)
 mod_operates_listbox.bind('<<ListboxSelect>>',update_mod_operates)
 mod_operates_canvas.bind('<Button-1>',mod_operates_view)
+fsr_ultraq_label_up.bind('<Button-1>',fsr_ultraq_up_custom)
+fsr_ultraq_label_up.bind('<ButtonRelease-1>',color_fsr_ultraq_up)
+fsr_ultraq_label_down.bind('<Button-1>',fsr_ultraq_down_custom)
+fsr_ultraq_label_down.bind('<ButtonRelease-1>',color_fsr_ultraq_down)
+fsr_quality_label_up.bind('<Button-1>',fsr_quality_up_custom)
+fsr_quality_label_up.bind('<ButtonRelease-1>',color_fsr_quality_up)
+fsr_quality_label_down.bind('<Button-1>',fsr_quality_down_custom)
+fsr_quality_label_down.bind('<ButtonRelease-1>',color_fsr_quality_down)
+fsr_balanced_label_up.bind('<Button-1>',fsr_balanced_up_custom)
+fsr_balanced_label_up.bind('<ButtonRelease-1>',color_fsr_balanced_up)
+fsr_balanced_label_down.bind('<Button-1>',fsr_balanced_down_custom)
+fsr_balanced_label_down.bind('<ButtonRelease-1>',color_fsr_balanced_down)
+fsr_performance_label_up.bind('<Button-1>',fsr_perf_up_custom)
+fsr_performance_label_up.bind('<ButtonRelease-1>',color_fsr_perf_up)
+fsr_performance_label_down.bind('<Button-1>',fsr_perf_down_custom)
+fsr_performance_label_down.bind('<ButtonRelease-1>',color_fsr_perf_down)
+fsr_ultrap_label_up.bind('<Button-1>',fsr_ultrap_up_custom)
+fsr_ultrap_label_up.bind('<ButtonRelease-1>',color_fsr_ultrap_up)
+fsr_ultrap_label_down.bind('<Button-1>',fsr_ultrap_down_custom)
+fsr_ultrap_label_down.bind('<ButtonRelease-1>',color_fsr_ultrap_down)
 
 #screen.bind('<Button1-1>',close_all_listbox)
 
