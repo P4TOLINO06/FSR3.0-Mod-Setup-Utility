@@ -6,7 +6,7 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,ttk
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.5.1v")
+screen.title("FSR3.0 Mod Setup Utility - 0.6v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -32,6 +32,142 @@ fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0'
 fsr_label.place(x=300,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
+
+def cbox_lfz_sl(event=None):
+    if lfz_sl_var.get() == 1:
+        print('1')
+    else:
+        print('0')
+    
+lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
+lfz_sl_label.place(x=265,y=533)
+lfz_sl_var = IntVar()
+lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
+lfz_sl_label_cbox.place(x=375,y=535)
+
+def cbox_debug_tear_lines(event=None):
+    if debug_tear_lines_var.get() == 1:
+        print('1')
+    else:
+        print('0')
+debug_tear_lines_label = tk.Label(screen,text='Debug Tear Lines',font=font_select,bg='black',fg='#C0C0C0')
+debug_tear_lines_var = IntVar()
+debug_tear_lines_label.place(x=120,y=533)
+debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_tear_lines_var,command=cbox_debug_tear_lines)
+debug_tear_lines_cbox.place(x=235,y=536)
+
+def cbox_debug_view(event=None):
+    if debug_view_var.get() == 1:
+        print('1')
+    else:
+        print('0')
+debug_view_label = tk.Label(screen,text='Debug View',font=font_select,bg='black',fg='#C0C0C0')
+debug_view_label.place(x=0,y=533)
+debug_view_var = IntVar()
+debug_view_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_view_var,command=cbox_debug_view)
+debug_view_cbox.place(x=85,y=536)
+
+def cbox_enable_sigover(event=None):
+    if enable_sigover_var.get() == 1:
+        print('1')
+    else:
+        print('0')
+        
+enable_sigover_label = tk.Label(screen,text='Enable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
+enable_sigover_label.place(x=0,y=503)
+enable_sigover_var = IntVar()
+enable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=enable_sigover_var,command=cbox_enable_sigover)
+enable_sigover_cbox.place(x=170,y=506)
+
+def cbox_disable_sigover(event=None):
+    if disable_sigover_var.get() == 1:
+        print('1')
+    else:
+        print('0')
+disable_sigover_label = tk.Label(screen,text='Disable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
+disable_sigover_label.place(x=202,y=503)
+disable_sigover_var = IntVar()
+disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
+disable_sigover_cbox.place(x=375,y=506)
+
+dxgi_contr = False
+def cbox_dxgi(event=None):
+    global dxgi_contr
+    if dxgi_var.get() == 1:
+        dxgi_contr = True
+        dxgi_canvas.configure(bg='white')
+    else:
+        dxgi_contr = False
+        dxgi_canvas.configure(bg='#C0C0C0')
+        dxgi_listbox_contr()
+
+dxgi_view = False
+def dxgi_cbox_view(event=None):
+    global dxgi_view,dxgi_contr
+    if dxgi_contr:
+        if dxgi_view:
+            dxgi_listbox.place_forget()
+            dxgi_view = False
+        else:
+            dxgi_listbox.place(x=285,y=498)
+            dxgi_view = True
+        
+def dxgi_listbox_contr(event=None):
+    global dxgi_view,dxgi_contr
+    if not dxgi_contr and dxgi_view:
+        dxgi_listbox.place_forget()
+        dxgi_view = False
+    
+dxgi_label = tk.Label(screen,text='Dxgi.dll',font=font_select,bg='black',fg='#C0C0C0')
+dxgi_label.place(x=205,y=470)
+dxgi_var = IntVar()
+dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=dxgi_var,command=cbox_dxgi)
+dxgi_cbox.place(x=259,y=472)
+dxgi_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
+dxgi_canvas.place(x=285,y=475)
+dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
+dxgi_listbox.place(x=285,y=498)
+dxgi_listbox.place_forget()
+
+nvngx_contr = False
+def cbox_nvngx(event=None):
+    global nvngx_contr
+    if nvngx_var.get() == 1:
+        nvngx_contr = True
+        nvngx_canvas.configure(bg='white')
+    else:
+        nvngx_contr = False
+        nvngx_canvas.configure(bg='#C0C0C0')
+    nvngx_listbox_contr()
+
+nvngx_view = False
+def nvngx_cbox_view(event=None):
+    global nvngx_view,nvngx_contr
+    if nvngx_contr:
+        if nvngx_view:
+            nvngx_listbox.place_forget()
+            nvngx_view = False
+        else:
+            nvngx_listbox.place(x=90,y=497)
+            nvngx_view = True
+            
+def nvngx_listbox_contr():
+    global nvngx_view
+    if not nvngx_contr and nvngx_view:
+        nvngx_listbox.place_forget()
+        nvngx_view = False
+    
+nvngx_label = tk.Label(screen,text='Nvngx.dll',font=font_select,bg='black',fg='#C0C0C0')
+nvngx_label.place(x=0,y=470)
+nvngx_var = IntVar()
+nvngx_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvngx_var,command=cbox_nvngx)
+nvngx_cbox.place(x=66,y=472)
+nvngx_canvas = tk.Canvas(screen,width=103,height=19,bg='#C0C0C0',highlightthickness=0)
+nvngx_canvas.place(x=90,y=475)
+nvngx_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
+nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
+nvngx_listbox.place(x=90,y=497)
+nvngx_listbox.place_forget()
 
 custom_fsr_act = False
 def cbox_custom_fsr(event=None):
@@ -405,7 +541,7 @@ def select_asi_view(event):
 
 select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_folder_canvas.place(x=335,y=75)
-select_folder_canvas.create_text(4,8,anchor='w',font=(font_select,9,'bold'),text='Select',fill='black')
+select_folder_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
 select_folder_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
 select_folder_label.place(x=309,y=70)
 
@@ -551,6 +687,8 @@ select_mod = None
 select_asi = None
 option_asi = None
 select_mod_operates = None
+select_nvngx = None
+select_dxgi = None
 
 x=0
 y=0
@@ -660,6 +798,32 @@ def update_mod_operates(event=None):
 mod_op_list = ['Default','Enable Game Only','Built-in Upscaling','Replace DLSS-FG']
 for mod_operates_ins in mod_op_list:
     mod_operates_listbox.insert(tk.END,mod_operates_ins)
+    
+def update_nvngx(event=None):
+    global select_nvngx
+    index_nvngx_op = nvngx_listbox.curselection()
+    if index_nvngx_op:
+        select_nvngx = nvngx_listbox.get(index_nvngx_op)
+        nvngx_canvas.delete('text')
+        nvngx_canvas.create_text(2,8,anchor='w',text=select_nvngx,fill='black',tags='text')
+    nvngx_canvas.update()
+
+nvngx_op = ['Default','NVNGX Version 1','NVNGX Version 2']
+for nvngx_options in nvngx_op:
+    nvngx_listbox.insert(tk.END,nvngx_options)
+    
+def update_dxgi(event=None):
+    global select_dxgi
+    index_dxgi = dxgi_listbox.curselection()
+    if index_dxgi:
+        select_dxgi = dxgi_listbox.get(index_dxgi)
+        dxgi_canvas.delete('text')
+        dxgi_canvas.create_text(2,8,anchor='w',text=select_dxgi,fill='black',tags='text')
+    dxgi_canvas.update()
+
+dxgi_op = ['DXGI DLL','D3D12 DLL']
+for dxgi_options in dxgi_op:
+    dxgi_listbox.insert(tk.END,dxgi_options)
 
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
@@ -698,6 +862,10 @@ fsr_ultrap_label_up.bind('<Button-1>',fsr_ultrap_up_custom)
 fsr_ultrap_label_up.bind('<ButtonRelease-1>',color_fsr_ultrap_up)
 fsr_ultrap_label_down.bind('<Button-1>',fsr_ultrap_down_custom)
 fsr_ultrap_label_down.bind('<ButtonRelease-1>',color_fsr_ultrap_down)
+nvngx_canvas.bind('<Button-1>',nvngx_cbox_view)
+nvngx_listbox.bind('<<ListboxSelect>>',update_nvngx)
+dxgi_canvas.bind('<Button-1>',dxgi_cbox_view)
+dxgi_listbox.bind('<<ListboxSelect>>',update_dxgi)
 
 #screen.bind('<Button1-1>',close_all_listbox)
 
