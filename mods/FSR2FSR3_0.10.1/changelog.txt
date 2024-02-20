@@ -1,0 +1,12 @@
+0.10:
+- Add a new config setting `mode` to substantially change how the mod operates. Available values:
+  - `default` | This is the default mode and how the mod used to operate. DLSS/FSR inputs are taken and used for FSR3 upscaling and FSR3 frame generation.
+  - `enable_upscaling_only` | Same as `default`, but FSR3 Frame Generation is disabled. Replaces the existing `enable_upscaling_only` config toggle.
+  - `replace_dlss_fg` | Replaces **DLSS Frame Generation** in games that implement it with FSR3 Frame Generation so you can **use different upscalers like DLSS or XeSS with FSR3 Frame Generation.**
+  - `use_game_upscaling` | Allows you to use the DLSS or XeSS inputs for FSR3 Frame Generation while continuing to use them for upscaling. Allows you to **use different upscalers with FSR3 Frame Generation even if the game doesn't support DLSS Frame Generation**
+
+- Bunch of internal refactoring
+- Reverted the RDR2/HZD fix from 0.9 since it wasn't working properly. Looking into it a bit more for a subsequent release.
+- Reworked DLSS/Streamline implementation and subsequently removed *lfz.sl.dlss.dll*. The file is no longer needed.
+
+This release might have a few more bugs than before simply because of the amount of changed parts due to the new features. Please do report any changed/broken behavior you encounter.

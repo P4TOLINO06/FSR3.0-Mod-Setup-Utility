@@ -1,0 +1,7 @@
+0.8 (out of 0.7.x hell!):
+- **Add workaround for graphical issues in Unreal Engine games when selecting DLSS on an AMD GPU.**
+You need to enable this workaround manually through the config. Start the game once, then edit `amd_unreal_engine_dlss_workaround = false` to `true`.
+Thanks to ishitatsuyuki (LatencyFleX dev) for finding the actual bug!
+- Fix device/scratch buffer pointer checks
+- Added checks to disable the mod when loaded as "nvngx.dll".
+This allows you to just use a copy of the mod as nvngx.dll when a game still requires it present (Jedi Survivor, Returnal). The files for this can be found in the "optional_nvngx_files" folder, as well as the required signature overrides.

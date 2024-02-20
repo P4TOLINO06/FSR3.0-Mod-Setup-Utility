@@ -1,0 +1,8 @@
+0.7.6 (beta):
+- **Fix certain major scene transitions causing hangs/crashes.**
+This **fixes cutscene crashes in The Last of Us Part I**, and might fix some crashes in various other games as well.
+- Make FSR context handling more robust and add logic to support multiple upscaling contexts.
+This fixes the cutscene crashes in Jedi Survivor, but those will run without FG being active for now.
+Might fix other games that create/destroy multiple DLSS/FSR contexts during gameplay, mainly UE games.
+- Add `macos_crossover_support` config option for macOS-specific compatibility tweaks.
+Some more games should launch with this option being set to true, but there is no fake GPU support for this at the moment.

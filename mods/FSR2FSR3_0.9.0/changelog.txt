@@ -1,0 +1,25 @@
+0.9.0:
+Game-related improvements:
+- Add support for non-RGB color formats in FSR3.
+This fixes Starfield support.
+- Improve handling for games that provide invalid resources to FSR.
+This fixes the HZD crash on launch on AMD, as well as the RDR2 crash.
+- Add support for FSR2 versions without a name field.
+I've seen this "optimization" technique in a few games now, but particularly in RDR2.
+Adds support for RDR2 with its specific FSR2FSR3 build.
+- Disable ID3D12InfoQueue1 callback as its not used anyways
+This caused a crash in some old versions of streamline. Destroy all Humans 2 now works.
+- Blacklist HUDless resource from being used in Dying Light 2
+Its broken. (Thanks to Nukem for initially finding this issue.)
+
+Config-related improvements:
+- Add config option to disable Frame Generation
+- Add config option to override in-game Sharpness value
+
+Miscellaneous improvements:
+- Add hooks for Reflex streamline plugin and report compatibility
+This makes Atomic Heart no longer disable DLSS-FG on launch.
+- Remove ref-counting in macOS compatibility mode.
+macOS can't count, for some reason, and this fixes the mod crashing on various games that didn't use streamline.
+
+**Note: ** Downloads have been moved to a new website for the mod(s), https://mods.lukefz.xyz. The site is still in beta and it will get updates and more information added to it over time. For now, the discord is still the main source of information. Feedback is appreciated!

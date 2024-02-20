@@ -1,0 +1,11 @@
+0.10.3:
+- Make Resolution and Sharpness overrides also apply to `use_game_upscaling` and `replace_dlss_fg`.
+Now these settings will also work with DLSS and XeSS in these modes. 
+As XeSS does not come with a normal sharpening pass, this is implemented using a custom CAS pass after upscaling is performed.
+- Added a log message stating if and which functions a game calls that may allow for the use of resolution overrides.
+Only really applies to FSR/XeSS, as most/all games using DLSS support resolution overrides
+- Blacklist reactive mask in Horizon: Zero Dawn
+Improves image quality when using any mode that upscales using FSR.
+- Added a `default-fsr2fsr3.config.toml` to the common files which has explanations for each config setting.
+- Added a `disable_console` config setting that disables the console on startup. 
+This is only meant for handheld users, as it makes checking the log at runtime more difficult.

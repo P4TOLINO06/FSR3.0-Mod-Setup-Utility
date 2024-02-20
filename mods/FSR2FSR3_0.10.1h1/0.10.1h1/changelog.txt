@@ -1,0 +1,18 @@
+0.10.1(h1):
+- Fix compatibility with later Streamline 1.x versions.
+This fixes crashes on launch for TLOU, TW3, Bright Memory Infinite, etc.
+- Fix swapchain ref-counting on creation.
+This fixes the semi-random Starfield crash on launch.
+- Properly handle input resource changes during execution.
+This fixes some games crashing when using dynamic resolution, and might improve other game crashes as well.
+- Reduce overhead of replace_dlss_fg and use_game_upscaling modes.
+This should improve performance a bit when using these modes.
+- Specify correct HUDless resource state in Cyberpunk 2077
+May fix/remove certain artifacts on specific AMD GPUs.
+
+Additional Changes in Hotfix 1:
+- Fix completely broken Streamline 1.x support.
+
+IMPORTANT NOTE: I messed up the mode values in these early 0.10 versions. here are the fixed versions:
+enable_upscaling_only -> enable_game_only
+use_game_upscaling -> use_builtin_upscaling

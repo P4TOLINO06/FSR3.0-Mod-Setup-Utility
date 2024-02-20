@@ -1,0 +1,1 @@
+Don't use the included winmm.dll/ini, but rather install the RDR2 ScriptHook mod which comes with its own ASI loader.
