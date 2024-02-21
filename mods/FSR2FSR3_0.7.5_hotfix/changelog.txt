@@ -1,9 +1,0 @@
-0.7.5 (beta):
-- Fix device proxy config accidentally being inverted (false == on, true == off)
-- Add new way of loading NVNGX that does not rely on any nvngx.dll files in the game directory
-This might not work in all games (though it should in most), and the old way is still (somewhat) supported
-Just delete all _nvngx.dll and nvngx.dll files in the game directory after updating to this version.
-
-0.7.5 (beta) hotfix:
-- Fixed The Witcher 3 compatibility
-- Added a check to no longer hook into crs-handler.exe

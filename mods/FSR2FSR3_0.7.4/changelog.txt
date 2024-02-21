@@ -1,9 +1,0 @@
-0.7.4 (beta):
-- Add support for pre 2.0 sl.interposer versions, you should now be able to enable DLSS-FG in these games to improve/fix HUD ghosting (Dying Light 2, The Witcher 3, maybe more)
-- Add support for custom resolution overrides through the config.
-With this you can customize the applied scaling for the FSR2 or DLSS presets, which you could use to enable DLAA/Native/1x scaling on games that do not normally have this option.
-It should work the same as in DLSSTweaks.
-- Correctly spoof hardware capabilities for old interposers.
-HAGS is now no longer required in games that needed it previously.
-- Fix the GPU proxy not working under specific circumstances where Streamline proxying was used by the game.
-Should remove the dependency on the old dxgi.dll proxy some games had (Dying Light 2)

@@ -7,7 +7,7 @@ from tkinter import Canvas,filedialog,ttk
 import subprocess,os,shutil
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.6v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -604,24 +604,256 @@ def open_explorer(event=None): #Function to select the game folder and create th
     game_folder_canvas.delete('text')
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
 
+    
 def fsr_2_2():
-    global select_folder
-    if select_folder:
-        origin_folders =[
-            'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
-            'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'
-        ]
-        try:
-            for origin_folder in origin_folders:
-                for item in os.listdir(origin_folder):
+    global select_option
+    if select_option:
+        origin_folders =[]
+    if select_mod == '0.7.4':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_220')
+    elif select_mod == '0.7.5':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220')
+    elif select_mod == '0.7.6':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_220')
+    elif select_mod == '0.8.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_220')
+    elif select_mod == '0.9.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.2h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.3':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
+    try:
+        for origin_folder in origin_folders:
+            for item in os.listdir(origin_folder):
+                item_path = os.path.join(origin_folder,item)
+                if os.path.isfile(item_path):
+                    shutil.copy2(item_path,select_folder)
+                elif os.path.isdir(item_path):
+                    shutil.copytree(item_path,os.path.join(select_folder,item))
+        print('2.2')
+    except Exception as e:
+        print('Not copy',str(e)) 
+
+def fsr_2_1():
+    global select_option
+    if select_option:
+        origin_folders =[]
+    if select_mod == '0.7.4':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_212')
+    elif select_mod == '0.7.5':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_212')
+    elif select_mod == '0.7.6':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_212')
+    elif select_mod == '0.8.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_212')
+    elif select_mod == '0.9.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.2h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.3':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
+    try:
+        for origin_folder in origin_folders:
+            for item in os.listdir(origin_folder):
+                item_path = os.path.join(origin_folder,item)
+                if os.path.isfile(item_path):
+                    shutil.copy2(item_path,select_folder)
+                elif os.path.isdir(item_path):
+                    shutil.copytree(item_path,os.path.join(select_folder,item))
+        print('fsr2.1')
+    except Exception as e:
+        print('not copy',str(e))
+
+def fsr_2_0():
+    global select_option
+    if select_option:
+        origin_folders=[]
+    if select_mod == '0.7.4':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_201')
+    elif select_mod == '0.7.5':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_201')
+    elif select_mod == '0.7.6':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_201')
+    elif select_mod == '0.8.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_201')
+    elif select_mod == '0.9.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.2h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.3':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_200')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
+    try:
+        for origin_folder in origin_folders:
+            for item in os.listdir(origin_folder):
+                item_path = os.path.join(origin_folder,item)  
+                if os.path.isfile(item_path):
+                    shutil.copy2(item_path,select_folder)
+                elif os.path.isdir(item_path):
+                    shutil.copytree(item_path,os.path.join(select_folder,item))  
+        print('fsr 2.0')  
+    except Exception as e:
+        print('Not copy',str(e))
+    print(select_mod)
+
+def fsr_sdk():
+    global select_fsr
+    if select_fsr:
+        origin_folders =[]
+    if select_mod == '0.7.4':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
+    elif select_mod == '0.7.5':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK')
+    elif select_mod == '0.7.6':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
+    elif select_mod == '0.8.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
+    elif select_mod == '0.9.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.2h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.3':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
+    try:
+        for origin_folder in origin_folders:
+            for item in os.listdir(origin_folder):
+                item_path = os.path.join(origin_folder,item)
+                if os.path.isfile(item_path):
+                    shutil.copy2(item_path,select_folder)
+                elif os.path.isdir(item_path):
+                    shutil.copytree(item_path,os.path.join(select_folder,item))
+        print('SDK')
+    except Exception as e:
+        print('Not copy sdk',str(e)) 
+
+def fsr_rdr2():
+    global select_fsr
+    if select_fsr or select_option:
+        origin_folders=[]
+    if select_mod == '0.9.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.0':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.1h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.2h1':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
+    elif select_mod == '0.10.3':
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2')
+        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
+    try:
+        for origin_folder in origin_folders: 
+            if origin_folder ==  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON':
+                items  = os.listdir(origin_folder)
+                items = items[:-2]
+                for item in items:
                     item_path = os.path.join(origin_folder,item)
                     if os.path.isfile(item_path):
                         shutil.copy2(item_path,select_folder)
                     elif os.path.isdir(item_path):
                         shutil.copytree(item_path,os.path.join(select_folder,item))
-            print('copy')
-        except Exception as e:
-            print('Not copy',str(e)) 
+            else:
+                for item in os.listdir(origin_folder):
+                    item_path = os.path.join(origin_folder,item)
+                    if os.path.isfile(item_path):
+                        shutil.copy2(item_path,select_folder)
+                    elif os.path.isdir(item_path):
+                        shutil.copytree(item_path,os.path.join(select_folder,item))            
+        print('RDR2')
+    except Exception as e:
+        print('Not Copy',str(e))
+         
+install_contr = None
+fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
+               'Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2',
+               'Hogwarts Legacy','Horizon Zero Dawn','Lords of The Fallen','Metro Exodus Enhanced Edition',
+               'Palworld','Remnant II','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
+
+fsr_2_1_opt=['Dead Space (2023)','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
+
+fsr_2_0_opt = ['The Witcher 3','Dying Light 2']
+
+fsr_sct_2_2 = ['2.2']
+fsr_sct_2_1 = ['2.1']
+fsr_sct_2_0 = ['2.0']
+fsr_sct_SDK = ['SDK']
+fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
+def install(event=None):
+    global install_contr
+    install_contr = True
+    if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
+        fsr_2_2()
+    elif select_option in fsr_2_1_opt or select_fsr in fsr_sct_2_1 and install_contr:
+        fsr_2_1()
+    elif select_option in fsr_2_0_opt or select_fsr in fsr_sct_2_0 and install_contr:
+        fsr_2_0()
+    elif select_fsr in fsr_sct_SDK:
+        fsr_sdk()
+    elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2:
+        fsr_rdr2()
+    
+    install_label.configure(fg='black')
+    
+    
+def install_false(event=None):
+    global install_contr
+    install_false
+    install_label.configure(fg='#E6E6FA')
     
 game_folder_canvas = Canvas(screen,width=200,height=15,bg='white')
 game_folder_canvas.place(x=90,y=75)
@@ -765,7 +997,6 @@ select_dxgi = None
 
 x=0
 y=0
-fsr_2_2_opt = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy']
 def update_canvas(event=None):#canvas_options text configuration
     global x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
     if fsr_view_listbox == True:
@@ -783,12 +1014,6 @@ def update_canvas(event=None):#canvas_options text configuration
             fsr_canvas.delete('text')
             canvas_options.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
             fsr_canvas.create_text(2, 8, anchor='w', text=fsr_game_version.get(select_option, ''), fill='black', tag='text')
-            if select_option in fsr_2_2_opt:
-                fsr_2_2()
-                print('0')
-            else: 
-                print('1')
-        else:
             fsr_listbox.place_forget()
     if select_option == 'Select FSR version':
         fsr_view_listbox = True
@@ -826,7 +1051,7 @@ def update_mod_version(event=None):
         mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8','0.9','0.10','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
     
@@ -945,6 +1170,9 @@ nvngx_canvas.bind('<Button-1>',nvngx_cbox_view)
 nvngx_listbox.bind('<<ListboxSelect>>',update_nvngx)
 dxgi_canvas.bind('<Button-1>',dxgi_cbox_view)
 dxgi_listbox.bind('<<ListboxSelect>>',update_dxgi)
+install_label.bind('<Button-1>',install)
+install_label.bind('<ButtonRelease-1>',install_false)
+
 exit_label.bind('<Button-1>',sys.exit)
 
 #screen.bind('<Button1-1>',close_all_listbox)
