@@ -3,12 +3,12 @@ from PIL import ImageTk, Image, ImageDraw, ImageFont
 from customtkinter import *
 from customtkinter import CTk
 from tkinter.font import Font
-from tkinter import Canvas,filedialog,ttk
+from tkinter import Canvas,filedialog,ttk,messagebox
 import subprocess,os,shutil
 import toml
  
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.4v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7.5v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -738,14 +738,79 @@ macos_sup_label.place(x=200,y=215)
 macos_sup_var = tk.IntVar()
 macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
 macos_sup_cbox.place(x=372,y=217)
-    
+  
 def cbox_editor():
-    if open_editor_var.get() == 1:
-        print('0')
+    if open_editor_var.get() == 1 and select_mod != None:
+        screen_editor()
         open_editor_var.set = 0
     else:
-        print('1')
+        messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
+        open_editor_cbox.deselect()
         open_editor_var.set = 1
+
+def save_file():
+    global file_w
+    if file_w:
+        try:
+            low_text = text_editor.get('1.0','end').lower()
+            with open(file_w, 'w') as file:
+                file.write(low_text)
+            messagebox.showinfo('File Saved','File save sucess')
+        except Exception as e:
+            messagebox.showerror('Error',f'File not saved: {str(e)}')
+
+screen_toml = None
+def open_file():
+    global file_w,screen_toml
+    file_w = default_file_path
+    if file_w and open_editor_var.get() == 1:
+        with open(file_w, 'r') as file:
+            content = file.read()
+            text_editor.delete('1.0', 'end')
+            text_editor.insert('1.0', content)
+
+def screen_editor():
+    global text_editor,default_file_path,default_path
+    def exit_screen():
+        screen_toml.destroy()
+        open_editor_cbox.deselect()
+    
+    screen_toml = tk.Tk()
+    screen_toml.protocol("WM_DELETE_WINDOW",exit_screen)
+    screen_toml.title("Editor TOML")
+    screen_toml.geometry("600x400")
+
+    default_path ={
+    '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
+    '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
+    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+    }
+    if select_mod in default_path:
+        default_file_path = os.path.join(default_path[select_mod], "fsr2fsr3.config.toml")
+    text_editor = tk.Text(screen_toml)
+    text_editor.pack(expand=True, fill='both')
+    
+    open_file()
+    
+    menubar = tk.Menu(screen_toml)
+    filemenu = tk.Menu(menubar, tearoff=0)
+    filemenu.add_command(label="Save", command=save_file)
+    filemenu.add_separator()
+    filemenu.add_command(label="Exit", command=exit_screen)
+    menubar.add_cascade(label="File", menu=filemenu)
+    screen_toml.config(menu=menubar)
+
+    file_w = None
+
+    screen_toml.mainloop()
+
 
 open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
 open_editor_label.place(x=200,y=245)
@@ -754,15 +819,50 @@ open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',hig
 open_editor_cbox.place(x=325,y=247)
 
 unlock_sharp_up_down = False
+unlock_cbox_sharp = None
 def cbox_sharpness():
-    global unlock_sharp_up_down
-    if sharpness_var.get() == 1:
+    global unlock_sharp_up_down,unlock_cbox_sharp
+    if sharpness_var.get() == 1 and unlock_cbox_sharp == True:
         unlock_sharp_up_down = True
         sharpness_value_canvas.configure(bg='white')
     else:
         unlock_sharp_up_down = False
         sharpness_value_canvas.configure(bg='#C0C0C0')
+        if unlock_cbox_sharp == False:
+            messagebox.showinfo('Select Mod','Please select a version starting from 0.9.0')
+            sharpness_cbox.deselect()
+
+def unlock_sharp():
+    global unlock_cbox_sharp,select_mod
+    mod_list_sharp = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+    if select_mod in mod_list_sharp:
+        unlock_cbox_sharp = True
+    else:
+        unlock_cbox_sharp = False
         
+def edit_sharpeness_up():
+    global unlock_cbox_sharp
+    list_mod_sharpness={
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }  
+    if select_mod in list_mod_sharpness:
+        folder_sharp = list_mod_sharpness[select_mod]
+        key_sharp = 'general'
+        
+        if folder_sharp:
+            with open(folder_sharp, 'r') as file:
+                toml_s = toml.load(file)
+            toml_s[key_sharp]['sharpness_override'] = -float(cont_value_up_f)
+            with open(folder_sharp,'w') as file:
+                toml.dump(toml_s,file)  
+    else:
+        unlock_cbox_sharp = False    
+      
 sharpness_label = tk.Label(screen,text='Sharpness Override',font=font_select,bg='black',fg='#C0C0C0')
 sharpness_label.place(x=0,y=245)
 sharpness_var = tk.IntVar()
@@ -778,29 +878,31 @@ sharpness_value_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='
 sharpness_value_label_down.place(x=225,y=268)
 
 cont_value_up = 0
-cont_value_up_f = 0
+cont_value_up_f = '0.0'
 def cont_sharpness_value_up(event=None):
     global cont_value_up,cont_value_up_f,unlock_sharp_up_down
-    cont_value_up_f = f'{cont_value_up:.1f}'
-    if unlock_sharp_up_down and cont_value_up < 1:
-        cont_value_up+=0.1
+    if unlock_sharp_up_down and cont_value_up < 10:
+        cont_value_up+=1
+        cont_value_up_f = f'{cont_value_up/10:.1f}'
         sharpness_value_canvas.delete('text')
         sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
         sharpness_value_label_up.configure(fg='black')
         sharpness_value_canvas.update()
+    edit_sharpeness_up()
 
 def color_sharpness_value_up(event=None):
     sharpness_value_label_up.configure(fg='#B0C4DE')
 
 def cont_sharpness_value_down(event=None):
     global cont_value_up_f,cont_value_up,unlock_sharp_up_down
-    if unlock_sharp_up_down and cont_value_up > 0.1:
-        cont_value_up-=0.1
-        cont_value_up_f = f'{cont_value_up:.1f}'
+    if unlock_sharp_up_down and cont_value_up > 0:
+        cont_value_up-=1
+        cont_value_up_f = f'{cont_value_up/10:.1f}'
         sharpness_value_canvas.delete('text')
         sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
         sharpness_value_canvas.update()
         sharpness_value_label_down.configure(fg='black')
+    edit_sharpeness_up()
 
 def color_sharpness_value_down(event=None):
     sharpness_value_label_down.configure(fg='#B0C4DE')
@@ -1988,6 +2090,7 @@ def update_mod_version(event=None):
         select_mod = mod_version_listbox.get(index_mod)
         mod_version_canvas.delete('text')
         mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
+    unlock_sharp()
     mod_version_canvas.update()
 
 mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']

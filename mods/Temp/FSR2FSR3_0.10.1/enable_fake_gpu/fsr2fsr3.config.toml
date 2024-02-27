@@ -1,9 +1,8 @@
 fake_nvidia_gpu = false
 
 [general]
-#Changes how the mod operates. Allowed values: default, enable_upscaling_only, use_game_upscaling, replace_dlss_fg
 mode = "default"
-sharpness_override = -1.0
+sharpness_override = -0.1
 
 [resolution_override]
 native = 1.0
@@ -20,4 +19,3 @@ amd_unreal_engine_dlss_workaround = false
 [debug]
 enable_debug_view = false
 enable_debug_tear_lines = false
-

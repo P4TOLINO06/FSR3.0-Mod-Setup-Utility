@@ -2,7 +2,7 @@ fake_nvidia_gpu = false
 
 [general]
 mode = "default"
-sharpness_override = -1.0
+sharpness_override = -0.7
 
 [resolution_override]
 native = 1.0
