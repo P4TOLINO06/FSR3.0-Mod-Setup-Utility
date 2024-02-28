@@ -1,8 +1,8 @@
-fake_nvidia_gpu = false
+fake_nvidia_gpu = true
 
 [general]
-mode = "default"
-sharpness_override = -0.7
+mode = "replace_dlss_fg"
+sharpness_override = -1.0
 
 [resolution_override]
 native = 1.0
@@ -10,11 +10,11 @@ quality = 0.666667
 balanced = 0.588235
 performance = 0.5
 ultra_performance = 0.333333
-ultra_quality = 0.769231
+ultra_quality = 0.35
 
 [compatibility]
 macos_crossover_support = false
-amd_unreal_engine_dlss_workaround = true
+amd_unreal_engine_dlss_workaround = false
 
 [debug]
 enable_debug_view = false

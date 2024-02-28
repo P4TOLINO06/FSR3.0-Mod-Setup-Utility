@@ -8,7 +8,7 @@ import subprocess,os,shutil
 import toml
  
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.5v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7.6v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -294,17 +294,44 @@ fsr_ultrap_label_down.place(x=225,y=430)
 fsr_ultraq_up_count = 25
 fsr_ultraq_up_count_f = 25
 def fsr_ultraq_up_custom(event=None):
-    global custom_fsr_act,fsr_ultraq_up_count
+    global custom_fsr_act,fsr_ultraq_up_count,fsr_ultraq_up_count_f
+    
     fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
-    if custom_fsr_act and fsr_ultraq_up_count <= 100:
+    if custom_fsr_act and fsr_ultraq_up_count < 100:
         fsr_ultraq_up_count += 1
+        fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
+        
         fsr_ultraq_canvas.delete('text')
         fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
         fsr_ultrap_canvas.update()
         fsr_ultraq_label_up.configure(fg='black')
+    edit_fsr_custom()
+    
 def color_fsr_ultraq_up(event=None):
     fsr_ultraq_label_up.configure(fg='#B0C4DE')
 
+def edit_fsr_custom():
+    list_mod_custom_fsr = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'   
+    }  
+    mod_fsr_custom_folder = None
+    if select_mod in list_mod_custom_fsr:
+        mod_fsr_custom_folder = list_mod_custom_fsr[select_mod]
+        key_fsr_custom = 'resolution_override'
+    
+    if mod_fsr_custom_folder is not None:
+        with open(mod_fsr_custom_folder, 'r') as file:
+            toml_custom = toml.load(file)
+        toml_custom.setdefault(key_fsr_custom,{})
+        toml_custom[key_fsr_custom]['ultra_quality'] = float(fsr_ultraq_up_count_f)/ 100.0
+        with open(mod_fsr_custom_folder,'w') as file:
+            toml.dump(toml_custom,file)
+        
 def fsr_ultraq_down_custom(event=None):
     global fsr_ultraq_up_count,fsr_ultraq_up_count_f
     if custom_fsr_act and fsr_ultraq_up_count > 25:
@@ -313,7 +340,8 @@ def fsr_ultraq_down_custom(event=None):
         fsr_ultraq_canvas.delete('text')
         fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
         fsr_ultraq_label_down.configure(fg='black')
-        fsr_ultraq_canvas.update()
+    edit_fsr_custom()
+    fsr_ultraq_canvas.update()
 def color_fsr_ultraq_down(event=None):
     fsr_ultraq_label_down.configure(fg='#B0C4DE')
 
@@ -329,6 +357,7 @@ def fsr_quality_up_custom(event=None):
         fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')       
         fsr_quality_label_up.configure(fg='black')
         fsr_quality_canvas.update()
+    edit_fsr_custom()
 def color_fsr_quality_up(event=None):
     fsr_quality_label_up.configure(fg='#B0C4DE')
 
@@ -506,7 +535,7 @@ def default_fake_gpu():
         with open(folder_toml,'r') as file:
             toml_d = toml.load(file)
         toml_d[key_1]['fake_nvidia_gpu'] = False
-        with open(folder_toml,'w'):
+        with open(folder_toml,'w') as file:
             toml.dump(toml_d,file)
     
     edit_old_fake_gpu = ['0.7.4','0.7.5','0.7.6','0.8.0'] 
@@ -738,7 +767,7 @@ macos_sup_label.place(x=200,y=215)
 macos_sup_var = tk.IntVar()
 macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
 macos_sup_cbox.place(x=372,y=217)
-  
+ 
 def cbox_editor():
     if open_editor_var.get() == 1 and select_mod != None:
         screen_editor()
@@ -918,15 +947,50 @@ mod_operates_listbox.place_forget()
 optional_mod_op_label = tk.Label(screen,text='optional',font=(font_select,7),bg='black',fg='#696969')
 optional_mod_op_label.place(x=251,y=315)
 
+options_mod_op = None
+select_mod_op_options = None
+def edit_mod_operates():
+    global select_mod_op_options,options_mod_op
+    mod_folder_list = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
+    if select_mod in mod_folder_list:
+        mod_operates_folder = mod_folder_list[select_mod]
+        key_mod_operates = 'general'
+        
+    if select_mod == '0.9.0' and select_mod_operates == 'Enable Upscaling Only':
+        print(select_mod_operates)
+        options_mod_op = 'enable_upscaling_only'
+        select_mod_op_options = True
+    elif select_mod == '0.9.0' and select_mod_operates == 'Default':
+        options_mod_op = 'enable_upscaling_only'
+        select_mod_op_options = False
+    elif select_mod != '0.9.0':
+        options_mod_op = 'mode'
+        select_mod_op_options = str(select_mod_operates).lower().replace(" ", '_')
+            
+    with open(mod_operates_folder,'r') as file:
+        toml_op = toml.load(file)
+    toml_op.setdefault(key_mod_operates,{})
+    toml_op[key_mod_operates][options_mod_op] = select_mod_op_options
+    with open(mod_operates_folder,'w') as file:
+        toml.dump(toml_op,file)
+        
 mod_op_list_visible = False
 def mod_operates_view(event):
-    global mod_op_list_visible
-    if mod_op_list_visible:
-        mod_operates_listbox.place_forget()
-        mod_op_list_visible = False
-    else:
-        mod_operates_listbox.place(x=100,y=335)
-        mod_op_list_visible = True
+    global mod_op_list_visible,unlock_listbox_mod_op
+    if unlock_listbox_mod_op == True:
+        if mod_op_list_visible:
+            mod_operates_listbox.place_forget()
+            mod_op_list_visible = False
+        else:
+            mod_operates_listbox.place(x=100,y=335)
+            mod_op_list_visible = True
 
 asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
 asi_label.place(x=0,y=146)
@@ -1880,7 +1944,7 @@ def install(event=None):
     
     install_label.configure(fg='black')
     
-    
+fake_gpu_mod
 def install_false(event=None):
     global install_contr
     install_false
@@ -2090,6 +2154,7 @@ def update_mod_version(event=None):
         select_mod = mod_version_listbox.get(index_mod)
         mod_version_canvas.delete('text')
         mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
+    select_mod_op_lock()
     unlock_sharp()
     mod_version_canvas.update()
 
@@ -2131,7 +2196,7 @@ def update_select_asi(event=None):
 select_asi_options =  ['2.0','2.1','2.2','SDK']
 for select_asi_op in select_asi_options:
     select_asi_listbox.insert(tk.END,select_asi_op)
-
+    
 def update_mod_operates(event=None):
     global select_mod_operates
     index_select_mod_op = mod_operates_listbox.curselection()
@@ -2139,11 +2204,28 @@ def update_mod_operates(event=None):
         select_mod_operates = mod_operates_listbox.get(index_select_mod_op)
         mod_operates_canvas.delete('text')
         mod_operates_canvas.create_text(2,8,anchor='w',text=select_mod_operates,fill='black',tags='text')
+    edit_mod_operates()
     mod_operates_canvas.update()
-
-mod_op_list = ['Default','Enable Game Only','Built-in Upscaling','Replace DLSS-FG']
-for mod_operates_ins in mod_op_list:
-    mod_operates_listbox.insert(tk.END,mod_operates_ins)
+    
+unlock_mod_operates_list = ['0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+unlock_listbox_mod_op = False
+def select_mod_op_lock():
+    global unlock_listbox_mod_op
+    mod_op_list = []
+    if select_mod in unlock_mod_operates_list:
+        mod_op_list = ['Default','Enable Upscaling Only','Use Game Upscaling','Replace dlss fg']
+        mod_operates_listbox.delete(0,tk.END)
+        unlock_listbox_mod_op = True
+    elif select_mod == '0.9.0':
+        mod_op_list = ['Default','Enable Upscaling Only']
+        mod_operates_listbox.delete(0,tk.END)
+        unlock_listbox_mod_op = True
+    else:
+        mod_operates_listbox.place_forget()
+        mod_operates_canvas.delete('text')
+        unlock_listbox_mod_op = False
+    for mod_operates_ins in mod_op_list:
+        mod_operates_listbox.insert(tk.END,mod_operates_ins)
     
 def update_nvngx(event=None):
     global select_nvngx
