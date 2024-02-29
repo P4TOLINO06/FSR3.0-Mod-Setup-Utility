@@ -6,7 +6,7 @@ sharpness_override = 0.0
 enable_upscaling_only = false
 
 [resolution_override]
-native = 1.0
+native = 0.32
 quality = 0.666667
 balanced = 0.588235
 performance = 0.5

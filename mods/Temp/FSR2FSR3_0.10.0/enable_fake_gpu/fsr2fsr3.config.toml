@@ -5,12 +5,12 @@ mode = "replace_dlss_fg"
 sharpness_override = -1.0
 
 [resolution_override]
-native = 1.0
-quality = 0.666667
-balanced = 0.588235
-performance = 0.5
-ultra_performance = 0.333333
-ultra_quality = 0.35
+native = 0.29
+quality = 0.27
+balanced = 0.31
+performance = 0.27
+ultra_performance = 0.26
+ultra_quality = 0.29
 
 [compatibility]
 macos_crossover_support = false

@@ -8,7 +8,7 @@ import subprocess,os,shutil
 import toml
  
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.6v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7.7v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -222,6 +222,39 @@ nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
 nvngx_listbox.place(x=90,y=497)
 nvngx_listbox.place_forget()
 
+copy_all_nvn = None
+def copy_nvngx():
+    global copy_all_nvn
+    if select_nvngx == 'Default':
+        copy_all_nvn = False
+    else:
+        copy_all_nvn = True
+    
+    nvngx_folders = None
+    nvngx_folders = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\\nvngx',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\\nvngx',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\\nvngx',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\\nvngx',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\\nvngx'
+    }
+    nvngx_folder= nvngx_folders.get(select_mod)
+    if  select_mod not in nvngx_folders:
+        messagebox.showinfo('Error','Please select a version starting at 0.9.0')
+    else:
+        try:
+            for item in os.listdir(nvngx_folder):
+                nvn_path = os.path.join(nvngx_folder,item)
+                if os.path.isfile(nvn_path):
+                    shutil.copy2(nvn_path,select_folder)
+                elif os.path.isdir(nvn_path):
+                    shutil.copytree(nvn_path,os.path.join(select_folder,item))
+                if not copy_all_nvn:
+                    break
+        except Exception as e:
+            messagebox.showinfo("Error","Please select the destination folder and the mod version")
+
 custom_fsr_act = False
 def cbox_custom_fsr(event=None):
     global custom_fsr_act
@@ -231,6 +264,7 @@ def cbox_custom_fsr(event=None):
         fsr_ultrap_canvas.configure(bg='white')
         fsr_performance_canvas.configure(bg='white')
         fsr_quality_canvas.configure(bg='white')
+        native_res_canvas.configure(bg='white')
         custom_fsr_act = True
     else:
         custom_fsr_act = False
@@ -239,6 +273,7 @@ def cbox_custom_fsr(event=None):
         fsr_ultrap_canvas.configure(bg='#C0C0C0')
         fsr_performance_canvas.configure(bg='#C0C0C0')
         fsr_quality_canvas.configure(bg='#C0C0C0')
+        native_res_canvas.configure(bg='#C0C0C0')
         
 custom_fsr_label = tk.Label(screen,text='Resolution Override  -  Custom FSR',font=font_select,bg='black',fg='#C0C0C0')
 custom_fsr_label.place(x=0,y=345)
@@ -291,26 +326,16 @@ fsr_ultrap_canvas.place(x=170,y=443)
 fsr_ultrap_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
 fsr_ultrap_label_down.place(x=225,y=430)
 
-fsr_ultraq_up_count = 25
-fsr_ultraq_up_count_f = 25
-def fsr_ultraq_up_custom(event=None):
-    global custom_fsr_act,fsr_ultraq_up_count,fsr_ultraq_up_count_f
-    
-    fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
-    if custom_fsr_act and fsr_ultraq_up_count < 100:
-        fsr_ultraq_up_count += 1
-        fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
-        
-        fsr_ultraq_canvas.delete('text')
-        fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
-        fsr_ultrap_canvas.update()
-        fsr_ultraq_label_up.configure(fg='black')
-    edit_fsr_custom()
-    
-def color_fsr_ultraq_up(event=None):
-    fsr_ultraq_label_up.configure(fg='#B0C4DE')
+native_res_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
+native_res_canvas.place(x=325,y=442)
+native_res_label = tk.Label(screen,text='Native: ',font=font_select,bg='black',fg='#C0C0C0')
+native_res_label.place(x=258,y=438)
+native_res_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
+native_res_label_up.place(x=307,y=437)
+native_res_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
+native_res_label_down.place(x=378,y=429)
 
-def edit_fsr_custom():
+def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     list_mod_custom_fsr = {
     '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -328,47 +353,72 @@ def edit_fsr_custom():
         with open(mod_fsr_custom_folder, 'r') as file:
             toml_custom = toml.load(file)
         toml_custom.setdefault(key_fsr_custom,{})
-        toml_custom[key_fsr_custom]['ultra_quality'] = float(fsr_ultraq_up_count_f)/ 100.0
+        toml_custom[key_fsr_custom][option_quality_fsr] = float(fsr_ultraq_up_count_f)/ 100.0
         with open(mod_fsr_custom_folder,'w') as file:
             toml.dump(toml_custom,file)
+
+fsr_ultraq_up_count = 25
+fsr_ultraq_up_count_f = 25
+def fsr_ultraq_up_custom(event=None):
+    global custom_fsr_act,fsr_ultraq_up_count,fsr_ultraq_up_count_f
+    option_quality_fsr = 'ultra_quality'
+    fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
+    if custom_fsr_act and fsr_ultraq_up_count < 100:
+        fsr_ultraq_up_count += 1
+        fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
+        
+        fsr_ultraq_canvas.delete('text')
+        fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
+        fsr_ultrap_canvas.update()
+        fsr_ultraq_label_up.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f)
+    
+def color_fsr_ultraq_up(event=None):
+    fsr_ultraq_label_up.configure(fg='#B0C4DE')
         
 def fsr_ultraq_down_custom(event=None):
     global fsr_ultraq_up_count,fsr_ultraq_up_count_f
+    option_quality_fsr = 'ultra_quality'
     if custom_fsr_act and fsr_ultraq_up_count > 25:
         fsr_ultraq_up_count -= 1
         fsr_ultraq_up_count_f = f'{fsr_ultraq_up_count:.0f}'
         fsr_ultraq_canvas.delete('text')
         fsr_ultraq_canvas.create_text(2,8,anchor='w',fill='black',text=fsr_ultraq_up_count_f,tags='text')
         fsr_ultraq_label_down.configure(fg='black')
-    edit_fsr_custom()
+    edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f)
     fsr_ultraq_canvas.update()
 def color_fsr_ultraq_down(event=None):
     fsr_ultraq_label_down.configure(fg='#B0C4DE')
 
 fsr_quality_up_count = 25 
 fsr_quality_up_count_f = 25
-
 def fsr_quality_up_custom(event=None):
     global fsr_quality_up_count,fsr_quality_up_count_f
+    option_quality = 'quality'
     fsr_quality_up_count_f = f'{fsr_quality_up_count:.0f}'
     if custom_fsr_act and fsr_quality_up_count <= 100:
+        print(fsr_quality_up_count_f)
         fsr_quality_up_count += 1
         fsr_quality_canvas.delete('text')
         fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')       
         fsr_quality_label_up.configure(fg='black')
         fsr_quality_canvas.update()
-    edit_fsr_custom()
+    edit_fsr_custom(option_quality,fsr_quality_up_count_f)
+
 def color_fsr_quality_up(event=None):
     fsr_quality_label_up.configure(fg='#B0C4DE')
 
 def fsr_quality_down_custom(event=None):
     global fsr_quality_up_count,fsr_quality_up_count_f
+    option_quality_fsr = 'quality'
     if custom_fsr_act and fsr_quality_up_count > 25:
         fsr_quality_up_count -= 1
         fsr_quality_up_count_f = f'{fsr_quality_up_count:.0f}'
         fsr_quality_canvas.delete('text')
         fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')
         fsr_quality_label_down.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_quality_up_count_f)
+
 def color_fsr_quality_down(event=None):
     fsr_quality_label_down.configure(fg='#B0C4DE')
 
@@ -376,23 +426,29 @@ fsr_balanced_up_count = 25
 fsr_balanced_up_count_f = 25
 def fsr_balanced_up_custom(event=None):
     global fsr_balanced_up_count,fsr_balanced_up_count_f
+    option_quality_fsr = 'balanced'
     fsr_balanced_up_count_f = f'{fsr_balanced_up_count:.0f}'
     if custom_fsr_act and fsr_balanced_up_count <= 100:
         fsr_balanced_up_count += 1
         fsr_balanced_canvas.delete('text')
         fsr_balanced_canvas.create_text(2,8,anchor='w',text=fsr_balanced_up_count_f,tags='text')
         fsr_balanced_label_up.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_balanced_up_count_f)
+
 def color_fsr_balanced_up(event=None):
     fsr_balanced_label_up.configure(fg='#B0C4DE')
 
 def fsr_balanced_down_custom(event=None):
     global fsr_balanced_up_count,fsr_balanced_up_count_f
+    option_quality_fsr = 'balanced'
     if custom_fsr_act and fsr_balanced_up_count > 25:
         fsr_balanced_up_count -= 1
         fsr_balanced_up_count_f = f'{fsr_balanced_up_count:.0f}'
         fsr_balanced_canvas.delete('text')
         fsr_balanced_canvas.create_text(2,8,anchor='w',text=fsr_balanced_up_count_f,fill='black',tags='text')
         fsr_balanced_label_down.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_balanced_up_count_f)
+
 def color_fsr_balanced_down(event=None):
     fsr_balanced_label_down.configure(fg='#B0C4DE')
 
@@ -400,23 +456,29 @@ fsr_perf_up_count = 25
 fsr_perf_up_count_f = 25
 def fsr_perf_up_custom(event=None):
     global fsr_perf_up_count,fsr_perf_up_count_f
+    option_quality_fsr = 'performance'
     fsr_perf_up_count_f = f'{fsr_perf_up_count:.0f}'
     if custom_fsr_act and fsr_perf_up_count <= 100:
         fsr_perf_up_count += 1
         fsr_performance_canvas.delete('text')
         fsr_performance_canvas.create_text(2,8,anchor='w',text=fsr_perf_up_count_f,tags='text')
         fsr_performance_label_up.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_perf_up_count_f)
+
 def color_fsr_perf_up(event=None):
     fsr_performance_label_up.configure(fg='#B0C4DE')
 
 def fsr_perf_down_custom(event=None):
     global fsr_perf_up_count,fsr_perf_up_count_f
+    option_quality_fsr = 'performance'
     if custom_fsr_act and fsr_perf_up_count > 25:
         fsr_perf_up_count -= 1
         fsr_perf_up_count_f = f'{fsr_perf_up_count:.0f}'
         fsr_performance_canvas.delete('text')
         fsr_performance_canvas.create_text(2,8,anchor='w',text=fsr_perf_up_count_f,tags='text')
         fsr_performance_label_down.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_perf_up_count_f)
+
 def color_fsr_perf_down(event=None):
     fsr_performance_label_down.configure(fg='#B0C4DE')
 
@@ -424,25 +486,61 @@ fsr_ultrap_count_up = 25
 fsr_ultrap_count_up_f = 25
 def fsr_ultrap_up_custom(event=None):
     global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    option_quality_fsr = 'ultra_performance'
     fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
     if custom_fsr_act and fsr_ultrap_count_up <= 100:
         fsr_ultrap_count_up += 1
         fsr_ultrap_canvas.delete('text')
         fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
         fsr_ultrap_label_up.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_ultrap_count_up_f)
+
 def color_fsr_ultrap_up(event=None):
     fsr_ultrap_label_up.configure(fg='#B0C4DE')
 
 def fsr_ultrap_down_custom(event=None):
     global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    option_quality_fsr = 'ultra_performance'
     if custom_fsr_act and fsr_ultrap_count_up > 25:
         fsr_ultrap_count_up -= 1
         fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
         fsr_ultrap_canvas.delete('text')
         fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
         fsr_ultrap_label_down.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,fsr_ultrap_count_up_f)
+
 def color_fsr_ultrap_down(event=None):
     fsr_ultrap_label_down.configure(fg='#B0C4DE')
+
+native_count = 25
+native_count_f = 25   
+def native_res_up_custom(event=None):
+    global native_count_f,native_count
+    option_quality_fsr = 'native'
+    native_count_f = f'{native_count:.0f}'
+    if custom_fsr_act and native_count < 100:
+        native_count += 1
+        native_res_canvas.delete('text')
+        native_res_canvas.create_text(2,8,anchor='w',text=native_count_f,fill='black',tags='text')
+        native_res_label_up.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,native_count_f)
+
+def color_native_up(event=None):
+    native_res_label_up.configure(fg='#B0C4DE')
+
+def native_res_down_custom(event=None):
+    global native_count,native_count_f
+    option_quality_fsr = 'native'
+    if custom_fsr_act and native_count > 25:
+        native_count -= 1
+        native_count_f = f'{native_count:.0f}'
+        native_res_canvas.delete('text')
+        native_res_canvas.create_text(2,8,anchor='w',text=native_count_f,fill='black',tags='text')
+        native_res_label_down.configure(fg='black')
+    edit_fsr_custom(option_quality_fsr,native_count_f)
+
+def color_native_down(event=None):
+    native_res_label_down.configure(fg='#B0C4DE')
 
 def fake_gpu_mod():
     if  select_mod == '0.7.4':
@@ -951,6 +1049,7 @@ options_mod_op = None
 select_mod_op_options = None
 def edit_mod_operates():
     global select_mod_op_options,options_mod_op
+    mod_operates_folder = None
     mod_folder_list = {
     '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -959,6 +1058,7 @@ def edit_mod_operates():
     '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
+    
     if select_mod in mod_folder_list:
         mod_operates_folder = mod_folder_list[select_mod]
         key_mod_operates = 'general'
@@ -973,13 +1073,14 @@ def edit_mod_operates():
     elif select_mod != '0.9.0':
         options_mod_op = 'mode'
         select_mod_op_options = str(select_mod_operates).lower().replace(" ", '_')
-            
-    with open(mod_operates_folder,'r') as file:
-        toml_op = toml.load(file)
-    toml_op.setdefault(key_mod_operates,{})
-    toml_op[key_mod_operates][options_mod_op] = select_mod_op_options
-    with open(mod_operates_folder,'w') as file:
-        toml.dump(toml_op,file)
+     
+    if mod_operates_folder is not None:       
+        with open(mod_operates_folder,'r') as file:
+            toml_op = toml.load(file)
+        toml_op.setdefault(key_mod_operates,{})
+        toml_op[key_mod_operates][options_mod_op] = select_mod_op_options
+        with open(mod_operates_folder,'w') as file:
+            toml.dump(toml_op,file)
         
 mod_op_list_visible = False
 def mod_operates_view(event):
@@ -1929,7 +2030,7 @@ fsr_sct_2_0 = ['2.0']
 fsr_sct_SDK = ['SDK']
 fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
 def install(event=None):
-    global install_contr,copy_fake_gpu
+    global install_contr
     install_contr = True
     if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
         fsr_2_2()
@@ -1941,6 +2042,8 @@ def install(event=None):
         fsr_sdk()
     elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2:
         fsr_rdr2()
+    if  nvngx_contr:
+        copy_nvngx()
     
     install_label.configure(fg='black')
     
@@ -2236,7 +2339,7 @@ def update_nvngx(event=None):
         nvngx_canvas.create_text(2,8,anchor='w',text=select_nvngx,fill='black',tags='text')
     nvngx_canvas.update()
 
-nvngx_op = ['Default','NVNGX Version 1','NVNGX Version 2']
+nvngx_op = ['Default','NVNGX Version 1']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END,nvngx_options)
     
@@ -2290,6 +2393,10 @@ fsr_ultrap_label_up.bind('<Button-1>',fsr_ultrap_up_custom)
 fsr_ultrap_label_up.bind('<ButtonRelease-1>',color_fsr_ultrap_up)
 fsr_ultrap_label_down.bind('<Button-1>',fsr_ultrap_down_custom)
 fsr_ultrap_label_down.bind('<ButtonRelease-1>',color_fsr_ultrap_down)
+native_res_label_up.bind('<Button-1>',native_res_up_custom)
+native_res_label_up.bind('<ButtonRelease-1>',color_native_up)
+native_res_label_down.bind('<Button-1>',native_res_down_custom)
+native_res_label_down.bind('<ButtonRelease-1>',color_native_down)
 nvngx_canvas.bind('<Button-1>',nvngx_cbox_view)
 nvngx_listbox.bind('<<ListboxSelect>>',update_nvngx)
 dxgi_canvas.bind('<Button-1>',dxgi_cbox_view)

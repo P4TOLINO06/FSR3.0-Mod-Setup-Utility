@@ -1,7 +1,11 @@
-    with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)  
-                    
-        toml_d[key_1]['fake_nvapi_results'] = True
-        
-        with open (folder_toml,'w') as file:
-            toml.dump(toml_
+    try:
+            for item in os.listdir(nvngx_folder):
+                nvn_path = os.path.join(nvngx_folder,item)
+                if os.path.isfile(nvn_path):
+                    shutil.copy2(nvn_path,select_folder)
+                elif os.path.isdir(nvn_path):
+                    shutil.copytree(nvn_path,os.path.join(select_folder,item))
+                if not copy_all_nvn:
+                    break
+        except Exception as e:
+            messagebox.sho

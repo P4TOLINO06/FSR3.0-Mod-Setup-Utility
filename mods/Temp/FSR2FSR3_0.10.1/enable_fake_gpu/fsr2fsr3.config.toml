@@ -5,7 +5,7 @@ mode = "replace_dlss_fg"
 sharpness_override = -0.7
 
 [resolution_override]
-native = 1.0
+native = 0.29
 quality = 0.666667
 balanced = 0.588235
 performance = 0.5
