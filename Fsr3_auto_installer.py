@@ -6,9 +6,9 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,ttk,messagebox
 import subprocess,os,shutil
 import toml
- 
+
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.7v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7.8v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -109,23 +109,60 @@ debug_tear_lines_label.place(x=120,y=533)
 debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_tear_lines_var,command=cbox_debug_tear_lines)
 debug_tear_lines_cbox.place(x=235,y=536)
 
+var_deb_view = False
 def cbox_debug_view(event=None):
-    if debug_view_var.get() == 1:
-        print('1')
-    else:
-        print('0')
+    global var_deb_view
+    var_deb_view = bool(debug_view_var.get())
+    edit_debug_view()
+
+def edit_debug_view():
+    global var_deb_view
+    debug_view_mod_list = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
+    
+    debug_mod_folder = None
+    if select_mod in debug_view_mod_list:
+        debug_mod_folder = debug_view_mod_list[select_mod]
+        key_debug = 'debug'
+    
+    if debug_mod_folder is not None:
+        with open(debug_mod_folder,'r') as file:
+            toml_deb = toml.load(file)
+        toml_deb.setdefault(key_debug,{})
+        toml_deb[key_debug]['enable_debug_view'] = var_deb_view
+        with open(debug_mod_folder,'w') as file:
+            toml.dump(toml_deb,file)
+        
 debug_view_label = tk.Label(screen,text='Debug View',font=font_select,bg='black',fg='#C0C0C0')
 debug_view_label.place(x=0,y=533)
 debug_view_var = IntVar()
 debug_view_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_view_var,command=cbox_debug_view)
 debug_view_cbox.place(x=85,y=536)
 
+def enable_over():
+    global list_over
+    folder_en_over = 'D:\Prog\Fsr3\mods\Temp\enable signature override\EnableSignatureOverride.reg'
+    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+
+    if select_mod in list_over:
+        subprocess.run(['regedit','/s',folder_en_over],capture_output=True)
+
+def disable_over():
+    global list_over
+    folder_dis_over = 'D:\Prog\Fsr3\mods\Temp\disable signature override\DisableSignatureOverride.reg'
+    if select_mod in list_over:
+        subprocess.run(['regedit','/s',folder_dis_over],capture_output=True)
+        
 def cbox_enable_sigover(event=None):
     if enable_sigover_var.get() == 1:
-        print('1')
-    else:
-        print('0')
-        
+        enable_over()
+    
 enable_sigover_label = tk.Label(screen,text='Enable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
 enable_sigover_label.place(x=0,y=503)
 enable_sigover_var = IntVar()
@@ -134,9 +171,8 @@ enable_sigover_cbox.place(x=170,y=506)
 
 def cbox_disable_sigover(event=None):
     if disable_sigover_var.get() == 1:
-        print('1')
-    else:
-        print('0')
+        disable_over()
+
 disable_sigover_label = tk.Label(screen,text='Disable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
 disable_sigover_label.place(x=202,y=503)
 disable_sigover_var = IntVar()
@@ -170,7 +206,38 @@ def dxgi_listbox_contr(event=None):
     if not dxgi_contr and dxgi_view:
         dxgi_listbox.place_forget()
         dxgi_view = False
+
+copy_all_dxgi = None       
+def copy_dxgi():
+    global copy_all_dxgi
+    dxgi_folders = None
+    dxgi_folders = {
+    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\\dxgi',
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\\dxgi',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\\dxgi',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\\dxgi',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\\dxgi',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\\dxgi'
+    }
+    dxgi_folder = dxgi_folders.get(select_mod)
     
+    if select_mod not in dxgi_folders and select_folder != None:
+        messagebox.showinfo('Error','Please select a version starting 0.8.0')
+    elif select_mod not in dxgi_folders and select_folder == None:
+        messagebox.showinfo('Error','Please select the destination folder')
+    try:
+        for item in os.listdir(dxgi_folder):
+            dxgi_path = os.path.join(dxgi_folder,item)
+            if os.path.isfile(dxgi_path):
+                if select_dxgi == 'D3D12 DLL' and item == 'd3d12.dll':
+                    shutil.copy2(dxgi_path,select_folder)
+                elif select_dxgi == 'DXGI DLL' and item == 'dxgi.dll':
+                    shutil.copy2(dxgi_path,select_folder)
+    except Exception as e:
+        if select_mod in dxgi_folders and select_folder == None:
+            messagebox.showinfo('Error','Please select the destination folder')
+           
 dxgi_label = tk.Label(screen,text='Dxgi.dll',font=font_select,bg='black',fg='#C0C0C0')
 dxgi_label.place(x=205,y=470)
 dxgi_var = IntVar()
@@ -232,6 +299,8 @@ def copy_nvngx():
     
     nvngx_folders = None
     nvngx_folders = {
+    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\\nvngx',
+    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\\nvngx',
     '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\\nvngx',
     '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\\nvngx',
     '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\\nvngx',
@@ -241,7 +310,7 @@ def copy_nvngx():
     }
     nvngx_folder= nvngx_folders.get(select_mod)
     if  select_mod not in nvngx_folders:
-        messagebox.showinfo('Error','Please select a version starting at 0.9.0')
+        messagebox.showinfo('Error','Please select a version starting at 0.7.6')
     else:
         try:
             for item in os.listdir(nvngx_folder):
@@ -2044,10 +2113,11 @@ def install(event=None):
         fsr_rdr2()
     if  nvngx_contr:
         copy_nvngx()
+    if dxgi_contr:
+        copy_dxgi()
     
     install_label.configure(fg='black')
-    
-fake_gpu_mod
+
 def install_false(event=None):
     global install_contr
     install_false
