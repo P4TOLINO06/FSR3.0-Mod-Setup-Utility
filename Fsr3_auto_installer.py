@@ -1,14 +1,13 @@
 import tkinter as tk
-from PIL import ImageTk, Image, ImageDraw, ImageFont
+from PIL import ImageTk, Image
 from customtkinter import *
-from customtkinter import CTk
 from tkinter.font import Font
-from tkinter import Canvas,filedialog,ttk,messagebox
+from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.8v")
+screen.title("FSR3.0 Mod Setup Utility - 0.7.9v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -35,7 +34,6 @@ fsr_label.place(x=300,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
 
-
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
 exit_label.place(x=350,y=626)
 
@@ -43,10 +41,22 @@ install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#
 install_label.place(x=290,y=626)
 
 def cbox_del_dxgi(event=None):
-    if del_dxgi_var .get() == 1:
-        print('0')
-    else:
-        print('1')
+    if del_dxgi_var.get() == 1: 
+        dxgi_clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the DXGI/D3D12.dll files?')
+        if dxgi_clean_var:
+            clean_dxgi()
+            messagebox.showinfo('Success','Uninstallation completed successfully') 
+            del_dxgi_label.after(400,del_dxgi_cbox.deselect)
+        else:
+            del_dxgi_cbox.deselect()
+
+def clean_dxgi():
+    dxgi_list = ['dxgi.dll','d3d12.dll']
+    
+    for item in os.listdir(select_folder):
+        if item in dxgi_list:
+            os.remove(os.path.join(select_folder,item))
+
 del_dxgi_label = tk.Label(screen,text='Del Only dxgi.dll',font=font_select,bg='black',fg='#E6E6FA')
 del_dxgi_label.place(x=130,y=626)
 del_dxgi_var = IntVar()
@@ -55,42 +65,92 @@ del_dxgi_cbox.place(x=243,y=629)
     
 def cbox_cleanup(event=None):
     if cleanup_var.get() == 1:
-        print('0')
-    else:
-        print('1')
+        clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the mod?')
+        if clean_var:
+            clean_mod()
+            messagebox.showinfo('Success','Uninstallation completed successfully')
+            cleanup_cbox.after(400,cleanup_cbox.deselect)
+        
+def clean_mod():
+    mod_clean_list = ['fsr2fsr3.config','winmm.ini','winmm.dll',
+                      'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll']
+    
+    for item in os.listdir(select_folder):
+        if item in mod_clean_list:
+            os.remove(os.path.join(select_folder,item))
+
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
 cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=cleanup_var,command=cbox_cleanup)
 cleanup_cbox.place(x=93,y=629)       
-        
-def cbox_lossless(event=None):
-    if lossless_var.get() == 1:
-        open_lossless = 'D:\Prog\Fsr3\mods\Lossless Scaling 2.6.0.4\LosslessScaling.exe'
-        subprocess.Popen(open_lossless)
-        
-lossless_label = tk.Label(screen,text='Open Lossless Scaling',font=font_select,bg='black',fg='#C0C0C0')
-lossless_label.place(x=180,y=566)
-lossless_var = IntVar()
-lossless_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lossless_var,command=cbox_lossless)
-lossless_cbox.place(x=327,y=569)
 
+disable_var = None
 def cbox_disable_console(event=None):
-    if disable_console_var.get() == 1:
-        print('0')
-    else:
-        print('1')
+   global disable_var
+   disable_var = bool(disable_console_var.get())
+   edit_disable_console()
+
+def edit_disable_console():
+    disable_console_list = {
+        '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
+    key_disable = 'logging'
+    
+    disable_console_folder  = None
+    if select_mod in disable_console_list:
+        disable_console_folder = disable_console_list[select_mod]
+    
+    if disable_console_folder is not None:
+        with open(disable_console_folder,'r') as file:
+            toml_dis = toml.load(file)
+        toml_dis.setdefault(key_disable,{})
+        toml_dis[key_disable]['disable_console'] = disable_var
+        with open(disable_console_folder,'w') as file:
+            toml.dump(toml_dis,file)
+        
 disable_console_label = tk.Label(screen,text='Disable Console',font=font_select,bg='black',fg='#C0C0C0')
 disable_console_label.place(x=0,y=566)
 disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
 disable_console_cbox.place(x=108,y=569)
 
+
+lfz_list = {
+'0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
+'0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\lfz.sl.dlss',
+'0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\lfz.sl.dlss',
+'0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\lfz.sl.dlssl',
+'0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\lfz.sl.dlss',
+}
+
+def copy_lfz_sl ():
+    global lfz_sl_label_cbox,lfz_list
+    lfz_folder = None
+    lfz_folder = lfz_list.get(select_mod)
+    
+    try:
+        for item in os.listdir(lfz_folder):
+            lfz_path = os.path.join(lfz_folder,item)
+            if os.path.isfile(lfz_path):
+                shutil.copy2(lfz_path,select_folder)
+    except Exception as e:
+        pass
+    screen.update()
+    
+def var_mod_lfz():
+    global lfz_list
+    if select_mod not in lfz_list.keys():
+        messagebox.showinfo('Error','Please, select a mod version up to 0.9.0')
+        lfz_sl_label_cbox.deselect()
+    elif select_folder is None:
+        messagebox.showinfo('Select Folder','Please, select a destination folder')
+
 def cbox_lfz_sl(event=None):
-    if lfz_sl_var.get() == 1:
-        print('1')
-    else:
-        print('0')
+    global lfz_list
+    if lfz_sl_var.get() == 1: 
+        var_mod_lfz()
     
 lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
 lfz_sl_label.place(x=265,y=533)
@@ -98,11 +158,35 @@ lfz_sl_var = IntVar()
 lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
 lfz_sl_label_cbox.place(x=375,y=535)
 
+var_debug_tear = None
 def cbox_debug_tear_lines(event=None):
-    if debug_tear_lines_var.get() == 1:
-        print('1')
-    else:
-        print('0')
+    global var_debug_tear
+    var_debug_tear = bool(debug_tear_lines_var.get())
+    edit_debug_tear_lines()
+
+def edit_debug_tear_lines():
+    debug_tear_lines_list = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
+    
+    debug_tear_mod = None
+    if select_mod in debug_tear_lines_list:
+        debug_tear_mod = debug_tear_lines_list[select_mod]
+    key_debug_tear = 'debug'
+    
+    if debug_tear_mod is not None:
+        with open(debug_tear_mod, 'r') as file:
+            toml_tear = toml.load(file)
+        toml_tear.setdefault(key_debug_tear,{})
+        toml_tear[key_debug_tear]['enable_debug_tear_lines'] = var_debug_tear
+        with open(debug_tear_mod, 'w') as file:
+            toml.dump(toml_tear,file)
+      
 debug_tear_lines_label = tk.Label(screen,text='Debug Tear Lines',font=font_select,bg='black',fg='#C0C0C0')
 debug_tear_lines_var = IntVar()
 debug_tear_lines_label.place(x=120,y=533)
@@ -2115,12 +2199,15 @@ def install(event=None):
         copy_nvngx()
     if dxgi_contr:
         copy_dxgi()
-    
+    if lfz_sl_var.get() == 1:
+        copy_lfz_sl()
+
     install_label.configure(fg='black')
+    screen.after(100,install_false)
+
 
 def install_false(event=None):
     global install_contr
-    install_false
     install_label.configure(fg='#E6E6FA')
     
 game_folder_canvas = Canvas(screen,width=200,height=15,bg='white')
@@ -2472,7 +2559,7 @@ nvngx_listbox.bind('<<ListboxSelect>>',update_nvngx)
 dxgi_canvas.bind('<Button-1>',dxgi_cbox_view)
 dxgi_listbox.bind('<<ListboxSelect>>',update_dxgi)
 install_label.bind('<Button-1>',install)
-install_label.bind('<ButtonRelease-1>',install_false)
+install_label.bind('<ButtonRelease-1>', install_false)
 
 exit_label.bind('<Button-1>',sys.exit)
 

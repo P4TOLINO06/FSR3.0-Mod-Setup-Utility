@@ -17,5 +17,5 @@ macos_crossover_support = true
 amd_unreal_engine_dlss_workaround = true
 
 [debug]
-enable_debug_view = false
-enable_debug_tear_lines = false
+enable_debug_view = true
+enable_debug_tear_lines = true
