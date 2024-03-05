@@ -74,7 +74,7 @@ def cbox_cleanup(event=None):
 def clean_mod():
     mod_clean_list = ['fsr2fsr3.config','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
-                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll']
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll','nvngx.ini']
     
     for item in os.listdir(select_folder):
         if item in mod_clean_list:
@@ -1850,322 +1850,248 @@ def fsr_2_0():
 
 def fsr_sdk():
     global select_fsr
-    origin_folders =[]
-    def fsr_0_9_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
-    def fsr_0_10_path(): 
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
-    def fsr_0_10_1_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
-    def fsr_0_10_1h1_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON')
-    def fsr_0_10_2h1_path(): 
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
-    def fsr_0_10_3_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
     
-    if select_mod == '0.7.4'and select_asi == None:
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
-    elif select_mod == '0.7.4'and select_asi == '2.0':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_4\\2.0')
-    elif select_mod == '0.7.4'and select_asi == '2.1':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_4\\2.1')
-    elif select_mod == '0.7.4'and select_asi == '2.2':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_4\\2.2')
-    elif select_mod == '0.7.4'and select_asi == 'SDK':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_4\\SDK')
+    origins_sdk_folder = {
+        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK',
+        
+        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK',
+        
+        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK',
+        
+        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK',
+        
+        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK',
+                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        
+        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK',
+                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        
+        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        
+        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_SDK',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        
+        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        
+        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK',
+                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+    }
     
-    elif select_mod == '0.7.5' and select_asi == None:
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK')
-    elif select_mod == '0.7.5'and select_asi == '2.0':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_5\\2.0') 
-    elif select_mod == '0.7.5'and select_asi == '2.1':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_5\\2.1') 
-    elif select_mod == '0.7.5'and select_asi == '2.2':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_5\\2.2') 
-    elif select_mod == '0.7.5'and select_asi == 'SDK':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_5\\SDK')     
+    if select_mod in origins_sdk_folder:
+        origins_sdk = origins_sdk_folder[select_mod]
     
-    elif select_mod == '0.7.6' and select_asi == None:
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
-    elif select_mod == '0.7.6'and select_asi == '2.0':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_6\\2.0') 
-    elif select_mod == '0.7.6'and select_asi == '2.1':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_6\\2.1')
-    elif select_mod == '0.7.6'and select_asi == '2.2':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_6\\2.2')
-    elif select_mod == '0.7.6'and select_asi == 'SDK':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_7_6\\SDK')
-        
-        
-    elif select_mod == '0.8.0' and select_asi == None:
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
-    elif select_mod == '0.8.0'and select_asi == '2.0':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_8_0\\2.0')
-    elif select_mod == '0.8.0'and select_asi == '2.1':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_8_0\\2.1')
-    elif select_mod == '0.8.0'and select_asi == '2.2':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_8_0\\2.2')
-    elif select_mod == '0.8.0'and select_asi == 'SDK':
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK')
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_8_0\\SDK')
-           
-    elif select_mod == '0.9.0' and select_asi == None:
-        fsr_0_9_path()
-    elif select_mod == '0.9.0' and select_asi == '2.0':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.0')
-    elif select_mod == '0.9.0' and select_asi == '2.1':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.1')
-    elif select_mod == '0.9.0' and select_asi == '2.2':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.2')
-    elif select_mod == '0.9.0' and select_asi == 'SDK':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\SDK')
-        
-    elif select_mod == '0.10.0' and select_asi == None: 
-        fsr_0_10_path()
-    elif select_mod == '0.10.0' and select_asi == '2.0':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.0') 
-    elif select_mod == '0.10.0' and select_asi == '2.1':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.1')
-    elif select_mod == '0.10.0' and select_asi == '2.2':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.2')
-    elif select_mod == '0.10.0' and select_asi == 'SDK':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\SDK')   
-        
-    elif select_mod == '0.10.1' and select_asi == None:
-        fsr_0_10_1h1_path()
-    elif select_mod == '0.10.1' and select_asi == '2.0':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.0')
-    elif select_mod == '0.10.1' and select_asi == '2.1':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.1') 
-    elif select_mod == '0.10.1' and select_asi == '2.2':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.2')
-    elif select_mod == '0.10.1' and select_asi == 'SDK':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\SDK')      
-        
-    elif select_mod == '0.10.1h1' and select_asi == None:
-        fsr_0_10_1h1_path()
-    elif select_mod == '0.10.1h1' and select_asi == '2.0':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.0')  
-    elif select_mod == '0.10.1h1' and select_asi == '2.1':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.1') 
-    elif select_mod == '0.10.1h1' and select_asi == '2.2':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.2') 
-    elif select_mod == '0.10.1h1' and select_asi == 'SDK':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\SDK') 
-    
-    elif select_mod == '0.10.2h1' and select_asi == None:
-        fsr_0_10_2h1_path()
-    elif select_mod == '0.10.2h1' and select_asi == '2.0':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.0') 
-    elif select_mod == '0.10.2h1' and select_asi == '2.1':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.1') 
-    elif select_mod == '0.10.2h1' and select_asi == '2.2':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.2') 
-    elif select_mod == '0.10.2h1' and select_asi == 'SDK':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\SDK') 
-    
-    elif select_mod == '0.10.3' and select_asi == None:
-        fsr_0_10_3_path()
-    elif select_mod == '0.10.3' and select_asi == '2.0':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.0') 
-    elif select_mod == '0.10.3' and select_asi == '2.1':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.1')
-    elif select_mod == '0.10.3' and select_asi == '2.2':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.2')
-    elif select_mod == '0.10.3' and select_asi == 'SDK':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\SDK')
     try:
-        for origin_folder in origin_folders:
+        if isinstance(origins_sdk,list):
+            for sdk_path in origins_sdk:
+                if os.path.isdir(sdk_path):
+                    for i_sdk in os.listdir(sdk_path):
+                        path_sdk = os.path.join(sdk_path,i_sdk)
+                        if os.path.isfile(path_sdk):
+                            shutil.copy2(path_sdk,select_folder)
+        elif isinstance(origins_sdk,str):
+            if os.path.isdir(origins_sdk):
+                for i_sdk in os.listdir(origins_sdk):
+                    path_sdk = os.path.join(origins_sdk,i_sdk)
+                    if os.path.isfile(path_sdk):
+                        shutil.copy2(path_sdk,select_folder)
+    except Exception as e:
+        print(e)
+        
+    asi_sdk={
+        '0.7.4':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_4\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\SDK',
+        },
+        '0.7.5':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_5\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\SDK',
+        },
+        '0.7.6':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_6\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\SDK',
+        },
+        '0.8.0':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_8_0\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\SDK',
+        },
+        '0.9.0':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_9_0\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+        },
+        '0.10.0':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_0\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+        },
+        '0.10.1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+        },
+        '0.10.1h1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1h1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+        },
+        '0.10.2h1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_2h1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+        },
+        '0.10.3':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_3\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+        },
+    }
+ 
+    if select_mod in asi_sdk and (select_asi in asi_sdk[select_mod] or option_asi in asi_sdk[select_mod]):
+        if select_mod in asi_sdk[select_mod]:
+            origins_sdk_f = asi_sdk[select_mod][select_asi]
+        elif select_mod in asi_sdk[select_mod]:
+            origins_sdk_f = asi_sdk[select_mod][option_asi]
+    
+    try:
+        if select_mod in asi_sdk:
+            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_sdk[select_mod]:
+                origins_sdk_f = asi_sdk[select_mod][option_asi]
+            elif select_asi in asi_sdk[select_mod]:
+                origins_sdk_f = asi_sdk[select_mod][select_asi]
+            else:
+                origins_sdk_f = None
+            if origins_sdk_f and os.path.isdir(origins_sdk_f):
+                for i_asi_sdk in os.listdir(origins_sdk_f):
+                    path_fsr_sdk = os.path.join(origins_sdk_f,i_asi_sdk)
+                    if os.path.isfile(path_fsr_sdk):
+                        shutil.copy2(path_fsr_sdk,select_folder)
+                    print("Files from directory", origins_sdk_f, "were copied.")
+    except Exception as e:
+        print(e)
+
+def fsr_rdr2():
+    global select_fsr,select_mod
+    origins_rdr2_folder = {
+        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2',
+                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        
+        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON',
+                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2'],
+        
+        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2'],
+        
+        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2'],
+        
+        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON',
+                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2'],
+        
+        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
+                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2']
+    }
+    
+    if select_mod in origins_rdr2_folder:
+        origins_rdr2 = origins_rdr2_folder[select_mod]
+    try:
+        for origin_folder in origins_rdr2:
             for item in os.listdir(origin_folder):
                 item_path = os.path.join(origin_folder,item)
                 if os.path.isfile(item_path):
                     shutil.copy2(item_path,select_folder)
-                elif os.path.isdir(item_path):
-                    shutil.copytree(item_path,os.path.join(select_folder,item))
-        print('SDK')
     except Exception as e:
-        print('Not copy sdk',str(e)) 
+        print(e)
 
-def fsr_rdr2():
-    global select_fsr
-    origin_folders=[]
-    
-    def fsr_0_9_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON')
-    def fsr_0_10_path(): 
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON')
-    def fsr_0_10_1_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON')
-    def fsr_0_10_1h1_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON')
-    def fsr_0_10_2h1_path(): 
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON')
-    def fsr_0_10_3_path():
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2')
-        origin_folders.append('D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON')
-    
-    if select_mod == '0.9.0' and select_asi == None or select_mod == '0.9.0' and option_asi == 'ASI Loader for RDR2':
-        fsr_0_9_path()
-    elif select_mod == '0.9.0' and select_asi == '2.0':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.0')
-    elif select_mod == '0.9.0' and select_asi == '2.1':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.1')
-    elif select_mod == '0.9.0' and select_asi == '2.2':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\2.2')
-    elif select_mod == '0.9.0' and select_asi == 'SDK':
-        fsr_0_9_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_9_0\\SDK')
-        
-    elif select_mod == '0.10.0' and select_asi == None or select_mod == '0.10.0' and option_asi == 'ASI Loader for RDR2': 
-        fsr_0_10_path()
-    elif select_mod == '0.10.0' and select_asi == '2.0':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.0') 
-    elif select_mod == '0.10.0' and select_asi == '2.1':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.1')
-    elif select_mod == '0.10.0' and select_asi == '2.2':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\2.2')
-    elif select_mod == '0.10.0' and select_asi == 'SDK':
-        fsr_0_10_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_0\\SDK')   
-        
-    elif select_mod == '0.10.1' and select_asi == None or select_mod == '0.10.1' and option_asi == 'ASI Loader for RDR2':
-        fsr_0_10_1_path()
-    elif select_mod == '0.10.1' and select_asi == '2.0':
-        fsr_0_10_1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.0')
-    elif select_mod == '0.10.1' and select_asi == '2.1':
-        fsr_0_10_1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.1') 
-    elif select_mod == '0.10.1' and select_asi == '2.2':
-        fsr_0_10_1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\2.2')
-    elif select_mod == '0.10.1' and select_asi == 'SDK':
-        fsr_0_10_1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1\\SDK')      
-        
-    elif select_mod == '0.10.1h1' and select_asi == None or select_mod == '0.10.1h1' and option_asi == 'ASI Loader for RDR2':
-        fsr_0_10_1h1_path()
-    elif select_mod == '0.10.1h1' and select_asi == '2.0':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.0')  
-    elif select_mod == '0.10.1h1' and select_asi == '2.1':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.1') 
-    elif select_mod == '0.10.1h1' and select_asi == '2.2':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\2.2') 
-    elif select_mod == '0.10.1h1' and select_asi == 'SDK':
-        fsr_0_10_1h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_1h1\\SDK') 
-    
-    elif select_mod == '0.10.2h1' and select_asi == None or select_mod == '0.10.2h1' and option_asi == 'ASI Loader for RDR2':
-        fsr_0_10_2h1_path()
-    elif select_mod == '0.10.2h1' and select_asi == '2.0':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.0') 
-    elif select_mod == '0.10.2h1' and select_asi == '2.1':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.1') 
-    elif select_mod == '0.10.2h1' and select_asi == '2.2':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\2.2') 
-    elif select_mod == '0.10.2h1' and select_asi == 'SDK':
-        fsr_0_10_2h1_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_2h1\\SDK') 
-    
-    elif select_mod == '0.10.3' and option_asi == None or select_mod == '0.10.3' and option_asi == 'ASI Loader for RDR2':
-        fsr_0_10_3_path()
-        print(option_asi)
-    elif select_mod == '0.10.3' and select_asi == '2.0':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.0') 
-    elif select_mod == '0.10.3' and select_asi == '2.1':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.1')
-    elif select_mod == '0.10.3' and select_asi == '2.2':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\2.2')
-    elif select_mod == '0.10.3' and select_asi == 'SDK':
-        fsr_0_10_3_path()
-        origin_folders.append('D:\Prog\Fsr3\mods\ASI\ASI_0_10_3\\SDK')
+    asi_rdr2_0_9={
+        '0.9.0':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_9_0\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+        },
+        '0.10.0':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_0\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+        },
+        '0.10.1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+        },
+        '0.10.1h1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1h1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+        },
+        '0.10.2h1':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_2h1\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+        },
+        '0.10.3':{
+            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_3\\2.0',
+            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.1',
+            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.2',
+            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\SDK',
+            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+        },
+    }
+
+    if select_mod in asi_rdr2_0_9 and (select_asi in asi_rdr2_0_9[select_mod] or option_asi in asi_rdr2_0_9[select_mod]):
+        if select_mod in asi_rdr2_0_9[select_mod]:
+            asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][select_asi]
+        elif select_mod in asi_rdr2_0_9 [select_mod]:
+            asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][option_asi]
+
     try:
-        for origin_folder in origin_folders: 
-            if origin_folder ==  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON':
-                items  = os.listdir(origin_folder)
-                items = items[:-2]
-                for item in items:
-                    item_path = os.path.join(origin_folder,item)
-                    if os.path.isfile(item_path):
-                        shutil.copy2(item_path,select_folder)
-                    elif os.path.isdir(item_path):
-                        shutil.copytree(item_path,os.path.join(select_folder,item))
+        if select_mod in asi_rdr2_0_9:
+            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_rdr2_0_9[select_mod]:
+                asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][option_asi]
+            elif select_asi in asi_rdr2_0_9[select_mod]:
+                asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][select_asi]
             else:
-                for item in os.listdir(origin_folder):
-                    item_path = os.path.join(origin_folder,item)
-                    if os.path.isfile(item_path):
-                        shutil.copy2(item_path,select_folder)
-                    elif os.path.isdir(item_path):
-                        shutil.copytree(item_path,os.path.join(select_folder,item))            
-        print('RDR2')
+                asi_origin_rdr2_0_9 = None
+                
+            if asi_origin_rdr2_0_9 and os.path.isdir(asi_origin_rdr2_0_9):
+                for i_rdr2 in os.listdir(asi_origin_rdr2_0_9):
+                    path_rdr_0_9 = os.path.join(asi_origin_rdr2_0_9, i_rdr2)
+                    if os.path.isfile(path_rdr_0_9):
+                        shutil.copy2(path_rdr_0_9, select_folder)
+                    print("Files from directory", asi_origin_rdr2_0_9, "were copied.")
     except Exception as e:
-        print('Not Copy',str(e))
+        print(e)  
          
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -2204,7 +2130,6 @@ def install(event=None):
 
     install_label.configure(fg='black')
     screen.after(100,install_false)
-
 
 def install_false(event=None):
     global install_contr
