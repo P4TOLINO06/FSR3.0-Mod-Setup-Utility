@@ -7,7 +7,7 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.7.9.2v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.0v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -695,6 +695,43 @@ def native_res_down_custom(event=None):
 def color_native_down(event=None):
     native_res_label_down.configure(fg='#B0C4DE')
 
+def replace_clean_file():
+    clean_file = {
+        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\enable_fake_gpu',
+        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\enable_fake_gpu',
+        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\enable_fake_gpu',
+        '0.9.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\enable_fake_gpu',
+        '0.10.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\enable_fake_gpu',
+        '0.10.1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\enable_fake_gpu',
+        '0.10.1h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+        '0.10.2h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+        '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu'
+    }
+    
+    clean_file_rep = {
+        '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
+        '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+        '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
+        '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
+        '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
+        '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
+        '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
+        '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+        '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+        '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+    }
+
+    if select_mod in clean_file and select_mod in clean_file_rep:
+        clean_file_copy = clean_file[select_mod]
+        rep_clean_file = clean_file_rep[select_mod]
+
+    if os.path.isdir(clean_file_copy ) and os.path.isdir(rep_clean_file):
+        for file_clean in os.listdir(clean_file_copy):
+            c_file = os.path.join(clean_file_copy,file_clean)
+            if os.path.isfile(c_file):
+                shutil.copy2(c_file,rep_clean_file)
+
 def fake_gpu_mod():
     if  select_mod == '0.7.4':
         folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml'
@@ -747,7 +784,6 @@ def fake_gpu_mod():
             lines_toml[0] = sob_line+'\n'
         with open(folder_toml,'w') as file:
             file.writelines(lines_toml)
-
 
 def default_fake_gpu():
     if  select_mod == '0.7.4':
@@ -1050,7 +1086,7 @@ def open_file():
             text_editor.insert('1.0', content)
 
 def screen_editor():
-    global text_editor,default_file_path,default_path
+    global text_editor,default_file_path,default_path,reload
     def exit_screen():
         screen_toml.destroy()
         open_editor_cbox.deselect()
@@ -1080,17 +1116,17 @@ def screen_editor():
     open_file()
     
     menubar = tk.Menu(screen_toml)
+    b_reload = tk.Button(screen_toml,text='Reload',command=open_file)
+    b_reload.place(x=553,y=374)
     filemenu = tk.Menu(menubar, tearoff=0)
     filemenu.add_command(label="Save", command=save_file)
     filemenu.add_separator()
     filemenu.add_command(label="Exit", command=exit_screen)
     menubar.add_cascade(label="File", menu=filemenu)
     screen_toml.config(menu=menubar)
-
-    file_w = None
-
+    screen_toml.resizable(False,False)
+    
     screen_toml.mainloop()
-
 
 open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
 open_editor_label.place(x=200,y=245)
@@ -1368,32 +1404,31 @@ asi_global={
 }
 
 def fsr_2_2():
-    
     origins_2_2_folder = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_212',
+        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
         
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_212',
+        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
         
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_212',
+        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
         
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_212',
+        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
         
         '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_210',
+        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
                   'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210',
+        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
                     'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_210',
+        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
                     'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210',
+        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
                     'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210',
+        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
                   'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
     }
     
@@ -1632,12 +1667,12 @@ def fsr_sdk():
                         path_sdk = os.path.join(sdk_path,i_sdk)
                         if os.path.isfile(path_sdk):
                             shutil.copy2(path_sdk,select_folder)
-        elif isinstance(origins_sdk,str):
+        else:
             if os.path.isdir(origins_sdk):
-                for i_sdk in os.listdir(origins_sdk):
-                    path_sdk = os.path.join(origins_sdk,i_sdk)
-                    if os.path.isfile(path_sdk):
-                        shutil.copy2(path_sdk,select_folder)
+                for i_s_dk in os.listdir(origins_sdk):
+                    path_s_dk = os.path.join(origins_sdk,i_s_dk)
+                    if os.path.isfile(path_s_dk):
+                        shutil.copy2(path_s_dk,select_folder)
     except Exception as e:
         print(e)
  
@@ -1776,6 +1811,8 @@ fsr_2_1_opt=['Dead Space (2023)','Uncharted: Legacy of Thieves Collection','Marv
 
 fsr_2_0_opt = ['The Witcher 3','Dying Light 2']
 
+fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
+
 fsr_sct_2_2 = ['2.2']
 fsr_sct_2_1 = ['2.1']
 fsr_sct_2_0 = ['2.0']
@@ -1790,9 +1827,9 @@ def install(event=None):
         fsr_2_1()
     elif select_option in fsr_2_0_opt or select_fsr in fsr_sct_2_0 and install_contr:
         fsr_2_0()
-    elif select_fsr in fsr_sct_SDK:
+    elif select_option in fsr_sdk_opt or select_fsr in fsr_sct_SDK and install_contr:
         fsr_sdk()
-    elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2:
+    elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2 and install_contr:
         fsr_rdr2()
     if  nvngx_contr:
         copy_nvngx()
@@ -1800,6 +1837,8 @@ def install(event=None):
         copy_dxgi()
     if lfz_sl_var.get() == 1:
         copy_lfz_sl()
+    
+    replace_clean_file()
 
     install_label.configure(fg='black')
     screen.after(100,install_false)

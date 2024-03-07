@@ -1,4 +1,4 @@
-fake_nvidia_gpu = true
+fake_nvidia_gpu = false
 
 [general]
 enable_upscaling_only = false
