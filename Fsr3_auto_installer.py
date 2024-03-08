@@ -7,7 +7,7 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.0v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.1v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -72,7 +72,7 @@ def cbox_cleanup(event=None):
             cleanup_cbox.after(400,cleanup_cbox.deselect)
         
 def clean_mod():
-    mod_clean_list = ['fsr2fsr3.config','winmm.ini','winmm.dll',
+    mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll','nvngx.ini']
     
@@ -732,111 +732,93 @@ def replace_clean_file():
             if os.path.isfile(c_file):
                 shutil.copy2(c_file,rep_clean_file)
 
+
+folder_fake_gpu ={
+    '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+}
 def fake_gpu_mod():
-    if  select_mod == '0.7.4':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif  select_mod == '0.7.5':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif  select_mod == '0.7.6':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif  select_mod == '0.8.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif  select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = true'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+    global folder_fake_gpu
     
-    edit_fakegpu_list = ['0.10.2h1','0.10.3']   
-    if select_mod in edit_fakegpu_list:
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)     
-        toml_d[key_1]['fake_nvidia_gpu'] = True 
-        with open(folder_toml,'w') as file:
-            toml.dump(toml_d,file)
+    key_1 = 'compatibility'
+    sob_line = 'fake_nvidia_gpu = true'
     
-    edit_old_fake_gpu = ['0.7.4','0.7.5','0.7.6','0.8.0'] 
+    if select_mod in folder_fake_gpu:
+       folder_gpu = folder_fake_gpu[select_mod]  
+       
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3']
+    if select_mod in edit_fake_gpu_list:
+        with open(folder_gpu, 'r') as file:
+            toml_gpu = toml.load(file)
+        toml_gpu.setdefault(key_1,{})
+        toml_gpu[key_1]['fake_nvidia_gpu'] = True
+        with open(folder_gpu,'w') as file:
+            toml.dump(toml_gpu,file)
+    
+    edit_old_fake_gpu = ['0.7.4','0.7.5','0.7.6','0.8.0']
     if select_mod in edit_old_fake_gpu:
-        with open(folder_toml,'w') as file:
+        with open(folder_gpu,'w') as file:
             file.write(sob_line)
-    
+            
     edit_old_fake_gpu_2 = ['0.9.0','0.10.0','0.10.1','0.10.1h1']
     if select_mod in edit_old_fake_gpu_2:
-        with open(folder_toml,'r') as file:
+        with open(folder_gpu, 'r') as file:
             lines_toml = file.readlines()
-            lines_toml[0] = sob_line+'\n'
-        with open(folder_toml,'w') as file:
+        lines_toml[0] = sob_line+'\n'  
+        with open(folder_gpu,'w') as file:
             file.writelines(lines_toml)
 
+
 def default_fake_gpu():
-    if  select_mod == '0.7.4':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif  select_mod == '0.7.5':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif  select_mod == '0.7.6':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif  select_mod == '0.8.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif  select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        sob_line = 'fake_nvidia_gpu = false'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+    global folder_fake_gpu
     
-    edit_fakegpu_list = ['0.10.2h1','0.10.3']   
+    key_1 = 'compatibility'
+    sob_line = 'fake_nvidia_gpu = false'
+    
+    if select_mod in folder_fake_gpu:
+        folder_gpu = folder_fake_gpu[select_mod]
+        
+    edit_fakegpu_list = ['0.10.2h1','0.10.3']
     if select_mod in edit_fakegpu_list:
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)
-        toml_d[key_1]['fake_nvidia_gpu'] = False
-        with open(folder_toml,'w') as file:
-            toml.dump(toml_d,file)
+        with open(folder_gpu,'r') as file:
+            toml_gpu = toml.load(file)
+        toml_gpu.setdefault(key_1,{})
+        toml_gpu[key_1]['fake_nvidia_gpu'] = False
+        with open(folder_gpu,'w') as file:
+            toml.dump(toml_gpu,file)
     
-    edit_old_fake_gpu = ['0.7.4','0.7.5','0.7.6','0.8.0'] 
+    edit_old_fake_gpu = ['0.7.4','0.7.5','0.7.6','0.8.0']
     if select_mod in edit_old_fake_gpu:
-        with open(folder_toml,'w') as file:
+        with open(folder_gpu,'w') as file:
             file.write(sob_line)
     
     edit_old_fake_gpu_2 = ['0.9.0','0.10.0','0.10.1','0.10.1h1']
     if select_mod in edit_old_fake_gpu_2:
-        with open(folder_toml,'r') as file:
+        with open(folder_gpu,'r') as file:
             lines_toml = file.readlines()
-            lines_toml[0] = sob_line+'\n'
-        with open(folder_toml,'w') as file:
+        lines_toml[0] = sob_line+'\n'
+        with open(folder_gpu,'w') as file:
             file.writelines(lines_toml)
+            
+def copy_fake_gpu():
+    global folder_fake_gpu
+    
+    if select_mod in folder_fake_gpu:
+        file_gpu = folder_fake_gpu[select_mod]
+        
+    try:
+        if os.path.isfile(file_gpu):
+                shutil.copy2(file_gpu,select_folder)           
+    except Exception as e:
+        print(e)
 
 def cbox_fakegpu():
     if fakegpu_cbox_var.get() == 1:
@@ -1078,6 +1060,7 @@ def save_file():
 screen_toml = None
 def open_file():
     global file_w,screen_toml
+    replace_clean_file()
     file_w = default_file_path
     if file_w and open_editor_var.get() == 1:
         with open(file_w, 'r') as file:
@@ -1820,29 +1803,37 @@ fsr_sct_SDK = ['SDK']
 fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
 def install(event=None):
     global install_contr
-    install_contr = True
-    if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
-        fsr_2_2()
-    elif select_option in fsr_2_1_opt or select_fsr in fsr_sct_2_1 and install_contr:
-        fsr_2_1()
-    elif select_option in fsr_2_0_opt or select_fsr in fsr_sct_2_0 and install_contr:
-        fsr_2_0()
-    elif select_option in fsr_sdk_opt or select_fsr in fsr_sct_SDK and install_contr:
-        fsr_sdk()
-    elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2 and install_contr:
-        fsr_rdr2()
-    if  nvngx_contr:
-        copy_nvngx()
-    if dxgi_contr:
-        copy_dxgi()
-    if lfz_sl_var.get() == 1:
-        copy_lfz_sl()
-    
-    replace_clean_file()
+    try:
+        install_contr = True
+        if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
+            fsr_2_2()
+        elif select_option in fsr_2_1_opt or select_fsr in fsr_sct_2_1 and install_contr:
+            fsr_2_1()
+        elif select_option in fsr_2_0_opt or select_fsr in fsr_sct_2_0 and install_contr:
+            fsr_2_0()
+        elif select_option in fsr_sdk_opt or select_fsr in fsr_sct_SDK and install_contr:
+            fsr_sdk()
+        elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2 and install_contr:
+            fsr_rdr2()
+        if  nvngx_contr:
+            copy_nvngx()
+        if dxgi_contr:
+            copy_dxgi()
+        if lfz_sl_var.get() == 1:
+            copy_lfz_sl()
+        if install_contr and select_fsr != None or install_contr and select_option != 'Select FSR version':
+            copy_fake_gpu()
+            messagebox.showinfo('Successful','Successful installation')
+        elif install_contr and select_option == 'Select FSR version' and select_fsr == None:
+            messagebox.showwarning('Select FSR Version','Please select the FSR version')
+            
+        replace_clean_file()
 
-    install_label.configure(fg='black')
-    screen.after(100,install_false)
-
+        install_label.configure(fg='black')
+        screen.after(100,install_false)
+        
+    except Exception as e:
+        messagebox.showerror('Error','Installation error',str(e))
 def install_false(event=None):
     global install_contr
     install_label.configure(fg='#E6E6FA')
@@ -2031,6 +2022,9 @@ options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\
 for option in options:
     listbox.insert(tk.END,option)
 
+def fsr_canvas_emp():
+    return not fsr_canvas.find_all()
+    
 def update_fsr_v(event=None):
     global select_fsr,select_option
     index_fsr = fsr_listbox.curselection()

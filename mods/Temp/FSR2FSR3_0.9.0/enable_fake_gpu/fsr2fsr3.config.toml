@@ -1,21 +1,22 @@
-fake_nvidia_gpu = true
+fake_nvidia_gpu = false
 
 [general]
-enable_upscaling_only = true
-sharpness_override = -0.4
+enable_upscaling_only = false
+sharpness_override = -1.0
 
 [resolution_override]
-native = 0.33
-quality = 0.25
-balanced = 0.25
-performance = 0.25
-ultra_performance = 0.25
-ultra_quality = 0.32
+native = 1.0
+quality = 0.666667
+balanced = 0.588235
+performance = 0.5
+ultra_performance = 0.333333
+ultra_quality = 0.769231
 
 [compatibility]
-macos_crossover_support = true
-amd_unreal_engine_dlss_workaround = true
+macos_crossover_support = false
+amd_unreal_engine_dlss_workaround = false
 
 [debug]
-enable_debug_view = true
-enable_debug_tear_lines = true
+enable_debug_view = false
+enable_debug_tear_lines = false
+

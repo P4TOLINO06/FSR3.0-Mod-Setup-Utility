@@ -1,4 +1,4 @@
-fake_nvidia_gpu = true
+fake_nvidia_gpu = false
 
 [general]
 mode = "replace_dlss_fg"
