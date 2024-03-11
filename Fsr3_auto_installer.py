@@ -7,7 +7,7 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.1v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.2v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -409,9 +409,19 @@ def copy_nvngx():
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
 
 custom_fsr_act = False
+
+def unlock_custom():
+    list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+    if select_mod not in list_custom:
+        messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
+        custom_fsr_cbox.deselect()
+        return False
+    else:
+        return True
+
 def cbox_custom_fsr(event=None):
     global custom_fsr_act
-    if custom_fsr_var.get() == 1:
+    if unlock_custom():
         fsr_balanced_canvas.configure(bg='white')
         fsr_ultraq_canvas.configure(bg='white')
         fsr_ultrap_canvas.configure(bg='white')
@@ -864,7 +874,10 @@ def edit_ue():
         toml_d[key_1]['amd_unreal_engine_dlss_workaround'] = True
         
         with open (folder_toml,'w') as file:
-            toml.dump(toml_d,file)  
+            toml.dump(toml_d,file) 
+    else:
+        messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
+        ue_cbox.deselect() 
   
 def default_ue():
     if  select_mod == '0.9.0':
@@ -927,6 +940,9 @@ def edit_nvapi():
         
         with open (folder_toml,'w') as file:
             toml.dump(toml_d,file)
+    else:
+        messagebox.showwarning('Error','Please select a mod version starting from 0.10.2h.')
+        nvapi_cbox.deselect()
 
 def default_nvapi():
     if  select_mod == '0.10.2h1':
@@ -948,7 +964,6 @@ def default_nvapi():
 def cbox_nvapi():
     if nvapi_cbox_var.get() == 1:
         edit_nvapi()
-        print('nvapi True')
         nvapi_cbox_var.set == 0
         
     else:
@@ -962,66 +977,50 @@ nvapi_cbox_var = tk.IntVar()
 nvapi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvapi_cbox_var,command=cbox_nvapi)
 nvapi_cbox.place(x=120,y=217)
 
+list_macos = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
 def edit_macos():
-    if  select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+    global list_macos
+    folder_macos = None
+    key_os = 'compatibility'
+    
+    if select_mod in list_macos:
+        folder_macos = list_macos[select_mod]
+    else:
+        messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
+        macos_sup_cbox.deselect()
      
-    edit_mcos_list = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']   
-    if select_mod in edit_mcos_list:
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)
-            
-        toml_d[key_1]['macos_crossover_support'] = True
-
-        with open(folder_toml,'w') as file:
-            toml.dump(toml_d,file)
+    if folder_macos is not None:   
+        with open(folder_macos) as file:
+            toml_mc = toml.load(file)
+        toml_mc.setdefault(key_os,{})
+        toml_mc[key_os]['macos_crossover_support'] = True
+        with open(folder_macos,'w') as file:
+            toml.dump(toml_mc,file)  
 
 def default_macos():
-    if select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-     
-    edit_mcos_list = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']   
-    if select_mod in edit_mcos_list:
-        with open(folder_toml,'r') as file:
-           toml_d = toml.load(file)
-           
-        toml_d[key_1]['macos_crossover_support'] = False
+    global list_macos
+    folder_macos = None
+    
+    key_1 = 'compatibility'
+    
+    if select_mod in list_macos:
+        folder_macos = list_macos[select_mod]
+      
+    if folder_macos is not None:  
+        with open(folder_macos, 'r') as file:
+            toml_os = toml.load(file)
+        toml_os.setdefault(key_1,{})
+        toml_os[key_1]['macos_crossover_support'] = False
+        with open(folder_macos,'w') as file:
+            toml.dump(toml_os,file)
         
-        with open(folder_toml,'w') as file:
-            toml.dump(toml_d,file)
-       
 def cbox_macos():
     if macos_sup_var.get() == 1:
         macos_sup_var.set == 0
@@ -1147,7 +1146,7 @@ def edit_sharpeness_up():
     '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }  
     if select_mod in list_mod_sharpness:
         folder_sharp = list_mod_sharpness[select_mod]
@@ -1156,7 +1155,7 @@ def edit_sharpeness_up():
         if folder_sharp:
             with open(folder_sharp, 'r') as file:
                 toml_s = toml.load(file)
-            toml_s[key_sharp]['sharpness_override'] = -float(cont_value_up_f)
+            toml_s[key_sharp]['sharpness_override'] = float(cont_value_up_f)
             with open(folder_sharp,'w') as file:
                 toml.dump(toml_s,file)  
     else:
@@ -1180,8 +1179,13 @@ cont_value_up = 0
 cont_value_up_f = '0.0'
 def cont_sharpness_value_up(event=None):
     global cont_value_up,cont_value_up_f,unlock_sharp_up_down
-    if unlock_sharp_up_down and cont_value_up < 10:
-        cont_value_up+=1
+    if unlock_sharp_up_down:
+        if cont_value_up == -10: 
+            cont_value_up = 0.0
+            cont_value_up_f = '0.0'
+        elif cont_value_up < 10:
+            cont_value_up +=1
+            
         cont_value_up_f = f'{cont_value_up/10:.1f}'
         sharpness_value_canvas.delete('text')
         sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
@@ -1194,13 +1198,19 @@ def color_sharpness_value_up(event=None):
 
 def cont_sharpness_value_down(event=None):
     global cont_value_up_f,cont_value_up,unlock_sharp_up_down
-    if unlock_sharp_up_down and cont_value_up > 0:
-        cont_value_up-=1
-        cont_value_up_f = f'{cont_value_up/10:.1f}'
+    if unlock_sharp_up_down:
+        if cont_value_up > 0:
+            cont_value_up-=1
+            cont_value_up_f = f'{cont_value_up/10:.1f}'
+        elif cont_value_up == 0:
+            cont_value_up = -10
+            cont_value_up_f = '-1.0'
+
         sharpness_value_canvas.delete('text')
         sharpness_value_canvas.create_text(2,8,anchor='w',text=cont_value_up_f,fill='black',tags='text')
         sharpness_value_canvas.update()
         sharpness_value_label_down.configure(fg='black')
+    
     edit_sharpeness_up()
 
 def color_sharpness_value_down(event=None):
@@ -1208,7 +1218,7 @@ def color_sharpness_value_down(event=None):
     
 mod_operates_label = tk.Label(screen,text='Mod Operates:',font=font_select,bg='black',fg='#C0C0C0')
 mod_operates_label.place(x=0,y=310)
-mod_operates_canvas = tk.Canvas(screen,width=150,height=19,bg='white',highlightthickness=0)
+mod_operates_canvas = tk.Canvas(screen,width=150,height=19,bg='#C0C0C0',highlightthickness=0)
 mod_operates_canvas.place(x=100,y=314)
 mod_operates_listbox = tk.Listbox(screen,bg='white',width=25,height=0,highlightthickness=0)
 mod_operates_listbox.place(x=100,y=335)
@@ -1508,7 +1518,8 @@ def fsr_2_1():
                         shutil.copy2(path_fsr_2_1,select_folder)
     except Exception as e:
         print(e)
-        
+      
+    origins_2_1_f  = None
     if select_mod in asi_global and(select_asi  in asi_global[select_mod] or option_asi in asi_global[select_mod]):
         if select_mod in asi_global[select_mod]:
             origins_2_1_f = asi_global[select_mod][select_asi]
@@ -1917,14 +1928,17 @@ fsr_listbox.pack_forget()
 
 fsr_visible = False
 fsr_view_listbox = False
+
 def close_all_listbox(event):
-    global listbox_visible,fsr_visible
-    if listbox_visible:
-        listbox.place_forget()
-        listbox_visible = False
-    if fsr_visible:
-        fsr_listbox.place_forget()
-        fsr_visible = False
+    global listbox_visible, fsr_visible
+    
+    if event.widget != mod_version_listbox:
+        mod_version_listbox.pack_forget()
+    
+    x = event.x
+    y = event.y
+    print(f"Clique detectado em x={x}, y={y}")
+     
     
 def fsr_listbox_visible(event):
     global fsr_visible
@@ -2060,18 +2074,18 @@ def update_asi(event=None):
         option_asi = asi_listbox.get(index_asi)
         asi_canvas.delete('text')
         asi_canvas.create_text(2,8,anchor='w',text=option_asi,fill='black',tags='text')
-    if option_asi == 'ASI Loader for RDR2':
+    if option_asi == 'ASI Loader for RDR2' or option_asi == 'Default':
         select_asi_notvisible = False
         select_asi_notvisible = False
         select_asi_canvas.delete('text')
-        select_asi_listbox.place_forget() 
+        select_asi_listbox.place_forget()
     else:
         select_asi_notvisible = True
         select_asi_bool = True
     update_asi_color()
     asi_canvas.update()
     
-asi_options = ['Select ASI Loader','ASI Loader for RDR2']
+asi_options = ['Default','Select ASI Loader','ASI Loader for RDR2']
 for asi_op in asi_options:
     asi_listbox.insert(tk.END,asi_op)
 
@@ -2107,13 +2121,16 @@ def select_mod_op_lock():
         mod_op_list = ['Default','Enable Upscaling Only','Use Game Upscaling','Replace dlss fg']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
+        mod_operates_canvas.config(bg='white')
     elif select_mod == '0.9.0':
         mod_op_list = ['Default','Enable Upscaling Only']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
+        mod_operates_canvas.config(bg='white')
     else:
         mod_operates_listbox.place_forget()
         mod_operates_canvas.delete('text')
+        mod_operates_canvas.config(bg='#C0C0C0')
         unlock_listbox_mod_op = False
     for mod_operates_ins in mod_op_list:
         mod_operates_listbox.insert(tk.END,mod_operates_ins)
@@ -2194,6 +2211,6 @@ install_label.bind('<ButtonRelease-1>', install_false)
 
 exit_label.bind('<Button-1>',sys.exit)
 
-#screen.bind('<Button1-1>',close_all_listbox)
+#screen.bind('<Button-1>',close_all_listbox)
 
 screen.mainloop()

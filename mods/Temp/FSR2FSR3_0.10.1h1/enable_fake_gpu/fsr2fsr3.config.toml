@@ -2,7 +2,7 @@ fake_nvidia_gpu = true
 
 [general]
 mode = "replace_dlss_fg"
-sharpness_override = 0.0
+sharpness_override = 0.2
 enable_upscaling_only = false
 
 [resolution_override]
@@ -11,7 +11,7 @@ quality = 0.666667
 balanced = 0.588235
 performance = 0.5
 ultra_performance = 0.333333
-ultra_quality = 0.769231
+ultra_quality = 0.27
 
 [compatibility]
 macos_crossover_support = false

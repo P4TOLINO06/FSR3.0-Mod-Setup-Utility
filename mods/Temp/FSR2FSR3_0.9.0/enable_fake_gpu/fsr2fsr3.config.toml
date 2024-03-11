@@ -19,4 +19,3 @@ amd_unreal_engine_dlss_workaround = false
 [debug]
 enable_debug_view = false
 enable_debug_tear_lines = false
-

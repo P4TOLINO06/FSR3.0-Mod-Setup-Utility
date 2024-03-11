@@ -1,6 +1,6 @@
 [general]
 mode = "default"
-sharpness_override = -1.0
+sharpness_override = 0.2
 
 [resolution_override]
 native = 1.0
@@ -14,7 +14,7 @@ ultra_quality = 0.769231
 fake_nvidia_gpu = false
 fake_nvapi_results = false
 amd_unreal_engine_dlss_workaround = false
-macos_crossover_support = false
+macos_crossover_support = true
 
 [logging]
 disable_console = false
