@@ -7,7 +7,7 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.2v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.3v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -115,7 +115,6 @@ disable_console_label.place(x=0,y=566)
 disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
 disable_console_cbox.place(x=108,y=569)
-
 
 lfz_list = {
 '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
@@ -284,7 +283,7 @@ def dxgi_cbox_view(event=None):
         else:
             dxgi_listbox.place(x=285,y=498)
             dxgi_view = True
-        
+      
 def dxgi_listbox_contr(event=None):
     global dxgi_view,dxgi_contr
     if not dxgi_contr and dxgi_view:
@@ -755,6 +754,7 @@ folder_fake_gpu ={
     '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
 }
+
 def fake_gpu_mod():
     global folder_fake_gpu
     
@@ -820,13 +820,15 @@ def default_fake_gpu():
             
 def copy_fake_gpu():
     global folder_fake_gpu
+    file_gpu = None
     
     if select_mod in folder_fake_gpu:
         file_gpu = folder_fake_gpu[select_mod]
         
     try:
-        if os.path.isfile(file_gpu):
-                shutil.copy2(file_gpu,select_folder)           
+        if file_gpu is not None:
+            if os.path.isfile(file_gpu):
+                    shutil.copy2(file_gpu,select_folder)           
     except Exception as e:
         print(e)
 
@@ -1281,13 +1283,16 @@ asi_optional_label = tk.Label(screen,text='optional',font=(font_select, 7),bg='b
 asi_optional_label.place(x=10,y=166)
 asi_canvas = Canvas(screen,width=205,height=19,bg='white',highlightthickness=0)
 asi_canvas.place(x=90,y=150)
+
 asi_listbox = tk.Listbox(screen,bg='white',width=34,height=0,highlightthickness=0)
 asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
 asi_listbox.pack_forget()
+
 select_asi_label = tk.Label(screen,text='ASI:',font=font_select,bg='black',fg='#C0C0C0')
 select_asi_label.place(x=300,y=145)
 select_asi_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_asi_canvas.place(x=335,y=149)
+
 select_asi_listbox = tk.Listbox(screen,bg='white',width=8,height=0,highlightthickness=0)
 select_asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(320,0),pady=(0,413))
 select_asi_listbox.pack_forget()
@@ -1812,6 +1817,168 @@ fsr_sct_2_1 = ['2.1']
 fsr_sct_2_0 = ['2.0']
 fsr_sct_SDK = ['SDK']
 fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
+
+nvngx_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+nvngx_label_guide.place_forget()
+
+def guide_nvngx(event=None):
+    nvngx_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
+    nvngx_label_guide.place(x=0,y=500)
+    
+def close_nvngx_guide(event=None):
+    nvngx_label_guide.config(text="")
+    nvngx_label_guide.place_forget()
+
+dxgi_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+dxgi_label_guide.place_forget()
+
+def guide_dxgi(event=None):
+    dxgi_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
+    dxgi_label_guide.place(x=205,y=500)
+    
+    
+def close_dxgi_guide(event=None):
+    dxgi_label_guide.config(text="")
+    dxgi_label_guide.place_forget()
+    
+asi_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=250)
+asi_label_guide.place_forget()
+
+def guide_asi(event=None):
+    asi_label_guide.config(text="Default: Copies the ASI file from the selected mod/FSR.\n\n"
+    "Select ASI Loader: Copies the ASI file from the FSR version of the selected mod, FSR: 2.0, 2.1, 2.2, SDK.\n\n"
+    "ASI Loader for RDR2: Copies the Red Dead Redemption ASI file from the selected mod.")
+    asi_label_guide.place(x=0,y=173)
+
+def close_asi_guide(event=None):
+    asi_label_guide.config(text="")
+    asi_label_guide.place_forget()
+
+fk_gpu_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=250)
+fk_gpu_label_guide.place_forget()
+
+def guide_fk_gpu(event=None):
+    fk_gpu_label_guide.config(text="Enable GPU proxy/spoof, show as Nvidia 40-series, default = false.")
+    fk_gpu_label_guide.place(x=0,y=213)
+
+def close_fk_gpu_guide(event=None):
+    fk_gpu_label_guide.config(text="")
+    fk_gpu_label_guide.place_forget()
+    
+nvapi_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+nvapi_label_guide.place_forget()
+
+def guide_nvapi(event=None):
+    nvapi_label_guide.config(text="Only relevant for GTX users who had issues with DLSS/FG not being selectable, default = false.")
+    nvapi_label_guide.place(x=0,y=243)
+
+def close_nvapiguide(event=None):
+    nvapi_label_guide.config(text="")
+    nvapi_label_guide.place_forget()
+
+ue_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=190)
+ue_label_guide.place_forget()
+
+def guide_ue(event=None):
+    ue_label_guide.config(text="Workaround for xmas/disco graphical artifacts in Unreal Engine games when selecting DLSS, default = false")
+    ue_label_guide.place(x=200,y=213)
+
+def close_ueguide(event=None):
+    ue_label_guide.config(text="")
+    ue_label_guide.place_forget()
+
+mcos_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=190)
+mcos_label_guide.place_forget()
+
+def guide_mcos(event=None):
+    mcos_label_guide.config(text="Enable macOS-specific compatibility tweaks, default = false")
+    mcos_label_guide.place(x=200,y=243)
+
+def close_mcosguide(event=None):
+    mcos_label_guide.config(text="")
+    mcos_label_guide.place_forget()
+    
+sharp_over_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+sharp_over_label_guide.place_forget()
+
+def guide_sharp_over(event=None):
+    sharp_over_label_guide.config(text="Default value is -1.0, override disabled, uses game sharpening\n"
+    "values 0.0-1.0, 0.0 disables sharpening completely, 1.0 max sharpening")
+    sharp_over_label_guide.place(x=0,y=273)
+
+def close_sharp_overguide(event=None):
+    sharp_over_label_guide.config(text="")
+    sharp_over_label_guide.place_forget()
+    
+mod_op_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+mod_op_label_guide.place_forget()
+
+def guide_mod_op(event=None):
+    mod_op_label_guide.config(text="Default: How the mod used to operate. DLSS/FSR inputs used for FSR3 Upscaling and FSR3 Frame Generation.\n\n"
+    "Enable Upscaling Only: Same as default mode, but enables only FSR3 upscaling, FSR3 FG is disabled\n\n"
+    "Use Game Upscaling: Same as replace_dlss_fg, but for games WITHOUT Native DLSS3FG, there will be HUD ghosting\n\n"
+    "Replace Dlss-FG: For mixing other upscalers like DLSS or XeSS with FSR3 Frame Generation in games that have NATIVE DLSS3 Frame Generation, no HUD ghosting")
+    mod_op_label_guide.place(x=0,y=337)
+
+def close_mod_opguide(event=None):
+    mod_op_label_guide.config(text="")
+    mod_op_label_guide.place_forget()
+
+dis_con_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+dis_con_label_guide.place_forget()
+
+def guide_dis_con_op (event=None):
+    dis_con_label_guide.config(text="Disable the CMD that autostarts on game boot, default = false")
+    dis_con_label_guide.place(x=0,y=595)
+    
+def close_dis_conguide(event=None):
+    dis_con_label_guide.config(text="")
+    dis_con_label_guide.place_forget()
+
+debug_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+debug_label_guide.place_forget()
+
+def guide_debug_op (event=None):
+    debug_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
+    debug_label_guide.place(x=122,y=562)
+    
+def close_debugguide(event=None):
+    debug_label_guide.config(text="")
+    debug_label_guide.place_forget()
+
+debug_view_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+debug_view_label_guide.place_forget()
+
+def guide_debug_view_op (event=None):
+    debug_view_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
+    debug_view_label_guide.place(x=0,y=562)
+    
+def close_debug_viewguide(event=None):
+    debug_view_label_guide.config(text="")
+    debug_view_label_guide.place_forget()
+
+en_sig_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+en_sig_label_guide.place_forget()
+
+def guide_en_sig (event=None):
+    en_sig_label_guide.config(text="Enable Signature Override can help some games to work, it is also recommended to activate in older versions of the mod")
+    en_sig_label_guide.place(x=0,y=532)
+    
+def close_en_sigguide(event=None):
+    en_sig_label_guide.config(text="")
+    en_sig_label_guide.place_forget()
+
+lfz_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+lfz_label_guide.place_forget()
+
+def guide_lfz(event=None):
+    lfz_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
+    lfz_label_guide.place(x=245,y=560)
+     
+def close_lfz_guide(event=None):
+    lfz_label_guide.config(text="")
+    lfz_label_guide.place_forget()
+    
 def install(event=None):
     global install_contr
     try:
@@ -1834,17 +2001,17 @@ def install(event=None):
             copy_lfz_sl()
         if install_contr and select_fsr != None or install_contr and select_option != 'Select FSR version':
             copy_fake_gpu()
-            messagebox.showinfo('Successful','Successful installation')
         elif install_contr and select_option == 'Select FSR version' and select_fsr == None:
             messagebox.showwarning('Select FSR Version','Please select the FSR version')
-            
+        if select_mod != None and select_folder != None and select_option != None:
+            messagebox.showinfo('Successful','Successful installation')
         replace_clean_file()
 
         install_label.configure(fg='black')
         screen.after(100,install_false)
         
-    except Exception as e:
-        messagebox.showerror('Error','Installation error',str(e))
+    except Exception as e: 
+        messagebox.showwarning('Error','Installation error')
 def install_false(event=None):
     global install_contr
     install_label.configure(fg='#E6E6FA')
@@ -2165,17 +2332,23 @@ canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
 listbox.bind("<<ListboxSelect>>",update_canvas)
 fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
+fakegpu_label.bind('<Enter>',guide_fk_gpu)
+fakegpu_label.bind('<Leave>',close_fk_gpu_guide)
 select_folder_canvas.bind('<Button-1>',open_explorer)
 mod_version_canvas.bind('<Button-1>',mod_listbox_view)
 mod_version_listbox.bind("<<ListboxSelect>>",update_mod_version)
 asi_canvas.bind('<Button-1>',asi_listbox_view)
 asi_listbox.bind('<<ListboxSelect>>',update_asi)
+asi_label.bind('<Enter>',guide_asi)
+asi_label.bind('<Leave>',close_asi_guide)
 select_asi_canvas.bind('<Button-1>',select_asi_view)
 select_asi_listbox.bind('<<ListboxSelect>>',update_select_asi)
 sharpness_value_label_up.bind('<Button-1>',cont_sharpness_value_up)
 sharpness_value_label_up.bind('<ButtonRelease-1>',color_sharpness_value_up)
 sharpness_value_label_down.bind('<Button-1>',cont_sharpness_value_down)
 sharpness_value_label_down.bind('<ButtonRelease-1>',color_sharpness_value_down)
+sharpness_label.bind('<Enter>',guide_sharp_over)
+sharpness_label.bind('<Leave>',close_sharp_overguide)
 mod_operates_listbox.bind('<<ListboxSelect>>',update_mod_operates)
 mod_operates_canvas.bind('<Button-1>',mod_operates_view)
 fsr_ultraq_label_up.bind('<Button-1>',fsr_ultraq_up_custom)
@@ -2204,8 +2377,30 @@ native_res_label_down.bind('<Button-1>',native_res_down_custom)
 native_res_label_down.bind('<ButtonRelease-1>',color_native_down)
 nvngx_canvas.bind('<Button-1>',nvngx_cbox_view)
 nvngx_listbox.bind('<<ListboxSelect>>',update_nvngx)
+nvapi_label.bind('<Enter>',guide_nvapi)
+nvapi_label.bind('<Leave>',close_nvapiguide)
 dxgi_canvas.bind('<Button-1>',dxgi_cbox_view)
 dxgi_listbox.bind('<<ListboxSelect>>',update_dxgi)
+dxgi_label.bind('<Enter>',guide_dxgi)
+dxgi_label.bind('<Leave>',close_dxgi_guide)
+nvngx_label.bind('<Enter>',guide_nvngx)
+nvngx_label.bind('<Leave>',close_nvngx_guide)
+ue_label.bind('<Enter>',guide_ue)
+ue_label.bind('<Leave>',close_ueguide)
+macos_sup_label.bind('<Enter>',guide_mcos)
+macos_sup_label.bind('<Leave>',close_mcosguide)
+mod_operates_label.bind('<Enter>',guide_mod_op)
+mod_operates_label.bind('<Leave>',close_mod_opguide)
+disable_console_label.bind('<Enter>',guide_dis_con_op)
+disable_console_label.bind('<Leave>',close_dis_conguide)
+debug_tear_lines_label.bind('<Enter>',guide_debug_op)
+debug_tear_lines_label.bind('<Leave>',close_debugguide)
+debug_view_label.bind('<Enter>',guide_debug_view_op)
+debug_view_label.bind('<Leave>',close_debug_viewguide)
+enable_sigover_label.bind('<Enter>',guide_en_sig)
+enable_sigover_label.bind('<Leave>',close_en_sigguide)
+lfz_sl_label.bind('<Enter>',guide_lfz)
+lfz_sl_label.bind('<Leave>',close_lfz_guide)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
 
