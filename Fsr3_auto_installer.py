@@ -7,7 +7,7 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.3v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.4v")
 screen.geometry("400x700")
 screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
@@ -62,7 +62,7 @@ del_dxgi_label.place(x=130,y=626)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
 del_dxgi_cbox.place(x=243,y=629) 
-    
+   
 def cbox_cleanup(event=None):
     if cleanup_var.get() == 1:
         clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the mod?')
@@ -648,13 +648,16 @@ fsr_ultrap_count_up = 25
 fsr_ultrap_count_up_f = 25
 def fsr_ultrap_up_custom(event=None):
     global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    
     option_quality_fsr = 'ultra_performance'
     fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
+    
     if custom_fsr_act and fsr_ultrap_count_up <= 100:
         fsr_ultrap_count_up += 1
         fsr_ultrap_canvas.delete('text')
         fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
         fsr_ultrap_label_up.configure(fg='black')
+    
     edit_fsr_custom(option_quality_fsr,fsr_ultrap_count_up_f)
 
 def color_fsr_ultrap_up(event=None):
@@ -662,13 +665,16 @@ def color_fsr_ultrap_up(event=None):
 
 def fsr_ultrap_down_custom(event=None):
     global fsr_ultrap_count_up,fsr_ultrap_count_up_f
+    
     option_quality_fsr = 'ultra_performance'
+    
     if custom_fsr_act and fsr_ultrap_count_up > 25:
         fsr_ultrap_count_up -= 1
         fsr_ultrap_count_up_f = f'{fsr_ultrap_count_up:.0f}'
         fsr_ultrap_canvas.delete('text')
         fsr_ultrap_canvas.create_text(2,8,anchor='w',text=fsr_ultrap_count_up_f,fill='black',tags='text')
         fsr_ultrap_label_down.configure(fg='black')
+        
     edit_fsr_custom(option_quality_fsr,fsr_ultrap_count_up_f)
 
 def color_fsr_ultrap_down(event=None):
@@ -678,13 +684,16 @@ native_count = 25
 native_count_f = 25   
 def native_res_up_custom(event=None):
     global native_count_f,native_count
+    
     option_quality_fsr = 'native'
     native_count_f = f'{native_count:.0f}'
+    
     if custom_fsr_act and native_count < 100:
         native_count += 1
         native_res_canvas.delete('text')
         native_res_canvas.create_text(2,8,anchor='w',text=native_count_f,fill='black',tags='text')
         native_res_label_up.configure(fg='black')
+        
     edit_fsr_custom(option_quality_fsr,native_count_f)
 
 def color_native_up(event=None):
@@ -692,55 +701,20 @@ def color_native_up(event=None):
 
 def native_res_down_custom(event=None):
     global native_count,native_count_f
+    
     option_quality_fsr = 'native'
+    
     if custom_fsr_act and native_count > 25:
         native_count -= 1
         native_count_f = f'{native_count:.0f}'
         native_res_canvas.delete('text')
         native_res_canvas.create_text(2,8,anchor='w',text=native_count_f,fill='black',tags='text')
         native_res_label_down.configure(fg='black')
+        
     edit_fsr_custom(option_quality_fsr,native_count_f)
 
 def color_native_down(event=None):
     native_res_label_down.configure(fg='#B0C4DE')
-
-def replace_clean_file():
-    clean_file = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\enable_fake_gpu',
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\enable_fake_gpu',
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\enable_fake_gpu',
-        '0.9.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\enable_fake_gpu',
-        '0.10.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\enable_fake_gpu',
-        '0.10.1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\enable_fake_gpu',
-        '0.10.1h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-        '0.10.2h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-        '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu'
-    }
-    
-    clean_file_rep = {
-        '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
-        '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-        '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
-        '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
-        '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
-        '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
-        '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
-        '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-        '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-        '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
-    }
-
-    if select_mod in clean_file and select_mod in clean_file_rep:
-        clean_file_copy = clean_file[select_mod]
-        rep_clean_file = clean_file_rep[select_mod]
-
-    if os.path.isdir(clean_file_copy ) and os.path.isdir(rep_clean_file):
-        for file_clean in os.listdir(clean_file_copy):
-            c_file = os.path.join(clean_file_copy,file_clean)
-            if os.path.isfile(c_file):
-                shutil.copy2(c_file,rep_clean_file)
-
 
 folder_fake_gpu ={
     '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -765,11 +739,14 @@ def fake_gpu_mod():
        folder_gpu = folder_fake_gpu[select_mod]  
        
     edit_fake_gpu_list = ['0.10.2h1','0.10.3']
+    
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
             toml_gpu = toml.load(file)
+            
         toml_gpu.setdefault(key_1,{})
         toml_gpu[key_1]['fake_nvidia_gpu'] = True
+        
         with open(folder_gpu,'w') as file:
             toml.dump(toml_gpu,file)
     
@@ -779,10 +756,13 @@ def fake_gpu_mod():
             file.write(sob_line)
             
     edit_old_fake_gpu_2 = ['0.9.0','0.10.0','0.10.1','0.10.1h1']
+    
     if select_mod in edit_old_fake_gpu_2:
         with open(folder_gpu, 'r') as file:
             lines_toml = file.readlines()
+            
         lines_toml[0] = sob_line+'\n'  
+        
         with open(folder_gpu,'w') as file:
             file.writelines(lines_toml)
 
@@ -797,11 +777,14 @@ def default_fake_gpu():
         folder_gpu = folder_fake_gpu[select_mod]
         
     edit_fakegpu_list = ['0.10.2h1','0.10.3']
+    
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
             toml_gpu = toml.load(file)
+            
         toml_gpu.setdefault(key_1,{})
         toml_gpu[key_1]['fake_nvidia_gpu'] = False
+        
         with open(folder_gpu,'w') as file:
             toml.dump(toml_gpu,file)
     
@@ -811,10 +794,13 @@ def default_fake_gpu():
             file.write(sob_line)
     
     edit_old_fake_gpu_2 = ['0.9.0','0.10.0','0.10.1','0.10.1h1']
+    
     if select_mod in edit_old_fake_gpu_2:
         with open(folder_gpu,'r') as file:
             lines_toml = file.readlines()
+            
         lines_toml[0] = sob_line+'\n'
+        
         with open(folder_gpu,'w') as file:
             file.writelines(lines_toml)
             
@@ -848,77 +834,53 @@ fakegpu_cbox_var = tk.IntVar()
 fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fakegpu_cbox_var,command=cbox_fakegpu)
 fakegpu_cbox.place(x=120,y=187)
 
+list_ue = {
+    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
 def edit_ue():
-    if  select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-     
-    edit_ue_list = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']   
-    if select_mod in edit_ue_list:
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)  
-                    
-        toml_d[key_1]['amd_unreal_engine_dlss_workaround'] = True
-        
-        with open (folder_toml,'w') as file:
-            toml.dump(toml_d,file) 
+    global list_ue
+    
+    ue_folder = None
+    key_1 = 'compatibility'
+    
+    if select_mod in list_ue:
+        ue_folder = list_ue[select_mod]
     else:
         messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
-        ue_cbox.deselect() 
-  
-def default_ue():
-    if  select_mod == '0.9.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.0':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.1h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    elif select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+        ue_cbox.deselect()
     
-    edit_ue_list = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']   
-    if select_mod in edit_ue_list:
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)
-            
-        toml_d[key_1]['amd_unreal_engine_dlss_workaround'] = False
-        with open(folder_toml,'w') as file: 
-            toml.dump(toml_d,file)
+    if ue_folder is not None:
+        with open(ue_folder,'r') as file:
+            toml_ue = toml.load(file)
+        toml_ue.setdefault(key_1,{})
+        toml_ue[key_1]['amd_unreal_engine_dlss_workaround'] = True
+        with open(ue_folder,'w') as file:
+            toml.dump(toml_ue,file)
+      
+def default_ue():
+    global list_ue
+    key_1 = 'compatibility'
+    
+    if select_mod in list_ue:
+        ue_folder = list_ue[select_mod]
+    
+    with open(ue_folder, 'r') as file:
+        toml_ue = toml.load(file)
+    toml_ue.setdefault(key_1,{})
+    toml_ue[key_1]['amd_unreal_engine_dlss_workaround'] = False
+    with open(ue_folder,'w') as file:
+        toml.dump(toml_ue,file)
       
 def cbox_ue():
     if ue_cbox_var.get() == 1:
-        ue_cbox_var.set == 0
         edit_ue()
-        print('0')
     else:
-        ue_cbox_var.set == 1
         default_ue()
-        print('1')
         
 ue_label = tk.Label(screen,text='UE Compatibility Mode',bg='black',font=font_select,fg='#C0C0C0')
 ue_label.place(x=200,y=185)
@@ -926,42 +888,48 @@ ue_cbox_var = tk.IntVar()
 ue_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ue_cbox_var,command=cbox_ue)
 ue_cbox.place(x=355,y=187)
 
+list_nvapi = {
+    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    }
 def edit_nvapi():
-    if select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    if select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+    global list_nvapi
     
-    if select_mod == '0.10.2h1' or select_mod == '0.10.3':
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)  
-                    
-        toml_d[key_1]['fake_nvapi_results'] = True
-        
-        with open (folder_toml,'w') as file:
-            toml.dump(toml_d,file)
+    key_nv = 'compatibility'
+    nvapi_folder = None
+    
+    if select_mod in list_nvapi:
+        nvapi_folder = list_nvapi[select_mod]
     else:
         messagebox.showwarning('Error','Please select a mod version starting from 0.10.2h.')
         nvapi_cbox.deselect()
+    
+    if nvapi_folder is not None:
+        with open(nvapi_folder,'r') as file:
+            toml_nv = toml.load(file)
+            
+        toml_nv.setdefault(key_nv,{})
+        toml_nv[key_nv]['fake_nvapi_results'] = True
+        
+        with open(nvapi_folder,'w') as file:
+            toml.dump(toml_nv,file)
 
 def default_nvapi():
-    if  select_mod == '0.10.2h1':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
-    if select_mod == '0.10.3':
-        folder_toml = 'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
-        key_1 = 'compatibility'
+    global list_nvapi
     
-    if select_mod == '0.10.2h1' or select_mod == '0.10.3':
-        with open(folder_toml,'r') as file:
-            toml_d = toml.load(file)  
-                    
-        toml_d[key_1]['fake_nvapi_results'] = False
+    key_nv = 'compatibility'
+    
+    if select_mod in list_nvapi:
+        folder_nvapi = list_nvapi[select_mod]
+    
+    with open(folder_nvapi,'r') as file:
+        toml_nv = toml.load(file)
         
-        with open (folder_toml,'w') as file:
-            toml.dump(toml_d,file)  
+    toml_nv.setdefault(key_nv,{})
+    toml_nv[key_nv]['fake_nvapi_results'] = False
+    
+    with open(folder_nvapi,'w') as file:
+        toml.dump(toml_nv,file)
       
 def cbox_nvapi():
     if nvapi_cbox_var.get() == 1:
@@ -1037,15 +1005,59 @@ macos_sup_label.place(x=200,y=215)
 macos_sup_var = tk.IntVar()
 macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
 macos_sup_cbox.place(x=372,y=217)
- 
+
+replace_flag = False 
+def rep_flag():
+    global replace_flag
+    replace_flag = True
+
+def replace_clean_file():
+    if replace_flag:
+        clean_file = {
+            '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\enable_fake_gpu',
+            '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+            '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\enable_fake_gpu',
+            '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\enable_fake_gpu',
+            '0.9.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\enable_fake_gpu',
+            '0.10.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\enable_fake_gpu',
+            '0.10.1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\enable_fake_gpu',
+            '0.10.1h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+            '0.10.2h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+            '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu'
+        }
+        
+        clean_file_rep = {
+            '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
+            '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+            '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
+            '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
+            '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
+            '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
+            '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
+            '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+            '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+            '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+        }
+
+        if select_mod in clean_file and select_mod in clean_file_rep:
+            clean_file_copy = clean_file[select_mod]
+            rep_clean_file = clean_file_rep[select_mod]
+
+        if os.path.isdir(clean_file_copy ) and os.path.isdir(rep_clean_file):
+            for file_clean in os.listdir(clean_file_copy):
+                c_file = os.path.join(clean_file_copy,file_clean)
+                if os.path.isfile(c_file):
+                    shutil.copy2(c_file,rep_clean_file)
+
 def cbox_editor():
+    global replace_flag
     if open_editor_var.get() == 1 and select_mod != None:
         screen_editor()
-        open_editor_var.set = 0
+    elif open_editor_var.get() == 0:
+        replace_flag = False
     else:
         messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
         open_editor_cbox.deselect()
-        open_editor_var.set = 1
 
 def save_file():
     global file_w
@@ -1070,10 +1082,12 @@ def open_file():
             text_editor.insert('1.0', content)
 
 def screen_editor():
-    global text_editor,default_file_path,default_path,reload
+    global text_editor,default_file_path,default_path,b_reload
     def exit_screen():
+        global replace_flag
         screen_toml.destroy()
         open_editor_cbox.deselect()
+        replace_flag = False
     
     screen_toml = tk.Tk()
     screen_toml.protocol("WM_DELETE_WINDOW",exit_screen)
@@ -1102,6 +1116,7 @@ def screen_editor():
     menubar = tk.Menu(screen_toml)
     b_reload = tk.Button(screen_toml,text='Reload',command=open_file)
     b_reload.place(x=553,y=374)
+    b_reload.bind('<Button-1>',lambda event:rep_flag())
     filemenu = tk.Menu(menubar, tearoff=0)
     filemenu.add_command(label="Save", command=save_file)
     filemenu.add_separator()
