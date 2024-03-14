@@ -7,17 +7,18 @@ import subprocess,os,shutil
 import toml
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.4v")
+screen.title("FSR3.0 Mod Setup Utility - 0.8.5v")
 screen.geometry("400x700")
-screen.iconbitmap('D:\Prog\Fsr3\images\FSR-3-Supported-GPUs-Games.ico')
+screen.iconbitmap('images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
 screen.configure(bg='black')
 
-img_bg = Image.open('D:\Prog\Fsr3\images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
+img_bg = Image.open('images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
 img_res = img_bg.resize((200,300))
 img_tk =ImageTk.PhotoImage(img_res)
 x_img = (400 - 200)//2
 y_img = (1300 - 250)//2
+
 
 bg_label = tk.Label(screen,image=img_tk,bg='black')
 bg_label.place(x=x_img,y=y_img)
@@ -74,7 +75,7 @@ def cbox_cleanup(event=None):
 def clean_mod():
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
-                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll','nvngx.ini']
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll','nvngx.ini','fsr2fsr3.log']
     
     for item in os.listdir(select_folder):
         if item in mod_clean_list:
@@ -94,7 +95,7 @@ def cbox_disable_console(event=None):
 
 def edit_disable_console():
     disable_console_list = {
-        '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+        '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
     key_disable = 'logging'
     
@@ -117,11 +118,11 @@ disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black'
 disable_console_cbox.place(x=108,y=569)
 
 lfz_list = {
-'0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
-'0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\lfz.sl.dlss',
-'0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\lfz.sl.dlss',
-'0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\lfz.sl.dlssl',
-'0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\lfz.sl.dlss',
+'0.7.4':'mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
+'0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\lfz.sl.dlss',
+'0.7.6':'mods\Temp\FSR2FSR3_0.7.6\lfz.sl.dlss',
+'0.8.0':'mods\Temp\FSR2FSR3_0.8.0\lfz.sl.dlssl',
+'0.9.0':'mods\Temp\FSR2FSR3_0.9.0\lfz.sl.dlss',
 }
 
 def copy_lfz_sl ():
@@ -165,12 +166,12 @@ def cbox_debug_tear_lines(event=None):
 
 def edit_debug_tear_lines():
     debug_tear_lines_list = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
     
     debug_tear_mod = None
@@ -201,12 +202,12 @@ def cbox_debug_view(event=None):
 def edit_debug_view():
     global var_deb_view
     debug_view_mod_list = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
     
     debug_mod_folder = None
@@ -230,7 +231,7 @@ debug_view_cbox.place(x=85,y=536)
 
 def enable_over():
     global list_over
-    folder_en_over = 'D:\Prog\Fsr3\mods\Temp\enable signature override\EnableSignatureOverride.reg'
+    folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
     list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
 
     if select_mod in list_over:
@@ -238,7 +239,7 @@ def enable_over():
 
 def disable_over():
     global list_over
-    folder_dis_over = 'D:\Prog\Fsr3\mods\Temp\disable signature override\DisableSignatureOverride.reg'
+    folder_dis_over = 'mods\Temp\disable signature override\DisableSignatureOverride.reg'
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_dis_over],capture_output=True)
         
@@ -295,13 +296,13 @@ def copy_dxgi():
     global copy_all_dxgi
     dxgi_folders = None
     dxgi_folders = {
-    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\\dxgi',
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\\dxgi',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\\dxgi',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\\dxgi',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\\dxgi',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\\dxgi'
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\\dxgi',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\\dxgi',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\\dxgi',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\dxgi',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\dxgi',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\dxgi'
     }
     dxgi_folder = dxgi_folders.get(select_mod)
     
@@ -382,14 +383,14 @@ def copy_nvngx():
     
     nvngx_folders = None
     nvngx_folders = {
-    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\\nvngx',
-    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\\nvngx',
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\\nvngx',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\\nvngx',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\\nvngx',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\\nvngx',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\\nvngx'
+    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\\nvngx',
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\\nvngx',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\\nvngx',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\\nvngx',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\nvngx',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\nvngx',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\nvngx'
     }
     nvngx_folder= nvngx_folders.get(select_mod)
     if  select_mod not in nvngx_folders:
@@ -499,12 +500,12 @@ native_res_label_down.place(x=378,y=429)
 
 def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     list_mod_custom_fsr = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'   
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'   
     }  
     mod_fsr_custom_folder = None
     if select_mod in list_mod_custom_fsr:
@@ -717,16 +718,16 @@ def color_native_down(event=None):
     native_res_label_down.configure(fg='#B0C4DE')
 
 folder_fake_gpu ={
-    '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
 }
 
 def fake_gpu_mod():
@@ -835,12 +836,12 @@ fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlig
 fakegpu_cbox.place(x=120,y=187)
 
 list_ue = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
 def edit_ue():
     global list_ue
@@ -889,8 +890,8 @@ ue_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthi
 ue_cbox.place(x=355,y=187)
 
 list_nvapi = {
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
 def edit_nvapi():
     global list_nvapi
@@ -948,12 +949,12 @@ nvapi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlight
 nvapi_cbox.place(x=120,y=217)
 
 list_macos = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
 def edit_macos():
     global list_macos
@@ -1014,29 +1015,29 @@ def rep_flag():
 def replace_clean_file():
     if replace_flag:
         clean_file = {
-            '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\enable_fake_gpu',
-            '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-            '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\enable_fake_gpu',
-            '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\enable_fake_gpu',
-            '0.9.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\enable_fake_gpu',
-            '0.10.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\enable_fake_gpu',
-            '0.10.1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\enable_fake_gpu',
-            '0.10.1h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-            '0.10.2h1':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu'
+            '0.7.4':'mods\FSR2FSR3_0.7.4\enable_fake_gpu',
+            '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+            '0.7.6':'mods\FSR2FSR3_0.7.6\enable_fake_gpu',
+            '0.8.0':'mods\FSR2FSR3_0.8.0\enable_fake_gpu',
+            '0.9.0':'mods\FSR2FSR3_0.9.0\enable_fake_gpu',
+            '0.10.0':'mods\FSR2FSR3_0.10.0\enable_fake_gpu',
+            '0.10.1':'mods\FSR2FSR3_0.10.1\enable_fake_gpu',
+            '0.10.1h1':'mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+            '0.10.2h1':'mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+            '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu'
         }
         
         clean_file_rep = {
-            '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
-            '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-            '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
-            '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
-            '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
-            '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
-            '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
-            '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-            '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+            '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
+            '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+            '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
+            '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
+            '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
+            '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
+            '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
+            '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+            '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+            '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
         }
 
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -1095,16 +1096,16 @@ def screen_editor():
     screen_toml.geometry("600x400")
 
     default_path ={
-    '0.7.4':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
-    '0.7.5':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-    '0.7.6':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
-    '0.8.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
+    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
+    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
     }
     if select_mod in default_path:
         default_file_path = os.path.join(default_path[select_mod], "fsr2fsr3.config.toml")
@@ -1158,12 +1159,12 @@ def unlock_sharp():
 def edit_sharpeness_up():
     global unlock_cbox_sharp
     list_mod_sharpness={
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }  
     if select_mod in list_mod_sharpness:
         folder_sharp = list_mod_sharpness[select_mod]
@@ -1250,12 +1251,12 @@ def edit_mod_operates():
     global select_mod_op_options,options_mod_op
     mod_operates_folder = None
     mod_folder_list = {
-    '0.9.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'D:\Prog\Fsr3\mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
     
     if select_mod in mod_folder_list:
@@ -1349,100 +1350,100 @@ def open_explorer(event=None): #Function to select the game folder and create th
 
 asi_global={
     '0.7.4':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_4\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_4\\SDK',
+        '2.0':'mods\ASI\\ASI_0_7_4\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_7_4\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_7_4\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_7_4\\SDK',
     },
     '0.7.5':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_5\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_5\\SDK',
+        '2.0':'mods\ASI\\ASI_0_7_5\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_7_5\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_7_5\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_7_5\\SDK',
     },
     '0.7.6':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_7_6\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_7_6\\SDK',
+        '2.0':'mods\ASI\\ASI_0_7_6\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_7_6\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_7_6\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_7_6\\SDK',
     },
     '0.8.0':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_8_0\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_8_0\\SDK',
+        '2.0':'mods\ASI\\ASI_0_8_0\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_8_0\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_8_0\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_8_0\\SDK',
     },
     '0.9.0':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_9_0\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+        '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
     },
     '0.10.0':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_0\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+        '2.0':'mods\ASI\\ASI_0_10_0\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
     },
     '0.10.1':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+        '2.0':'mods\ASI\\ASI_0_10_1\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
     },
     '0.10.1h1':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1h1\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+        '2.0':'mods\ASI\\ASI_0_10_1h1\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
     },
     '0.10.2h1':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_2h1\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+        '2.0':'mods\ASI\\ASI_0_10_2h1\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
     },
     '0.10.3':{
-        '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_3\\2.0',
-        '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.1',
-        '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.2',
-        'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\SDK',
-        'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+        '2.0':'mods\ASI\\ASI_0_10_3\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
+        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
     },
 }
 
 def fsr_2_2():
     origins_2_2_folder = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
+        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
         
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
+        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
         
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
+        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
         
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
+        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
         
-        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
-                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
+                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
+                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
+                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
+                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
+                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
     }
     
     if select_mod in origins_2_2_folder:
@@ -1492,31 +1493,31 @@ def fsr_2_2():
 def fsr_2_1():
     
     origins_2_1_folder = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_212',
+        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_212',
         
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_212',
+        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_212',
         
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_212',
+        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_212',
         
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_212',
+        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_212',
         
-        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
-                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
+                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_210',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_210',
+                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210',
+                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_210',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_210',
+                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210',
+                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210',
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
     }
     
     if select_mod in origins_2_1_folder:
@@ -1568,31 +1569,31 @@ def fsr_2_0():
     global select_option,asi_global
     
     origins_2_0_folder = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_201',
+        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_201',
         
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_201',
+        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_201',
         
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_201',
+        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_201',
         
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_201',
+        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_201',
         
-        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_200',
-                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_200',
+                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_200',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_200',
+                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_200',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_200',
+                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_200',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_200',
+                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_200',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_200',
+                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_200',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_200',
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
     }
     
     if select_mod in origins_2_0_folder:
@@ -1643,31 +1644,31 @@ def fsr_sdk():
     global select_fsr,asi_global
     
     origins_sdk_folder = {
-        '0.7.4':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK',
+        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK',
         
-        '0.7.5':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK',
+        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK',
         
-        '0.7.6':'D:\Prog\Fsr3\mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK',
+        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK',
         
-        '0.8.0':'D:\Prog\Fsr3\mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK',
+        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK',
         
-        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK',
-                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK',
+                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK',
+                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK',
+                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_SDK',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_SDK',
+                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK',
+                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK',
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
     }
     
     if select_mod in origins_sdk_folder:
@@ -1716,23 +1717,23 @@ def fsr_sdk():
 def fsr_rdr2():
     global select_fsr,select_mod
     origins_rdr2_folder = {
-        '0.9.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2',
-                 'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\FSR2FSR3_0.9.0\Red Dead Redemption 2',
+                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
-        '0.10.0':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2'],
+        '0.10.0':['mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON',
+                  'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2'],
         
-        '0.10.1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2'],
+        '0.10.1':['mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON',
+                    'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2'],
         
-        '0.10.1h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2'],
+        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON',
+                    'mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2'],
         
-        '0.10.2h1':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON',
-                    'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2'],
+        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON',
+                    'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2'],
         
-        '0.10.3':['D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
-                  'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2']
+        '0.10.3':['mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
+                  'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2']
     }
     
     if select_mod in origins_rdr2_folder:
@@ -1748,46 +1749,46 @@ def fsr_rdr2():
 
     asi_rdr2_0_9={
         '0.9.0':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_9_0\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_9_0\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+            '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
         },
         '0.10.0':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_0\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_0\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+            '2.0':'mods\ASI\\ASI_0_10_0\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
         },
         '0.10.1':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+            '2.0':'mods\ASI\\ASI_0_10_1\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
         },
         '0.10.1h1':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_1h1\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_1h1\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+            '2.0':'mods\ASI\\ASI_0_10_1h1\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
         },
         '0.10.2h1':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_2h1\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_2h1\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+            '2.0':'mods\ASI\\ASI_0_10_2h1\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
         },
         '0.10.3':{
-            '2.0':'D:\\Prog\\Fsr3\\mods\ASI\\ASI_0_10_3\\2.0',
-            '2.1':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.1',
-            '2.2':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\2.2',
-            'SDK':'D:\\Prog\\Fsr3\\mods\\ASI\\ASI_0_10_3\\SDK',
-            'ASI Loader for RDR2':'D:\Prog\Fsr3\mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+            '2.0':'mods\ASI\\ASI_0_10_3\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
         },
     }
 
