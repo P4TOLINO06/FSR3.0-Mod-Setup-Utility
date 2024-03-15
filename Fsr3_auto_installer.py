@@ -5,13 +5,16 @@ from tkinter.font import Font
 from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
 import toml
+import pyglet
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.8.5v")
+screen.title("FSR3.0 Mod Setup Utility - 0.9.0v")
 screen.geometry("400x700")
-screen.iconbitmap('images\FSR-3-Supported-GPUs-Games.ico')
 screen.resizable(0,0)
 screen.configure(bg='black')
+
+icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
+screen.iconphoto(True, icon_image)
 
 img_bg = Image.open('images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
 img_res = img_bg.resize((200,300))
@@ -19,14 +22,21 @@ img_tk =ImageTk.PhotoImage(img_res)
 x_img = (400 - 200)//2
 y_img = (1300 - 250)//2
 
-
 bg_label = tk.Label(screen,image=img_tk,bg='black')
 bg_label.place(x=x_img,y=y_img)
 
 title_page = tk.Label(screen, text="FSR3 Mod", font=("Arial", 10, "bold"), fg="#FFFAFA", bg="black") 
 title_page.pack(anchor='w',pady=0)
 
-font_select = Font(family='Notably Absent',size=12)
+font_path = 'Fonts/notably_absent/Notably Absent DEMO.ttf'
+
+if os.path.isfile(font_path):
+    pyglet.font.add_file(font_path)
+    font_select = Font(family='Notably Absent', size=12)
+else:
+    print("Font file not found:", font_path)
+    font_select = ('Arial', 10)
+
 select_label = tk.Label(screen, text="Game select:",font=font_select,bg='black',fg='#C0C0C0')
 select_label.pack(anchor='w',pady=10)
 
