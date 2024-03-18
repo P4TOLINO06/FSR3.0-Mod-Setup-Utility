@@ -4,6 +4,7 @@ from customtkinter import *
 from tkinter.font import Font
 from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
+from pathlib import Path
 import toml
 import pyglet
 
@@ -28,14 +29,10 @@ bg_label.place(x=x_img,y=y_img)
 title_page = tk.Label(screen, text="FSR3 Mod", font=("Arial", 10, "bold"), fg="#FFFAFA", bg="black") 
 title_page.pack(anchor='w',pady=0)
 
-font_path = 'Fonts/notably_absent/Notably Absent DEMO.ttf'
-
-if os.path.isfile(font_path):
-    pyglet.font.add_file(font_path)
-    font_select = Font(family='Notably Absent', size=12)
-else:
-    print("Font file not found:", font_path)
-    font_select = ('Arial', 10)
+pyglet.options['win32_gdi_font'] = True
+fontpath = Path(__file__).parent / r'Fonts\notably_absent\Notably Absent DEMO.ttf'
+pyglet.font.add_file(str(fontpath))
+font_select = ('Notably Absent',12)
 
 select_label = tk.Label(screen, text="Game select:",font=font_select,bg='black',fg='#C0C0C0')
 select_label.pack(anchor='w',pady=10)
