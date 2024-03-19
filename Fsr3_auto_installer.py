@@ -6,13 +6,34 @@ from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
 from pathlib import Path
 import toml
+import ctypes, sys
 import pyglet
+
+def uac():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+unlock_screen = False
+def run_as_admin():
+    global unlock_screen
+    if uac():
+        print("0")
+        unlock_screen = True
+    else:
+        unlock_screen = False
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+
+run_as_admin()
 
 screen = tk.Tk()
 screen.title("FSR3.0 Mod Setup Utility - 0.9.0v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
+if not unlock_screen:
+    sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
