@@ -28,7 +28,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 0.9.0v")
+screen.title("FSR3.0 Mod Setup Utility - 1.0v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -2371,6 +2371,9 @@ def update_dxgi(event=None):
 dxgi_op = ['DXGI DLL','D3D12 DLL']
 for dxgi_options in dxgi_op:
     dxgi_listbox.insert(tk.END,dxgi_options)
+    
+def exit_screen(event=None):
+    sys.exit()
 
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
@@ -2448,7 +2451,7 @@ lfz_sl_label.bind('<Leave>',close_lfz_guide)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
 
-exit_label.bind('<Button-1>',sys.exit)
+exit_label.bind('<Button-1>',exit_screen)
 
 #screen.bind('<Button-1>',close_all_listbox)
 
