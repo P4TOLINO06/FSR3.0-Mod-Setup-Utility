@@ -28,12 +28,12 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.0v")
+screen.title("FSR3.0 Mod Setup Utility - 1.0.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
-if not unlock_screen:
-    sys.exit()
+#if not unlock_screen:
+    #sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
@@ -1742,9 +1742,7 @@ def fsr_sdk():
     except Exception as e:
         print(e)
 
-def fsr_rdr2():
-    global select_fsr,select_mod
-    origins_rdr2_folder = {
+origins_rdr2_folder = {
         '0.9.0':['mods\FSR2FSR3_0.9.0\Red Dead Redemption 2',
                  'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
         
@@ -1763,6 +1761,9 @@ def fsr_rdr2():
         '0.10.3':['mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
                   'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2']
     }
+
+def fsr_rdr2():
+    global select_fsr,select_mod,origins_rdr2_folder
     
     if select_mod in origins_rdr2_folder:
         origins_rdr2 = origins_rdr2_folder[select_mod]
@@ -1774,7 +1775,7 @@ def fsr_rdr2():
                     shutil.copy2(item_path,select_folder)
     except Exception as e:
         print(e)
-
+        
     asi_rdr2_0_9={
         '0.9.0':{
             '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
@@ -1843,14 +1844,29 @@ def fsr_rdr2():
                     print("Files from directory", asi_origin_rdr2_0_9, "were copied.")
     except Exception as e:
         print(e)  
-         
+
+rdr2_folder = {"RDR2 Build_2":'mods\Red_Dead_Redemption_2_Build02'}
+def rdr2_build2():
+    global rdr2_folder
+    
+    for b2_k, b2_v in rdr2_folder.items():
+        b2_path = b2_v
+    
+    for item in os.listdir(b2_path):
+        origem_arquivo = os.path.join(b2_path, item)
+        destino_arquivo = os.path.join(select_folder, item)
+        if os.path.isdir(origem_arquivo):
+            shutil.copytree(origem_arquivo, destino_arquivo)
+        else:
+            shutil.copy2(origem_arquivo, destino_arquivo)
+
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2',
-               'Hogwarts Legacy','Horizon Zero Dawn','Lords of The Fallen','Metro Exodus Enhanced Edition',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2',
+               'Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
                'Palworld','Remnant II','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
 
-fsr_2_1_opt=['Dead Space (2023)','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
+fsr_2_1_opt=['Alone in the Dark','Dead Space (2023)','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
 
 fsr_2_0_opt = ['The Witcher 3','Dying Light 2']
 
@@ -2025,6 +2041,7 @@ def close_lfz_guide(event=None):
     
 def install(event=None):
     global install_contr
+    print(select_mod)
     try:
         install_contr = True
         if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
@@ -2035,8 +2052,10 @@ def install(event=None):
             fsr_2_0()
         elif select_option in fsr_sdk_opt or select_fsr in fsr_sct_SDK and install_contr:
             fsr_sdk()
-        elif select_fsr in fsr_sct_rdr2 or select_option in fsr_sct_rdr2 and install_contr:
+        elif select_fsr in fsr_sct_rdr2 and select_mod in origins_rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in origins_rdr2_folder and install_contr:
             fsr_rdr2()
+        elif select_fsr in fsr_sct_rdr2 and select_mod in rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in rdr2_folder and install_contr:
+            rdr2_build2()
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -2162,13 +2181,16 @@ def fsr_listbox_visible(event):
             fsr_visible = True
 
 fsr_game_version={
-    'Horizon Zero Dawn':'2.2',
+    'Horizon Zero Dawn':'2.1',
+    'Horizon Forbidden West':'2.2',
     'The Last of Us':'2.1',
     'Uncharted: Legacy of Thievs':'2.1',
     'A Plague Tale Requiem':'2.2',
     'Alan Wake 2':'2.2',
+    'Alone in the Dark':'2.1',
     'Assassin\'s Creed Mirage':'2.2',
     'Atomic Heart':'2.2',
+    'Banishers: Ghosts of New Eden':'2.2',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Dead Space (2023)':'2.1',
@@ -2233,16 +2255,17 @@ def update_canvas(event=None):#canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
-        mod_version_listbox.insert(tk.END,'0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3')
     else:
+        mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
         for mod_op in mod_options:
             mod_version_listbox.insert(tk.END,mod_op)
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
-        'Horizon Zero Dawn','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Palworld','Ratchet & Clank-Rift Apart',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
+        'Horizon Zero Dawn','Horizon Forbidden West','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
     listbox.insert(tk.END,option)
