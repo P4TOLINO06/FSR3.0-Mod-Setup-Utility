@@ -28,12 +28,12 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.0.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.0.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
-#if not unlock_screen:
-    #sys.exit()
+if not unlock_screen:
+    sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
@@ -1862,13 +1862,13 @@ def rdr2_build2():
 
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2',
-               'Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
-               'Palworld','Remnant II','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
+               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2','FIST: Forged In Shadow Torch',
+               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
+               'Palworld','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
 
-fsr_2_1_opt=['Alone in the Dark','Dead Space (2023)','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
+fsr_2_1_opt=['Alone in the Dark','Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
 
-fsr_2_0_opt = ['The Witcher 3','Dying Light 2']
+fsr_2_0_opt = ['The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Death Stranding Director\'s Cut','Nightingale']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -2191,15 +2191,21 @@ fsr_game_version={
     'Assassin\'s Creed Mirage':'2.2',
     'Atomic Heart':'2.2',
     'Banishers: Ghosts of New Eden':'2.2',
+    'Brothers: A Tale of Two Sons Remake':'2.0',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
+    'Death Stranding Director\'s Cut':'2.0',
     'Dead Space (2023)':'2.1',
     'Dying Light 2':'2.0',
+    'FIST: Forged In Shadow Torch':'2.2',
+    'Fort Solis':'2.2',
+    'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
     'Lords of the Fallen':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
     'Marvel\'s Spider-Man: Miles Morales':'2.1',
     'Metro Exodus Enhanced Edition': '2.2',
+    'Nightingale':'2.0',
     'Palworld':'2.2',
     'Ratchet & Clank-Rift Apart':'SDK',
     'Red Dead Redemption 2':'RDR2',
@@ -2208,9 +2214,11 @@ fsr_game_version={
     'Returnal':'2.1',
     'RoboCop: Rogue City':'2.2',
     'Satisfactory':'2.2',
+    'Sackboy: A Big Adventure':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
     'TEKKEN 8':'2.2',
+    'The Callisto Protocol':'2.2',
     'The Last of Us':'2.1',
     'The Medium':'2.2',
     'The Witcher 3':'2.0',
@@ -2264,9 +2272,9 @@ def update_canvas(event=None):#canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dead Space (2023)','Dying Light 2','Hogwarts Legacy',
-        'Horizon Zero Dawn','Horizon Forbidden West','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
+        'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
