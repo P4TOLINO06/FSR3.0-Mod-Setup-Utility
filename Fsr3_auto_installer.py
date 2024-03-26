@@ -28,12 +28,15 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.0.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
-if not unlock_screen:
+def exit_screen(event=None):
     sys.exit()
+screen.protocol('WM_DELETE_WINDOW',exit_screen)
+if not unlock_screen:
+   sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
@@ -68,6 +71,167 @@ exit_label.place(x=350,y=626)
 
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
 install_label.place(x=290,y=626)
+
+def exit_fsr_guide(event=None):
+    global exit_fsr_guide
+    screen_guide.destroy()
+    fsr_guide_cbox.deselect()
+
+def select_guide():
+    global select_game_listbox,select_game_canvas,s_games_op
+    
+    select_game_label = tk.Label(screen_guide,text='Select Game:',font=font_select,bg='black',fg='#C0C0C0')
+    select_game_label.place(x=0,y=0)
+    
+    select_game_canvas = tk.Canvas(screen_guide,width=162,height=19,bg='white',highlightthickness=0)
+    select_game_canvas.place(x=90,y=5)
+   
+    select_game_listbox = tk.Listbox(screen_guide,width=25,height=10,bg='white',highlightthickness=0)
+    select_game_listbox.place(x=90,y=28)
+    select_game_listbox.place_forget()
+    
+    scroll_s_games_listbox = tk.Scrollbar(select_game_listbox,orient=tk.VERTICAL,command=select_game_listbox.yview)
+    scroll_s_games_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(144,0),pady=(6,26))
+    select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
+    scroll_s_games_listbox.config(command=select_game_listbox.yview)
+    
+    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Ready or Not','Red Dead Redemption 2','Returnal',
+                'Sackboy: A Big Adventure','Star Wars: Jedi Survivor',]
+    for select_games_op in s_games_op:  
+        select_game_listbox.insert(tk.END,select_games_op)
+    
+    select_game_listbox.bind('<<ListboxSelect>>',update_select_game)
+    select_game_canvas.bind('<Button-1>',view_listbox_s_games)
+    update_select_game()
+    
+    select_game_canvas.update()
+
+s_games_listbox_view = False
+def view_listbox_s_games(event=None):
+    global s_games_listbox_view
+    if s_games_listbox_view:
+        select_game_listbox.place_forget()
+        s_games_listbox_view = False
+    else:
+        select_game_listbox.place(x=90,y=28)
+        s_games_listbox_view = True
+
+def update_select_game(event=None):
+    global select_game_canvas,select_game
+    
+    select_game = None
+    index_select_game = select_game_listbox.curselection()
+    if index_select_game:
+        select_game = select_game_listbox.get(index_select_game)
+        select_game_canvas.delete('text')
+        select_game_canvas.create_text(2,8,anchor='w',text=select_game,fill='black',tags='text')
+    text_guide()
+ 
+guide_label = None   
+def text_guide():
+    global select_game, s_games_op,screen_guide,guide_label
+    
+    list_game = {
+'Alone in the Dark':(
+"1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n"
+"2 - Enable the 'Enable Signature Override' checkbox.\n"
+"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
+"4 - Set FSR in the game settings.\n"
+"5 - If the mod doesn't work, select one of the nvngx.dll options."
+),
+
+'Dead Space Remake':(
+"1 - Select a version of the mod of your choice (versions from 0.9.0 onwards \nare recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
+"4 - If the mod doesn't work, select one of the nvngx.dll options."  
+    
+),
+
+'Dying Light 2': (      
+"1 - Select a version of the mod of your choice (versions from 0.7.6 onwards \nare recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"  
+),
+
+'Red Dead Redemption 2':(
+  "1 - Launch the game, go to settings turn off Triple buffering + V-sync,\n unlock advanced settings, and change API to DX12 Then restart the game,\n turn on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
+"•Attention,don't install another version of the Reshade app after using this mod\n\n"
+"If your game is still not open after turning Off Afterburner and Rivatuner, \ntry setting Run this program as administrator and Run this program in \ncompatibility mode for Windows 7 of the Compatibility tab of the Properties \nin the right mouse menu\n"
+"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n"
+"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n"  
+),
+
+'Hogwarts legacy':(
+"1 - Choose a version of the mod you prefer (versions from 0.9.0 onwards \nare recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
+"4 - Select an option nvngx.dll."
+),
+
+'Returnal':(
+"1 - Choose a version of the mod you prefer (version 0.10.3 is recommended).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"3 - Select an option nvngx.dll."
+),
+
+'Star Wars: Jedi Survivor':(
+"1 - Choose a version of the mod you prefer (Recommended version 0.10.2 or\nhigher).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"3 - Select an option nvngx.dll."
+),
+
+'Sackboy: A Big Adventure':(
+'1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n'
+'2 - Select the game folder that has the ending "\GingerBread\Binaries\Win64".\n'
+'3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
+'4 - In "Mod Operates", select "Replace Dlss FG".\n'
+'5 - Select an option nvngx.dll.\n'
+'6 - Enable the "Enable Signature Override" checkbox if the mod doesn\'t work.\n'
+),
+
+'Ready or Not': (
+'1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n'
+'2 - Select the game folder that has the ending "\ReadyOrNot\Binaries\Win64".\n'
+'3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
+'4 - Set Anti-Aliasing to High or Epic + FSR2 Quality (DLSS won\'t work with UI \nflickering fix).\n'
+'5 - UI flickering fix: Change Anti-Aliasing from Epic or High to Medium.\n'
+'After launching the game again, you need to set Anti-Aliasing back to High or \nEpic to activate the mod before playing the character.'),
+    } 
+     
+    if select_game in list_game:
+        guide_text = list_game[select_game]
+    else:
+        guide_text = ""
+    
+    if not guide_label:
+        guide_label = tk.Label(screen_guide, text="", font=('Verdana', 9), bg='black', fg='white', justify='left')
+        guide_label.place(x=0, y=130)
+    
+    guide_label.config(text="")
+    
+    guide_label.config(text=guide_text)
+    
+def fsr_guide(event=None):
+    global fsr_guide_cbox,screen_guide
+    
+    if fsr_guide_var.get() == 1:
+        screen_guide = tk.Tk()
+        screen_guide.title('Guide Fsr')
+        screen_guide.geometry('510x400')
+        screen_guide.configure(bg='black')
+        screen_guide.resizable(0,0)
+        select_guide()
+        if fsr_guide_var.get() == 1:
+            screen_guide.protocol('WM_DELETE_WINDOW',exit_fsr_guide)
+    else:
+        screen_guide.destroy()
+ 
+fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
+fsr_guide_label.place(x=200,y=566)
+fsr_guide_var = tk.IntVar()
+fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
+fsr_guide_cbox.place(x=275,y=568)
 
 def cbox_del_dxgi(event=None):
     if del_dxgi_var.get() == 1: 
@@ -1864,11 +2028,11 @@ install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
-               'Palworld','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
 
-fsr_2_1_opt=['Alone in the Dark','Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Ready or Not','Returnal','The Last of Us',]
+fsr_2_1_opt=['Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us',]
 
-fsr_2_0_opt = ['The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Death Stranding Director\'s Cut','Nightingale']
+fsr_2_0_opt = ['Alone in the Dark','The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Death Stranding Director\'s Cut','Nightingale']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -2187,7 +2351,7 @@ fsr_game_version={
     'Uncharted: Legacy of Thievs':'2.1',
     'A Plague Tale Requiem':'2.2',
     'Alan Wake 2':'2.2',
-    'Alone in the Dark':'2.1',
+    'Alone in the Dark':'2.0',
     'Assassin\'s Creed Mirage':'2.2',
     'Atomic Heart':'2.2',
     'Banishers: Ghosts of New Eden':'2.2',
@@ -2209,7 +2373,7 @@ fsr_game_version={
     'Palworld':'2.2',
     'Ratchet & Clank-Rift Apart':'SDK',
     'Red Dead Redemption 2':'RDR2',
-    'Ready or Not':'2.1',
+    'Ready or Not':'2.2',
     'Remnant II':'2.2',
     'Returnal':'2.1',
     'RoboCop: Rogue City':'2.2',
@@ -2402,9 +2566,6 @@ def update_dxgi(event=None):
 dxgi_op = ['DXGI DLL','D3D12 DLL']
 for dxgi_options in dxgi_op:
     dxgi_listbox.insert(tk.END,dxgi_options)
-    
-def exit_screen(event=None):
-    sys.exit()
 
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
