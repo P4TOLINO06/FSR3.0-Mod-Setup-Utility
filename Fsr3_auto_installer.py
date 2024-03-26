@@ -8,8 +8,9 @@ from pathlib import Path
 import toml
 import ctypes, sys
 import pyglet
+import textwrap
 
-def uac():
+'''def uac():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
@@ -26,17 +27,17 @@ def run_as_admin():
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
 
 run_as_admin()
-
+'''
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.1.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
     sys.exit()
 screen.protocol('WM_DELETE_WINDOW',exit_screen)
-if not unlock_screen:
-   sys.exit()
+#if not unlock_screen:
+   #sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
@@ -72,22 +73,45 @@ exit_label.place(x=350,y=626)
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
 install_label.place(x=290,y=626)
 
-def exit_fsr_guide(event=None):
-    global exit_fsr_guide
-    screen_guide.destroy()
-    fsr_guide_cbox.deselect()
+fsr_guide_cbox = None
+screen_guide = None
+fsr_guide_var = None
+guide_label = None
+def fsr_guide(event=None):
+    global fsr_guide_cbox,screen_guide,fsr_guide_var
+    
+    if fsr_guide_var.get() == 1:
+        if screen_guide is None:
+            screen_guide = tk.Toplevel()
+            screen_guide.title('GUIDE FSR')
+            screen_guide.geometry('520x260')
+            screen_guide.configure(bg='black')
+            screen_guide.resizable(0,0)
+            screen_guide.protocol('WM_DELETE_WINDOW', exit_fsr_guide)
+            select_guide()
+        else:
+            screen_guide.deiconify()  # Exibir a janela se já estiver criada
+    else:
+        if screen_guide is not None:
+            screen_guide.withdraw()
+
+fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
+fsr_guide_label.place(x=200,y=566)
+fsr_guide_var = tk.IntVar()
+fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
+fsr_guide_cbox.place(x=275,y=568)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op
     
-    select_game_label = tk.Label(screen_guide,text='Select Game:',font=font_select,bg='black',fg='#C0C0C0')
-    select_game_label.place(x=0,y=0)
+    select_game_label = tk.Label(screen_guide,text='Select Game',font=font_select,bg='black',fg='#C0C0C0')
+    select_game_label.place(x=35,y=0)
     
     select_game_canvas = tk.Canvas(screen_guide,width=162,height=19,bg='white',highlightthickness=0)
-    select_game_canvas.place(x=90,y=5)
+    select_game_canvas.place(x=0,y=30)
    
     select_game_listbox = tk.Listbox(screen_guide,width=25,height=10,bg='white',highlightthickness=0)
-    select_game_listbox.place(x=90,y=28)
+    select_game_listbox.place(x=0,y=50)
     select_game_listbox.place_forget()
     
     scroll_s_games_listbox = tk.Scrollbar(select_game_listbox,orient=tk.VERTICAL,command=select_game_listbox.yview)
@@ -113,7 +137,7 @@ def view_listbox_s_games(event=None):
         select_game_listbox.place_forget()
         s_games_listbox_view = False
     else:
-        select_game_listbox.place(x=90,y=28)
+        select_game_listbox.place(x=0,y=50)
         s_games_listbox_view = True
 
 def update_select_game(event=None):
@@ -127,111 +151,104 @@ def update_select_game(event=None):
         select_game_canvas.create_text(2,8,anchor='w',text=select_game,fill='black',tags='text')
     text_guide()
  
-guide_label = None   
 def text_guide():
     global select_game, s_games_op,screen_guide,guide_label
     
     list_game = {
 'Alone in the Dark':(
-"1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n"
+"1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - Set FSR in the game settings.\n"
-"5 - If the mod doesn't work, select one of the nvngx.dll options."
+"5 - If the mod doesn't work, select one of the nvngx.dll\noptions."
 ),
 
 'Dead Space Remake':(
-"1 - Select a version of the mod of your choice (versions from 0.9.0 onwards \nare recommended to fix UI flickering).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"1 - Select a version of the mod of your choice (versions\nfrom 0.9.0 onwards \nare recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - If the mod doesn't work, select one of the nvngx.dll options."  
     
 ),
 
 'Dying Light 2': (      
-"1 - Select a version of the mod of your choice (versions from 0.7.6 onwards \nare recommended to fix UI flickering).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"1 - Select a version of the mod of your choice (versions from\n0.7.6 onwards are recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"  
 ),
 
 'Red Dead Redemption 2':(
-  "1 - Launch the game, go to settings turn off Triple buffering + V-sync,\n unlock advanced settings, and change API to DX12 Then restart the game,\n turn on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
+  "1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
 "•Attention,don't install another version of the Reshade app after using this mod\n\n"
-"If your game is still not open after turning Off Afterburner and Rivatuner, \ntry setting Run this program as administrator and Run this program in \ncompatibility mode for Windows 7 of the Compatibility tab of the Properties \nin the right mouse menu\n"
-"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n"
+"If your game is still not open after turning Off Afterburner and Rivatuner, try\nsetting Run this program as administrator and Run this program in compatibility\nmode for Windows 7 of the Compatibility tab of the Properties in the right\nmouse menu.\n\n"
+"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
 "3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n"  
 ),
 
 'Hogwarts legacy':(
-"1 - Choose a version of the mod you prefer (versions from 0.9.0 onwards \nare recommended to fix UI flickering).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"1 - Select a version of the mod of your choice (versions from 0.9.0\nonwards are recommended to fix UI flickering).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the mod\ndoesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - Select an option nvngx.dll."
 ),
 
 'Returnal':(
-"1 - Choose a version of the mod you prefer (version 0.10.3 is recommended).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Select an option nvngx.dll."
 ),
 
 'Star Wars: Jedi Survivor':(
-"1 - Choose a version of the mod you prefer (Recommended version 0.10.2 or\nhigher).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the mod doesn't work.\n"
+"1 - Choose a version of the mod you prefer (Recommended\nversion 0.10.2 or\nhigher).\n"
+"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Select an option nvngx.dll."
 ),
 
 'Sackboy: A Big Adventure':(
-'1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n'
-'2 - Select the game folder that has the ending "\GingerBread\Binaries\Win64".\n'
+'1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n'
+'2 - Select the game folder that has the ending\n"\GingerBread\Binaries\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
 '4 - In "Mod Operates", select "Replace Dlss FG".\n'
 '5 - Select an option nvngx.dll.\n'
-'6 - Enable the "Enable Signature Override" checkbox if the mod doesn\'t work.\n'
+'6 - Enable the "Enable Signature Override" checkbox if the\nmod doesn\'t work.\n'
 ),
 
 'Ready or Not': (
-'1 - Select a version of the mod of your choice (version 0.10.3 is recommended).\n'
-'2 - Select the game folder that has the ending "\ReadyOrNot\Binaries\Win64".\n'
+'1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
+'2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
-'4 - Set Anti-Aliasing to High or Epic + FSR2 Quality (DLSS won\'t work with UI \nflickering fix).\n'
-'5 - UI flickering fix: Change Anti-Aliasing from Epic or High to Medium.\n'
-'After launching the game again, you need to set Anti-Aliasing back to High or \nEpic to activate the mod before playing the character.'),
-    } 
+'4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
+'5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
+'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'),
+    }    
      
     if select_game in list_game:
         guide_text = list_game[select_game]
     else:
         guide_text = ""
+    if select_game == 'Red Dead Redemption 2':
+        screen_guide.geometry('650x355')
+    elif select_game == 'Dead Space Remake':
+        screen_guide.geometry('530x260')
+    elif select_game == 'Hogwarts legacy':
+        screen_guide.geometry('550x260')
+    else:
+        screen_guide.geometry('520x260')
     
-    if not guide_label:
-        guide_label = tk.Label(screen_guide, text="", font=('Verdana', 9), bg='black', fg='white', justify='left')
-        guide_label.place(x=0, y=130)
-    
-    guide_label.config(text="")
+    if guide_label is None:
+        guide_label = tk.Label(screen_guide, text="", font=('Helvetica', 10), bg='black', fg='#F0FFF0', justify='left')
+        guide_label.place(x=165, y=28) 
     
     guide_label.config(text=guide_text)
     
-def fsr_guide(event=None):
-    global fsr_guide_cbox,screen_guide
+def exit_fsr_guide(event=None):
+    global screen_guide,guide_label
     
-    if fsr_guide_var.get() == 1:
-        screen_guide = tk.Tk()
-        screen_guide.title('Guide Fsr')
-        screen_guide.geometry('510x400')
-        screen_guide.configure(bg='black')
-        screen_guide.resizable(0,0)
-        select_guide()
-        if fsr_guide_var.get() == 1:
-            screen_guide.protocol('WM_DELETE_WINDOW',exit_fsr_guide)
-    else:
+    if screen_guide:
         screen_guide.destroy()
- 
-fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=200,y=566)
-fsr_guide_var = tk.IntVar()
-fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=275,y=568)
+        fsr_guide_cbox.deselect()
+        screen_guide = None
+        guide_label = None
 
 def cbox_del_dxgi(event=None):
     if del_dxgi_var.get() == 1: 
