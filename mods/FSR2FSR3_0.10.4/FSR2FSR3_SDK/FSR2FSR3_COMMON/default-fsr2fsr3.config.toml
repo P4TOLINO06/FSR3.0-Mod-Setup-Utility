@@ -1,0 +1,59 @@
+
+[general]
+#Changes how the mod operates. Allowed values: default, enable_upscaling_only, replace_dlss_fg, use_game_upscaling
+
+#default - How the mod used to operate. DLSS/FSR inputs used for FSR3 Upscaling and FSR3 Frame Generation.
+#enable_upscaling_only - same as default mode, but enables only FSR3 upscaling, FSR3 FG is disabled
+#replace_dlss_fg - for mixing other upscalers like DLSS or XeSS with FSR3 Frame Generation in games that have NATIVE DLSS3 Frame Generation, no HUD ghosting
+#use_game_upscaling - same as replace_dlss_fg, but for games WITHOUT Native DLSS3FG, there will be HUD ghosting
+
+mode = "default"
+
+#default value is -1.0, override disabled, uses game sharpening
+#values 0.0-1.0, 0.0 disables sharpening completely, 1.0 max sharpening
+
+sharpness_override = -1.0
+
+
+
+[resolution_override]
+#default values - native = 1.0, quality = 0.666667, balanced = 0.588235, performance = 0.5, ultra_performance = 0.333333, ultra_quality = 0.769231
+
+native = 1.0
+quality = 0.666667
+balanced = 0.588235
+performance = 0.5
+ultra_performance = 0.333333
+ultra_quality = 0.769231
+
+
+
+[compatibility]
+#enable GPU proxy/spoof, show as Nvidia 40-series, default = false
+
+fake_nvidia_gpu = false
+
+#only relevant for GTX users who had issues with DLSS/FG not being selectable, default = false
+
+fake_nvapi_results = false
+
+#workaround for xmas/disco graphical artifacts in Unreal Engine games when selecting DLSS, default = false
+
+amd_unreal_engine_dlss_workaround = false
+
+#enable macOS-specific compatibility tweaks, default = false
+
+macos_crossover_support = false
+
+[logging]
+#disable the CMD that autostarts on game boot, default = false
+
+disable_console = false
+
+[debug]
+#for enabling FSR3FG debug overlay, default = false
+
+enable_debug_view = false
+enable_debug_tear_lines = false
+
+

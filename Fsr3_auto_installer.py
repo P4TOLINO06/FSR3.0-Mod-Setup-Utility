@@ -8,9 +8,8 @@ from pathlib import Path
 import toml
 import ctypes, sys
 import pyglet
-import textwrap
 
-'''def uac():
+def uac():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
@@ -27,17 +26,17 @@ def run_as_admin():
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
 
 run_as_admin()
-'''
+
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.1.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.1.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
     sys.exit()
 screen.protocol('WM_DELETE_WINDOW',exit_screen)
-#if not unlock_screen:
-   #sys.exit()
+if not unlock_screen:
+   sys.exit()
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
@@ -90,7 +89,7 @@ def fsr_guide(event=None):
             screen_guide.protocol('WM_DELETE_WINDOW', exit_fsr_guide)
             select_guide()
         else:
-            screen_guide.deiconify()  # Exibir a janela se já estiver criada
+            screen_guide.deiconify() 
     else:
         if screen_guide is not None:
             screen_guide.withdraw()
@@ -102,7 +101,7 @@ fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highl
 fsr_guide_cbox.place(x=275,y=568)
 
 def select_guide():
-    global select_game_listbox,select_game_canvas,s_games_op
+    global select_game_listbox,select_game_canvas,s_games_op,select_game_label
     
     select_game_label = tk.Label(screen_guide,text='Select Game',font=font_select,bg='black',fg='#C0C0C0')
     select_game_label.place(x=35,y=0)
@@ -126,20 +125,20 @@ def select_guide():
     
     select_game_listbox.bind('<<ListboxSelect>>',update_select_game)
     select_game_canvas.bind('<Button-1>',view_listbox_s_games)
-    update_select_game()
     
     select_game_canvas.update()
 
 s_games_listbox_view = False
 def view_listbox_s_games(event=None):
     global s_games_listbox_view
+    
     if s_games_listbox_view:
         select_game_listbox.place_forget()
         s_games_listbox_view = False
     else:
         select_game_listbox.place(x=0,y=50)
         s_games_listbox_view = True
-
+        
 def update_select_game(event=None):
     global select_game_canvas,select_game
     
@@ -221,7 +220,7 @@ def text_guide():
 '5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
 'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'),
     }    
-     
+    
     if select_game in list_game:
         guide_text = list_game[select_game]
     else:
@@ -284,11 +283,15 @@ def cbox_cleanup(event=None):
 def clean_mod():
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
-                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','d3d12.dll','nvngx.ini','fsr2fsr3.log']
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
+                      'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler']
     
     for item in os.listdir(select_folder):
         if item in mod_clean_list:
             os.remove(os.path.join(select_folder,item))
+        elif item == 'uniscaler':
+            uni_del = os.path.join(select_folder,item)
+            shutil.rmtree(uni_del)
 
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
@@ -1624,9 +1627,20 @@ asi_global={
         'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
         'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
     },
+    '0.10.4':{
+        '2.0':'mods\ASI\\ASI_0_10_4\\2.0',
+        '2.1':'mods\\ASI\\ASI_0_10_4\\2.1',
+        '2.2':'mods\\ASI\\ASI_0_10_4\\2.2',
+        'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
+    },
+    'Uniscaler':{
+        'Uniscaler':'mods\\ASI\\ASI_uniscaler'
+    }
 }
 
 def fsr_2_2():
+    origins_2_2 = None
+    
     origins_2_2_folder = {
         '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
         
@@ -1652,29 +1666,40 @@ def fsr_2_2():
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
         '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        
+        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
+                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
+        
+        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_2_folder:
         origins_2_2 = origins_2_2_folder[select_mod]
     
-    try:
-        if isinstance(origins_2_2,list):
-            for folder_2_2 in origins_2_2:
-                if os.path.isdir(folder_2_2):
-                    for file_2_2 in os.listdir(folder_2_2):
-                        path_2_2 = os.path.join(folder_2_2,file_2_2)
-                        if os.path.isfile(path_2_2):
-                            shutil.copy2(path_2_2,select_folder)
-        else:
-            if os.path.isdir(origins_2_2):
-                for file_2_2 in os.listdir(origins_2_2):
-                    path_fsr_2_2 = os.path.join(origins_2_2,file_2_2)
-                    if os.path.isfile(path_fsr_2_2):
-                        shutil.copy2(path_fsr_2_2,select_folder)
-    except Exception as e:
-        print(e)
-        
+    if select_mod !='Uniscaler':
+        try:
+            if isinstance(origins_2_2,list):
+                for folder_2_2 in origins_2_2:
+                    if os.path.isdir(folder_2_2):
+                        for file_2_2 in os.listdir(folder_2_2):
+                            path_2_2 = os.path.join(folder_2_2,file_2_2)
+                            if os.path.isfile(path_2_2):
+                                shutil.copy2(path_2_2,select_folder)
+            else:
+                if os.path.isdir(origins_2_2):
+                    for file_2_2 in os.listdir(origins_2_2):
+                        path_fsr_2_2 = os.path.join(origins_2_2,file_2_2)
+                        if os.path.isfile(path_fsr_2_2):
+                            shutil.copy2(path_fsr_2_2,select_folder)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            shutil.copytree(origins_2_2, select_folder, dirs_exist_ok=True)
+        except shutil.Error as e:
+            print(e)
+    
     if select_mod in asi_global and(select_asi  in asi_global[select_mod] or option_asi in asi_global[select_mod]):
         if select_mod in asi_global[select_mod]:
             origins_2_2_f = asi_global[select_mod][select_asi]
@@ -1726,28 +1751,39 @@ def fsr_2_1():
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
         '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        
+        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_210',
+                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_COMMON'],
+        
+        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_1_folder:
         origins_2_1 = origins_2_1_folder[select_mod]
     
-    try:
-        if isinstance(origins_2_1,list):
-            for folder_2_1 in origins_2_1:
-                if os.path.isdir(folder_2_1):
-                    for file_2_1 in os.listdir(folder_2_1):
-                        path_2_1 = os.path.join(folder_2_1,file_2_1)
-                        if os.path.isfile(path_2_1):
-                            shutil.copy2(path_2_1,select_folder)
-        else:
-            if os.path.isdir(origins_2_1):
-                for file_2_1 in os.listdir(origins_2_1):
-                    path_fsr_2_1 = os.path.join(origins_2_1,file_2_1)
-                    if os.path.isfile(path_fsr_2_1):
-                        shutil.copy2(path_fsr_2_1,select_folder)
-    except Exception as e:
-        print(e)
+    if select_mod != 'Uniscaler':
+        try:
+            if isinstance(origins_2_1,list):
+                for folder_2_1 in origins_2_1:
+                    if os.path.isdir(folder_2_1):
+                        for file_2_1 in os.listdir(folder_2_1):
+                            path_2_1 = os.path.join(folder_2_1,file_2_1)
+                            if os.path.isfile(path_2_1):
+                                shutil.copy2(path_2_1,select_folder)
+            else:
+                if os.path.isdir(origins_2_1):
+                    for file_2_1 in os.listdir(origins_2_1):
+                        path_fsr_2_1 = os.path.join(origins_2_1,file_2_1)
+                        if os.path.isfile(path_fsr_2_1):
+                            shutil.copy2(path_fsr_2_1,select_folder)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            shutil.copytree(origins_2_1, select_folder, dirs_exist_ok=True)     
+        except shutil.Error as e:
+            print(e)
       
     origins_2_1_f  = None
     if select_mod in asi_global and(select_asi  in asi_global[select_mod] or option_asi in asi_global[select_mod]):
@@ -1802,28 +1838,39 @@ def fsr_2_0():
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
         '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_200',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        
+        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_200',
+                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_COMMON'],
+        
+        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_0_folder:
         origins_2_0 = origins_2_0_folder[select_mod]
-        
-    try:
-        if isinstance(origins_2_0,list):
-            for folder_2_0 in origins_2_0:
-                if os.path.isdir(folder_2_0):
-                    for file_2_0 in os.listdir(folder_2_0):
-                        path_fsr_2_0 = os.path.join(folder_2_0,file_2_0)
-                        if os.path.isfile(path_fsr_2_0):
-                            shutil.copy2(path_fsr_2_0,select_folder)
-        else:
-            if os.path.isdir(origins_2_0):
-                for path_2_0 in os.listdir(origins_2_0):
-                        path_fsr_2_0 = os.path.join(origins_2_0,path_2_0)
-                        if os.path.isfile(path_fsr_2_0):
-                            shutil.copy2(path_fsr_2_0,select_folder)
-    except Exception as e:
-        print(e)
+     
+    if select_mod != 'Uniscaler':   
+        try:
+            if isinstance(origins_2_0,list):
+                for folder_2_0 in origins_2_0:
+                    if os.path.isdir(folder_2_0):
+                        for file_2_0 in os.listdir(folder_2_0):
+                            path_fsr_2_0 = os.path.join(folder_2_0,file_2_0)
+                            if os.path.isfile(path_fsr_2_0):
+                                shutil.copy2(path_fsr_2_0,select_folder)
+            else:
+                if os.path.isdir(origins_2_0):
+                    for path_2_0 in os.listdir(origins_2_0):
+                            path_fsr_2_0 = os.path.join(origins_2_0,path_2_0)
+                            if os.path.isfile(path_fsr_2_0):
+                                shutil.copy2(path_fsr_2_0,select_folder)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            shutil.copytree(origins_2_0, select_folder, dirs_exist_ok=True)
+        except shutil.Error as e:
+            print(e)
     
     if select_mod in asi_global and(select_asi  in asi_global[select_mod] or option_asi in asi_global[select_mod]):
         if select_mod in asi_global[select_mod]:
@@ -1877,28 +1924,39 @@ def fsr_sdk():
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
         
         '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON']
+                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        
+        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_SDK',
+                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_COMMON'],
+        
+        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_sdk_folder:
         origins_sdk = origins_sdk_folder[select_mod]
     
-    try:
-        if isinstance(origins_sdk,list):
-            for sdk_path in origins_sdk:
-                if os.path.isdir(sdk_path):
-                    for i_sdk in os.listdir(sdk_path):
-                        path_sdk = os.path.join(sdk_path,i_sdk)
-                        if os.path.isfile(path_sdk):
-                            shutil.copy2(path_sdk,select_folder)
-        else:
-            if os.path.isdir(origins_sdk):
-                for i_s_dk in os.listdir(origins_sdk):
-                    path_s_dk = os.path.join(origins_sdk,i_s_dk)
-                    if os.path.isfile(path_s_dk):
-                        shutil.copy2(path_s_dk,select_folder)
-    except Exception as e:
-        print(e)
+    if select_mod != 'Uniscaler':
+        try:
+            if isinstance(origins_sdk,list):
+                for sdk_path in origins_sdk:
+                    if os.path.isdir(sdk_path):
+                        for i_sdk in os.listdir(sdk_path):
+                            path_sdk = os.path.join(sdk_path,i_sdk)
+                            if os.path.isfile(path_sdk):
+                                shutil.copy2(path_sdk,select_folder)
+            else:
+                if os.path.isdir(origins_sdk):
+                    for i_s_dk in os.listdir(origins_sdk):
+                        path_s_dk = os.path.join(origins_sdk,i_s_dk)
+                        if os.path.isfile(path_s_dk):
+                            shutil.copy2(path_s_dk,select_folder)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            shutil.copytree(origins_sdk, select_folder, dirs_exist_ok=True)   
+        except shutil.Error as e:
+            print(e)
  
     if select_mod in asi_global and (select_asi in asi_global[select_mod] or option_asi in asi_global[select_mod]):
         if select_mod in asi_global[select_mod]:
@@ -1940,7 +1998,12 @@ origins_rdr2_folder = {
                     'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2'],
         
         '0.10.3':['mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
-                  'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2']
+                  'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2'],
+        
+        '0.10.4':['mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\FSR2FSR3_COMMON',
+                  'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'],
+        
+        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
     }
 
 def fsr_rdr2():
@@ -1948,15 +2011,22 @@ def fsr_rdr2():
     
     if select_mod in origins_rdr2_folder:
         origins_rdr2 = origins_rdr2_folder[select_mod]
-    try:
-        for origin_folder in origins_rdr2:
-            for item in os.listdir(origin_folder):
-                item_path = os.path.join(origin_folder,item)
-                if os.path.isfile(item_path):
-                    shutil.copy2(item_path,select_folder)
-    except Exception as e:
-        print(e)
-        
+    
+    if select_mod != 'Uniscaler':
+        try:
+            for origin_folder in origins_rdr2:
+                for item in os.listdir(origin_folder):
+                    item_path = os.path.join(origin_folder,item)
+                    if os.path.isfile(item_path):
+                        shutil.copy2(item_path,select_folder)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            shutil.copytree(origins_rdr2, select_folder, dirs_exist_ok=True)
+        except shutil.Error as e:
+            print(e)
+            
     asi_rdr2_0_9={
         '0.9.0':{
             '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
@@ -2000,6 +2070,21 @@ def fsr_rdr2():
             'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
             'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
         },
+        
+        '0.10.4':{
+            '2.0':'mods\\ASI\\ASI_0_10_4\\2.0',
+            '2.1':'mods\\ASI\\ASI_0_10_4\\2.1',
+            '2.2':'mods\\ASI\\ASI_0_10_4\\2.2',
+            'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
+            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'
+        },
+       'Uniscaler':{
+            '2.0':'mods\\ASI\ASI_uniscaler',
+            '2.1':'mods\\ASI\ASI_uniscaler',
+            '2.2':'mods\\ASI\ASI_uniscaler',
+            'SDK':'mods\\ASI\ASI_uniscaler',
+            'ASI Loader for RDR2':'mods\\ASI\\ASI_uniscaler'
+        }    
     }
 
     if select_mod in asi_rdr2_0_9 and (select_asi in asi_rdr2_0_9[select_mod] or option_asi in asi_rdr2_0_9[select_mod]):
@@ -2222,7 +2307,6 @@ def close_lfz_guide(event=None):
     
 def install(event=None):
     global install_contr
-    print(select_mod)
     try:
         install_contr = True
         if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
@@ -2256,6 +2340,7 @@ def install(event=None):
         
     except Exception as e: 
         messagebox.showwarning('Error','Installation error')
+        
 def install_false(event=None):
     global install_contr
     install_label.configure(fg='#E6E6FA')
@@ -2347,9 +2432,7 @@ def close_all_listbox(event):
         mod_version_listbox.pack_forget()
     
     x = event.x
-    y = event.y
-    print(f"Clique detectado em x={x}, y={y}")
-     
+    y = event.y 
     
 def fsr_listbox_visible(event):
     global fsr_visible
@@ -2417,7 +2500,7 @@ select_dxgi = None
 
 x=0
 y=0
-def update_canvas(event=None):#canvas_options text configuration
+def update_canvas(event=None): #canvas_options text configuration
     global mod_options,x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
     if fsr_view_listbox == True:
         canvas_options.delete('text')
@@ -2444,7 +2527,7 @@ def update_canvas(event=None):#canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler')
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -2486,7 +2569,7 @@ def update_mod_version(event=None):
     unlock_sharp()
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
   
