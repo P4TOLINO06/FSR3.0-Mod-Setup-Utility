@@ -1,4 +1,0 @@
-Put all files + folder from the uniscaler mod folder into the game directory.
-
-Highlights:-
-*****For the stub_ngngx, you will only need to put it in the game directory and run EnableSignatureOverride.reg if you undergo a crash after doing a step above*****

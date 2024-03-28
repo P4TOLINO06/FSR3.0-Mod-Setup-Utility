@@ -1,2 +1,0 @@
-Like with FSR2FSR3, people not using NVIDIA GPUs still need to use a stub NVNGX file to be able to select DLSS ingame. 
-Run the included "EnableSignatureOverride.reg" file, then extract the nvngx.dll next to the game executable.

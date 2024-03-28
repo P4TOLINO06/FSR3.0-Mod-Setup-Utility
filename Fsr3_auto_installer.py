@@ -28,7 +28,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.1.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -82,7 +82,7 @@ def fsr_guide(event=None):
     if fsr_guide_var.get() == 1:
         if screen_guide is None:
             screen_guide = tk.Toplevel()
-            screen_guide.title('GUIDE FSR')
+            screen_guide.title('FSR GUIDE')
             screen_guide.geometry('520x260')
             screen_guide.configure(bg='black')
             screen_guide.resizable(0,0)
@@ -284,14 +284,11 @@ def clean_mod():
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
-                      'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler']
+                      'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log']
     
     for item in os.listdir(select_folder):
         if item in mod_clean_list:
             os.remove(os.path.join(select_folder,item))
-        elif item == 'uniscaler':
-            uni_del = os.path.join(select_folder,item)
-            shutil.rmtree(uni_del)
 
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
@@ -307,7 +304,9 @@ def cbox_disable_console(event=None):
 
 def edit_disable_console():
     disable_console_list = {
-        '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+        '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+        '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+        'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
     key_disable = 'logging'
     
@@ -383,7 +382,9 @@ def edit_debug_tear_lines():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
     
     debug_tear_mod = None
@@ -419,7 +420,9 @@ def edit_debug_view():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
     
     debug_mod_folder = None
@@ -444,7 +447,7 @@ debug_view_cbox.place(x=85,y=536)
 def enable_over():
     global list_over
     folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
-    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
 
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_en_over],capture_output=True)
@@ -514,7 +517,9 @@ def copy_dxgi():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\dxgi',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\dxgi',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\dxgi'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\dxgi',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\dxgi',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\dxgi'
     }
     dxgi_folder = dxgi_folders.get(select_mod)
     
@@ -602,10 +607,12 @@ def copy_nvngx():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\nvngx',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\nvngx',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\nvngx'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\nvngx',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\nvngx',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx'
     }
     nvngx_folder= nvngx_folders.get(select_mod)
-    if  select_mod not in nvngx_folders:
+    if select_mod not in nvngx_folders:
         messagebox.showinfo('Error','Please select a version starting at 0.7.6')
     else:
         try:
@@ -623,7 +630,7 @@ def copy_nvngx():
 custom_fsr_act = False
 
 def unlock_custom():
-    list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+    list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
     if select_mod not in list_custom:
         messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
         custom_fsr_cbox.deselect()
@@ -633,7 +640,16 @@ def unlock_custom():
 
 def cbox_custom_fsr(event=None):
     global custom_fsr_act
-    if unlock_custom():
+    print(custom_fsr_var.get())
+    if custom_fsr_var.get() == 0:
+        custom_fsr_act = False
+        fsr_balanced_canvas.configure(bg='#C0C0C0')
+        fsr_ultraq_canvas.configure(bg='#C0C0C0')
+        fsr_ultrap_canvas.configure(bg='#C0C0C0')
+        fsr_performance_canvas.configure(bg='#C0C0C0')
+        fsr_quality_canvas.configure(bg='#C0C0C0')
+        native_res_canvas.configure(bg='#C0C0C0')
+    elif unlock_custom():
         fsr_balanced_canvas.configure(bg='white')
         fsr_ultraq_canvas.configure(bg='white')
         fsr_ultrap_canvas.configure(bg='white')
@@ -643,12 +659,6 @@ def cbox_custom_fsr(event=None):
         custom_fsr_act = True
     else:
         custom_fsr_act = False
-        fsr_balanced_canvas.configure(bg='#C0C0C0')
-        fsr_ultraq_canvas.configure(bg='#C0C0C0')
-        fsr_ultrap_canvas.configure(bg='#C0C0C0')
-        fsr_performance_canvas.configure(bg='#C0C0C0')
-        fsr_quality_canvas.configure(bg='#C0C0C0')
-        native_res_canvas.configure(bg='#C0C0C0')
         
 custom_fsr_label = tk.Label(screen,text='Resolution Override  -  Custom FSR',font=font_select,bg='black',fg='#C0C0C0')
 custom_fsr_label.place(x=0,y=345)
@@ -717,7 +727,9 @@ def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'   
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }  
     mod_fsr_custom_folder = None
     if select_mod in list_mod_custom_fsr:
@@ -939,7 +951,9 @@ folder_fake_gpu ={
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
 }
 
 def fake_gpu_mod():
@@ -951,7 +965,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -989,7 +1003,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -1053,7 +1067,9 @@ list_ue = {
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_ue():
     global list_ue
@@ -1103,7 +1119,9 @@ ue_cbox.place(x=355,y=187)
 
 list_nvapi = {
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_nvapi():
     global list_nvapi
@@ -1166,7 +1184,9 @@ list_macos = {
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_macos():
     global list_macos
@@ -1236,7 +1256,9 @@ def replace_clean_file():
             '0.10.1':'mods\FSR2FSR3_0.10.1\enable_fake_gpu',
             '0.10.1h1':'mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
             '0.10.2h1':'mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu'
+            '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu',
+            '0.10.4':'mods\FSR2FSR3_0.10.4\enable_fake_gpu',
+            'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu'
         }
         
         clean_file_rep = {
@@ -1249,7 +1271,9 @@ def replace_clean_file():
             '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
             '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
             '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+            '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu',
+            '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu',
+            'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu'
         }
 
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -1261,16 +1285,6 @@ def replace_clean_file():
                 c_file = os.path.join(clean_file_copy,file_clean)
                 if os.path.isfile(c_file):
                     shutil.copy2(c_file,rep_clean_file)
-
-def cbox_editor():
-    global replace_flag
-    if open_editor_var.get() == 1 and select_mod != None:
-        screen_editor()
-    elif open_editor_var.get() == 0:
-        replace_flag = False
-    else:
-        messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
-        open_editor_cbox.deselect()
 
 def save_file():
     global file_w
@@ -1285,7 +1299,7 @@ def save_file():
 
 screen_toml = None
 def open_file():
-    global file_w,screen_toml
+    global file_w
     replace_clean_file()
     file_w = default_file_path
     if file_w and open_editor_var.get() == 1:
@@ -1294,8 +1308,19 @@ def open_file():
             text_editor.delete('1.0', 'end')
             text_editor.insert('1.0', content)
 
+def cbox_editor():
+    global replace_flag,screen_toml
+    if open_editor_var.get() == 1 and select_mod != None:
+        screen_editor()
+    elif open_editor_var.get() == 0:
+        screen_toml.destroy()
+        replace_flag = False
+    else:
+        messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
+        open_editor_cbox.deselect()
+
 def screen_editor():
-    global text_editor,default_file_path,default_path,b_reload
+    global text_editor,default_file_path,default_path,b_reload,screen_toml
     def exit_screen():
         global replace_flag
         screen_toml.destroy()
@@ -1308,19 +1333,21 @@ def screen_editor():
     screen_toml.geometry("600x400")
 
     default_path ={
-    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
-    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu'
+    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
     if select_mod in default_path:
-        default_file_path = os.path.join(default_path[select_mod], "fsr2fsr3.config.toml")
+        default_file_path = os.path.join(default_path[select_mod])
     text_editor = tk.Text(screen_toml)
     text_editor.pack(expand=True, fill='both')
     
@@ -1362,7 +1389,7 @@ def cbox_sharpness():
 
 def unlock_sharp():
     global unlock_cbox_sharp,select_mod
-    mod_list_sharp = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+    mod_list_sharp = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
     if select_mod in mod_list_sharp:
         unlock_cbox_sharp = True
     else:
@@ -1376,7 +1403,9 @@ def edit_sharpeness_up():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }  
     if select_mod in list_mod_sharpness:
         folder_sharp = list_mod_sharpness[select_mod]
@@ -1468,7 +1497,9 @@ def edit_mod_operates():
     '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml'
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
     }
     
     if select_mod in mod_folder_list:
@@ -1482,10 +1513,13 @@ def edit_mod_operates():
     elif select_mod == '0.9.0' and select_mod_operates == 'Default':
         options_mod_op = 'enable_upscaling_only'
         select_mod_op_options = False
-    elif select_mod != '0.9.0':
+    elif select_mod != '0.9.0' and select_mod != 'Uniscaler':
         options_mod_op = 'mode'
         select_mod_op_options = str(select_mod_operates).lower().replace(" ", '_')
-     
+    elif select_mod == 'Uniscaler':
+        options_mod_op = 'upscaler'
+        select_mod_op_options = str(select_mod_operates).lower()
+             
     if mod_operates_folder is not None:       
         with open(mod_operates_folder,'r') as file:
             toml_op = toml.load(file)
@@ -2243,7 +2277,10 @@ def guide_mod_op(event=None):
     mod_op_label_guide.config(text="Default: How the mod used to operate. DLSS/FSR inputs used for FSR3 Upscaling and FSR3 Frame Generation.\n\n"
     "Enable Upscaling Only: Same as default mode, but enables only FSR3 upscaling, FSR3 FG is disabled\n\n"
     "Use Game Upscaling: Same as replace_dlss_fg, but for games WITHOUT Native DLSS3FG, there will be HUD ghosting\n\n"
-    "Replace Dlss-FG: For mixing other upscalers like DLSS or XeSS with FSR3 Frame Generation in games that have NATIVE DLSS3 Frame Generation, no HUD ghosting")
+    "Replace Dlss-FG: For mixing other upscalers like DLSS or XeSS with FSR3 Frame Generation in games that have NATIVE DLSS3 Frame Generation, no HUD ghosting\n\n"
+    "FSR3: Default option, FSR3 from the game will be used.\n"
+    "DLSS: Replaces FSR3 with DLSS if the game supports it.\n"
+    "XESS: Replaces FSR3 with XESS if the game supports it.\n")
     mod_op_label_guide.place(x=0,y=337)
 
 def close_mod_opguide(event=None):
@@ -2618,18 +2655,26 @@ def update_mod_operates(event=None):
     edit_mod_operates()
     mod_operates_canvas.update()
     
-unlock_mod_operates_list = ['0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3']
+unlock_mod_operates_list = ['0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4']
 unlock_listbox_mod_op = False
 def select_mod_op_lock():
     global unlock_listbox_mod_op
+    
     mod_op_list = []
     if select_mod in unlock_mod_operates_list:
         mod_op_list = ['Default','Enable Upscaling Only','Use Game Upscaling','Replace dlss fg']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
         mod_operates_canvas.config(bg='white')
+        
     elif select_mod == '0.9.0':
         mod_op_list = ['Default','Enable Upscaling Only']
+        mod_operates_listbox.delete(0,tk.END)
+        unlock_listbox_mod_op = True
+        mod_operates_canvas.config(bg='white')
+        
+    elif select_mod == 'Uniscaler':
+        mod_op_list = ['FSR3','DLSS','XESS']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
         mod_operates_canvas.config(bg='white')
@@ -2638,6 +2683,7 @@ def select_mod_op_lock():
         mod_operates_canvas.delete('text')
         mod_operates_canvas.config(bg='#C0C0C0')
         unlock_listbox_mod_op = False
+        
     for mod_operates_ins in mod_op_list:
         mod_operates_listbox.insert(tk.END,mod_operates_ins)
     

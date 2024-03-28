@@ -1,5 +1,5 @@
 [general]
-mode = "default"
+mode = "use_game_upscaling"
 sharpness_override = -1.0
 
 [resolution_override]
