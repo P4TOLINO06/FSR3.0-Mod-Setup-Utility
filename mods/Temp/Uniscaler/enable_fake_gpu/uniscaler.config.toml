@@ -12,7 +12,7 @@ quality = 0.666667
 balanced = 0.588235
 performance = 0.5
 ultra_performance = 0.333333
-ultra_quality = 0.769231
+ultra_quality = 0.25
 
 [compatibility]
 fake_nvidia_gpu = false

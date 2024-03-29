@@ -28,7 +28,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.2.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -103,8 +103,8 @@ fsr_guide_cbox.place(x=275,y=568)
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
     
-    select_game_label = tk.Label(screen_guide,text='Select Game',font=font_select,bg='black',fg='#C0C0C0')
-    select_game_label.place(x=35,y=0)
+    select_game_label = tk.Label(screen_guide,text='Select a guide',font=font_select,bg='black',fg='#C0C0C0')
+    select_game_label.place(x=30,y=0)
     
     select_game_canvas = tk.Canvas(screen_guide,width=162,height=19,bg='white',highlightthickness=0)
     select_game_canvas.place(x=0,y=30)
@@ -118,8 +118,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Star Wars: Jedi Survivor',]
+    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Ready or Not','Red Dead Redemption 2','Returnal',
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Uniscaler']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -177,11 +177,13 @@ def text_guide():
 ),
 
 'Red Dead Redemption 2':(
-  "1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
+"● RDR2_Build_2\n"
+"1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
 "•Attention,don't install another version of the Reshade app after using this mod\n\n"
 "If your game is still not open after turning Off Afterburner and Rivatuner, try\nsetting Run this program as administrator and Run this program in compatibility\nmode for Windows 7 of the Compatibility tab of the Properties in the right\nmouse menu.\n\n"
 "2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
-"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n"  
+"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
+"Other versions of the mod install normally, but may experience flickering on the HUD"
 ),
 
 'Hogwarts legacy':(
@@ -191,6 +193,13 @@ def text_guide():
 "4 - Select an option nvngx.dll."
 ),
 
+'Horizon Forbidden West':(
+'1 - Turn off MSI Afterburner/Rivatuner or any other FPS monitor to\navoid crashes.\n'
+'2 - If the game still crashes, select \'Nvngx: Default\' and enable\n\'Enable Signature Override\'\n'
+'3 - Turn Dynamic Resolution Scaling Off if you still have the black box\nsquare on-screen\n'
+'4 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
+),
+
 'Returnal':(
 "1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
@@ -198,7 +207,7 @@ def text_guide():
 ),
 
 'Star Wars: Jedi Survivor':(
-"1 - Choose a version of the mod you prefer (Recommended\nversion 0.10.2 or\nhigher).\n"
+"1 - Choose a version of the mod you prefer (Recommended\nversion 0.10.2 or higher).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Select an option nvngx.dll."
 ),
@@ -212,6 +221,15 @@ def text_guide():
 '6 - Enable the "Enable Signature Override" checkbox if the\nmod doesn\'t work.\n'
 ),
 
+'Shadow of the Tomb Raider':(
+'1 - Select the \'Uniscaler\' option under \'Mod Version\'\n'
+'2 - AMD GPU users: Select \'XESS\' under \'Mod Operates\' | Nvidia GPU users: Select any of the 3\noptions under \'Mod Operates\' (DLSS is recommended).\n'
+'3 - In the configuration window, disable \'AMD FidelityFX CAS\' and select an option in XESS/DLSS.\n'
+'4 - Within the game, adjust the options as desired (you can reactivate AMD FidelityFX CAS)\n'
+'5 - To activate Frame Generation, select an option in XESS/DLSS, select an Anti-aliasing option if\ndesired (Frame Generation will remain active).\n'
+'● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).'
+),
+
 'Ready or Not': (
 '1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
 '2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
@@ -219,18 +237,30 @@ def text_guide():
 '4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
 '5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
 'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'),
-    }    
+
+'Uniscaler':(
+'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
+'Even if the game does not have support for one of the 3\nupscalers, it is possible to activate them by selecting the\nupscaler in "Mod Operates".\n\n'
+'AMD GPU users may need to select the \'Nvngx: Default\'\noption and activate \'Enable Signature Override\'.\nPlease perform these steps if the mod does not work on your\ndefault version.'
+)
+}    
     
     if select_game in list_game:
         guide_text = list_game[select_game]
     else:
         guide_text = ""
     if select_game == 'Red Dead Redemption 2':
-        screen_guide.geometry('650x355')
+        screen_guide.geometry('655x410')
     elif select_game == 'Dead Space Remake':
         screen_guide.geometry('530x260')
     elif select_game == 'Hogwarts legacy':
         screen_guide.geometry('550x260')
+    elif select_game == 'Uniscaler':
+        screen_guide.geometry('538x260')
+    elif select_game == 'Shadow of the Tomb Raider':
+        screen_guide.geometry('740x260')
+    elif select_game == 'Horizon Forbidden West':
+        screen_guide.geometry('573x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -281,15 +311,23 @@ def cbox_cleanup(event=None):
             cleanup_cbox.after(400,cleanup_cbox.deselect)
         
 def clean_mod():
+    global select_folder
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log']
     
-    for item in os.listdir(select_folder):
-        if item in mod_clean_list:
-            os.remove(os.path.join(select_folder,item))
-
+    try:     
+        for item in os.listdir(select_folder):
+            if item in mod_clean_list:
+                os.remove(os.path.join(select_folder,item))
+            
+        uniscaler_folder = os.path.join(select_folder, 'uniscaler')
+        if os.path.exists(uniscaler_folder):
+            shutil.rmtree(uniscaler_folder)
+    except Exception as e:
+        messagebox.showinfo('Unable to delete the Uniscaler folder.')
+    
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
@@ -1520,11 +1558,14 @@ def edit_mod_operates():
         options_mod_op = 'upscaler'
         select_mod_op_options = str(select_mod_operates).lower()
              
-    if mod_operates_folder is not None:       
+    if mod_operates_folder is not None: 
+              
         with open(mod_operates_folder,'r') as file:
             toml_op = toml.load(file)
+            
         toml_op.setdefault(key_mod_operates,{})
         toml_op[key_mod_operates][options_mod_op] = select_mod_op_options
+        
         with open(mod_operates_folder,'w') as file:
             toml.dump(toml_op,file)
         
@@ -1705,7 +1746,7 @@ def fsr_2_2():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_2_folder:
@@ -1790,7 +1831,7 @@ def fsr_2_1():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_210',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_1_folder:
@@ -1877,7 +1918,7 @@ def fsr_2_0():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_200',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_2_0_folder:
@@ -1963,7 +2004,7 @@ def fsr_sdk():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_SDK',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
     
     if select_mod in origins_sdk_folder:
@@ -2037,7 +2078,7 @@ origins_rdr2_folder = {
         '0.10.4':['mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\FSR2FSR3_COMMON',
                   'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'],
         
-        'Uniscaler':'mods\\FSR2FSR3_0.10.4\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
 
 def fsr_rdr2():
@@ -2162,13 +2203,13 @@ def rdr2_build2():
 
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Dying Light 2','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
 
 fsr_2_1_opt=['Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us',]
 
-fsr_2_0_opt = ['Alone in the Dark','The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Death Stranding Director\'s Cut','Nightingale']
+fsr_2_0_opt = ['Alone in the Dark','The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Nightingale','Shadow of the Tomb Raider']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -2495,7 +2536,7 @@ fsr_game_version={
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
-    'Death Stranding Director\'s Cut':'2.0',
+    'Death Stranding Director\'s Cut':'2.2',
     'Dead Space (2023)':'2.1',
     'Dying Light 2':'2.0',
     'FIST: Forged In Shadow Torch':'2.2',
@@ -2518,6 +2559,7 @@ fsr_game_version={
     'Sackboy: A Big Adventure':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
+    'Shadow of the Tomb Raider':'2.0',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.2',
     'The Last of Us':'2.1',
@@ -2575,7 +2617,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
         'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
     listbox.insert(tk.END,option)
 

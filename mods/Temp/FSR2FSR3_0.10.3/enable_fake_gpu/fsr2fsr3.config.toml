@@ -1,5 +1,5 @@
 [general]
-mode = "default"
+mode = "dlss"
 sharpness_override = 0.0
 
 [resolution_override]
