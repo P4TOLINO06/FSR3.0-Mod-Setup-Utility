@@ -8,6 +8,8 @@ from pathlib import Path
 import toml
 import ctypes, sys
 import pyglet
+import psutil
+import os
 
 def uac():
     try:
@@ -28,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.2.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.3v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -44,7 +46,7 @@ screen.iconphoto(True, icon_image)
 img_bg = Image.open('images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
 img_res = img_bg.resize((200,300))
 img_tk =ImageTk.PhotoImage(img_res)
-x_img = (400 - 200)//2
+x_img = (400 - 180)//2
 y_img = (1300 - 250)//2
 
 bg_label = tk.Label(screen,image=img_tk,bg='black')
@@ -67,10 +69,107 @@ canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
-exit_label.place(x=350,y=626)
+exit_label.place(x=355,y=658)
 
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
-install_label.place(x=290,y=626)
+install_label.place(x=295,y=658)
+
+def search_un():
+    local_disk_names = []
+
+    for partition in psutil.disk_partitions(all=False):
+        if 'cdrom' not in partition.opts and partition.fstype != '':
+            local_disk_names.append(partition.device)
+
+    return local_disk_names
+
+path_over = None
+
+def epic_dis_over(event=None):
+    global path_over
+    user_disk_part = search_un()
+    exe_name = "EOSOverlayRenderer-Win64-Shipping.exe"
+    
+    for disk_name in user_disk_part:
+        default_path = os.path.join(disk_name, r'Program Files (x86)\Epic Games\Launcher\Portal\Extras\Overlay')
+        if os.path.exists(default_path):
+            for root, dirs, files in os.walk(default_path):
+                if exe_name in files:
+                    path_over = os.path.join(root)
+                    break
+            if path_over:
+                break
+        
+        alt_path = os.path.join(disk_name, r'Epic Games\Launcher\Portal\Extras\Overlay')
+        if os.path.exists(alt_path):
+            for root, dirs, files in os.walk(alt_path):
+                if exe_name in files:
+                    path_over = os.path.join(root)
+                    break
+            if path_over:
+                break
+        
+    if path_over is not None:
+        epic_over_canvas.delete('text')
+        epic_over_canvas.create_text(2, 8, anchor='w', text=path_over, fill='black', tags='text')
+    else:
+        messagebox.showinfo('Not Found', 'EOSOverlayRenderer-Win64-Shipping not found, please select the path manually')
+
+epic_folder = None
+def epic_explorer(event=None): 
+    global epic_folder,path_over
+    epic_folder = filedialog.askdirectory()
+    path_over = epic_folder
+    epic_over_canvas.delete('text')
+    epic_over_canvas.create_text(2,8, anchor='w',text=epic_folder,fill='black',tags='text') 
+
+def enable_epic_over(event=None):
+    global path_over
+    name_exe = 'EOSOverlayRenderer-Win64.txt'
+    rename_exe = 'EOSOverlayRenderer-Win64-Shipping.exe'
+    
+    file_to_rename = os.path.join(path_over, name_exe)
+    if os.path.exists(file_to_rename):
+        try:
+            os.rename(file_to_rename, os.path.join(path_over, rename_exe))
+            messagebox.showinfo('Sucess','Overlay enabled successfully.')
+        except Exception as e:
+            messagebox.showinfo('Error','Error enabling Overlay')
+
+def disable_epic_over(event=None):
+    global path_over
+    name_exe = 'EOSOverlayRenderer-Win64-Shipping.exe'
+    rename_exe = 'EOSOverlayRenderer-Win64.txt'
+    
+    file_to_rename = os.path.join(path_over, name_exe)
+    if os.path.exists(file_to_rename):
+        try:
+            os.rename(file_to_rename, os.path.join(path_over, rename_exe))
+            messagebox.showinfo('Sucess','Overlay disabled successfully..')
+        except Exception as e:
+            messagebox.showinfo('Error','Error disabling overlay')
+         
+epic_over_label = tk.Label(screen,text='Epic Games Overlay:',font=font_select,bg='black',fg='#C0C0C0')
+epic_over_label.place(x=0,y=595)
+
+epic_over_canvas = tk.Canvas(screen,width=162,height=19,bg='white',highlightthickness=0)
+epic_over_canvas.place(x=140,y=599)
+
+epic_over_browser_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
+epic_over_browser_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
+epic_over_browser_canvas.place(x=330,y=599)
+
+epic_over_marc_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
+epic_over_marc_label.place(x=308,y=593)
+
+epic_over_disable_label = tk.Label(screen,text='Disable',font=font_select,bg='black',fg='#E6E6FA')
+epic_over_disable_label.place(x=330,y=625)
+
+epic_over_enable_label = tk.Label(screen,text='Enable',font=font_select,bg='black',fg='#E6E6FA')
+epic_over_enable_label.place(x=270,y=625)
+
+epic_over_auto_label = tk.Label(screen,text='Auto Search',font=font_select,bg='black',fg='#E6E6FA')
+epic_over_auto_label.place(x=175,y=625)
 
 fsr_guide_cbox = None
 screen_guide = None
@@ -297,10 +396,10 @@ def clean_dxgi():
             os.remove(os.path.join(select_folder,item))
 
 del_dxgi_label = tk.Label(screen,text='Del Only dxgi.dll',font=font_select,bg='black',fg='#E6E6FA')
-del_dxgi_label.place(x=130,y=626)
+del_dxgi_label.place(x=0,y=660)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
-del_dxgi_cbox.place(x=243,y=629) 
+del_dxgi_cbox.place(x=112,y=662) 
    
 def cbox_cleanup(event=None):
     if cleanup_var.get() == 1:
@@ -2762,6 +2861,10 @@ fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
 fakegpu_label.bind('<Enter>',guide_fk_gpu)
 fakegpu_label.bind('<Leave>',close_fk_gpu_guide)
 select_folder_canvas.bind('<Button-1>',open_explorer)
+epic_over_browser_canvas.bind('<Button-1>',epic_explorer)
+epic_over_enable_label.bind('<Button-1>',enable_epic_over)
+epic_over_disable_label.bind('<Button-1>',disable_epic_over)
+epic_over_auto_label.bind('<Button-1>',epic_dis_over)
 mod_version_canvas.bind('<Button-1>',mod_listbox_view)
 mod_version_listbox.bind("<<ListboxSelect>>",update_mod_version)
 asi_canvas.bind('<Button-1>',asi_listbox_view)
