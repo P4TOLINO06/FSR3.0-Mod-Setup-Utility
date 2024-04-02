@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.3.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -126,25 +126,62 @@ def epic_explorer(event=None):
 def enable_epic_over(event=None):
     global path_over
     name_exe = 'EOSOverlayRenderer-Win64.txt'
+    name_32_exe = 'EOSOverlayRenderer-Win32.txt'
     rename_exe = 'EOSOverlayRenderer-Win64-Shipping.exe'
+    rename_32_exe = 'EOSOverlayRenderer-Win32-Shipping.exe'
     
+    if path_over is None:
+        messagebox.showinfo('Error','Please select a folder or perform an automatic search.')
+        return
+        
     file_to_rename = os.path.join(path_over, name_exe)
-    if os.path.exists(file_to_rename):
-        try:
-            os.rename(file_to_rename, os.path.join(path_over, rename_exe))
-            messagebox.showinfo('Sucess','Overlay enabled successfully.')
-        except Exception as e:
-            messagebox.showinfo('Error','Error enabling Overlay')
+    file_to_32_rename = os.path.join(path_over,name_32_exe)
+    renamed_file = os.path.join(path_over, rename_exe)
+    
+    if os.path.exists(renamed_file):
+        messagebox.showinfo('Enabled', 'Overlay is already enabled.')
+        return
+    
+    elif not os.path.exists(file_to_rename):
+        messagebox.showinfo('Enabled', 'EOSOverlayRenderer-Win64-Shipping not found')
+        return
+ 
+    try:
+        os.rename(file_to_rename, os.path.join(path_over, rename_exe))
+        os.rename(file_to_32_rename, os.path.join(path_over, rename_32_exe))
+        messagebox.showinfo('Sucess','Overlay enabled successfully.')
+        if epic_over_canvas is None:
+            print('1')
+    except Exception as e:
+        messagebox.showinfo('Error','Error enabling Overlay')
 
 def disable_epic_over(event=None):
     global path_over
     name_exe = 'EOSOverlayRenderer-Win64-Shipping.exe'
+    name_32_exe = 'EOSOverlayRenderer-Win32-Shipping.exe'
     rename_exe = 'EOSOverlayRenderer-Win64.txt'
+    rename_32_exe = 'EOSOverlayRenderer-Win32.txt'
+    
+    if path_over is None:
+        messagebox.showinfo('Error','Please select a folder or perform an automatic search.')
+        return
     
     file_to_rename = os.path.join(path_over, name_exe)
+    file_to_32_rename = os.path.join(path_over,name_32_exe)
+    renamed_file = os.path.join(path_over, rename_exe)
+    
+    if os.path.exists(renamed_file):
+        messagebox.showinfo('Disabled', 'Overlay is already disabled.')
+        return
+    
+    elif not os.path.exists(file_to_rename):
+        messagebox.showinfo('Disabled', 'EOSOverlayRenderer-Win64 not found')
+        return
+ 
     if os.path.exists(file_to_rename):
         try:
             os.rename(file_to_rename, os.path.join(path_over, rename_exe))
+            os.rename(file_to_32_rename, os.path.join(path_over, rename_32_exe))
             messagebox.showinfo('Sucess','Overlay disabled successfully..')
         except Exception as e:
             messagebox.showinfo('Error','Error disabling overlay')
@@ -217,8 +254,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Uniscaler']
+    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -299,6 +336,15 @@ def text_guide():
 '4 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
 ),
 
+'Marvel\'s Guardians of the Galaxy':(
+ '1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
+'2 - Select the folder where the game\'s exe is located (something like\ngotg.exe)\n'
+'3 - Activate Fake Nvidia GPU (if you don\'t have Rtx 3xxx/4xxx series)\n'
+'4 - Inside the game, select DLSS or FSR\n'
+'• If you want to use Uniscaler with the DLSS upscaler, select DLSS in\nMod Operates (the default option of Uniscaler uses the FSR upscaler)\n'
+'• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'  
+),
+
 'Returnal':(
 "1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
@@ -329,13 +375,32 @@ def text_guide():
 '● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).'
 ),
 
+'Rise of The Tomb Raider':(
+'1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
+'2 - Select the folder where the game\'s exe is located (something like\nROTTR.exe)\n'
+'3 - Activate Fake Nvidia GPU (if you don\'t have Rtx 3xxx/4xxx series)\n'
+'4 - Inside the game, select DLSS as desired, to remove the flickering\nfrom the HUD, select SMAA as Anti Aliasing (this will slightly decrease\nfps)\n'
+'• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
+'• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
+),
+
 'Ready or Not': (
 '1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
 '2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
 '4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
 '5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
-'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'),
+'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'
+),
+
+'The Thaumaturge':(
+'1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
+'2 - Select the folder where the game\'s exe is located.\n'
+'3 - Activate Fake Nvidia GPU (if you don\'t have Rtx 3xxx/4xxx series)\n'
+'4 - Inside the game, select DLSS.\n'
+'• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
+'• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
+),
 
 'Uniscaler':(
 'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
@@ -360,6 +425,12 @@ def text_guide():
         screen_guide.geometry('740x260')
     elif select_game == 'Horizon Forbidden West':
         screen_guide.geometry('573x260')
+    elif select_game == 'Rise of The Tomb Raider':
+        screen_guide.geometry('590x260')
+    elif select_game == 'The Thaumaturge':
+        screen_guide.geometry('590x260')
+    elif select_game == 'Marvel\'s Guardians of the Galaxy':
+        screen_guide.geometry('590x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -425,7 +496,7 @@ def clean_mod():
         if os.path.exists(uniscaler_folder):
             shutil.rmtree(uniscaler_folder)
     except Exception as e:
-        messagebox.showinfo('Unable to delete the Uniscaler folder.')
+        messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
     
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
@@ -2306,9 +2377,9 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
 
-fsr_2_1_opt=['Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us',]
+fsr_2_1_opt=['Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Judgment','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us',]
 
-fsr_2_0_opt = ['Alone in the Dark','The Witcher 3','Dying Light 2','Brothers: A Tale of Two Sons Remake','Nightingale','Shadow of the Tomb Raider']
+fsr_2_0_opt = ['Alone in the Dark','Dying Light 2','Brothers: A Tale of Two Sons Remake','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -2640,8 +2711,10 @@ fsr_game_version={
     'Dying Light 2':'2.0',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
+    'Marvel\'s Guardians of the Galaxy':'2.0',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
+    'Judgment':'2.1',
     'Lords of the Fallen':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
     'Marvel\'s Spider-Man: Miles Morales':'2.1',
@@ -2653,6 +2726,7 @@ fsr_game_version={
     'Ready or Not':'2.2',
     'Remnant II':'2.2',
     'Returnal':'2.1',
+    'Rise of The Tomb Raider':'2.0',
     'RoboCop: Rogue City':'2.2',
     'Satisfactory':'2.2',
     'Sackboy: A Big Adventure':'2.2',
@@ -2662,6 +2736,7 @@ fsr_game_version={
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.2',
     'The Last of Us':'2.1',
+    'The Thaumaturge':'2.2',
     'The Medium':'2.2',
     'The Witcher 3':'2.0',
     'Uncharted: Legacy of Thieves Collection':'2.1'      
@@ -2715,8 +2790,8 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
-        'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Lords of the Fallen','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
+        'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Lords of the Fallen','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
