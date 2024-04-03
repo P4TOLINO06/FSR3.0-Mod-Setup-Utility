@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.3.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.3.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -186,6 +186,17 @@ def disable_epic_over(event=None):
         except Exception as e:
             messagebox.showinfo('Error','Error disabling overlay')
          
+def guide_epic(event=None):
+    epic_label_guide.config(text='Enable or disable the Epic Games Overlay, the Overlay along with the FSR3 mod can cause bugs and crashes in some games')
+    epic_label_guide.place(x=0,y=620)
+    epic_label_guide.lift()
+
+def close_guide_epic(event=None):
+    epic_label_guide.place_forget()
+
+epic_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+epic_label_guide.place_forget()
+
 epic_over_label = tk.Label(screen,text='Epic Games Overlay:',font=font_select,bg='black',fg='#C0C0C0')
 epic_over_label.place(x=0,y=595)
 
@@ -254,7 +265,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Dead Space Remake','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+    s_games_op = ['Alone in the Dark','Dead Space Remake','Dragons Dogma 2','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -304,6 +315,14 @@ def text_guide():
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - If the mod doesn't work, select one of the nvngx.dll options."  
     
+),
+'Dragons Dogma 2':(
+'1 - Select Deput8 in Mod Select and install.\n'
+'2 - Open the game after Deput8 is installed, a "REFramework" menu will\nappear. Click on it, go to Settings and Menu Key, click on Menu Key,\nand select the preferred key (the key is used to open and close the menu).\n'
+'3 - Close the game, in Utility select Uniscaler_DD2 in Mod\nVersion and install (it is recommended to select "Yes" when the message\nto delete the shader file appears).\n'
+'4 - Inside the game, select FSR3 to enable the mod.\n\n'
+'•It is recommended to turn off any type of upscaler before\nopening the game with the mod.\n'
+'•To fix the Hub, select Dynamic Resolution and turn off FSR3\n(after turning it on for the first time), this will slightly decrease the fps.'
 ),
 
 'Dying Light 2': (      
@@ -431,6 +450,8 @@ def text_guide():
         screen_guide.geometry('590x260')
     elif select_game == 'Marvel\'s Guardians of the Galaxy':
         screen_guide.geometry('590x260')
+    elif select_game == 'Dragons Dogma 2':
+        screen_guide.geometry('600x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -448,6 +469,16 @@ def exit_fsr_guide(event=None):
         fsr_guide_cbox.deselect()
         screen_guide = None
         guide_label = None
+
+def guide_fsr_guide(event=None):
+    guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
+    guide_fsr_label.place(x=200,y=590)
+
+def close_guide_fsr(event=None):
+    guide_fsr_label.place_forget()
+    
+guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+guide_fsr_label.place_forget()
 
 def cbox_del_dxgi(event=None):
     if del_dxgi_var.get() == 1: 
@@ -485,7 +516,7 @@ def clean_mod():
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
-                      'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log']
+                      'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
     
     try:     
         for item in os.listdir(select_folder):
@@ -2371,6 +2402,56 @@ def rdr2_build2():
         else:
             shutil.copy2(origem_arquivo, destino_arquivo)
 
+dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
+              'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'}
+def dd2_fsr():
+    global dd2_folder
+    
+    var_d_put = False
+    
+    if select_mod in dd2_folder:
+        origins_dd2 = dd2_folder[select_mod]
+    
+    d_put_path = os.path.join(r'mods\FSR3_DD2\dinput\dinput8.dll')
+      
+    if select_mod == 'Dinput8':  
+        shutil.copy2(d_put_path, select_folder)
+
+    for root,dirs,files in os.walk(select_folder):
+        for d_put in files:
+            if d_put == 'dinput8.dll':
+                var_d_put = True
+                break
+        else:
+            continue  
+        break 
+    else:
+        var_d_put = False
+    
+    if select_mod == 'Uniscaler_DD2' and var_d_put:
+        us_dd2(var_d_put,origins_dd2)
+    elif select_mod == 'Uniscaler_DD2' and not var_d_put:
+        messagebox.showinfo('Not Found','Deput8.dll file not found, please select "Deput8" in "Select mod" before installing the mod, we recommend checking out the Dragons Dogmas 2 guide on FSR GUIDE.')
+
+def us_dd2(var_d_put,origins_dd2):
+    del_shader = ['shader.cache2']
+    
+    if os.path.exists(os.path.join(select_folder, '_storage_')):
+        storage_path = os.path.join(select_folder,'_storage_')
+        us_path = os.path.join(r'mods\FSR2FSR3_Uniscaler\Uniscaler_4\Uniscaler mod\winmm.dll')
+        all_us_path = os.path.join(r'mods\FSR2FSR3_Uniscaler\Uniscaler_4\Uniscaler mod')
+        
+        shutil.copy(us_path, storage_path)
+        shutil.copytree(all_us_path, select_folder, dirs_exist_ok=True)
+        shutil.copytree(origins_dd2, select_folder, dirs_exist_ok=True)
+
+        del_shader_var = messagebox.askyesno('Delete Shader','"Do you want to delete the shader.cache2 file? Not deleting this file may result in bugs and game crashes."')
+        
+        if del_shader_var:
+            for shader_c2 in os.listdir(select_folder):
+                if shader_c2 in del_shader:
+                    os.remove(os.path.join(select_folder,shader_c2))
+
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
@@ -2388,6 +2469,7 @@ fsr_sct_2_1 = ['2.1']
 fsr_sct_2_0 = ['2.0']
 fsr_sct_SDK = ['SDK']
 fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
+fsr_sct_dd2 = ['Dragons Dogma 2']
 
 nvngx_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 nvngx_label_guide.place_forget()
@@ -2569,6 +2651,8 @@ def install(event=None):
             fsr_rdr2()
         elif select_fsr in fsr_sct_rdr2 and select_mod in rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in rdr2_folder and install_contr:
             rdr2_build2()
+        elif select_mod in dd2_folder:
+            dd2_fsr()
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -2587,7 +2671,7 @@ def install(event=None):
         screen.after(100,install_false)
         
     except Exception as e: 
-        messagebox.showwarning('Error','Installation error')
+        messagebox.showwarning('Error',f'Installation error {e}')
         
 def install_false(event=None):
     global install_contr
@@ -2708,6 +2792,7 @@ fsr_game_version={
     'Dakar Desert Rally':'2.2',
     'Death Stranding Director\'s Cut':'2.2',
     'Dead Space (2023)':'2.1',
+    'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
@@ -2781,6 +2866,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
         mod_version_listbox.insert(tk.END,'RDR2 Build_2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler')
+    elif select_option == 'Dragons Dogma 2':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2')
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -2789,7 +2879,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
         'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Lords of the Fallen','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
@@ -3006,6 +3096,10 @@ enable_sigover_label.bind('<Enter>',guide_en_sig)
 enable_sigover_label.bind('<Leave>',close_en_sigguide)
 lfz_sl_label.bind('<Enter>',guide_lfz)
 lfz_sl_label.bind('<Leave>',close_lfz_guide)
+epic_over_label.bind('<Enter>',guide_epic)
+epic_over_label.bind('<Leave>',close_guide_epic)
+fsr_guide_label.bind('<Enter>',guide_fsr_guide)
+fsr_guide_label.bind('<Leave>',close_guide_fsr)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
 
