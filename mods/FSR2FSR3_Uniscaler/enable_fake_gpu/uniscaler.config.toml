@@ -1,10 +1,11 @@
-config_version = 2
+config_version = 3
 
 [general]
 upscaler = "fsr3"
 disable_frame_generation = false
 sharpness_override = -1.0
 force_auto_exposure = false
+original_frame_rate_limit = 0
 
 [resolution_override]
 native = 1.0
@@ -26,4 +27,3 @@ disable_console = false
 [debug]
 enable_debug_view = false
 enable_debug_tear_lines = false
-

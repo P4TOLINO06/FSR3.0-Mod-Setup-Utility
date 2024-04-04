@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.3.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.4v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -480,6 +480,50 @@ def close_guide_fsr(event=None):
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
 
+us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml'}
+
+def fps_limit():
+    global us_origin
+    key_us = 'general'
+    fps_value = fps_user_entry.get()
+    try:
+        if select_mod in us_origin:
+            origins_us = us_origin[select_mod]
+    
+        
+        with open(origins_us,'r') as file:
+            toml_us = toml.load(file)
+        toml_us.setdefault(key_us,{})
+        toml_us[key_us]['original_frame_rate_limit'] = int(fps_value)
+        
+        with open(origins_us,'w') as file:
+            toml.dump(toml_us,file)
+    except Exception:
+        pass
+
+def fps_isdigit(event):
+    fps_code = event.keycode
+    
+    if fps_code >= 48 and fps_code <= 57 or fps_code == 8:
+        if fps_code != 8 and len(fps_user_entry.get()) < 3:
+            fps_user_entry.insert(tk.END, event.char)
+        else:
+            fps_user_entry.delete(len(fps_user_entry.get()) - 1, tk.END)
+    fps_limit()
+    return 'break'
+
+def unlock_fps_limit():
+    if select_mod in us_origin:    
+        fps_user_entry.configure(state='normal',bg='white')
+    else:
+        fps_user_entry.configure(state='readonly',bg='#C0C0C0')
+    
+fps_user_label = tk.Label(screen,text='FPS Limit:',font=font_select,bg='black',fg='#C0C0C0')
+fps_user_label.place(x=273,y=276)
+fps_user_entry =  tk.Entry(screen,width=5,bg='#C0C0C0',state= 'readonly',borderwidth=0)
+fps_user_entry.place(x=350,y=280)
+fps_user_entry.lift()
+
 def cbox_del_dxgi(event=None):
     if del_dxgi_var.get() == 1: 
         dxgi_clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the DXGI/D3D12.dll files?')
@@ -505,11 +549,21 @@ del_dxgi_cbox.place(x=112,y=662)
    
 def cbox_cleanup(event=None):
     if cleanup_var.get() == 1:
-        clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the mod?')
-        if clean_var:
-            clean_mod()
-            messagebox.showinfo('Success','Uninstallation completed successfully')
-            cleanup_cbox.after(400,cleanup_cbox.deselect)
+        try:
+            if select_folder == None:
+                messagebox.showinfo('Select Folder','Please select the destination folder')
+                cleanup_cbox.deselect()
+                return
+            else:
+                clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the mod?')
+                if clean_var:
+                    clean_mod()
+                    messagebox.showinfo('Success','Uninstallation completed successfully')
+                    cleanup_cbox.after(400,cleanup_cbox.deselect)
+                else:
+                    cleanup_cbox.deselect()
+        except Exception:
+            pass
         
 def clean_mod():
     global select_folder
@@ -517,18 +571,37 @@ def clean_mod():
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
-    
+    del_winmm = 'winmm.dll'
+     
     try:     
         for item in os.listdir(select_folder):
             if item in mod_clean_list:
                 os.remove(os.path.join(select_folder,item))
-            
+        
+        path_dd2_w = os.path.join(select_folder,'_storage_')
+        if select_option == 'Dragons Dogma 2':
+            if os.path.exists(path_dd2_w):
+                try:
+                    os.remove(os.path.join(path_dd2_w,del_winmm)) 
+                except FileNotFoundError:
+                    pass 
+                
+            try:
+                storage_folder = os.path.join(select_folder, '_storage_')
+                var_storage = messagebox.askyesno('Storage','Would you like to delete the _storage_ folder? (folder created by the dinput8 file)')
+                if var_storage:
+                    if os.path.exists(storage_folder):
+                        shutil.rmtree(storage_folder)
+            except Exception as e:
+                    pass 
+        
         uniscaler_folder = os.path.join(select_folder, 'uniscaler')
         if os.path.exists(uniscaler_folder):
             shutil.rmtree(uniscaler_folder)
+            
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
-    
+        
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
@@ -1831,7 +1904,7 @@ select_folder_label.place(x=309,y=70)
 select_folder = None
 
 def open_explorer(event=None): #Function to select the game folder and create the selected path text on the Canvas
-    global select_folder,select_option
+    global select_folder
     select_folder =filedialog.askdirectory()
     game_folder_canvas.delete('text')
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
@@ -2405,7 +2478,7 @@ def rdr2_build2():
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'}
 def dd2_fsr():
-    global dd2_folder
+    global dd2_folder,var_d_put,cleanup_var
     
     var_d_put = False
     
@@ -2636,7 +2709,7 @@ def close_lfz_guide(event=None):
     lfz_label_guide.place_forget()
     
 def install(event=None):
-    global install_contr
+    global install_contr,var_d_put
     try:
         install_contr = True
         if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
@@ -2653,6 +2726,9 @@ def install(event=None):
             rdr2_build2()
         elif select_mod in dd2_folder:
             dd2_fsr()
+            if var_d_put == False:
+                return
+        fps_limit()
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -2909,6 +2985,7 @@ def update_mod_version(event=None):
         mod_version_canvas.delete('text')
         mod_version_canvas.create_text(2,8,anchor='w',text=select_mod,fill='black',tag='text')
     select_mod_op_lock()
+    unlock_fps_limit()
     unlock_sharp()
     mod_version_canvas.update()
 
@@ -3100,6 +3177,7 @@ epic_over_label.bind('<Enter>',guide_epic)
 epic_over_label.bind('<Leave>',close_guide_epic)
 fsr_guide_label.bind('<Enter>',guide_fsr_guide)
 fsr_guide_label.bind('<Leave>',close_guide_fsr)
+fps_user_entry.bind("<Key>", fps_isdigit)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
 
