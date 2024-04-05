@@ -12,8 +12,8 @@ ultra_quality = 0.25
 
 [compatibility]
 fake_nvidia_gpu = true
-fake_nvapi_results = false
-amd_unreal_engine_dlss_workaround = false
+fake_nvapi_results = true
+amd_unreal_engine_dlss_workaround = true
 macos_crossover_support = false
 
 [logging]

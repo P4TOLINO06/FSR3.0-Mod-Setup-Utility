@@ -1,11 +1,11 @@
 config_version = 3
 
 [general]
-upscaler = "fsr3"
+upscaler = "dlss"
 disable_frame_generation = false
 sharpness_override = -1.0
 force_auto_exposure = false
-original_frame_rate_limit = 0
+original_frame_rate_limit = 120
 
 [resolution_override]
 native = 1.0

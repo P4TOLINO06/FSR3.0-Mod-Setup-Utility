@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.4v")
+screen.title("FSR3.0 Mod Setup Utility - 1.4.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -265,7 +265,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Dead Space Remake','Dragons Dogma 2','Dying Light 2','Hogwarts legacy','Horizon Forbidden West','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+    s_games_op = ['Alone in the Dark','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+                'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -309,20 +310,30 @@ def text_guide():
 "5 - If the mod doesn't work, select one of the nvngx.dll\noptions."
 ),
 
+'Bright Memory: Infinite':(
+  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n '  
+  '2 -  To make the mod work, run it in DX12. To run it in DX12, right-click the game\'s\nexe and create a shortcut, then right-click the shortcut again,\ngo to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the\ngame, go to Settings > Properties > Startup options, and enter -dx12.'
+),
+
 'Dead Space Remake':(
 "1 - Select a version of the mod of your choice (versions\nfrom 0.9.0 onwards \nare recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
-"4 - If the mod doesn't work, select one of the nvngx.dll options."  
-    
+"4 - If the mod doesn't work, select one of the nvngx.dll options."   
 ),
+
+'Deathloop':(
+  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n' 
+  '2 - Activate Fake Nvidia Gpu and Nvapi Results (Only for AMD and GTX) ' 
+),
+
 'Dragons Dogma 2':(
 '1 - Select Deput8 in Mod Select and install.\n'
 '2 - Open the game after Deput8 is installed, a "REFramework" menu will\nappear. Click on it, go to Settings and Menu Key, click on Menu Key,\nand select the preferred key (the key is used to open and close the menu).\n'
 '3 - Close the game, in Utility select Uniscaler_DD2 in Mod\nVersion and install (it is recommended to select "Yes" when the message\nto delete the shader file appears).\n'
 '4 - Inside the game, select FSR3 to enable the mod.\n\n'
 '•It is recommended to turn off any type of upscaler before\nopening the game with the mod.\n'
-'•To fix the Hub, select Dynamic Resolution and turn off FSR3\n(after turning it on for the first time), this will slightly decrease the fps.'
+'•To fix the Hud, select Dynamic Resolution and turn off FSR3\n(after turning it on for the first time), this will slightly decrease the fps.'
 ),
 
 'Dying Light 2': (      
@@ -341,6 +352,19 @@ def text_guide():
 "Other versions of the mod install normally, but may experience flickering on the HUD"
 ),
 
+'Ghostrunner 2': (
+    '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended)\n' 
+    '2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
+    '3 - Activate Fake Nvidia Gpu (AMD only)\n'
+    '4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
+    '• To fix the flickering of the HUD, activate and deactivate frame\ngeneration again (no need to apply settings).'
+),
+
+'Hellblade: Senua\'s Sacrifice':(
+    '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
+    '2 - Select Fake Nvidia Gpu and UE Compatibility (AMD only),\nselect Fake Nvidia Gpu and Nvapi Results (GTX only).'
+),
+
 'Hogwarts legacy':(
 "1 - Select a version of the mod of your choice (versions from 0.9.0\nonwards are recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the mod\ndoesn't work.\n"
@@ -353,6 +377,26 @@ def text_guide():
 '2 - If the game still crashes, select \'Nvngx: Default\' and enable\n\'Enable Signature Override\'\n'
 '3 - Turn Dynamic Resolution Scaling Off if you still have the black box\nsquare on-screen\n'
 '4 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
+),
+
+'Kena: Bridge of Spirits': (
+  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
+  '2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD only).'
+),
+
+'Lies of P':(
+'1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
+'2 - Activate Fake Nvidia Gpu and UE Compatibility Mode\n(AMD only).\n'
+'3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.'
+),
+
+'Martha Is Dead': (
+  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
+  '2 - Select Default in Nvngx\n'
+  '3 - Execute Enable Signature Override\n'
+  '4 - In Mod Operates, select "Replace DLSS FG"\n'
+  '5 - Activate Fake Nvidia Gpu (AMD only)\n'
+  '• To fix the flickering on the Hud, set the screen mode to fullscreen\n(windowed), select FSR 1.0, turn off motion blur and depth of field, check\nMotion Blur and Depth of Field again after saving the settings. If they don\'t\nturn off, turn them off again.'
 ),
 
 'Marvel\'s Guardians of the Galaxy':(
@@ -451,6 +495,10 @@ def text_guide():
     elif select_game == 'Marvel\'s Guardians of the Galaxy':
         screen_guide.geometry('590x260')
     elif select_game == 'Dragons Dogma 2':
+        screen_guide.geometry('600x260')
+    elif select_game == 'Ghostrunner 2':
+        screen_guide.geometry('580x260')
+    elif select_game == 'Martha Is Dead':
         screen_guide.geometry('600x260')
     else:
         screen_guide.geometry('520x260')
@@ -2527,13 +2575,13 @@ def us_dd2(var_d_put,origins_dd2):
 
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Lords of The Fallen','Metro Exodus Enhanced Edition',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
+               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
 
-fsr_2_1_opt=['Dead Space (2023)','Hitman 3','Horizon Zero Dawn','Judgment','Uncharted: Legacy of Thieves Collection','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us',]
+fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Dying Light 2','Brothers: A Tale of Two Sons Remake','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -2863,19 +2911,26 @@ fsr_game_version={
     'Assassin\'s Creed Mirage':'2.2',
     'Atomic Heart':'2.2',
     'Banishers: Ghosts of New Eden':'2.2',
+    'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
+    'Deathloop':'2.0',
     'Death Stranding Director\'s Cut':'2.2',
     'Dead Space (2023)':'2.1',
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
+    'Ghostrunner 2':'2.0',
+    'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
+    'Hellblade: Senua\'s Sacrifice':'2.1',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
     'Judgment':'2.1',
+    'Kena: Bridge of Spirits':'2.2',
+    'Lies of P':'2.2',
     'Lords of the Fallen':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
     'Marvel\'s Spider-Man: Miles Morales':'2.1',
@@ -2955,8 +3010,8 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
-        'Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Lords of the Fallen','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
+        'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
     listbox.insert(tk.END,option)
