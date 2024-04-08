@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.4.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.4.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -620,6 +620,9 @@ def clean_mod():
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
     del_winmm = 'winmm.dll'
+    del_elden_fsr3 =['_steam_appid.txt','_winhttp.dll','anti_cheat_toggler_config.ini','anti_cheat_toggler_mod_list.txt',
+                     'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
+                     'dxgi.dll','d3dcompiler_47.dll','']
      
     try:     
         for item in os.listdir(select_folder):
@@ -646,10 +649,23 @@ def clean_mod():
         uniscaler_folder = os.path.join(select_folder, 'uniscaler')
         if os.path.exists(uniscaler_folder):
             shutil.rmtree(uniscaler_folder)
-            
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
-        
+    
+    try:
+        if select_option == 'Elden Ring':
+            for item in os.listdir(select_folder):
+                if item in mod_clean_list or item in del_elden_fsr3:
+                    os.remove(os.path.join(select_folder,item))
+                    
+                er_mods = os.path.join(select_folder, 'mods')
+                er_reshade = os.path.join(select_folder, 'reshade-shaders')
+                if os.path.exists(er_mods or er_reshade):
+                    shutil.rmtree(er_reshade)
+                    shutil.rmtree(er_mods)           
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+            
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
@@ -2526,7 +2542,7 @@ def rdr2_build2():
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'}
 def dd2_fsr():
-    global dd2_folder,var_d_put,cleanup_var
+    global dd2_folder,var_d_put
     
     var_d_put = False
     
@@ -2573,13 +2589,34 @@ def us_dd2(var_d_put,origins_dd2):
                 if shader_c2 in del_shader:
                     os.remove(os.path.join(select_folder,shader_c2))
 
+er_origins = {'Disable_Anti-Cheat':'mods\Elden_Ring_FSR3\ToggleAntiCheat',
+              'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3'}
+def elden_fsr3():
+    global er_origins
+    
+    if select_mod in er_origins:
+        elden_folder = er_origins[select_mod]
+    
+    if select_mod in er_origins:
+        shutil.copytree(elden_folder,select_folder, dirs_exist_ok=True)
+        
+    if os.path.exists(os.path.join(select_folder, 'toggle_anti_cheat.exe')):
+        run_dis_anti_c()
+
+def run_dis_anti_c():
+    var_anti_c = messagebox.askyesno('Disable Anti Cheat','Do you want to disable the anticheat? (only for Steam users)')
+    
+    del_anti_c_path = os.path.join(select_folder,'toggle_anti_cheat.exe')
+    if var_anti_c:
+        subprocess.call(del_anti_c_path)
+
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Medium']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
 
-fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
+fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Callisto Protocol','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
 
@@ -2776,6 +2813,9 @@ def install(event=None):
             dd2_fsr()
             if var_d_put == False:
                 return
+        elif select_mod in er_origins:
+            elden_fsr3()
+            
         fps_limit()
         if  nvngx_contr:
             copy_nvngx()
@@ -2920,6 +2960,7 @@ fsr_game_version={
     'Dead Space (2023)':'2.1',
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
+    'Elden Ring':'PD',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
     'Ghostrunner 2':'2.0',
@@ -2950,7 +2991,7 @@ fsr_game_version={
     'STAR WARS Jedi: Survivor':'2.2',
     'Shadow of the Tomb Raider':'2.0',
     'TEKKEN 8':'2.2',
-    'The Callisto Protocol':'2.2',
+    'The Callisto Protocol':'2.1',
     'The Last of Us':'2.1',
     'The Thaumaturge':'2.2',
     'The Medium':'2.2',
@@ -3002,6 +3043,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.delete(0,END)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2')
+    elif select_option == 'Elden Ring':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3')
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3010,7 +3056,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
