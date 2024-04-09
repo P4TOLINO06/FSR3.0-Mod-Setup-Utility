@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.4.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.4.3v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -265,7 +265,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Alone in the Dark','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
     for select_games_op in s_games_op:  
@@ -340,6 +340,29 @@ def text_guide():
 "1 - Select a version of the mod of your choice (versions from\n0.7.6 onwards are recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"  
+),
+
+'Elden Ring': (
+'1 - Select "Disable AntiCheat" in the Select Mod and choose "Yes" in the anticheat deactivation\nconfirmation window. Select the folder where the game exe is located, otherwise, it will not be\npossible to deactivate the anticheat. (Steam Only)\n'
+'2 - Select "Elden Ring FSR3" in Select Mod and install it.\n'
+'3 - Inside the game, press the "Home" key to open the mod menu. In "Upscale Type," select the\nUpscaler according to your GPU (DLSS Rtx or FSR3 non-Rtx), then check the box "Enable\nFrame Generation" below.\n'
+'• To remove Full Screen borders, select "Full Screen" in the game before installing the mod. If\nthere is screen overflow after mod installation, select full screen -> window -> full screen.\n'
+'• Enable AntiAliasing and Motion Blur; this mod will skip the actual rendering of motion blur, so\ndon\'t worry if you don\'t like motion blur. The game only needs it to render motion vectors.'
+),
+
+'F1 2022' : (
+'1 - Choose a version of the mod you prefer (version 0.10.4 is\nrecommended).\n'
+'2 - Select "Default" in Nvngx and check the box "Enable\nSignature Override.\n'
+'3 - Check the box "Fake Nvidia GPU" (AMD Only).\n'
+'4 - Within the game, under AntiAliasing, select DLSS or FSR.\n'
+'• To fix the HUD flickering, select DLSS in AntiAliasing before\nstarting the game. While playing, switch to TAA+FSR or TAA\nonly.'     
+),
+
+'F1 2023':(
+'1 - Choose a version of the mod you prefer (version 0.10.4 is\nrecommended).\n'
+'2 - Select "Default" in Nvngx and check the box "Enable\nSignature Override.\n'
+'3 - Check the box "Fake Nvidia GPU" (AMD Only).\n'
+'4 - Inside the game, under AntiAliasing, select DLSS or FSR.'
 ),
 
 'Red Dead Redemption 2':(
@@ -500,6 +523,10 @@ def text_guide():
         screen_guide.geometry('580x260')
     elif select_game == 'Martha Is Dead':
         screen_guide.geometry('600x260')
+    elif select_game == 'Elden Ring':
+        screen_guide.geometry('730x260')
+    elif select_game == 'F1 2022' or select_game == 'F1 2023':
+        screen_guide.geometry('540x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -2612,7 +2639,7 @@ def run_dis_anti_c():
 
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
 
@@ -2961,6 +2988,8 @@ fsr_game_version={
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'Elden Ring':'PD',
+    'F1 2022':'2.2',
+    'F1 2023':'2.2',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
     'Ghostrunner 2':'2.0',
@@ -3056,7 +3085,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
