@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.4.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.4.4v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -265,7 +265,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
     for select_games_op in s_games_op:  
@@ -308,6 +308,12 @@ def text_guide():
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - Set FSR in the game settings.\n"
 "5 - If the mod doesn't work, select one of the nvngx.dll\noptions."
+),
+
+'Baldur\'s Gate 3': (
+'1 - Start the game in DX11 and select Borderless.\n'
+'2 - Choose DLSS or DLAA.\n'
+'3 - Press the END key to enter the mod menu, check\nthe Frame Generation box to activate the mod; you can also\nadjust the Upscaler. (To activate Frame Generation, simply\npress the * key; you can also change the key in the mod\nmenu.)\n'  
 ),
 
 'Bright Memory: Infinite':(
@@ -650,6 +656,7 @@ def clean_mod():
     del_elden_fsr3 =['_steam_appid.txt','_winhttp.dll','anti_cheat_toggler_config.ini','anti_cheat_toggler_mod_list.txt',
                      'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
                      'dxgi.dll','d3dcompiler_47.dll','']
+    del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
      
     try:     
         for item in os.listdir(select_folder):
@@ -692,6 +699,18 @@ def clean_mod():
                     shutil.rmtree(er_mods)           
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+            
+    try:
+        if select_option == 'Baldur\'s Gate 3':
+            for item in os.listdir(select_folder):
+                if item in del_bdg_fsr3:
+                    os.remove(os.path.join(select_folder,item))
+                    
+        bdg_mods = os.path.join(select_folder, 'mods') 
+        if os.path.exists(bdg_mods):
+            shutil.rmtree(bdg_mods)
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')      
             
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
@@ -2394,7 +2413,7 @@ def fsr_sdk():
             print(e)
     else:
         try:
-            shutil.copytree(origins_sdk, select_folder, dirs_exist_ok=True)   
+            shutil.copytree(origins_sdk, select_folder, dirs_exist_ok=True)  
         except shutil.Error as e:
             print(e)
  
@@ -2412,6 +2431,7 @@ def fsr_sdk():
                 origins_sdk_f = asi_global[select_mod][select_asi]
             else:
                 origins_sdk_f = None
+                
             if origins_sdk_f and os.path.isdir(origins_sdk_f):
                 for i_asi_sdk in os.listdir(origins_sdk_f):
                     path_fsr_sdk = os.path.join(origins_sdk_f,i_asi_sdk)
@@ -2445,6 +2465,10 @@ origins_rdr2_folder = {
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
     }
+
+def xess_fsr():
+    path_xess = r'mods\FSR2FSR3_Uniscaler\CyberXeSS_0.4'
+    shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
 
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
@@ -2637,6 +2661,15 @@ def run_dis_anti_c():
     if var_anti_c:
         subprocess.call(del_anti_c_path)
 
+bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\FSR3_BDG'}
+def bdg_fsr3():
+    
+    if select_mod in bdg_origins:
+        bdg_origin = bdg_origins[select_mod]
+    
+    if select_mod in bdg_origins:
+        shutil.copytree(bdg_origin,select_folder,dirs_exist_ok=True)
+        
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -2842,8 +2875,12 @@ def install(event=None):
                 return
         elif select_mod in er_origins:
             elden_fsr3()
-            
+        elif select_mod in bdg_origins:
+            bdg_fsr3()
+ 
         fps_limit()
+        if select_mod == 'Uniscaler' and select_mod_operates == 'XESS':
+            xess_fsr()  
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -2977,6 +3014,7 @@ fsr_game_version={
     'Alone in the Dark':'2.0',
     'Assassin\'s Creed Mirage':'2.2',
     'Atomic Heart':'2.2',
+    'Baldur\'s Gate 3':'PD',
     'Banishers: Ghosts of New Eden':'2.2',
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
@@ -3077,6 +3115,12 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.delete(0,END)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3')
+    elif select_option == 'Baldur\'s Gate 3':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3')
+        
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3085,7 +3129,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
 for option in options:
