@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.4.4v")
+screen.title("FSR3.0 Mod Setup Utility - 1.5v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -711,7 +711,31 @@ def clean_mod():
             shutil.rmtree(bdg_mods)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')      
-            
+    
+    name_xess = os.path.join(select_folder,'libxess.txt')
+    new_xess = os.path.join(select_folder,'libxess.dll')
+    rename_old_xess = 'libxess.dll'
+    try:
+        if os.path.exists(name_xess):
+            old_xess_rename = messagebox.askyesno('Old Xess','Do you want to remove Xess 1.3 and revert to the old version?')
+            if old_xess_rename:
+                os.remove(new_xess)
+                os.rename(name_xess,os.path.join(select_folder,rename_old_xess))
+    except Exception as e:
+        messagebox.showinfo('Xess does not exist','Xess 1.3 does not exist or has already been removed previously.')
+    
+    name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
+    new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
+    rename_old_dlss = 'nvngx_dlss.dll'
+    try:
+        if os.path.exists(name_dlss):
+            old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.7.0 and revert to the old version?')
+            if old_dlss_rename:
+                os.remove(new_dlss)
+                os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
+    except Exception as e:
+        messagebox.showinfo('DLSS does not exist','DLSS 3.7.0 does not exist or has already been removed previously.')
+                   
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
@@ -2467,8 +2491,34 @@ origins_rdr2_folder = {
     }
 
 def xess_fsr():
-    path_xess = r'mods\FSR2FSR3_Uniscaler\CyberXeSS_0.4'
-    shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
+    path_xess = r'mods\FSR2FSR3_Uniscaler\CyberXeSS'
+    
+    name_libxess = os.path.join(select_folder,'libxess.dll')
+    name_libxess_old = os.path.join(select_folder,'libxess.txt')
+    rename_libxess = 'libxess.txt'
+    
+    put_xess = messagebox.askyesno('Install Xess 1.3','Would you like to enable XESS 1.3?')
+    if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old):
+        os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
+    
+    if put_xess:
+        shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
+
+def dlss_fsr():
+    path_dlss = r'mods\FSR2FSR3_Uniscaler\nvngx_dlss_3.7.0'
+    
+    name_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
+    name_old_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
+    
+    rename_dlss = 'nvngx_dlss.txt'
+    
+    put_dlss = messagebox.askyesno('DLSS 3.7.0','Do you want to enable DLSS 3.7.0?')
+    
+    if put_dlss and os.path.exists(name_dlss) and not os.path.exists(name_old_dlss):
+        os.rename(name_dlss,os.path.join(select_folder,rename_dlss)) 
+    
+    if put_dlss:
+        shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
@@ -2674,7 +2724,7 @@ install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Callisto Protocol','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
@@ -2878,9 +2928,10 @@ def install(event=None):
         elif select_mod in bdg_origins:
             bdg_fsr3()
  
-        fps_limit()
-        if select_mod == 'Uniscaler' and select_mod_operates == 'XESS':
-            xess_fsr()  
+        if select_mod == 'Uniscaler' and select_mod_operates != None:
+            xess_fsr()
+        if select_mod == 'Uniscaler' and select_mod_operates != None:
+            dlss_fsr()
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -2893,6 +2944,7 @@ def install(event=None):
             messagebox.showwarning('Select FSR Version','Please select the FSR version')
         if select_mod != None and select_folder != None and select_option != None:
             messagebox.showinfo('Successful','Successful installation')
+        fps_limit()
         replace_clean_file()
 
         install_label.configure(fg='black')
@@ -3063,7 +3115,8 @@ fsr_game_version={
     'The Thaumaturge':'2.2',
     'The Medium':'2.2',
     'The Witcher 3':'2.0',
-    'Uncharted: Legacy of Thieves Collection':'2.1'      
+    'Uncharted: Legacy of Thieves Collection':'2.1',
+    'Wanted: Dead':'2.2'  
 }
 
 select_option = None
@@ -3131,7 +3184,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
