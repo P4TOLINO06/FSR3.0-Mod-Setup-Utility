@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.5v")
+screen.title("FSR3.0 Mod Setup Utility - 1.5.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -267,7 +267,7 @@ def select_guide():
     
     s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler']
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -498,6 +498,14 @@ def text_guide():
 'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
 'Even if the game does not have support for one of the 3\nupscalers, it is possible to activate them by selecting the\nupscaler in "Mod Operates".\n\n'
 'AMD GPU users may need to select the \'Nvngx: Default\'\noption and activate \'Enable Signature Override\'.\nPlease perform these steps if the mod does not work on your\ndefault version.'
+),
+
+'XESS/DLSS':(
+'1 - Select Uniscaler in Mod Version (you can try using it with other mod versions\nbut you will likely encounter an error)\n'
+'2 - Check the NVNGX box and select XESS 1.3 or DLSS 3.7.0. For some games\nlike The Callisto Protocol, for example, it will '
+'be necessary to select \'Default\' in\nNVNGX. Then, you can select \'Default\' in NVNGX and choose any option in Mod\nOperates and install. '
+'After pressing install, a window will appear to confirm the\ninstallation of XESS/DLSS. This way, you can install the default Nvngx from\nUniscaler and XESS/DLSS together without needing to perform 2 installations.\n'
+'3 - If the game has a default Xess/Dlss file, this file is modified to serve as a\nbackup. If you want to remove the installed Xess/Dlss and revert to the old\nversion, just check the \'Cleanup Mod\' checkbox and confirm the deletion window\nthat appears.'  
 )
 }    
     
@@ -533,6 +541,8 @@ def text_guide():
         screen_guide.geometry('730x260')
     elif select_game == 'F1 2022' or select_game == 'F1 2023':
         screen_guide.geometry('540x260')
+    elif select_game == 'XESS/DLSS':
+        screen_guide.geometry('635x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -1036,14 +1046,8 @@ nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
 nvngx_listbox.place(x=90,y=497)
 nvngx_listbox.place_forget()
 
-copy_all_nvn = None
 def copy_nvngx():
-    global copy_all_nvn
-    if select_nvngx == 'Default':
-        copy_all_nvn = False
-    else:
-        copy_all_nvn = True
-    
+      
     nvngx_folders = None
     nvngx_folders = {
     '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\\nvngx',
@@ -1057,19 +1061,39 @@ def copy_nvngx():
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\nvngx',
     'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx'
     }
-    nvngx_folder= nvngx_folders.get(select_mod)
+    nvngx_folder = nvngx_folders.get(select_mod)
     if select_mod not in nvngx_folders:
         messagebox.showinfo('Error','Please select a version starting at 0.7.6')
     else:
         try:
             for item in os.listdir(nvngx_folder):
-                nvn_path = os.path.join(nvngx_folder,item)
-                if os.path.isfile(nvn_path):
-                    shutil.copy2(nvn_path,select_folder)
-                elif os.path.isdir(nvn_path):
-                    shutil.copytree(nvn_path,os.path.join(select_folder,item))
-                if not copy_all_nvn:
-                    break
+                nvn_path = os.path.join(nvngx_folder, item)
+                if os.path.isfile(nvn_path) and select_nvngx == 'Default':
+                    if item == 'nvngx.dll':
+                        shutil.copy2(nvn_path, select_folder)
+                        
+                elif os.path.isfile(nvn_path) and select_nvngx == 'NVNGX Version 1':
+                    if item == 'nvngx.ini':
+                        shutil.copy2(nvn_path, select_folder)
+                        
+                elif os.path.isfile(nvn_path) and select_nvngx == 'XESS 1.3':
+                    if item == 'libxess.dll':
+                        name_libxess = os.path.join(select_folder,'libxess.dll')
+                        name_libxess_old = os.path.join(select_folder,'libxess.txt')
+                        rename_libxess = 'libxess.txt'
+                        if os.path.exists(name_libxess) and not os.path.exists(name_libxess_old):
+                            os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
+                        shutil.copy2(nvn_path, select_folder)  
+                
+                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSS 3.7.0':
+                    if item == 'nvngx_dlss.dll':
+                        name_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
+                        name_old_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
+                        rename_dlss = 'nvngx_dlss.txt'
+                        if os.path.exists(name_dlss) and not os.path.exists(name_old_dlss):
+                            os.rename(name_dlss,os.path.join(select_folder,rename_dlss))
+                        shutil.copy2(nvn_path, select_folder)
+                        
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
 
@@ -2498,10 +2522,10 @@ def xess_fsr():
     rename_libxess = 'libxess.txt'
     
     put_xess = messagebox.askyesno('Install Xess 1.3','Would you like to enable XESS 1.3?')
-    if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old):
+    if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old) and select_nvngx != 'XESS 1.3':
         os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
     
-    if put_xess:
+    if put_xess and select_nvngx != 'XESS 1.3' or put_xess and not nvngx_contr:
         shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
 
 def dlss_fsr():
@@ -2514,10 +2538,10 @@ def dlss_fsr():
     
     put_dlss = messagebox.askyesno('DLSS 3.7.0','Do you want to enable DLSS 3.7.0?')
     
-    if put_dlss and os.path.exists(name_dlss) and not os.path.exists(name_old_dlss):
+    if put_dlss and os.path.exists(name_dlss) and not os.path.exists(name_old_dlss) and select_nvngx != 'DLSS 3.7.0':
         os.rename(name_dlss,os.path.join(select_folder,rename_dlss)) 
     
-    if put_dlss:
+    if put_dlss and select_nvngx != 'DLSS 3.7.0' or put_dlss and not nvngx_contr :
         shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
 def fsr_rdr2():
@@ -2625,20 +2649,18 @@ def fsr_rdr2():
     except Exception as e:
         print(e)  
 
-rdr2_folder = {"RDR2 Build_2":'mods\Red_Dead_Redemption_2_Build02'}
+rdr2_folder = {"RDR2 Build_2":'mods\Red_Dead_Redemption_2_Build02',
+               "RDR2 Build_4":'mods\RDR2Upscaler-FSR3Build04'}
 def rdr2_build2():
     global rdr2_folder
     
-    for b2_k, b2_v in rdr2_folder.items():
-        b2_path = b2_v
+    if select_mod in rdr2_folder:
+        origins_rdr2 = rdr2_folder[select_mod]
     
-    for item in os.listdir(b2_path):
-        origem_arquivo = os.path.join(b2_path, item)
-        destino_arquivo = os.path.join(select_folder, item)
-        if os.path.isdir(origem_arquivo):
-            shutil.copytree(origem_arquivo, destino_arquivo)
-        else:
-            shutil.copy2(origem_arquivo, destino_arquivo)
+    if select_mod == 'RDR2 Build_2':
+        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
+    elif select_mod == 'RDR2 Build_4':
+        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'}
@@ -2723,7 +2745,7 @@ def bdg_fsr3():
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition',
+               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Callisto Protocol','The Last of Us','Uncharted: Legacy of Thieves Collection']
@@ -3096,6 +3118,7 @@ fsr_game_version={
     'Marvel\'s Spider-Man: Miles Morales':'2.1',
     'Metro Exodus Enhanced Edition': '2.2',
     'Nightingale':'2.0',
+    'Outpost: Infinity Siege':'2.2',
     'Palworld':'2.2',
     'Ratchet & Clank-Rift Apart':'SDK',
     'Red Dead Redemption 2':'RDR2',
@@ -3157,7 +3180,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler')
     elif select_option == 'Dragons Dogma 2':
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3183,7 +3206,7 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Palworld','Ratchet & Clank-Rift Apart',
+        'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
@@ -3306,7 +3329,7 @@ def update_nvngx(event=None):
         nvngx_canvas.create_text(2,8,anchor='w',text=select_nvngx,fill='black',tags='text')
     nvngx_canvas.update()
 
-nvngx_op = ['Default','NVNGX Version 1']
+nvngx_op = ['Default','NVNGX Version 1','XESS 1.3','DLSS 3.7.0']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END,nvngx_options)
     
