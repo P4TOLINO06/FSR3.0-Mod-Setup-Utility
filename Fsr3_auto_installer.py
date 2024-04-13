@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.5.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.5.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -152,7 +152,7 @@ def enable_epic_over(event=None):
         messagebox.showinfo('Sucess','Overlay enabled successfully.')
         if epic_over_canvas is None:
             print('1')
-    except Exception as e:
+    except Exception:
         messagebox.showinfo('Error','Error enabling Overlay')
 
 def disable_epic_over(event=None):
@@ -267,7 +267,7 @@ def select_guide():
     
     s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','The Thaumaturge','Uniscaler','XESS/DLSS']
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -467,6 +467,14 @@ def text_guide():
 '● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).'
 ),
 
+'Steelrising':(
+'1 - Choose a version of the mod you prefer (version 0.10.3 is\nrecommended).\n'
+'2 - Enable Fake Nvidia GPU (only for AMD and GTX).\n'
+'3 - Enable NVAPI Results (only for GTX).\n'
+'4 - In Mod Operates, select Enable Upscaling Only.\n\n'
+'● To fix the Hub Flickering, do not select any option in Mod\nOperates, open the game, and choose FSR 1.0.'
+),
+
 'Rise of The Tomb Raider':(
 '1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
 '2 - Select the folder where the game\'s exe is located (something like\nROTTR.exe)\n'
@@ -571,7 +579,8 @@ def close_guide_fsr(event=None):
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
 
-us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml'}
+us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
+             'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'}
 
 def fps_limit():
     global us_origin
@@ -731,6 +740,8 @@ def clean_mod():
             if old_xess_rename:
                 os.remove(new_xess)
                 os.rename(name_xess,os.path.join(select_folder,rename_old_xess))
+        else: 
+            os.remove(new_xess)
     except Exception as e:
         messagebox.showinfo('Xess does not exist','Xess 1.3 does not exist or has already been removed previously.')
     
@@ -743,6 +754,8 @@ def clean_mod():
             if old_dlss_rename:
                 os.remove(new_dlss)
                 os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
+        else: 
+            os.remove(new_dlss)
     except Exception as e:
         messagebox.showinfo('DLSS does not exist','DLSS 3.7.0 does not exist or has already been removed previously.')
                    
@@ -762,7 +775,8 @@ def edit_disable_console():
     disable_console_list = {
         '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
         '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-        'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+        'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+        'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
     key_disable = 'logging'
     
@@ -840,7 +854,8 @@ def edit_debug_tear_lines():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
     
     debug_tear_mod = None
@@ -878,7 +893,8 @@ def edit_debug_view():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
     
     debug_mod_folder = None
@@ -903,7 +919,7 @@ debug_view_cbox.place(x=85,y=536)
 def enable_over():
     global list_over
     folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
-    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
+    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
 
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_en_over],capture_output=True)
@@ -975,7 +991,8 @@ def copy_dxgi():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\dxgi',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\dxgi',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\dxgi'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\dxgi',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\dxgi'
     }
     dxgi_folder = dxgi_folders.get(select_mod)
     
@@ -1059,11 +1076,15 @@ def copy_nvngx():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\nvngx',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\nvngx',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx'
+    'RDR2 Build_2':'mods\Temp\RDR2_FSR3\\nvngx',
+    'RDR2 Build_4':'mods\Temp\RDR2_FSR3\\nvngx',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\nvngx'
     }
-    nvngx_folder = nvngx_folders.get(select_mod)
+    nvngx_folder = nvngx_folders.get(select_mod) 
+    
     if select_mod not in nvngx_folders:
-        messagebox.showinfo('Error','Please select a version starting at 0.7.6')
+        messagebox.showinfo('Error','Please select a version starting at 0.7.6 ')
     else:
         try:
             for item in os.listdir(nvngx_folder):
@@ -1096,11 +1117,11 @@ def copy_nvngx():
                         
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
-
+            print(e)
 custom_fsr_act = False
 
 def unlock_custom():
-    list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
+    list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
     if select_mod not in list_custom:
         messagebox.showwarning('Error','Please select a mod version starting from 0.9.0')
         custom_fsr_cbox.deselect()
@@ -1199,7 +1220,8 @@ def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }  
     mod_fsr_custom_folder = None
     if select_mod in list_mod_custom_fsr:
@@ -1423,7 +1445,8 @@ folder_fake_gpu ={
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
 }
 
 def fake_gpu_mod():
@@ -1435,7 +1458,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -1473,7 +1496,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -1539,8 +1562,10 @@ list_ue = {
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
+
 def edit_ue():
     global list_ue
     
@@ -1591,7 +1616,8 @@ list_nvapi = {
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
 def edit_nvapi():
     global list_nvapi
@@ -1656,7 +1682,8 @@ list_macos = {
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
 def edit_macos():
     global list_macos
@@ -1728,7 +1755,8 @@ def replace_clean_file():
             '0.10.2h1':'mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
             '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu',
             '0.10.4':'mods\FSR2FSR3_0.10.4\enable_fake_gpu',
-            'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu'
+            'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu',
+            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu'
         }
         
         clean_file_rep = {
@@ -1743,7 +1771,8 @@ def replace_clean_file():
             '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
             '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu',
             '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu',
-            'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu'
+            'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu',
+            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu'
         }
 
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -1814,7 +1843,8 @@ def screen_editor():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
     if select_mod in default_path:
         default_file_path = os.path.join(default_path[select_mod])
@@ -1859,7 +1889,7 @@ def cbox_sharpness():
 
 def unlock_sharp():
     global unlock_cbox_sharp,select_mod
-    mod_list_sharp = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
+    mod_list_sharp = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
     if select_mod in mod_list_sharp:
         unlock_cbox_sharp = True
     else:
@@ -1875,7 +1905,8 @@ def edit_sharpeness_up():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }  
     if select_mod in list_mod_sharpness:
         folder_sharp = list_mod_sharpness[select_mod]
@@ -1969,7 +2000,8 @@ def edit_mod_operates():
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
     }
     
     if select_mod in mod_folder_list:
@@ -1983,10 +2015,10 @@ def edit_mod_operates():
     elif select_mod == '0.9.0' and select_mod_operates == 'Default':
         options_mod_op = 'enable_upscaling_only'
         select_mod_op_options = False
-    elif select_mod != '0.9.0' and select_mod != 'Uniscaler':
+    elif select_mod != '0.9.0' and select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         options_mod_op = 'mode'
         select_mod_op_options = str(select_mod_operates).lower().replace(" ", '_')
-    elif select_mod == 'Uniscaler':
+    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss':
         options_mod_op = 'upscaler'
         select_mod_op_options = str(select_mod_operates).lower()
              
@@ -2141,7 +2173,10 @@ asi_global={
         'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
     },
     'Uniscaler':{
-        'Uniscaler':'mods\\ASI\\ASI_uniscaler'
+        'Uniscaler':'mods\\ASI\\ASI_uniscaler',
+    },
+    'Uniscaler + Xess + Dlss':{
+        'Uniscaler + Xess + Dlss':r'mods\ASI\ASI_uniscaler_xess_dlss'
     }
 }
 
@@ -2178,13 +2213,14 @@ def fsr_2_2():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
     
     if select_mod in origins_2_2_folder:
         origins_2_2 = origins_2_2_folder[select_mod]
     
-    if select_mod !='Uniscaler':
+    if select_mod !='Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         try:
             if isinstance(origins_2_2,list):
                 for folder_2_2 in origins_2_2:
@@ -2263,13 +2299,14 @@ def fsr_2_1():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_210',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
     
     if select_mod in origins_2_1_folder:
         origins_2_1 = origins_2_1_folder[select_mod]
     
-    if select_mod != 'Uniscaler':
+    if select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         try:
             if isinstance(origins_2_1,list):
                 for folder_2_1 in origins_2_1:
@@ -2350,13 +2387,14 @@ def fsr_2_0():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_200',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
     
     if select_mod in origins_2_0_folder:
         origins_2_0 = origins_2_0_folder[select_mod]
      
-    if select_mod != 'Uniscaler':   
+    if select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':   
         try:
             if isinstance(origins_2_0,list):
                 for folder_2_0 in origins_2_0:
@@ -2436,7 +2474,8 @@ def fsr_sdk():
         '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_SDK',
                   'mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_COMMON'],
         
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
     
     if select_mod in origins_sdk_folder:
@@ -2511,7 +2550,8 @@ origins_rdr2_folder = {
         '0.10.4':['mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\FSR2FSR3_COMMON',
                   'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'],
         
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
 
 def xess_fsr():
@@ -2622,7 +2662,15 @@ def fsr_rdr2():
             '2.2':'mods\\ASI\ASI_uniscaler',
             'SDK':'mods\\ASI\ASI_uniscaler',
             'ASI Loader for RDR2':'mods\\ASI\\ASI_uniscaler'
-        }    
+        },
+       'Uniscaler + Xess + Dlss':{
+            '2.0':r'mods\ASI\ASI_uniscaler_xess_dlss',
+            '2.1':r'mods\ASI\ASI_uniscaler_xess_dlss',
+            '2.2':r'mods\ASI\ASI_uniscaler_xess_dlss',
+            'SDK':r'mods\ASI\ASI_uniscaler_xess_dlss',
+            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_xess_dlss'
+       }
+       
     }
 
     if select_mod in asi_rdr2_0_9 and (select_asi in asi_rdr2_0_9[select_mod] or option_asi in asi_rdr2_0_9[select_mod]):
@@ -2663,7 +2711,8 @@ def rdr2_build2():
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
-              'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'}
+              'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+              'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'}
 def dd2_fsr():
     global dd2_folder,var_d_put
     
@@ -2746,7 +2795,7 @@ install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Callisto Protocol','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
@@ -2973,7 +3022,8 @@ def install(event=None):
         screen.after(100,install_false)
         
     except Exception as e: 
-        messagebox.showwarning('Error',f'Installation error {e}')
+        messagebox.showwarning('Error',f'Installation error')
+        return
         
 def install_false(event=None):
     global install_contr
@@ -3009,7 +3059,7 @@ def mod_listbox_view(event):
         mod_version_listbox.place(x=90,y=135)
         mod_listbox_visible = True
 
-def rectangle_event(event): #configuration listbox
+def rectangle_event(event):
     global listbox_visible
     if listbox_visible:
         listbox.place_forget()
@@ -3131,6 +3181,7 @@ fsr_game_version={
     'Sackboy: A Big Adventure':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
+    'Steelrising':'2.2',
     'Shadow of the Tomb Raider':'2.0',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
@@ -3207,7 +3258,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
@@ -3237,9 +3288,10 @@ def update_mod_version(event=None):
     select_mod_op_lock()
     unlock_fps_limit()
     unlock_sharp()
+    update_nvngx()
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
   
@@ -3306,7 +3358,7 @@ def select_mod_op_lock():
         unlock_listbox_mod_op = True
         mod_operates_canvas.config(bg='white')
         
-    elif select_mod == 'Uniscaler':
+    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss':
         mod_op_list = ['FSR3','DLSS','XESS']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
@@ -3319,19 +3371,36 @@ def select_mod_op_lock():
         
     for mod_operates_ins in mod_op_list:
         mod_operates_listbox.insert(tk.END,mod_operates_ins)
-    
+  
 def update_nvngx(event=None):
-    global select_nvngx
+    global select_nvngx,nvngx_op
     index_nvngx_op = nvngx_listbox.curselection()
+    
+    if select_mod == 'Uniscaler + Xess + Dlss':
+        nvngx_op = ['Default', 'NVNGX Version 1']
+    else:
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0']
+
+    nvngx_listbox.delete(0, tk.END) 
+    for nvngx_options in nvngx_op:
+        nvngx_listbox.insert(tk.END, nvngx_options)
+    
     if index_nvngx_op:
         select_nvngx = nvngx_listbox.get(index_nvngx_op)
+        nvngx_canvas.delete('text')   
+    nvngx_canvas.delete('text')  
+    get_canvas = nvngx_canvas.create_text(2, 8, anchor='w', text=select_nvngx, fill='black', tags='text')
+
+    text_canvas_nvngx = nvngx_canvas.itemcget(get_canvas, "text")
+    
+    if select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'XESS 1.3' or select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'DLSS 3.7.0':
         nvngx_canvas.delete('text')
-        nvngx_canvas.create_text(2,8,anchor='w',text=select_nvngx,fill='black',tags='text')
+    
     nvngx_canvas.update()
 
-nvngx_op = ['Default','NVNGX Version 1','XESS 1.3','DLSS 3.7.0']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0']
 for nvngx_options in nvngx_op:
-    nvngx_listbox.insert(tk.END,nvngx_options)
+    nvngx_listbox.insert(tk.END, nvngx_options)
     
 def update_dxgi(event=None):
     global select_dxgi
