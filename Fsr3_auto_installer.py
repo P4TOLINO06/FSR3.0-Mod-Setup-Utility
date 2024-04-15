@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.5.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -582,6 +582,94 @@ guide_fsr_label.place_forget()
 us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
              'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'}
 
+def var_auto_expo_en():
+    if select_mod in us_origin:
+        folder_auto_expo = us_origin[select_mod]
+    key_us = 'general'
+    
+    with open (folder_auto_expo,'r') as file:
+        toml_expo = toml.load(file)
+        
+    toml_expo.setdefault(key_us,{})
+    toml_expo[key_us]['force_auto_exposure'] = True
+    
+    with open(folder_auto_expo, 'w') as file:
+        toml.dump(toml_expo,file)
+
+def var_auto_expo_dis():
+    if select_mod in us_origin:
+        folder_auto_expo = us_origin[select_mod]
+    key_us = 'general'
+    
+    with open (folder_auto_expo,'r') as file:
+        toml_expo = toml.load(file)
+        
+    toml_expo.setdefault(key_us,{})
+    toml_expo[key_us]['force_auto_exposure'] = False
+    
+    with open(folder_auto_expo, 'w') as file:
+        toml.dump(toml_expo,file)
+        
+def cbox_var_auto_expo():
+    if var_auto_expo_var.get() == 1 and select_mod in us_origin:
+        var_auto_expo_en()
+    elif var_auto_expo_var.get() == 0 and select_mod in us_origin:
+        var_auto_expo_dis()
+    elif var_auto_expo_var.get() == 1 and select_mod not in us_origin:
+        messagebox.showinfo('Select Uniscaler','Please select Uniscaler or Uniscaler + Xess + Dlss to enable or disable this option')
+        var_expo_cbox.deselect()
+        return
+
+var_auto = tk.Label(screen,text='Auto Exposure',font=font_select,bg='black',fg='#C0C0C0')
+var_auto.place(x=273,y=345)
+var_auto_expo_var = tk.IntVar()
+var_expo_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_auto_expo_var,command=cbox_var_auto_expo)
+var_expo_cbox.place(x=377,y=348)
+
+def var_frame_gen_en():
+    if select_mod in us_origin:
+        folder_frame_gen = us_origin[select_mod]
+    key_us = 'general'
+    
+    with open (folder_frame_gen,'r') as file:
+        toml_gen = toml.load(file)
+        
+    toml_gen.setdefault(key_us,{})
+    toml_gen[key_us]['disable_frame_generation'] = True
+    
+    with open(folder_frame_gen, 'w') as file:
+        toml.dump(toml_gen,file)
+        
+def var_frame_gen_dis():
+    if select_mod in us_origin:
+        folder_frame_gen = us_origin[select_mod]
+    key_us = 'general'
+    
+    with open (folder_frame_gen,'r') as file:
+        toml_gen = toml.load(file)
+        
+    toml_gen.setdefault(key_us,{})
+    toml_gen[key_us]['disable_frame_generation'] = False
+    
+    with open(folder_frame_gen, 'w') as file:
+        toml.dump(toml_gen,file)
+
+def cbox_var_frame_gen():
+    if var_frame_gen_var.get() == 1 and select_mod in us_origin:
+        var_frame_gen_en()
+    elif var_frame_gen_var.get() == 0 and select_mod in us_origin:
+        var_frame_gen_dis()
+    elif var_frame_gen_var.get() == 1 and select_mod not in us_origin:
+        messagebox.showinfo('Select Uniscaler','Please select Uniscaler or Uniscaler + Xess + Dlss to enable or disable this option')
+        var_frame_gen_cbox.deselect()
+        return
+        
+var_frame_gen_label = tk.Label(screen,text='Off Frame Gen',font=font_select,bg='black',fg='#C0C0C0')
+var_frame_gen_label.place(x=273,y=310)
+var_frame_gen_var = tk.IntVar()
+var_frame_gen_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_frame_gen_var,command=cbox_var_frame_gen)
+var_frame_gen_cbox.place(x=375,y=313)
+
 def fps_limit():
     global us_origin
     key_us = 'general'
@@ -589,8 +677,7 @@ def fps_limit():
     try:
         if select_mod in us_origin:
             origins_us = us_origin[select_mod]
-    
-        
+
         with open(origins_us,'r') as file:
             toml_us = toml.load(file)
         toml_us.setdefault(key_us,{})
@@ -692,7 +779,7 @@ def clean_mod():
                 
             try:
                 storage_folder = os.path.join(select_folder, '_storage_')
-                var_storage = messagebox.askyesno('Storage','Would you like to delete the _storage_ folder? (folder created by the dinput8 file)')
+                var_storage = messagebox.askyesno('Storage','Would you like to delete the _storage_ folder? (folder created by the dinput8 file.')
                 if var_storage:
                     if os.path.exists(storage_folder):
                         shutil.rmtree(storage_folder)
@@ -735,27 +822,37 @@ def clean_mod():
     new_xess = os.path.join(select_folder,'libxess.dll')
     rename_old_xess = 'libxess.dll'
     try:
-        if os.path.exists(name_xess):
-            old_xess_rename = messagebox.askyesno('Old Xess','Do you want to remove Xess 1.3 and revert to the old version?')
-            if old_xess_rename:
-                os.remove(new_xess)
-                os.rename(name_xess,os.path.join(select_folder,rename_old_xess))
-        else: 
-            os.remove(new_xess)
+        if select_mod == 'Uniscaler':
+            if os.path.exists(name_xess):
+                old_xess_rename = messagebox.askyesno('Old Xess','Do you want to remove Xess 1.3 and revert to the old version?')
+                if old_xess_rename:
+                    os.remove(new_xess)
+                    os.rename(name_xess,os.path.join(select_folder,rename_old_xess))
+            elif not os.path.exists(name_xess):
+                if not os.path.exists(new_xess):
+                    return
+                else:
+                    os.remove(new_xess)
     except Exception as e:
         messagebox.showinfo('Xess does not exist','Xess 1.3 does not exist or has already been removed previously.')
+        print(e)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
     rename_old_dlss = 'nvngx_dlss.dll'
     try:
-        if os.path.exists(name_dlss):
-            old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.7.0 and revert to the old version?')
-            if old_dlss_rename:
-                os.remove(new_dlss)
-                os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
-        else: 
-            os.remove(new_dlss)
+        if select_mod == 'Uniscaler':
+            if os.path.exists(name_dlss):
+                old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.7.0 and revert to the old version?')
+                if old_dlss_rename:
+                    os.remove(new_dlss)
+                    os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
+            elif not os.path.exists(name_dlss):
+                if not os.path.exists(new_dlss):
+                    return
+                else:
+                    os.remove(new_dlss)
+
     except Exception as e:
         messagebox.showinfo('DLSS does not exist','DLSS 3.7.0 does not exist or has already been removed previously.')
                    
@@ -1985,7 +2082,7 @@ mod_operates_listbox.place(x=100,y=335)
 mod_operates_listbox.place_forget()
 
 optional_mod_op_label = tk.Label(screen,text='optional',font=(font_select,7),bg='black',fg='#696969')
-optional_mod_op_label.place(x=251,y=315)
+optional_mod_op_label.place(x=0,y=330)
 
 options_mod_op = None
 select_mod_op_options = None
@@ -2562,10 +2659,10 @@ def xess_fsr():
     rename_libxess = 'libxess.txt'
     
     put_xess = messagebox.askyesno('Install Xess 1.3','Would you like to enable XESS 1.3?')
-    if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old) and select_nvngx != 'XESS 1.3':
+    if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old):
         os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
     
-    if put_xess and select_nvngx != 'XESS 1.3' or put_xess and not nvngx_contr:
+    if put_xess and select_nvngx != 'XESS 1.3' or put_xess and not nvngx_contr :
         shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
 
 def dlss_fsr():
@@ -2712,7 +2809,8 @@ def rdr2_build2():
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-              'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'}
+              'Uniscaler + Xess + Dlss DD2':'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod'
+}
 def dd2_fsr():
     global dd2_folder,var_d_put
     
@@ -2736,10 +2834,11 @@ def dd2_fsr():
         break 
     else:
         var_d_put = False
+    print(var_d_put)
     
-    if select_mod == 'Uniscaler_DD2' and var_d_put:
+    if select_mod == 'Uniscaler_DD2' and var_d_put or select_mod == 'Uniscaler + Xess + Dlss DD2' and var_d_put :
         us_dd2(var_d_put,origins_dd2)
-    elif select_mod == 'Uniscaler_DD2' and not var_d_put:
+    elif select_mod == 'Uniscaler_DD2' and not var_d_put or select_mod == 'Uniscaler + Xess + Dlss DD2' and not var_d_put:
         messagebox.showinfo('Not Found','Deput8.dll file not found, please select "Deput8" in "Select mod" before installing the mod, we recommend checking out the Dragons Dogmas 2 guide on FSR GUIDE.')
 
 def us_dd2(var_d_put,origins_dd2):
@@ -2754,7 +2853,7 @@ def us_dd2(var_d_put,origins_dd2):
         shutil.copytree(all_us_path, select_folder, dirs_exist_ok=True)
         shutil.copytree(origins_dd2, select_folder, dirs_exist_ok=True)
 
-        del_shader_var = messagebox.askyesno('Delete Shader','"Do you want to delete the shader.cache2 file? Not deleting this file may result in bugs and game crashes."')
+        del_shader_var = messagebox.askyesno('Delete Shader','Do you want to delete the shader.cache2 file? Not deleting this file may result in bugs and game crashes.')
         
         if del_shader_var:
             for shader_c2 in os.listdir(select_folder):
@@ -2793,7 +2892,7 @@ def bdg_fsr3():
         
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
@@ -2998,10 +3097,10 @@ def install(event=None):
             elden_fsr3()
         elif select_mod in bdg_origins:
             bdg_fsr3()
- 
-        if select_mod == 'Uniscaler' and select_mod_operates != None:
+
+        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
-        if select_mod == 'Uniscaler' and select_mod_operates != None:
+        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
         if  nvngx_contr:
             copy_nvngx()
@@ -3145,6 +3244,7 @@ fsr_game_version={
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Deathloop':'2.0',
+    'Dead Island 2':'2.2',
     'Death Stranding Director\'s Cut':'2.2',
     'Dead Space (2023)':'2.1',
     'Dragons Dogma 2':'US',
@@ -3236,7 +3336,7 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-        mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2')
+        mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2','Uniscaler + Xess + Dlss DD2')
     elif select_option == 'Elden Ring':
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3256,7 +3356,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
