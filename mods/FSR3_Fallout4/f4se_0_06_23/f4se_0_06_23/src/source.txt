@@ -1,0 +1,1 @@
+https://github.com/ianpatt/f4se is the current main repository. VS projects are being maintained, but are not being used to build binaries.

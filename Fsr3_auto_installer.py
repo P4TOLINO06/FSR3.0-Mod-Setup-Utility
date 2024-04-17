@@ -8,6 +8,7 @@ from pathlib import Path
 import toml
 import ctypes, sys
 import pyglet
+from configobj import ConfigObj
 import psutil
 import os
 
@@ -30,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6.1v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -265,7 +266,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -354,6 +355,18 @@ def text_guide():
 '3 - Inside the game, press the "Home" key to open the mod menu. In "Upscale Type," select the\nUpscaler according to your GPU (DLSS Rtx or FSR3 non-Rtx), then check the box "Enable\nFrame Generation" below.\n'
 '• To remove Full Screen borders, select "Full Screen" in the game before installing the mod. If\nthere is screen overflow after mod installation, select full screen -> window -> full screen.\n'
 '• Enable AntiAliasing and Motion Blur; this mod will skip the actual rendering of motion blur, so\ndon\'t worry if you don\'t like motion blur. The game only needs it to render motion vectors.'
+),
+
+'Fallout 4':(
+  'Usage of the Sym Link:\n'
+'1 - Go to the folder Data\F4SE\Plugins and drag the file Fallout4Upscaler.dll into the Sym Link.\n'
+'2 - In "Destination Path" in the Sym Link, paste the path of the "mods" folder. Simply navigate to\nthe mods folder and copy the path from the address bar of the file explorer, or you can navigate to\nthe folder through the Sym Link itself.\n'
+'3 - Click on Create symlinks.\n'
+'4 - Go back to the mods folder, go to View (w10) or Options (w11), and uncheck the box "File\nname extensions.\n'
+'5 - Rename the file Fallout4Upscaler.dll in the mods folder to RDR2Upscaler.org.\n'
+'6 - Run the game launcher located in the root folder of the game, in the launcher set "depth of\nfield" to Low.\n'
+'7 - Run the game using the file f4se_loader.exe, also located in the root folder of the game.\n'
+'8 - In the game, press the "END" key to open the mod menu, select DLSS for RTX and FSR3 for\nnon-RTX.' 
 ),
 
 'F1 2022' : (
@@ -551,6 +564,8 @@ def text_guide():
         screen_guide.geometry('540x260')
     elif select_game == 'XESS/DLSS':
         screen_guide.geometry('635x260')
+    elif select_game == 'Fallout 4':
+        screen_guide.geometry('730x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -1543,7 +1558,8 @@ folder_fake_gpu ={
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml'
 }
 
 def fake_gpu_mod():
@@ -1853,7 +1869,8 @@ def replace_clean_file():
             '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu',
             '0.10.4':'mods\FSR2FSR3_0.10.4\enable_fake_gpu',
             'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu',
-            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu'
+            'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
+            'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu'
         }
         
         clean_file_rep = {
@@ -1869,7 +1886,8 @@ def replace_clean_file():
             '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu',
             '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu',
             'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu',
-            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu'
+            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
+            'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu'
         }
 
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -1941,7 +1959,8 @@ def screen_editor():
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml'
     }
     if select_mod in default_path:
         default_file_path = os.path.join(default_path[select_mod])
@@ -2889,14 +2908,81 @@ def bdg_fsr3():
     
     if select_mod in bdg_origins:
         shutil.copytree(bdg_origin,select_folder,dirs_exist_ok=True)
+
+callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Callisto'}
+def callisto_fsr():
+    if select_mod in callisto_origins:
+        callisto_origin  = callisto_origins[select_mod]
+    
+    if select_mod in callisto_origins:
+        shutil.copytree(callisto_origin,select_folder,dirs_exist_ok=True)
+
+def fallout_fsr():
+    high_fps_path = 'mods\FSR3_Fallout4\High FPS Physics'
+    f4se_plugins = 'mods\FSR3_Fallout4\Addres Library'
+    fl4_ups_rtx = 'mods\FSR3_Fallout4\Fallout_Upscaler_RTX'
+    fl4_ot_gpus = 'mods\FSR3_Fallout4\Fallout_Upscaler_Others'
+    loader_fl4 = 'mods\FSR3_Fallout4\Loader_Fallout4'
+    path_data = os.path.join(select_folder,'Data')
+    not_loader_fl4 = 'mods\FSR3_Fallout4\Loader_Fallout4_TRUE3DSOUND_Compatible'
+    f4se_fl4 = 'mods\FSR3_Fallout4\\f4se_0_06_23\\f4se_0_06_23'
+    path_ini_fps = os.path.join(select_folder,r'Data\Data\\F4SE\\Plugins\\HighFPSPhysicsFix.ini')
+    path_sym_link = 'mods\FSR3_Fallout4\SymlinkCreator.exe'
+    
+    gpu_ups = messagebox.askyesno('Select GPU','Do you own an RTX 4xxx?')
+    
+    fps_user= tk.simpledialog.askstring("FPS", "Type half of your monitor's refresh rate (Hz), for example: 60Hz, type 30.")
+    fps_user_int = int(fps_user)
+    
+    open_sym_link = messagebox.askyesno('Open Sym Link','Do you want to open the Sym Link? It is necessary to proceed with the installation.')
+    
+    try:
+        if os.path.exists(os.path.join(select_folder,'Data')):
+            shutil.copytree(high_fps_path,path_data, dirs_exist_ok=True)
+            shutil.copytree(f4se_plugins,path_data, dirs_exist_ok=True)
+            
+            if gpu_ups :
+                shutil.copytree(fl4_ups_rtx,path_data, dirs_exist_ok=True)
+                
+            elif not gpu_ups:
+                shutil.copytree(fl4_ot_gpus,path_data, dirs_exist_ok=True)
+
+            if not os.path.exists(path_ini_fps):
+                messagebox.showinfo('Error','File HighFPSPhysicsFix.ini not found, please check if the file is in the folder with the ending Data\Data\F4SE\Plugins, if necessary reinstall the mod.')
+            else:
+                config_fps = ConfigObj(path_ini_fps)
+
+                if 'Limiter' not in config_fps:
+                    config_fps['Limiter'] = {}
+
+                config_fps['Limiter']['InGameFPS'] = fps_user_int - 1
+
+                config_fps.write()
+                        
+        if os.path.exists(os.path.join(select_folder,'True3DSound.dll')):
+            shutil.copytree(loader_fl4,select_folder, dirs_exist_ok=True)
+        else:
+            shutil.copytree(not_loader_fl4,select_folder, dirs_exist_ok=True)
+        try:
+            shutil.copytree(f4se_fl4,select_folder, dirs_exist_ok=True)
+        except Exception:
+            pass
         
+        if open_sym_link:
+            subprocess.run(path_sym_link)
+        else:
+            return
+        
+    except Exception as e:
+        messagebox.showinfo('Error','Error during installation, please try again.')
+         
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Callisto Protocol','The Last of Us','Uncharted: Legacy of Thieves Collection']
+fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
 
@@ -3097,6 +3183,10 @@ def install(event=None):
             elden_fsr3()
         elif select_mod in bdg_origins:
             bdg_fsr3()
+        elif select_mod in callisto_origins:
+            callisto_fsr()
+        elif select_mod == 'Fallout 4 FSR3':
+            fallout_fsr()
 
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
@@ -3122,6 +3212,7 @@ def install(event=None):
         
     except Exception as e: 
         messagebox.showwarning('Error',f'Installation error')
+        print(e)
         return
         
 def install_false(event=None):
@@ -3250,6 +3341,7 @@ fsr_game_version={
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'Elden Ring':'PD',
+    'Fallout 4':'PD',
     'F1 2022':'2.2',
     'F1 2023':'2.2',
     'FIST: Forged In Shadow Torch':'2.2',
@@ -3347,16 +3439,24 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.delete(0,END)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3')
-        
+    elif select_option == 'The Callisto Protocol':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3')  
+    elif select_option == 'Fallout 4':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Fallout 4 FSR3') 
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
         for mod_op in mod_options:
-            mod_version_listbox.insert(tk.END,mod_op)
-        
+            mod_version_listbox.insert(tk.END,mod_op)    
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
