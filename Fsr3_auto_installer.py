@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6.2v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -268,7 +268,7 @@ def select_guide():
     
     s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Thaumaturge','Uniscaler','XESS/DLSS']
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -359,7 +359,7 @@ def text_guide():
 
 'Fallout 4':(
   'Usage of the Sym Link:\n'
-'1 - Go to the folder Data\F4SE\Plugins and drag the file Fallout4Upscaler.dll into the Sym Link.\n'
+'1 - In SymLink, click on add file and navigate to the root folder of the game. In the root folder, look\nfor Data\F4SE\Plugins, within this folder select Fallout4Upscaler.dll.\n'
 '2 - In "Destination Path" in the Sym Link, paste the path of the "mods" folder. Simply navigate to\nthe mods folder and copy the path from the address bar of the file explorer, or you can navigate to\nthe folder through the Sym Link itself.\n'
 '3 - Click on Create symlinks.\n'
 '4 - Go back to the mods folder, go to View (w10) or Options (w11), and uncheck the box "File\nname extensions.\n'
@@ -506,6 +506,17 @@ def text_guide():
 'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'
 ),
 
+'The Callisto Protocol':(
+  '1 - Select The Callisto Protocol Fsr 3 in Mod Version and\ncheck the Fake Nvidia GPU box and install.\n'
+'2 - To fix the HUD flickering: within the game, select fsr2,\nAnti-Aliasing to TemporalAA, and turn off the film grain, play\nfor a few seconds, return to the menu, and switch fsr2 to\nTemporal.'  
+),
+
+"The Outer Worlds: Spacer's Choice Edition":(
+'1 - Select a mod of your preference (0.10.3 or Uniscaler is\nrecommended).\n'
+'2 - Within the game, select Fsr.\n'
+'3 - To fix the HUD flickering, play for a few seconds, return to the\nmenu, and deactivate Fsr. (This will slightly decrease FPS).'  
+),
+
 'The Thaumaturge':(
 '1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
 '2 - Select the folder where the game\'s exe is located.\n'
@@ -565,7 +576,7 @@ def text_guide():
     elif select_game == 'XESS/DLSS':
         screen_guide.geometry('635x260')
     elif select_game == 'Fallout 4':
-        screen_guide.geometry('730x260')
+        screen_guide.geometry('730x280')
     else:
         screen_guide.geometry('520x260')
     
@@ -778,6 +789,8 @@ def clean_mod():
                      'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
                      'dxgi.dll','d3dcompiler_47.dll','']
     del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
+    del_fl4_fsr3 = ['f4se_whatsnew.txt','f4se_steam_loader.dll','f4se_readme.txt','f4se_loader.exe','f4se_1_10_163.dll',
+                    'CustomControlMap.txt']
      
     try:     
         for item in os.listdir(select_folder):
@@ -827,9 +840,9 @@ def clean_mod():
                 if item in del_bdg_fsr3:
                     os.remove(os.path.join(select_folder,item))
                     
-        bdg_mods = os.path.join(select_folder, 'mods') 
-        if os.path.exists(bdg_mods):
-            shutil.rmtree(bdg_mods)
+            bdg_mods = os.path.join(select_folder, 'mods') 
+            if os.path.exists(bdg_mods):
+                shutil.rmtree(bdg_mods)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')      
     
@@ -850,6 +863,34 @@ def clean_mod():
                     os.remove(new_xess)
     except Exception as e:
         messagebox.showinfo('Xess does not exist','Xess 1.3 does not exist or has already been removed previously.')
+
+    try:
+        if select_option == 'Fallout 4':
+            for item_fl4 in os.listdir(select_folder):
+                if item_fl4 in del_fl4_fsr3:
+                    os.remove(os.path.join(select_folder,item_fl4))
+        
+        fl4_ups_org = os.path.join(select_folder,'mods\\RDR2Upscaler.org.dll')
+        fl4_symlink = os.path.join(select_folder,'mods\\SymlinkCreator.exe')
+        fl4_all = [
+            os.path.join(select_folder,'src'),
+            os.path.join(select_folder,'Data\\F4SE'),
+            os.path.join(select_folder,'Data\\Plugins'),
+            os.path.join(select_folder,'Data\\Scripts'),
+            os.path.join(select_folder,'Data\\UpscalerBasePlugin'),
+            os.path.join(select_folder,'Data\\Data\\F4SE'),
+        ]
+        
+        if os.path.exists(os.path.join(select_folder,'mods')):
+            for path_fl4 in fl4_all:
+                shutil.rmtree(path_fl4)
+        if os.path.exists(fl4_ups_org):
+            os.remove(fl4_ups_org)
+        if os.path.exists(fl4_symlink):
+            os.remove(fl4_symlink)
+            os.remove(fl4_ups_org)    
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         print(e)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
@@ -2932,6 +2973,9 @@ def fallout_fsr():
     gpu_ups = messagebox.askyesno('Select GPU','Do you own an RTX 4xxx?')
     
     fps_user= tk.simpledialog.askstring("FPS", "Type half of your monitor's refresh rate (Hz), for example: 60Hz, type 30.")
+    if fps_user is None:
+        fps_user = 0.0
+    
     fps_user_int = int(fps_user)
     
     open_sym_link = messagebox.askyesno('Open Sym Link','Do you want to open the Sym Link? It is necessary to proceed with the installation.')
@@ -2984,7 +3028,7 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
 
 fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
 
@@ -3378,8 +3422,9 @@ fsr_game_version={
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
     'The Last of Us':'2.1',
-    'The Thaumaturge':'2.2',
     'The Medium':'2.2',
+    'The Thaumaturge':'2.2',
+    'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'The Witcher 3':'2.0',
     'Uncharted: Legacy of Thieves Collection':'2.1',
     'Wanted: Dead':'2.2'  
@@ -3458,7 +3503,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
