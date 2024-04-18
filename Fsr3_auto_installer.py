@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6.3v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Initial Information','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -303,6 +303,12 @@ def text_guide():
     global select_game, s_games_op,screen_guide,guide_label
     
     list_game = {
+'Initial Information':(
+'1 - When selecting the game folder, look for the game\'s .exe file. Some games have the full name .exe or abbreviated,\n while others have the .exe file in the game folder but within subfolders with the ending\nBinaries\Win64, and the .exe usually ends with Win64-Shipping, for example: TheCallistoProtocol-Win64-Shipping.\n'
+'2 - It is recommended to read the guide before installing the mod. Some games do not have a guide because\nyou only need to install the mod, while others, like Fallout 4 for example, have extra steps for installation.\nIf something is done incorrectly, the mod will not work.\n'
+'3 - Some games may not work for certain users after installing the mod. It is recommended to select Default\nin NVGX and enable Signature Override if the mod does not work with the default files.'    
+),
+
 'Alone in the Dark':(
 "1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
@@ -367,6 +373,12 @@ def text_guide():
 '6 - Run the game launcher located in the root folder of the game, in the launcher set "depth of\nfield" to Low.\n'
 '7 - Run the game using the file f4se_loader.exe, also located in the root folder of the game.\n'
 '8 - In the game, press the "END" key to open the mod menu, select DLSS for RTX and FSR3 for\nnon-RTX.' 
+),
+
+'Forza Horizon 5':(
+'1 - Choose Horizon Forza 5 FSR3 and install it. In the \nconfirmation window, select \'Yes\' for RTX or \'No\' for non-RTX.\n'
+'2 - For RTX, in-game, select DLSS and enable Frame \nGeneration.\n'
+'3 - For other GPUs, select FSR and activate Frame \nGeneration. You can use DLSS, but you will experience\nghosting.\n'  
 ),
 
 'F1 2022' : (
@@ -577,6 +589,8 @@ def text_guide():
         screen_guide.geometry('635x260')
     elif select_game == 'Fallout 4':
         screen_guide.geometry('730x280')
+    elif select_game == 'Initial Information':
+        screen_guide.geometry('850x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -784,14 +798,21 @@ def clean_mod():
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
+   
     del_winmm = 'winmm.dll'
+    
     del_elden_fsr3 =['_steam_appid.txt','_winhttp.dll','anti_cheat_toggler_config.ini','anti_cheat_toggler_mod_list.txt',
                      'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
                      'dxgi.dll','d3dcompiler_47.dll','']
+    
     del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
+    
     del_fl4_fsr3 = ['f4se_whatsnew.txt','f4se_steam_loader.dll','f4se_readme.txt','f4se_loader.exe','f4se_1_10_163.dll',
                     'CustomControlMap.txt']
-     
+    
+    del_fh_fsr3 = ['DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg',
+                   'dinput8.dll','dlssg_to_fsr3.asi','nvapi64.asi','winmm.dll','winmm.ini']
+    
     try:     
         for item in os.listdir(select_folder):
             if item in mod_clean_list:
@@ -911,7 +932,26 @@ def clean_mod():
 
     except Exception as e:
         messagebox.showinfo('DLSS does not exist','DLSS 3.7.0 does not exist or has already been removed previously.')
-                   
+       
+    try:
+        if select_option == 'Forza Horizon 5':
+            
+            if os.path.exists(os.path.join(select_folder,'RestoreNvidiaSignatureChecks.reg')):
+                return_rtx_reg = ['regedit.exe', '/s', 'mods\\FSR3_FH\\RTX\\RestoreNvidiaSignatureChecks.reg']
+
+                var_reg_rtx = messagebox.askyesno('Return reg','Do you want to restore NvidiaSignatureChecks values to default? When installing the mod, these values were changed')
+                
+                if var_reg_rtx:
+                    subprocess.run(return_rtx_reg,check=True)
+            
+            for item_fh in os.listdir(select_folder):
+                if item_fh in del_fh_fsr3:
+                    os.remove(os.path.join(select_folder,item_fh)) 
+                      
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        print(e)
+                
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
 cleanup_var = IntVar()
@@ -3019,6 +3059,20 @@ def fallout_fsr():
         
     except Exception as e:
         messagebox.showinfo('Error','Error during installation, please try again.')
+
+def fh_fsr3():
+    var_gpu = messagebox.askyesno('Select GPU','Do you have an Nvidia RTX GPU?')
+    
+    path_rtx = 'mods\\FSR3_FH\\RTX'
+    path_ot_gpu = 'mods\\FSR3_FH\\Ot_Gpu'
+    
+    en_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_FH\RTX\\DisableNvidiaSignatureChecks.reg"]
+    
+    if var_gpu:
+        shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
+        subprocess.run(en_rtx_reg,check=True)
+    elif not var_gpu:
+        shutil.copytree(path_ot_gpu,select_folder,dirs_exist_ok=True)
          
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -3030,7 +3084,7 @@ fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Hor
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
-fsr_sdk_opt = ['Ratchet & Clank-Rift Apart']
+fsr_sdk_opt = ['Ratchet & Clank-Rift Apart','Pacific Drive']
 
 fsr_sct_2_2 = ['2.2']
 fsr_sct_2_1 = ['2.1']
@@ -3231,6 +3285,8 @@ def install(event=None):
             callisto_fsr()
         elif select_mod == 'Fallout 4 FSR3':
             fallout_fsr()
+        elif select_mod  == 'Forza Horizon 5 FSR3':
+            fh_fsr3()
 
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
@@ -3246,6 +3302,7 @@ def install(event=None):
             copy_fake_gpu()
         elif install_contr and select_option == 'Select FSR version' and select_fsr == None:
             messagebox.showwarning('Select FSR Version','Please select the FSR version')
+            return
         if select_mod != None and select_folder != None and select_option != None:
             messagebox.showinfo('Successful','Successful installation')
         fps_limit()
@@ -3390,6 +3447,7 @@ fsr_game_version={
     'F1 2023':'2.2',
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
+    'Forza Horizon 5':'FH',
     'Ghostrunner 2':'2.0',
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
@@ -3405,6 +3463,7 @@ fsr_game_version={
     'Metro Exodus Enhanced Edition': '2.2',
     'Nightingale':'2.0',
     'Outpost: Infinity Siege':'2.2',
+    'Pacific Drive':'SDK',
     'Palworld':'2.2',
     'Ratchet & Clank-Rift Apart':'SDK',
     'Red Dead Redemption 2':'RDR2',
@@ -3494,6 +3553,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.delete(0,END)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         mod_version_listbox.insert(tk.END,'Fallout 4 FSR3') 
+    elif select_option == 'Forza Horizon 5':
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Forza Horizon 5 FSR3') 
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3502,7 +3566,7 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Palworld','Ratchet & Clank-Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
