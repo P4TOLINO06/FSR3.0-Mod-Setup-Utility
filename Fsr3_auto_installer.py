@@ -9,8 +9,8 @@ import toml
 import ctypes, sys
 import pyglet
 from configobj import ConfigObj
+import win32com.client
 import psutil
-import os
 
 def uac():
     try:
@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6.4v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -267,8 +267,8 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Star Wars: Jedi Survivor','Steelrising','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
+                'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -350,9 +350,10 @@ def text_guide():
 ),
 
 'Dying Light 2': (      
-"1 - Select a version of the mod of your choice (versions from\n0.7.6 onwards are recommended to fix UI flickering).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
-"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"  
+'Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Enable Fake Nvidia GPU (only for AMD and GTX).\n'
+'3 - In the game, select any upscaler and activate Frame\nGeneration.\n'
+'4 - If you experience any flickering or ghosting, go to Video >\nAdvanced Settings and decrease the Lod Range Multiplier.'
 ),
 
 'Elden Ring': (
@@ -404,6 +405,12 @@ def text_guide():
 "2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
 "3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
 "Other versions of the mod install normally, but may experience flickering on the HUD"
+),
+
+'Shadow Warrior 3':(
+'Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
+'3 - Set Ambient Occlusion and Post Processing to Low.' 
 ),
 
 'Ghostrunner 2': (
@@ -460,6 +467,15 @@ def text_guide():
 '4 - Inside the game, select DLSS or FSR\n'
 '• If you want to use Uniscaler with the DLSS upscaler, select DLSS in\nMod Operates (the default option of Uniscaler uses the FSR upscaler)\n'
 '• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'  
+),
+
+'Palworld':(
+'For standard mods (0.10+ and Uniscaler), simply enable \nthe fake Nvidia GPU (for AMD and GTX) and UE Compatibility\nmode (for AMD) and set the game to DX12. Throughout the\nguide, it will be explained how to do this.\n\n'
+'1. Select Palworld Build03 and locate the game folder with the\nending binaries/win64 and see if the executable with the ending\nWin64-shipping.exe is present.\n'
+'2. Install, confirm the GPU selection window that will appear.\n'
+'3. To run the game in DX12, simply confirm the window that\nappears after confirming the GPU selection. Make sure the\nmentioned exe is in the selected folder. Alternatively, you can\nignore the window and do it manually, by creating a shortcut\nand adding \'-dx12\' after the quotes in the \'Target\' field.\n'
+'4. Run the game through the shortcut.\n\n'
+'• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
 ),
 
 'Returnal':(
@@ -551,7 +567,7 @@ def text_guide():
 'After pressing install, a window will appear to confirm the\ninstallation of XESS/DLSS. This way, you can install the default Nvngx from\nUniscaler and XESS/DLSS together without needing to perform 2 installations.\n'
 '3 - If the game has a default Xess/Dlss file, this file is modified to serve as a\nbackup. If you want to remove the installed Xess/Dlss and revert to the old\nversion, just check the \'Cleanup Mod\' checkbox and confirm the deletion window\nthat appears.'  
 )
-}    
+}   
     
     if select_game in list_game:
         guide_text = list_game[select_game]
@@ -591,6 +607,8 @@ def text_guide():
         screen_guide.geometry('730x280')
     elif select_game == 'Initial Information':
         screen_guide.geometry('850x260')
+    elif select_game == 'Palworld':
+        screen_guide.geometry('533x325')
     else:
         screen_guide.geometry('520x260')
     
@@ -813,6 +831,9 @@ def clean_mod():
     del_fh_fsr3 = ['DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg',
                    'dinput8.dll','dlssg_to_fsr3.asi','nvapi64.asi','winmm.dll','winmm.ini']
     
+    del_rdr2_fsr3 = ['ReShade.ini','RDR2UpscalerPreset.ini','d3dcompiler_47.dll','d3d12.dll','dinput8.dll','ScriptHookRDR2.dll','NVNGX_Loader.asi',
+                     'd3dcompiler_47.dll','nvngx.dll']
+
     try:     
         for item in os.listdir(select_folder):
             if item in mod_clean_list:
@@ -891,28 +912,43 @@ def clean_mod():
                 if item_fl4 in del_fl4_fsr3:
                     os.remove(os.path.join(select_folder,item_fl4))
         
-        fl4_ups_org = os.path.join(select_folder,'mods\\RDR2Upscaler.org.dll')
-        fl4_symlink = os.path.join(select_folder,'mods\\SymlinkCreator.exe')
-        fl4_all = [
-            os.path.join(select_folder,'src'),
-            os.path.join(select_folder,'Data\\F4SE'),
-            os.path.join(select_folder,'Data\\Plugins'),
-            os.path.join(select_folder,'Data\\Scripts'),
-            os.path.join(select_folder,'Data\\UpscalerBasePlugin'),
-            os.path.join(select_folder,'Data\\Data\\F4SE'),
-        ]
-        
-        if os.path.exists(os.path.join(select_folder,'mods')):
-            for path_fl4 in fl4_all:
-                shutil.rmtree(path_fl4)
-        if os.path.exists(fl4_ups_org):
-            os.remove(fl4_ups_org)
-        if os.path.exists(fl4_symlink):
-            os.remove(fl4_symlink)
-            os.remove(fl4_ups_org)    
+            fl4_ups_org = os.path.join(select_folder,'mods\\RDR2Upscaler.org.dll')
+            fl4_symlink = os.path.join(select_folder,'mods\\SymlinkCreator.exe')
+            fl4_all = [
+                os.path.join(select_folder,'src'),
+                os.path.join(select_folder,'Data\\F4SE'),
+                os.path.join(select_folder,'Data\\Plugins'),
+                os.path.join(select_folder,'Data\\Scripts'),
+                os.path.join(select_folder,'Data\\UpscalerBasePlugin'),
+                os.path.join(select_folder,'Data\\Data\\F4SE'),
+            ]
+            
+            if os.path.exists(os.path.join(select_folder,'mods')):
+                for path_fl4 in fl4_all:
+                    shutil.rmtree(path_fl4)
+            if os.path.exists(fl4_ups_org):
+                os.remove(fl4_ups_org)
+            if os.path.exists(fl4_symlink):
+                os.remove(fl4_symlink)
+                os.remove(fl4_ups_org)    
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print(e)
+    
+    try:#clear the mods for rdr2 and palworld
+        if select_mod in rdr2_folder or select_option == 'Palworld':
+            for item_rdr2 in os.listdir(select_folder):
+                if item_rdr2 in del_rdr2_fsr3:
+                    os.remove(os.path.join(select_folder,item_rdr2))
+            path_rdr2_mod = os.path.join(select_folder,'mods')
+            path_rdr2_shader = os.path.join(select_folder,'reshade-shaders')
+            if os.path.exists(path_rdr2_mod):
+                shutil.rmtree(path_rdr2_mod)
+                shutil.rmtree(path_rdr2_shader)  
+                if os.path.exists(os.path.join(select_folder,'PalworldUpscalerPreset.ini')):
+                    os.remove(os.path.join(select_folder,'PalworldUpscalerPreset.ini')) 
+                            
+    except Exception:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
@@ -2416,6 +2452,8 @@ def fsr_2_2():
     
     if select_mod in origins_2_2_folder:
         origins_2_2 = origins_2_2_folder[select_mod]
+    else:
+        return
     
     if select_mod !='Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         try:
@@ -3073,12 +3111,65 @@ def fh_fsr3():
         subprocess.run(en_rtx_reg,check=True)
     elif not var_gpu:
         shutil.copytree(path_ot_gpu,select_folder,dirs_exist_ok=True)
-         
+
+def pw_fsr3():
+    var_gpu = messagebox.askyesno('Select GPU','Do you have an Nvidia RTX GPU?')
+    
+    path_pw_mod = 'mods\\FSR3_PW'
+    path_ini = 'mods\\FSR3_PW\\mods\\PalworldUpscaler.ini'
+            
+    if not os.path.exists(path_ini):
+            messagebox.showinfo('Error','File PalworldUpscaler.ini not found, please see if the file PalworldUpscaler.ini is in the "mods" folder in the directory where the mod was installed.", if necessary reinstall the mod.')
+    else:
+        if var_gpu:
+            config_ini = ConfigObj(path_ini)
+
+            if 'Settings' not in config_ini:
+                config_ini['Settings'] = {}
+
+            config_ini['Settings']['mUpscaleType'] = 0
+
+            config_ini.write()
+            
+            shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
+                
+        elif not var_gpu:
+            config_ini = ConfigObj(path_ini)
+
+            if 'Settings' not in config_ini:
+                config_ini['Settings'] = {}
+
+            config_ini['Settings']['mUpscaleType'] = 3
+
+            config_ini.write()
+            
+            shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
+     
+    
+    shortcut_pw_path = os.path.join(select_folder,'Palworld-Win64-Shipping.exe')
+    new_target_path = ('Palworld') 
+    dx_12 = "-dx12"
+    
+    create_shortcut = messagebox.askyesno('Create Shortcut','Do you want to create a DX12 shortcut? If you prefer to create it manually, click "NO" and follow the steps in the Palworld guide in FSR GUIDE. This is necessary for the mod to work correctly.')
+    
+    if create_shortcut:
+        if os.path.exists(shortcut_pw_path):
+            shell_win = win32com.client.Dispatch("WScript.Shell")
+            desktop_path = shell_win.SpecialFolders("Desktop")
+            shortcut_path = os.path.join(desktop_path, new_target_path + ".lnk")
+            shortcut_pw = shell_win.CreateShortcut(shortcut_path)
+            shortcut_pw.TargetPath = shortcut_pw_path
+            shortcut_pw.Arguments = dx_12
+            shortcut_pw.Save()
+            messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
+        else:
+            messagebox.showinfo('Shortcut Not Found','"Palworld-Win64-Shipping.exe" not found, please create a shortcut manually, see the Palworld guide in FSR GUIDE and follow the steps.')
+                        
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
@@ -3288,6 +3379,8 @@ def install(event=None):
         elif select_mod  == 'Forza Horizon 5 FSR3':
             fh_fsr3()
 
+        if select_mod == 'Palworld Build03':
+            pw_fsr3()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
@@ -3305,6 +3398,7 @@ def install(event=None):
             return
         if select_mod != None and select_folder != None and select_option != None:
             messagebox.showinfo('Successful','Successful installation')
+        
         fps_limit()
         replace_clean_file()
 
@@ -3478,6 +3572,7 @@ fsr_game_version={
     'STAR WARS Jedi: Survivor':'2.2',
     'Steelrising':'2.2',
     'Shadow of the Tomb Raider':'2.0',
+    'Shadow Warrior 3':'2.2',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
     'The Last of Us':'2.1',
@@ -3502,6 +3597,12 @@ x=0
 y=0
 def update_canvas(event=None): #canvas_options text configuration
     global mod_options,x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
+    
+    def mod_text():
+        mod_version_canvas.delete('text')
+        mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
     if fsr_view_listbox == True:
         canvas_options.delete('text')
         
@@ -3524,50 +3625,56 @@ def update_canvas(event=None): #canvas_options text configuration
         canvas_options.delete('text')
         fsr_canvas.delete('text')
         canvas_options.create_text(x, y, anchor='w', text='Select FSR version', fill='black', tag='text')
+    
     if select_option == 'Red Dead Redemption 2':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler')
+        mod_text()
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+    
     elif select_option == 'Dragons Dogma 2':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2','Uniscaler + Xess + Dlss DD2')
+    
     elif select_option == 'Elden Ring':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3')
+    
     elif select_option == 'Baldur\'s Gate 3':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3')
+    
     elif select_option == 'The Callisto Protocol':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3')  
+    
     elif select_option == 'Fallout 4':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'Fallout 4 FSR3') 
+    
     elif select_option == 'Forza Horizon 5':
-        mod_version_canvas.delete('text')
-        mod_version_listbox.delete(0,END)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_text()
         mod_version_listbox.insert(tk.END,'Forza Horizon 5 FSR3') 
+    
+    elif select_option == 'Forza Horizon 5':
+        mod_text()
+        mod_version_listbox.insert(tk.END,'Forza Horizon 5 FSR3') 
+    
+    elif select_option == 'Palworld':
+        mod_text()
+        mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         for mod_op in mod_options:
             mod_version_listbox.insert(tk.END,mod_op)    
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
