@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6.4v")
+screen.title("FSR3.0 Mod Setup Utility - 1.6.5v")
 screen.geometry("400x700")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,9 +266,9 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'Hogwarts legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
+    s_games_op = ['Initial Information','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+                'Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -326,6 +326,12 @@ def text_guide():
 'Bright Memory: Infinite':(
   '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n '  
   '2 -  To make the mod work, run it in DX12. To run it in DX12, right-click the game\'s\nexe and create a shortcut, then right-click the shortcut again,\ngo to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the\ngame, go to Settings > Properties > Startup options, and enter -dx12.'
+),
+
+'Dead Island 2':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - If it doesn\'t work with the default files, enable\nEnable Signature Override. If it still doesn\'t work, check the\nbox lfz.sl.dlss.\n'
+'3 - It\'s not necessary to activate an upscaler for this game\nfor the mod to work, so enable it if you want.'
 ),
 
 'Dead Space Remake':(
@@ -440,6 +446,14 @@ def text_guide():
 '4 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
 ),
 
+'Icarus':(
+'1 - Select Icarus FSR3 in mod version.\n'
+'2 - If the option selected is RTX, confirm the window that appears.\n'
+'3 - If the option is AMD/GTX and you notice that the mod is not generating FPS, open\nthe file fsr2fsr3.config and replace "mode = default" on the first line with "replace_dlss_fg", keep it inside the quotation marks, it will look like this: mode = "replace_dlss_fg".\n'
+'4 - Start the game in DX12, if the game exe is in the destination folder where the mod was\ninstalled, a DX12 shortcut will be created on your Desktop. If the exe is not found, you\nneed to create a shortcut and in the properties, at the end of Target, add -dx12 outside the\nquotes if there are any, don\'t forget to put a space between -dx12 and the path.\n'  
+'5 - Run the game through the executable.'
+),
+
 'Kena: Bridge of Spirits': (
   '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
   '2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD only).'
@@ -534,6 +548,21 @@ def text_guide():
 'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'
 ),
 
+'TEKKEN 8':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Enable Fake Nvidia GPU.\n'
+'3 - To fix the flickering of the HUD, select any upscaler\n(except DLSS) and wait for 30 seconds, then select DLSS.\nYou may need to do this more than once.\n\n'
+
+'• Fix slow-motion problem\n'
+'Turn off v-sync and motion blur, and lower all your settings\n(except Textual quality + FSR2 or DLSS) until your game no\nlonger experiences the slow-motion problem.\n\n'
+
+'Unlock FPS\n'
+'1 - Unlock FPS cannot be used alongside FSR3 mod.\n'
+'2 - Select Unlock FPS under Mod Version and install it.\n'
+'3 - Open the game and select an upscaler.\n'
+'4 - Go to the selected folder in Select Folder and run\nTekkenOverlay.exe (with the game open).'
+),
+
 'The Callisto Protocol':(
   '1 - Select The Callisto Protocol Fsr 3 in Mod Version and\ncheck the Fake Nvidia GPU box and install.\n'
 '2 - To fix the HUD flickering: within the game, select fsr2,\nAnti-Aliasing to TemporalAA, and turn off the film grain, play\nfor a few seconds, return to the menu, and switch fsr2 to\nTemporal.'  
@@ -609,6 +638,10 @@ def text_guide():
         screen_guide.geometry('850x260')
     elif select_game == 'Palworld':
         screen_guide.geometry('533x325')
+    elif select_game == 'TEKKEN 8':
+        screen_guide.geometry('520x305')
+    elif select_game == 'Icarus':
+        screen_guide.geometry('690x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -833,6 +866,11 @@ def clean_mod():
     
     del_rdr2_fsr3 = ['ReShade.ini','RDR2UpscalerPreset.ini','d3dcompiler_47.dll','d3d12.dll','dinput8.dll','ScriptHookRDR2.dll','NVNGX_Loader.asi',
                      'd3dcompiler_47.dll','nvngx.dll']
+    
+    del_icarus_otgpu_fsr3 = ['nvngx.dll', 'FSR2FSR3.asi','fsr2fsr3.config.toml','winmm.dll','winmm.ini']
+    del_icarus_rtx_fsr3 = ['RestoreNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
+                       
+    del_tekken_fsr3 = ['TekkenOverlay.exe','Tekken8OverlaySettings.yaml','Tekken8Overlay.dll','Tekken7Overlay.dll']
 
     try:     
         for item in os.listdir(select_folder):
@@ -939,6 +977,7 @@ def clean_mod():
             for item_rdr2 in os.listdir(select_folder):
                 if item_rdr2 in del_rdr2_fsr3:
                     os.remove(os.path.join(select_folder,item_rdr2))
+                    
             path_rdr2_mod = os.path.join(select_folder,'mods')
             path_rdr2_shader = os.path.join(select_folder,'reshade-shaders')
             if os.path.exists(path_rdr2_mod):
@@ -986,7 +1025,36 @@ def clean_mod():
                       
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print(e)
+    
+    try:
+        icr_en_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\RestoreNvidiaSignatureChecks.reg"]
+        
+        if select_mod == 'Icarus FSR3 AMD/GTX': 
+            for i_icr in os.listdir(select_folder):
+                if i_icr in del_icarus_otgpu_fsr3:
+                    os.remove(os.path.join(select_folder,i_icr))
+            
+            en_rtx_reg = messagebox.askyesno('Enable SigOver','Do you want to re-enable NvidiaSignatureChecks? It was disabled during the mod installation.')
+            if en_rtx_reg:
+                subprocess.run(icr_en_rtx_reg,check=True) 
+                  
+        elif select_mod == 'Icarus FSR3 RTX':
+            for i_icr_rtx in os.listdir(select_folder):
+                if i_icr_rtx in del_icarus_rtx_fsr3:
+                    os.remove(os.path.join(select_folder,i_icr_rtx))
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')  
+    
+    try:
+        path_assets_tekken = os.path.join(select_folder,'assets')
+        if select_mod == 'Unlock Fps Tekken 8':
+            for i_tekken in os.listdir(select_folder):
+                if i_tekken in del_tekken_fsr3:
+                    os.remove(os.path.join(select_folder,i_tekken))    
+            if os.path.exists(path_assets_tekken):
+                shutil.rmtree(path_assets_tekken)
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')  
                 
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=626) 
@@ -1033,6 +1101,12 @@ lfz_list = {
 '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\lfz.sl.dlss',
 '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\lfz.sl.dlssl',
 '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\lfz.sl.dlss',
+'0.10.0':'mods\Temp\global _lfz',
+'0.10.1':'mods\Temp\global _lfz',
+'0.10.1h1':'mods\Temp\global _lfz',
+'0.10.2h1':'mods\Temp\global _lfz',
+'0.10.3':'mods\Temp\global _lfz',
+'0.10.4':'mods\Temp\global _lfz',
 }
 
 def copy_lfz_sl ():
@@ -1052,10 +1126,11 @@ def copy_lfz_sl ():
 def var_mod_lfz():
     global lfz_list
     if select_mod not in lfz_list.keys():
-        messagebox.showinfo('Error','Please, select a mod version up to 0.9.0')
+        messagebox.showinfo('Error','Please select a version starting from 0.7.4.')
         lfz_sl_label_cbox.deselect()
     elif select_folder is None:
         messagebox.showinfo('Select Folder','Please, select a destination folder')
+        lfz_sl_label_cbox.deselect()
 
 def cbox_lfz_sl(event=None):
     global lfz_list
@@ -3164,7 +3239,49 @@ def pw_fsr3():
             messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
         else:
             messagebox.showinfo('Shortcut Not Found','"Palworld-Win64-Shipping.exe" not found, please create a shortcut manually, see the Palworld guide in FSR GUIDE and follow the steps.')
-                        
+
+def ulck_fps_tekken():
+    path_tekken = 'mods\\Unlock_fps_Tekken'
+    
+    if select_mod == 'Unlock Fps Tekken 8':
+        shutil.copytree(path_tekken,select_folder,dirs_exist_ok=True)
+
+    messagebox.showinfo('Run Overlay','Run TekkenOverlay.exe for the mod to work, refer to the FSR GUIDE if needed.')
+
+def icarus_fsr3():
+    icr_rtx = 'mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX'
+    icr_ot_gpu = 'mods\\FSR3_ICR\\ICARUS_FSR_3_FOR_AMD_GTX'
+    icr_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\DisableNvidiaSignatureChecks.reg"]
+    
+    if select_mod == 'Icarus FSR3 RTX':
+        shutil.copytree(icr_rtx,select_folder,dirs_exist_ok=True)
+        act_dlss = messagebox.askyesno('DLSS','Do you want to run DisableNvidiaSignatureChecks.reg? It\'s necessary for the mod to work')
+        
+        if act_dlss:
+            subprocess.run(icr_rtx_reg,check=True)
+    
+    elif select_mod == 'Icarus FSR3 AMD/GTX':
+        shutil.copytree(icr_ot_gpu,select_folder,dirs_exist_ok=True)
+    
+    shortcut_icr_path = os.path.join(select_folder,'Icarus-Win64-Shipping.exe')
+    new_target_path = ('Icarus') 
+    dx_12 = "-dx12"
+    
+    create_shortcut_icr = messagebox.askyesno('Create Shortcut','Do you want to create a DX12 shortcut? If you prefer to create it manually, click "NO" and follow the steps in the Icarus guide in FSR GUIDE. This is necessary for the mod to work correctly.')
+    
+    if create_shortcut_icr:
+        if os.path.exists(shortcut_icr_path):
+            shell_win = win32com.client.Dispatch("WScript.Shell")
+            desktop_path = shell_win.SpecialFolders("Desktop")
+            shortcut_path = os.path.join(desktop_path, new_target_path + ".lnk")
+            shortcut_icr = shell_win.CreateShortcut(shortcut_path)
+            shortcut_icr.TargetPath = shortcut_icr_path
+            shortcut_icr.Arguments = dx_12
+            shortcut_icr.Save()
+            messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
+        else:
+            messagebox.showinfo('Shortcut Not Found','"Icarus-Win64-Shipping.exe" not found, please create a shortcut manually, see the Icarus guide in FSR GUIDE and follow the steps.')
+                       
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -3347,11 +3464,29 @@ def guide_lfz(event=None):
 def close_lfz_guide(event=None):
     lfz_label_guide.config(text="")
     lfz_label_guide.place_forget()
+
+continue_install = None 
+def get_mod_version_canvas():
+    global continue_install
+    option_mod_version = None
+    for opt_mod in mod_version_canvas.find_all():
+        if mod_version_canvas.type(opt_mod) == "text":
+            option_mod_version = mod_version_canvas.itemcget(opt_mod, "text")
+            print(option_mod_version)
+            continue_install = True
+            break
+    if not option_mod_version:
+        continue_install = False
     
 def install(event=None):
-    global install_contr,var_d_put
+    global install_contr,var_d_put,continue_install
     try:
-        install_contr = True
+        install_contr = True       
+        get_mod_version_canvas()
+        if not continue_install:
+            messagebox.showinfo('Mod Version','Please select a mod version.')
+            return
+
         if select_option in fsr_2_2_opt or select_fsr in fsr_sct_2_2 and install_contr:
             fsr_2_2()
         elif select_option in fsr_2_1_opt or select_fsr in fsr_sct_2_1 and install_contr:
@@ -3378,9 +3513,13 @@ def install(event=None):
             fallout_fsr()
         elif select_mod  == 'Forza Horizon 5 FSR3':
             fh_fsr3()
+        elif select_option == 'Icarus':
+            icarus_fsr3()
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
+        if select_mod == 'Unlock Fps Tekken 8':
+            ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
@@ -3398,6 +3537,8 @@ def install(event=None):
             return
         if select_mod != None and select_folder != None and select_option != None:
             messagebox.showinfo('Successful','Successful installation')
+        else:
+            messagebox.showinfo('Error','Please fill out the first 3 options, Select Game, Select Folder, and Mod Options.')
         
         fps_limit()
         replace_clean_file()
@@ -3548,6 +3689,7 @@ fsr_game_version={
     'Hellblade: Senua\'s Sacrifice':'2.1',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
+    'Icarus':'ICR',
     'Judgment':'2.1',
     'Kena: Bridge of Spirits':'2.2',
     'Lies of P':'2.2',
@@ -3663,7 +3805,14 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text()
         mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        
+    elif select_option == 'TEKKEN 8':
+        mod_text()
+        mod_version_listbox.insert(tk.END,'Unlock Fps Tekken 8','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+    elif select_option == 'Icarus':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Icarus FSR3 AMD/GTX','Icarus FSR3 RTX')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -3673,7 +3822,7 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
