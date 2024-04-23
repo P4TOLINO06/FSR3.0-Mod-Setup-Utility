@@ -1,7 +1,7 @@
 config_version = 3
 
 [general]
-upscaler = "fsr3"
+upscaler = "dlss"
 disable_frame_generation = false
 sharpness_override = -1.0
 force_auto_exposure = true

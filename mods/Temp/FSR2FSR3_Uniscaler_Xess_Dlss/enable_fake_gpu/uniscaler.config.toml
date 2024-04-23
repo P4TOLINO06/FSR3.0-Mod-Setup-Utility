@@ -1,20 +1,12 @@
-#Used internally. Do not touch.
 config_version = 4
 
 [general]
-#The upscaler that Uniscaler will evaluate/use. 'dlss' only works on NVIDIA cards, 'fsr3' and 'xess' work on all GPUs.
-#This has nothing to do with the ingame upscaler selection. Uniscaler hooks all (available) upscalers regardless.
 upscaler = "fsr3"
-#If FSR3 Frame Generation should be enabled or not.
 disable_frame_generation = false
-#Overrides the sharpness value provided by the game. -1 means use game provided value, otherwise 0.0-1.0.
 sharpness_override = -1.0
-#Forces auto-exposure to be enabled and ignores the exposure value provided by the game.
 force_auto_exposure = false
-#A frame rate limit that is going to be applied before frame generation. 0 means disabled.
 original_frame_rate_limit = 0
 
-#Overrides the respective default scaling provided by the upscalers. May not be respected by the game.
 [resolution_override]
 native = 1.0
 quality = 0.666667
@@ -24,21 +16,14 @@ ultra_performance = 0.333333
 ultra_quality = 0.769231
 
 [compatibility]
-#Fakes a 40xx-series NVIDIA GPU being used. Required for Unreal Engine games on non-NVIDIA cards, use alongside the stub NVNGX DLL.
 fake_nvidia_gpu = false
-#Enable if you have a non-RTX NVIDIA GPU and cannot select DLSS/FG ingame.
 fake_nvapi_results = false
-#Workaround for X-Mas/Disco lights when using an AMD GPU, in an Unreal Engine game, with DLSS selected in-game.
 amd_unreal_engine_dlss_workaround = false
-#Compatibility mode for macOS users.
 macos_crossover_support = false
 
 [logging]
-#Disables the logging console window on launch.
 disable_console = false
 
-#Options used for debugging frame generation. Ignore these options if playing normally.
 [debug]
 enable_debug_view = false
 enable_debug_tear_lines = false
-

@@ -31,8 +31,8 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.6.5v")
-screen.geometry("400x700")
+screen.title("FSR3.0 Mod Setup Utility - 1.7v")
+screen.geometry("700x530")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
@@ -48,12 +48,12 @@ img_bg = Image.open('images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.p
 img_res = img_bg.resize((200,300))
 img_tk =ImageTk.PhotoImage(img_res)
 x_img = (400 - 180)//2
-y_img = (1300 - 250)//2
+y_img = (900 - 250)//2
 
 bg_label = tk.Label(screen,image=img_tk,bg='black')
 bg_label.place(x=x_img,y=y_img)
 
-title_page = tk.Label(screen, text="FSR3 Mod", font=("Arial", 10, "bold"), fg="#FFFAFA", bg="black") 
+title_page = tk.Label(screen, text="FSR 3 Mods", font=("Arial", 10, "bold"), fg="#778899", bg="black") 
 title_page.pack(anchor='w',pady=0)
 
 pyglet.options['win32_gdi_font'] = True
@@ -70,10 +70,10 @@ canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=90,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
-exit_label.place(x=355,y=658)
+exit_label.place(x=355,y=458)
 
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
-install_label.place(x=295,y=658)
+install_label.place(x=295,y=458)
 
 def search_un():
     local_disk_names = []
@@ -189,7 +189,7 @@ def disable_epic_over(event=None):
          
 def guide_epic(event=None):
     epic_label_guide.config(text='Enable or disable the Epic Games Overlay, the Overlay along with the FSR3 mod can cause bugs and crashes in some games')
-    epic_label_guide.place(x=0,y=620)
+    epic_label_guide.place(x=0,y=420)
     epic_label_guide.lift()
 
 def close_guide_epic(event=None):
@@ -199,26 +199,26 @@ epic_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',
 epic_label_guide.place_forget()
 
 epic_over_label = tk.Label(screen,text='Epic Games Overlay:',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_label.place(x=0,y=595)
+epic_over_label.place(x=0,y=395)
 
 epic_over_canvas = tk.Canvas(screen,width=162,height=19,bg='white',highlightthickness=0)
-epic_over_canvas.place(x=140,y=599)
+epic_over_canvas.place(x=140,y=399)
 
 epic_over_browser_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 epic_over_browser_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
-epic_over_browser_canvas.place(x=330,y=599)
+epic_over_browser_canvas.place(x=330,y=399)
 
 epic_over_marc_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_marc_label.place(x=308,y=593)
+epic_over_marc_label.place(x=308,y=393)
 
 epic_over_disable_label = tk.Label(screen,text='Disable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_disable_label.place(x=330,y=625)
+epic_over_disable_label.place(x=330,y=425)
 
 epic_over_enable_label = tk.Label(screen,text='Enable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_enable_label.place(x=270,y=625)
+epic_over_enable_label.place(x=270,y=425)
 
 epic_over_auto_label = tk.Label(screen,text='Auto Search',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_auto_label.place(x=175,y=625)
+epic_over_auto_label.place(x=175,y=425)
 
 fsr_guide_cbox = None
 screen_guide = None
@@ -243,10 +243,10 @@ def fsr_guide(event=None):
             screen_guide.withdraw()
 
 fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=200,y=566)
+fsr_guide_label.place(x=200,y=367)
 fsr_guide_var = tk.IntVar()
 fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=275,y=568)
+fsr_guide_cbox.place(x=275,y=369)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
@@ -266,7 +266,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -307,6 +307,16 @@ def text_guide():
 '1 - When selecting the game folder, look for the game\'s .exe file. Some games have the full name .exe or abbreviated,\n while others have the .exe file in the game folder but within subfolders with the ending\nBinaries\Win64, and the .exe usually ends with Win64-Shipping, for example: TheCallistoProtocol-Win64-Shipping.\n'
 '2 - It is recommended to read the guide before installing the mod. Some games do not have a guide because\nyou only need to install the mod, while others, like Fallout 4 for example, have extra steps for installation.\nIf something is done incorrectly, the mod will not work.\n'
 '3 - Some games may not work for certain users after installing the mod. It is recommended to select Default\nin NVGX and enable Signature Override if the mod does not work with the default files.'    
+),
+
+'Add-on Mods':(
+'OptiScaler \n'
+'Is drop-in DLSS2 to XeSS/FSR2 replacement for games.\n'
+'OptiScaler implements all necessary API methods of DLSS2\n& NVAPI to act as a man in the middle. So from games\nperspective it\'s using DLSS2 but actually using OptiScaler\nand calls are interpreted/redirected to XeSS & FSR2.\n\n'  
+
+'Tweak\n'
+'Helps \'improve\' aliasing caused by FSR 3 mod, may also slightly reduce ghosting, doesn\'t work in all games.\n\n'
+
 ),
 
 'Alone in the Dark':(
@@ -662,13 +672,67 @@ def exit_fsr_guide(event=None):
 
 def guide_fsr_guide(event=None):
     guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
-    guide_fsr_label.place(x=200,y=590)
+    guide_fsr_label.place(x=200,y=390)
 
 def close_guide_fsr(event=None):
     guide_fsr_label.place_forget()
     
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
+
+addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
+                 'Tweak':'mods\\Addons_mods\\tweak'}
+def addon_mods():
+    if select_addon_mods in addon_origins:
+        path_addon = addon_origins[select_addon_mods]
+    
+    try:
+        if select_addon_mods == 'OptiScaler':
+            shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
+        elif select_addon_mods == 'Tweak':
+            shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
+    except Exception:
+        messagebox.showinfo('Error','Error in installation, please check if you have correctly filled out Select Game, Select Folder, and Mod Version.')
+        return
+    
+addon_contr = False
+def cbox_addon_mods():
+    global addon_contr
+    if addon_mods_var.get() == 1:
+        addon_mods_canvas.config(bg='white')
+        addon_contr = True
+    else:
+        addon_mods_canvas.config(bg='#C0C0C0')
+        addon_contr = False
+        addon_listbox_contr()
+        
+addon_view = False
+def addon_mods_view(event=None):
+    global addon_view,addon_contr
+    if addon_contr:
+        if addon_view:
+            addon_view = False
+            addon_mods_listbox.place_forget()
+        else:
+            addon_mods_listbox.place(x=543,y=457)
+            addon_view = True
+            
+def addon_listbox_contr(event=None):
+    global addon_view,addon_contr
+    if not addon_contr and addon_view:
+        addon_mods_listbox.place_forget()
+        addon_view = False
+
+addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
+addon_mods_label.place(x=420,y=430)
+addon_mods_var = tk.IntVar()
+addon_mods_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=addon_mods_var,command=cbox_addon_mods)
+addon_mods_cbox.place(x=513,y=432)
+addon_mods_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
+addon_mods_canvas.place(x=543,y=434)
+addon_mods_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
+addon_mods_listbox.place(x=543,y=457)
+addon_mods_listbox.place_forget()
 
 us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
              'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'}
@@ -712,10 +776,10 @@ def cbox_var_auto_expo():
         return
 
 var_auto = tk.Label(screen,text='Auto Exposure',font=font_select,bg='black',fg='#C0C0C0')
-var_auto.place(x=273,y=345)
+var_auto.place(x=200,y=245)
 var_auto_expo_var = tk.IntVar()
 var_expo_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_auto_expo_var,command=cbox_var_auto_expo)
-var_expo_cbox.place(x=377,y=348)
+var_expo_cbox.place(x=304,y=247)
 
 def var_frame_gen_en():
     if select_mod in us_origin:
@@ -756,10 +820,10 @@ def cbox_var_frame_gen():
         return
         
 var_frame_gen_label = tk.Label(screen,text='Off Frame Gen',font=font_select,bg='black',fg='#C0C0C0')
-var_frame_gen_label.place(x=273,y=310)
+var_frame_gen_label.place(x=0,y=276)
 var_frame_gen_var = tk.IntVar()
 var_frame_gen_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_frame_gen_var,command=cbox_var_frame_gen)
-var_frame_gen_cbox.place(x=375,y=313)
+var_frame_gen_cbox.place(x=102,y=279)
 
 def fps_limit():
     global us_origin
@@ -797,9 +861,9 @@ def unlock_fps_limit():
         fps_user_entry.configure(state='readonly',bg='#C0C0C0')
     
 fps_user_label = tk.Label(screen,text='FPS Limit:',font=font_select,bg='black',fg='#C0C0C0')
-fps_user_label.place(x=273,y=276)
+fps_user_label.place(x=0,y=245)
 fps_user_entry =  tk.Entry(screen,width=5,bg='#C0C0C0',state= 'readonly',borderwidth=0)
-fps_user_entry.place(x=350,y=280)
+fps_user_entry.place(x=72,y=250)
 fps_user_entry.lift()
 
 def cbox_del_dxgi(event=None):
@@ -820,10 +884,10 @@ def clean_dxgi():
             os.remove(os.path.join(select_folder,item))
 
 del_dxgi_label = tk.Label(screen,text='Del Only dxgi.dll',font=font_select,bg='black',fg='#E6E6FA')
-del_dxgi_label.place(x=0,y=660)
+del_dxgi_label.place(x=0,y=460)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
-del_dxgi_cbox.place(x=112,y=662) 
+del_dxgi_cbox.place(x=112,y=462) 
    
 def cbox_cleanup(event=None):
     if cleanup_var.get() == 1:
@@ -1057,10 +1121,10 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')  
                 
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
-cleanup_label.place(x=0,y=626) 
+cleanup_label.place(x=0,y=426) 
 cleanup_var = IntVar()
 cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=cleanup_var,command=cbox_cleanup)
-cleanup_cbox.place(x=93,y=629)       
+cleanup_cbox.place(x=93,y=429)       
 
 disable_var = None
 def cbox_disable_console(event=None):
@@ -1090,10 +1154,10 @@ def edit_disable_console():
             toml.dump(toml_dis,file)
         
 disable_console_label = tk.Label(screen,text='Disable Console',font=font_select,bg='black',fg='#C0C0C0')
-disable_console_label.place(x=0,y=566)
+disable_console_label.place(x=0,y=366)
 disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
-disable_console_cbox.place(x=108,y=569)
+disable_console_cbox.place(x=108,y=369)
 
 lfz_list = {
 '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
@@ -1138,10 +1202,10 @@ def cbox_lfz_sl(event=None):
         var_mod_lfz()
     
 lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
-lfz_sl_label.place(x=265,y=533)
+lfz_sl_label.place(x=265,y=335)
 lfz_sl_var = IntVar()
 lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
-lfz_sl_label_cbox.place(x=375,y=535)
+lfz_sl_label_cbox.place(x=375,y=338)
 
 var_debug_tear = None
 def cbox_debug_tear_lines(event=None):
@@ -1177,9 +1241,9 @@ def edit_debug_tear_lines():
       
 debug_tear_lines_label = tk.Label(screen,text='Debug Tear Lines',font=font_select,bg='black',fg='#C0C0C0')
 debug_tear_lines_var = IntVar()
-debug_tear_lines_label.place(x=120,y=533)
+debug_tear_lines_label.place(x=120,y=335)
 debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_tear_lines_var,command=cbox_debug_tear_lines)
-debug_tear_lines_cbox.place(x=235,y=536)
+debug_tear_lines_cbox.place(x=235,y=338)
 
 var_deb_view = False
 def cbox_debug_view(event=None):
@@ -1215,10 +1279,10 @@ def edit_debug_view():
             toml.dump(toml_deb,file)
         
 debug_view_label = tk.Label(screen,text='Debug View',font=font_select,bg='black',fg='#C0C0C0')
-debug_view_label.place(x=0,y=533)
+debug_view_label.place(x=0,y=335)
 debug_view_var = IntVar()
 debug_view_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_view_var,command=cbox_debug_view)
-debug_view_cbox.place(x=85,y=536)
+debug_view_cbox.place(x=85,y=338)
 
 def enable_over():
     global list_over
@@ -1239,20 +1303,20 @@ def cbox_enable_sigover(event=None):
         enable_over()
     
 enable_sigover_label = tk.Label(screen,text='Enable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
-enable_sigover_label.place(x=0,y=503)
+enable_sigover_label.place(x=0,y=306)
 enable_sigover_var = IntVar()
 enable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=enable_sigover_var,command=cbox_enable_sigover)
-enable_sigover_cbox.place(x=170,y=506)
+enable_sigover_cbox.place(x=170,y=308)
 
 def cbox_disable_sigover(event=None):
     if disable_sigover_var.get() == 1:
         disable_over()
 
 disable_sigover_label = tk.Label(screen,text='Disable Signature Override',font=font_select,bg='black',fg='#C0C0C0')
-disable_sigover_label.place(x=202,y=503)
+disable_sigover_label.place(x=202,y=306)
 disable_sigover_var = IntVar()
 disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
-disable_sigover_cbox.place(x=375,y=506)
+disable_sigover_cbox.place(x=375,y=308)
 
 dxgi_contr = False
 def cbox_dxgi(event=None):
@@ -1273,7 +1337,7 @@ def dxgi_cbox_view(event=None):
             dxgi_listbox.place_forget()
             dxgi_view = False
         else:
-            dxgi_listbox.place(x=285,y=498)
+            dxgi_listbox.place(x=520,y=428)
             dxgi_view = True
       
 def dxgi_listbox_contr(event=None):
@@ -1317,14 +1381,14 @@ def copy_dxgi():
             messagebox.showinfo('Error','Please select the destination folder')
            
 dxgi_label = tk.Label(screen,text='Dxgi.dll',font=font_select,bg='black',fg='#C0C0C0')
-dxgi_label.place(x=205,y=470)
+dxgi_label.place(x=420,y=402)
 dxgi_var = IntVar()
 dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=dxgi_var,command=cbox_dxgi)
-dxgi_cbox.place(x=259,y=472)
+dxgi_cbox.place(x=490,y=403)
 dxgi_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-dxgi_canvas.place(x=285,y=475)
+dxgi_canvas.place(x=520,y=406)
 dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-dxgi_listbox.place(x=285,y=498)
+dxgi_listbox.place(x=520,y=428)
 dxgi_listbox.place_forget()
 
 nvngx_contr = False
@@ -1346,7 +1410,7 @@ def nvngx_cbox_view(event=None):
             nvngx_listbox.place_forget()
             nvngx_view = False
         else:
-            nvngx_listbox.place(x=90,y=497)
+            nvngx_listbox.place(x=520,y=398)
             nvngx_view = True
             
 def nvngx_listbox_contr():
@@ -1356,12 +1420,12 @@ def nvngx_listbox_contr():
         nvngx_view = False
     
 nvngx_label = tk.Label(screen,text='Nvngx.dll',font=font_select,bg='black',fg='#C0C0C0')
-nvngx_label.place(x=0,y=470)
+nvngx_label.place(x=420,y=373)
 nvngx_var = IntVar()
 nvngx_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvngx_var,command=cbox_nvngx)
-nvngx_cbox.place(x=66,y=472)
+nvngx_cbox.place(x=490,y=375)
 nvngx_canvas = tk.Canvas(screen,width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-nvngx_canvas.place(x=90,y=475)
+nvngx_canvas.place(x=520,y=377)
 nvngx_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
 nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
 nvngx_listbox.place(x=90,y=497)
@@ -1456,64 +1520,64 @@ def cbox_custom_fsr(event=None):
         custom_fsr_act = False
         
 custom_fsr_label = tk.Label(screen,text='Resolution Override  -  Custom FSR',font=font_select,bg='black',fg='#C0C0C0')
-custom_fsr_label.place(x=0,y=345)
+custom_fsr_label.place(x=420,y=145)
 custom_fsr_var = IntVar()
 custom_fsr_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=custom_fsr_var,command=cbox_custom_fsr)
-custom_fsr_cbox.place(x=230,y=347)
+custom_fsr_cbox.place(x=650,y=147)
 
 fsr_ultraq_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
-fsr_ultraq_canvas.place(x=140,y=380)
+fsr_ultraq_canvas.place(x=565,y=188)
 fsr_ultraq_label = tk.Label(screen,text='FSR Ultra Quality:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_ultraq_label.place(x=0,y=375)
+fsr_ultraq_label.place(x=420,y=183)
 fsr_ultraq_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-fsr_ultraq_label_up.place(x=120,y=375)
+fsr_ultraq_label_up.place(x=543,y=183)
 fsr_ultraq_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-fsr_ultraq_label_down.place(x=193,y=367)
+fsr_ultraq_label_down.place(x=620,y=175)
 
 fsr_quality_label = tk.Label(screen,text='FSR Quality:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_quality_label.place(x=220,y=375)
+fsr_quality_label.place(x=420,y=213)
 fsr_quality_canvas = tk.Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
-fsr_quality_canvas.place(x=325,y=380)
+fsr_quality_canvas.place(x=565,y=218)
 fsr_quality_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-fsr_quality_label_up.place(x=305,y=375)
+fsr_quality_label_up.place(x=543,y=213)
 fsr_quality_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-fsr_quality_label_down.place(x=378,y=366)
+fsr_quality_label_down.place(x=620,y=205)
 
 fsr_balanced_label = tk.Label(screen,text='FSR Balanced:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_balanced_label.place(x=0,y=407)
+fsr_balanced_label.place(x=420,y=243)
 fsr_balanced_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-fsr_balanced_label_up.place(x=95,y=407)
+fsr_balanced_label_up.place(x=543,y=243)
 fsr_balanced_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
-fsr_balanced_canvas.place(x=115,y=412)
+fsr_balanced_canvas.place(x=565,y=248)
 fsr_balanced_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg="#B0C4DE")
-fsr_balanced_label_down.place(x=169,y=399)
+fsr_balanced_label_down.place(x=620,y=235)
 
 fsr_performance_label = tk.Label(screen,text='FSR Performance:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_performance_label.place(x=190,y=407)
+fsr_performance_label.place(x=420,y=273)
 fsr_performance_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-fsr_performance_label_up.place(x=306,y=407)
+fsr_performance_label_up.place(x=543,y=273)
 fsr_performance_canvas = tk.Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
-fsr_performance_canvas.place(x=325,y=412)
+fsr_performance_canvas.place(x=565,y=278)
 fsr_performance_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-fsr_performance_label_down.place(x=378,y=398)
+fsr_performance_label_down.place(x=620,y=265)
 
 fsr_ultrap_label = tk.Label(screen,text='FSR Ultra Performance:',font=font_select,bg='black',fg='#C0C0C0')
-fsr_ultrap_label.place(x=0,y=439)
+fsr_ultrap_label.place(x=420,y=303)
 fsr_ultrap_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-fsr_ultrap_label_up.place(x=150,y=438)
+fsr_ultrap_label_up.place(x=573,y=303)
 fsr_ultrap_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
-fsr_ultrap_canvas.place(x=170,y=443)
+fsr_ultrap_canvas.place(x=595,y=308)
 fsr_ultrap_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-fsr_ultrap_label_down.place(x=225,y=430)
+fsr_ultrap_label_down.place(x=650,y=295)
 
 native_res_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
-native_res_canvas.place(x=325,y=442)
+native_res_canvas.place(x=495,y=338)
 native_res_label = tk.Label(screen,text='Native: ',font=font_select,bg='black',fg='#C0C0C0')
-native_res_label.place(x=258,y=438)
+native_res_label.place(x=420,y=333)
 native_res_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-native_res_label_up.place(x=307,y=437)
+native_res_label_up.place(x=475,y=333)
 native_res_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-native_res_label_down.place(x=378,y=429)
+native_res_label_down.place(x=548,y=325)
 
 def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     list_mod_custom_fsr = {
@@ -2176,10 +2240,10 @@ def screen_editor():
     screen_toml.mainloop()
 
 open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
-open_editor_label.place(x=200,y=245)
+open_editor_label.place(x=200,y=277)
 open_editor_var = tk.IntVar()
 open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=open_editor_var,command=cbox_editor)
-open_editor_cbox.place(x=325,y=247)
+open_editor_cbox.place(x=325,y=279)
 
 unlock_sharp_up_down = False
 unlock_cbox_sharp = None
@@ -2230,18 +2294,18 @@ def edit_sharpeness_up():
         unlock_cbox_sharp = False    
       
 sharpness_label = tk.Label(screen,text='Sharpness Override',font=font_select,bg='black',fg='#C0C0C0')
-sharpness_label.place(x=0,y=245)
+sharpness_label.place(x=420,y=73)
 sharpness_var = tk.IntVar()
 sharpness_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=sharpness_var,command=cbox_sharpness)
-sharpness_cbox.place(x=130,y=247)
+sharpness_cbox.place(x=550,y=76)
 sharpness_value_label = tk.Label(screen,text='Sharpness Value:',font=font_select,bg='black',fg='#C0C0C0')
-sharpness_value_label.place(x=0,y=277)
+sharpness_value_label.place(x=420,y=103)
 sharpness_value_canvas = tk.Canvas(screen,width=80,height=19,bg='#C0C0C0',highlightthickness=0)
-sharpness_value_canvas.place(x=140,y=282)
+sharpness_value_canvas.place(x=565,y=108)
 sharpness_value_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-sharpness_value_label_up.place(x=120,y=276)
+sharpness_value_label_up.place(x=538,y=103)
 sharpness_value_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-sharpness_value_label_down.place(x=225,y=268)
+sharpness_value_label_down.place(x=650,y=95)
 
 cont_value_up = 0
 cont_value_up_f = '0.0'
@@ -2285,15 +2349,15 @@ def color_sharpness_value_down(event=None):
     sharpness_value_label_down.configure(fg='#B0C4DE')
     
 mod_operates_label = tk.Label(screen,text='Mod Operates:',font=font_select,bg='black',fg='#C0C0C0')
-mod_operates_label.place(x=0,y=310)
+mod_operates_label.place(x=420,y=33)
 mod_operates_canvas = tk.Canvas(screen,width=150,height=19,bg='#C0C0C0',highlightthickness=0)
-mod_operates_canvas.place(x=100,y=314)
+mod_operates_canvas.place(x=525,y=37)
 mod_operates_listbox = tk.Listbox(screen,bg='white',width=25,height=0,highlightthickness=0)
-mod_operates_listbox.place(x=100,y=335)
+mod_operates_listbox.place(x=525,y=60)
 mod_operates_listbox.place_forget()
 
 optional_mod_op_label = tk.Label(screen,text='optional',font=(font_select,7),bg='black',fg='#696969')
-optional_mod_op_label.place(x=0,y=330)
+optional_mod_op_label.place(x=430,y=55)
 
 options_mod_op = None
 select_mod_op_options = None
@@ -2349,7 +2413,7 @@ def mod_operates_view(event):
             mod_operates_listbox.place_forget()
             mod_op_list_visible = False
         else:
-            mod_operates_listbox.place(x=100,y=335)
+            mod_operates_listbox.place(x=525,y=60)
             mod_op_list_visible = True
 
 asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
@@ -3288,7 +3352,7 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
+fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
@@ -3306,7 +3370,7 @@ nvngx_label_guide.place_forget()
 
 def guide_nvngx(event=None):
     nvngx_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    nvngx_label_guide.place(x=0,y=500)
+    nvngx_label_guide.place(x=420,y=399)
     
 def close_nvngx_guide(event=None):
     nvngx_label_guide.config(text="")
@@ -3317,7 +3381,7 @@ dxgi_label_guide.place_forget()
 
 def guide_dxgi(event=None):
     dxgi_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    dxgi_label_guide.place(x=205,y=500)
+    dxgi_label_guide.place(x=420,y=428)
     
     
 def close_dxgi_guide(event=None):
@@ -3387,7 +3451,7 @@ sharp_over_label_guide.place_forget()
 def guide_sharp_over(event=None):
     sharp_over_label_guide.config(text="Default value is -1.0, override disabled, uses game sharpening\n"
     "values 0.0-1.0, 0.0 disables sharpening completely, 1.0 max sharpening")
-    sharp_over_label_guide.place(x=0,y=273)
+    sharp_over_label_guide.place(x=420,y=98)
 
 def close_sharp_overguide(event=None):
     sharp_over_label_guide.config(text="")
@@ -3404,7 +3468,7 @@ def guide_mod_op(event=None):
     "FSR3: Default option, FSR3 from the game will be used.\n"
     "DLSS: Replaces FSR3 with DLSS if the game supports it.\n"
     "XESS: Replaces FSR3 with XESS if the game supports it.\n")
-    mod_op_label_guide.place(x=0,y=337)
+    mod_op_label_guide.place(x=420,y=60)
 
 def close_mod_opguide(event=None):
     mod_op_label_guide.config(text="")
@@ -3415,7 +3479,7 @@ dis_con_label_guide.place_forget()
 
 def guide_dis_con_op (event=None):
     dis_con_label_guide.config(text="Disable the CMD that autostarts on game boot, default = false")
-    dis_con_label_guide.place(x=0,y=595)
+    dis_con_label_guide.place(x=0,y=395)
     
 def close_dis_conguide(event=None):
     dis_con_label_guide.config(text="")
@@ -3426,7 +3490,7 @@ debug_label_guide.place_forget()
 
 def guide_debug_op (event=None):
     debug_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
-    debug_label_guide.place(x=122,y=562)
+    debug_label_guide.place(x=122,y=362)
     
 def close_debugguide(event=None):
     debug_label_guide.config(text="")
@@ -3437,7 +3501,7 @@ debug_view_label_guide.place_forget()
 
 def guide_debug_view_op (event=None):
     debug_view_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
-    debug_view_label_guide.place(x=0,y=562)
+    debug_view_label_guide.place(x=0,y=362)
     
 def close_debug_viewguide(event=None):
     debug_view_label_guide.config(text="")
@@ -3448,7 +3512,7 @@ en_sig_label_guide.place_forget()
 
 def guide_en_sig (event=None):
     en_sig_label_guide.config(text="Enable Signature Override can help some games to work, it is also recommended to activate in older versions of the mod")
-    en_sig_label_guide.place(x=0,y=532)
+    en_sig_label_guide.place(x=0,y=332)
     
 def close_en_sigguide(event=None):
     en_sig_label_guide.config(text="")
@@ -3459,11 +3523,22 @@ lfz_label_guide.place_forget()
 
 def guide_lfz(event=None):
     lfz_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    lfz_label_guide.place(x=245,y=560)
+    lfz_label_guide.place(x=245,y=360)
      
 def close_lfz_guide(event=None):
     lfz_label_guide.config(text="")
     lfz_label_guide.place_forget()
+
+addon_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+addon_label_guide.place_forget()
+
+def guide_addon_mods(event=None):
+    addon_label_guide.config(text="Addon Mods to assist the performance of FSR 3 mods, check the guide on FSR Guide for more information.")
+    addon_label_guide.place(x=420,y=450)
+
+def close_addon_guide(event=None):
+    addon_label_guide.config(text="")
+    addon_label_guide.place_forget()
 
 continue_install = None 
 def get_mod_version_canvas():
@@ -3528,6 +3603,8 @@ def install(event=None):
             copy_nvngx()
         if dxgi_contr:
             copy_dxgi()
+        if addon_contr:
+            addon_mods()
         if lfz_sl_var.get() == 1:
             copy_lfz_sl()
         if install_contr and select_fsr != None or install_contr and select_option != 'Select FSR version':
@@ -3668,6 +3745,7 @@ fsr_game_version={
     'Banishers: Ghosts of New Eden':'2.2',
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
+    'Chernobylite':'2.1',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Deathloop':'2.0',
@@ -3821,7 +3899,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
@@ -3980,6 +4058,19 @@ dxgi_op = ['DXGI DLL','D3D12 DLL']
 for dxgi_options in dxgi_op:
     dxgi_listbox.insert(tk.END,dxgi_options)
 
+def update_addon_mods(event=None):
+    global select_addon_mods
+    index_addon_mods = addon_mods_listbox.curselection()
+    if index_addon_mods:
+        select_addon_mods = addon_mods_listbox.get(index_addon_mods)
+        addon_mods_canvas.delete('text')
+        addon_mods_canvas.create_text(2,8,anchor='w',text=select_addon_mods,fill='black',tags='text')
+    addon_mods_canvas.update()
+
+addon_op = ['OptiScaler','Tweak']
+for addon_options in addon_op:
+    addon_mods_listbox.insert(tk.END,addon_options)
+
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
 listbox.bind("<<ListboxSelect>>",update_canvas)
@@ -4041,6 +4132,8 @@ dxgi_label.bind('<Enter>',guide_dxgi)
 dxgi_label.bind('<Leave>',close_dxgi_guide)
 nvngx_label.bind('<Enter>',guide_nvngx)
 nvngx_label.bind('<Leave>',close_nvngx_guide)
+addon_mods_canvas.bind('<Button-1>',addon_mods_view)
+addon_mods_listbox.bind('<<ListboxSelect>>',update_addon_mods)
 ue_label.bind('<Enter>',guide_ue)
 ue_label.bind('<Leave>',close_ueguide)
 macos_sup_label.bind('<Enter>',guide_mcos)
@@ -4061,6 +4154,8 @@ epic_over_label.bind('<Enter>',guide_epic)
 epic_over_label.bind('<Leave>',close_guide_epic)
 fsr_guide_label.bind('<Enter>',guide_fsr_guide)
 fsr_guide_label.bind('<Leave>',close_guide_fsr)
+addon_mods_label.bind('<Enter>',guide_addon_mods)
+addon_mods_label.bind('<Leave>',close_addon_guide)
 fps_user_entry.bind("<Key>", fps_isdigit)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
