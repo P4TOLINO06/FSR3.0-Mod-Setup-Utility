@@ -22,7 +22,6 @@ unlock_screen = False
 def run_as_admin():
     global unlock_screen
     if uac():
-        print("0")
         unlock_screen = True
     else:
         unlock_screen = False
@@ -31,8 +30,8 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7v")
-screen.geometry("700x530")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.1v")
+screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
@@ -90,12 +89,13 @@ def epic_dis_over(event=None):
     global path_over
     user_disk_part = search_un()
     exe_name = "EOSOverlayRenderer-Win64-Shipping.exe"
+    txt_name = 'EOSOverlayRenderer-Win64.txt'
     
     for disk_name in user_disk_part:
         default_path = os.path.join(disk_name, r'Program Files (x86)\Epic Games\Launcher\Portal\Extras\Overlay')
         if os.path.exists(default_path):
             for root, dirs, files in os.walk(default_path):
-                if exe_name in files:
+                if exe_name in files or txt_name in files:
                     path_over = os.path.join(root)
                     break
             if path_over:
@@ -104,7 +104,7 @@ def epic_dis_over(event=None):
         alt_path = os.path.join(disk_name, r'Epic Games\Launcher\Portal\Extras\Overlay')
         if os.path.exists(alt_path):
             for root, dirs, files in os.walk(alt_path):
-                if exe_name in files:
+                if exe_name in files or txt_name in files:
                     path_over = os.path.join(root)
                     break
             if path_over:
@@ -682,13 +682,16 @@ guide_fsr_label.place_forget()
 
 addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
+select_addon_mods = None
 def addon_mods():
+    path_ini_optiscaler = 'mods\Temp\OptiScaler'
     if select_addon_mods in addon_origins:
         path_addon = addon_origins[select_addon_mods]
     
     try:
         if select_addon_mods == 'OptiScaler':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
+            shutil.copytree(path_ini_optiscaler,select_folder,dirs_exist_ok=True)
         elif select_addon_mods == 'Tweak':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
     except Exception:
@@ -697,12 +700,16 @@ def addon_mods():
     
 addon_contr = False
 def cbox_addon_mods():
-    global addon_contr
+    global addon_contr,select_addon_mods
     if addon_mods_var.get() == 1:
         addon_mods_canvas.config(bg='white')
         addon_contr = True
     else:
         addon_mods_canvas.config(bg='#C0C0C0')
+        addon_ups_dx11_canvas.config(bg='#C0C0C0')
+        addon_ups_dx12_canvas.config(bg='#C0C0C0')
+        addon_mods_canvas.delete('text')
+        select_addon_mods = None
         addon_contr = False
         addon_listbox_contr()
         
@@ -721,7 +728,98 @@ def addon_listbox_contr(event=None):
     global addon_view,addon_contr
     if not addon_contr and addon_view:
         addon_mods_listbox.place_forget()
+        addon_ups_dx11_listbox.place_forget()
         addon_view = False
+
+addon_view_dx11 = False
+def addon_dx11_view(event=None):
+    global addon_view,addon_contr
+    if addon_contr and select_addon_mods == 'OptiScaler':
+        if addon_view:
+            addon_ups_dx11_listbox.place_forget()
+            addon_view = False
+        else:
+            addon_view = True
+            addon_ups_dx11_listbox.place(x=563,y=486)
+
+addon_view_dx12 = False
+def addon_dx12_view(event=None):
+    global addon_view,addon_contr
+    if addon_contr and select_addon_mods == 'OptiScaler':
+        if addon_view:
+            addon_ups_dx12_listbox.place_forget()
+            addon_view = False
+        else:
+            addon_view = True
+            addon_ups_dx12_listbox.place(x=563,y=516)
+
+def update_ini(path_ini,key,value_ini): 
+    try:
+        with open(path_ini, 'r') as file:
+            lines_ini = file.readlines()
+
+        with open(path_ini, 'w') as file:
+            for line in lines_ini:
+                if line.strip().startswith(key):
+                    file.write(f"{key}={value_ini}\n")
+                else:
+                    file.write(line)
+    except Exception as e:
+        messagebox.showinfo('Error','Error while modifying the INI file.')
+
+addon_dx11_origins = {'fsr2.2 DX11':'fsr22',
+                      'xess DX11':'xess',
+                      'fsr2.1 DX11':'fsr21_12',
+                      'fsr2.2 DX11 - DX12':'fsr22_12'}
+
+addon_dx12_origins= {'xess DX12':'xess',
+                    'fsr2.1 DX12':'fsr21',
+                    'fsr2.2 DX12':'fsr22' }
+
+def update_optiscaler_ini():
+    select_addon_dx11 = 'auto'
+    select_addon_dx12 = 'auto'
+    
+    if select_addon_dx11 in addon_dx11_origins:
+        option_addon = addon_dx11_origins[select_addon_dx11]
+    
+        path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+        key_dx11 = 'Dx11Upscaler'
+        value_ini_dx11 = option_addon
+        
+        update_ini(path_ini_dx11,key_dx11,value_ini_dx11)
+    
+    if select_addon_dx12 in addon_dx12_origins:
+        option_addon = addon_dx12_origins[select_addon_dx12]
+        key_dx12 = 'Dx12Upscaler'
+        value_ini_dx12 = option_addon
+    
+        update_ini(path_ini_dx11,key_dx12,value_ini_dx12)
+    replace_ini()
+
+def replace_ini():
+    path_ini = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+    path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
+    folder_ini = 'mods\\Temp\\OptiScaler'
+    if select_addon_mods == 'OptiScaler':
+        os.remove(path_ini)
+        shutil.copy2(path_ini_origin,folder_ini)
+
+addon_ups_dx12_label = tk.Label(screen,text='Addon Upscaler DXll',font=font_select,bg='black',fg='#C0C0C0')
+addon_ups_dx12_label.place(x=420,y=490)
+addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
+addon_ups_dx12_canvas.place(x=563,y=494)
+addon_ups_dx12_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
+addon_ups_dx12_listbox.place(x=563,y=516)
+addon_ups_dx12_listbox.place_forget()
+        
+addon_ups_dx11_label = tk.Label(screen,text='Addon Upscaler DXII',font=font_select,bg='black',fg='#C0C0C0')
+addon_ups_dx11_label.place(x=420,y=460)
+addon_ups_dx11_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
+addon_ups_dx11_canvas.place(x=563,y=464)
+addon_ups_dx11_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
+addon_ups_dx11_listbox.place(x=563,y=486)
+addon_ups_dx11_listbox.place_forget()
 
 addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
 addon_mods_label.place(x=420,y=430)
@@ -3071,8 +3169,9 @@ def fsr_rdr2():
     except Exception as e:
         print(e)  
 
-rdr2_folder = {"RDR2 Build_2":'mods\Red_Dead_Redemption_2_Build02',
-               "RDR2 Build_4":'mods\RDR2Upscaler-FSR3Build04'}
+rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
+               "RDR2 Build_4":'mods\\RDR2Upscaler-FSR3Build04',
+               "RDR2 Mix":'mods\\RDR2_FSR3_mix'}
 def rdr2_build2():
     global rdr2_folder
     
@@ -3082,6 +3181,8 @@ def rdr2_build2():
     if select_mod == 'RDR2 Build_2':
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
     elif select_mod == 'RDR2 Build_4':
+        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
+    elif select_mod == 'RDR2 Mix':
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
@@ -3288,21 +3389,9 @@ def pw_fsr3():
     shortcut_pw_path = os.path.join(select_folder,'Palworld-Win64-Shipping.exe')
     new_target_path = ('Palworld') 
     dx_12 = "-dx12"
+    game_name = 'Palworld'
     
-    create_shortcut = messagebox.askyesno('Create Shortcut','Do you want to create a DX12 shortcut? If you prefer to create it manually, click "NO" and follow the steps in the Palworld guide in FSR GUIDE. This is necessary for the mod to work correctly.')
-    
-    if create_shortcut:
-        if os.path.exists(shortcut_pw_path):
-            shell_win = win32com.client.Dispatch("WScript.Shell")
-            desktop_path = shell_win.SpecialFolders("Desktop")
-            shortcut_path = os.path.join(desktop_path, new_target_path + ".lnk")
-            shortcut_pw = shell_win.CreateShortcut(shortcut_path)
-            shortcut_pw.TargetPath = shortcut_pw_path
-            shortcut_pw.Arguments = dx_12
-            shortcut_pw.Save()
-            messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
-        else:
-            messagebox.showinfo('Shortcut Not Found','"Palworld-Win64-Shipping.exe" not found, please create a shortcut manually, see the Palworld guide in FSR GUIDE and follow the steps.')
+    auto_shortcut(shortcut_pw_path,new_target_path,dx_12,game_name)
 
 def ulck_fps_tekken():
     path_tekken = 'mods\\Unlock_fps_Tekken'
@@ -3312,6 +3401,22 @@ def ulck_fps_tekken():
 
     messagebox.showinfo('Run Overlay','Run TekkenOverlay.exe for the mod to work, refer to the FSR GUIDE if needed.')
 
+def auto_shortcut(path_exe,name_shortcut,dx_12,name_messagebox):
+    create_shortcut_icr = messagebox.askyesno('Create Shortcut',f'Do you want to create a DX12 shortcut? If you prefer to create it manually, click "NO" and follow the steps in the {name_messagebox} guide in FSR GUIDE. This is necessary for the mod to work correctly.')
+    
+    if create_shortcut_icr:
+        if os.path.exists(path_exe):
+            shell_win = win32com.client.Dispatch("WScript.Shell")
+            desktop_path = shell_win.SpecialFolders("Desktop")
+            shortcut_path = os.path.join(desktop_path, name_shortcut + ".lnk")
+            shortcut_icr = shell_win.CreateShortcut(shortcut_path)
+            shortcut_icr.TargetPath = path_exe
+            shortcut_icr.Arguments = dx_12
+            shortcut_icr.Save()
+            messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
+        else:
+            messagebox.showinfo(f'Shortcut Not Found',f'"{path_exe}" not found, please create a shortcut manually, see the {name_messagebox} guide in FSR GUIDE and follow the steps.')
+               
 def icarus_fsr3():
     icr_rtx = 'mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX'
     icr_ot_gpu = 'mods\\FSR3_ICR\\ICARUS_FSR_3_FOR_AMD_GTX'
@@ -3330,22 +3435,19 @@ def icarus_fsr3():
     shortcut_icr_path = os.path.join(select_folder,'Icarus-Win64-Shipping.exe')
     new_target_path = ('Icarus') 
     dx_12 = "-dx12"
+    game_name = 'Icarus'
     
-    create_shortcut_icr = messagebox.askyesno('Create Shortcut','Do you want to create a DX12 shortcut? If you prefer to create it manually, click "NO" and follow the steps in the Icarus guide in FSR GUIDE. This is necessary for the mod to work correctly.')
+    auto_shortcut(shortcut_icr_path,new_target_path,dx_12,game_name)
+
+def chernobylite_short_cut():
+    shortcut_cbl_path = os.path.join(select_folder,'ChernobylGame-Win64-Shipping.exe')
+    new_target_path = ('Chernobylite') 
+    dx_12 = "-dx12"
+    game_name = 'Chernobylite'
     
-    if create_shortcut_icr:
-        if os.path.exists(shortcut_icr_path):
-            shell_win = win32com.client.Dispatch("WScript.Shell")
-            desktop_path = shell_win.SpecialFolders("Desktop")
-            shortcut_path = os.path.join(desktop_path, new_target_path + ".lnk")
-            shortcut_icr = shell_win.CreateShortcut(shortcut_path)
-            shortcut_icr.TargetPath = shortcut_icr_path
-            shortcut_icr.Arguments = dx_12
-            shortcut_icr.Save()
-            messagebox.showinfo('Shortcut successfully created','Shortcut successfully created on the Desktop, run the game through the shortcut for the mod to function properly.')
-        else:
-            messagebox.showinfo('Shortcut Not Found','"Icarus-Win64-Shipping.exe" not found, please create a shortcut manually, see the Icarus guide in FSR GUIDE and follow the steps.')
-                       
+    if select_option == 'Chernobylite':
+        auto_shortcut(shortcut_cbl_path,new_target_path,dx_12,game_name)
+      
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -3534,11 +3636,33 @@ addon_label_guide.place_forget()
 
 def guide_addon_mods(event=None):
     addon_label_guide.config(text="Addon Mods to assist the performance of FSR 3 mods, check the guide on FSR Guide for more information.")
-    addon_label_guide.place(x=420,y=450)
+    addon_label_guide.place(x=420,y=454)
 
 def close_addon_guide(event=None):
     addon_label_guide.config(text="")
     addon_label_guide.place_forget()
+
+addon_dx11_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+addon_dx11_guide.place_forget()
+
+def guide_addon_dx11(event=None):
+    addon_dx11_guide.config(text="Select upscaler for Dx11 games")
+    addon_dx11_guide.place(x=420,y=485)
+
+def close_addon_dx11(event=None):
+    addon_dx11_guide.config(text="")
+    addon_dx11_guide.place_forget()
+
+addon_dx12_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+addon_dx12_guide.place_forget()
+
+def guide_addon_dx12(event=None):
+    addon_dx12_guide.config(text="Select upscaler for Dx12 games")
+    addon_dx12_guide.place(x=420,y=514)
+
+def close_addon_dx12(event=None):
+    addon_dx12_guide.config(text="")
+    addon_dx12_guide.place_forget()
 
 continue_install = None 
 def get_mod_version_canvas():
@@ -3547,7 +3671,6 @@ def get_mod_version_canvas():
     for opt_mod in mod_version_canvas.find_all():
         if mod_version_canvas.type(opt_mod) == "text":
             option_mod_version = mod_version_canvas.itemcget(opt_mod, "text")
-            print(option_mod_version)
             continue_install = True
             break
     if not option_mod_version:
@@ -3593,12 +3716,16 @@ def install(event=None):
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
+        if select_option== 'Chernobylite':
+            chernobylite_short_cut()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
+        if select_addon_mods == 'OptiScaler':
+            update_optiscaler_ini()
         if  nvngx_contr:
             copy_nvngx()
         if dxgi_contr:
@@ -3849,7 +3976,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -4065,11 +4192,47 @@ def update_addon_mods(event=None):
         select_addon_mods = addon_mods_listbox.get(index_addon_mods)
         addon_mods_canvas.delete('text')
         addon_mods_canvas.create_text(2,8,anchor='w',text=select_addon_mods,fill='black',tags='text')
+    
+    if select_addon_mods == 'OptiScaler':
+        addon_ups_dx11_canvas.config(bg='white')
+        addon_ups_dx12_canvas.config(bg='white')
+    elif select_addon_mods != 'OptiScaler' or not addon_contr:
+        addon_ups_dx11_canvas.config(bg='#C0C0C0')
+        addon_ups_dx11_listbox.place_forget() 
+        addon_ups_dx12_canvas.config(bg='#C0C0C0')
+        addon_ups_dx12_listbox.place_forget()
+        screen_toml
     addon_mods_canvas.update()
 
 addon_op = ['OptiScaler','Tweak']
 for addon_options in addon_op:
     addon_mods_listbox.insert(tk.END,addon_options)
+
+def update_addon_dx11(event=None):
+    global select_addon_dx11
+    index_addon_dx11 = addon_ups_dx11_listbox.curselection()
+    if index_addon_dx11:
+        select_addon_dx11 = addon_ups_dx11_listbox.get(index_addon_dx11)
+        addon_ups_dx11_canvas.delete('text')
+        addon_ups_dx11_canvas.create_text(2,8,anchor='w',text=select_addon_dx11,fill='black',tags='text')
+    addon_ups_dx11_canvas.update()
+
+addon_dx11 = ['fsr2.2 DX11','xess DX11','fsr2.2 DX11 - DX12','fsr2.1 DX11']
+for addon_dx11_op in addon_dx11:
+    addon_ups_dx11_listbox.insert(tk.END,addon_dx11_op)
+
+def update_addon_dx12(event=None):
+    global select_addon_dx12
+    index_addon_dx12 = addon_ups_dx12_listbox.curselection()
+    if index_addon_dx12:
+        select_addon_dx12 = addon_ups_dx12_listbox.get(index_addon_dx12)
+        addon_ups_dx12_canvas.delete('text')
+        addon_ups_dx12_canvas.create_text(2,8,anchor='w',text=select_addon_dx12,fill='black',tags='text')
+    addon_ups_dx12_canvas.update()
+
+addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12']
+for addon_dx12_op in addon_dx12:
+    addon_ups_dx12_listbox.insert(tk.END,addon_dx12_op)
 
 canvas_options.bind('<Button-1>',rectangle_event)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
@@ -4134,6 +4297,10 @@ nvngx_label.bind('<Enter>',guide_nvngx)
 nvngx_label.bind('<Leave>',close_nvngx_guide)
 addon_mods_canvas.bind('<Button-1>',addon_mods_view)
 addon_mods_listbox.bind('<<ListboxSelect>>',update_addon_mods)
+addon_ups_dx11_canvas.bind('<Button-1>',addon_dx11_view)
+addon_ups_dx11_listbox.bind('<<ListboxSelect>>',update_addon_dx11)
+addon_ups_dx12_canvas.bind('<Button-1>',addon_dx12_view)
+addon_ups_dx12_listbox.bind('<<ListboxSelect>>',update_addon_dx12)
 ue_label.bind('<Enter>',guide_ue)
 ue_label.bind('<Leave>',close_ueguide)
 macos_sup_label.bind('<Enter>',guide_mcos)
@@ -4156,6 +4323,10 @@ fsr_guide_label.bind('<Enter>',guide_fsr_guide)
 fsr_guide_label.bind('<Leave>',close_guide_fsr)
 addon_mods_label.bind('<Enter>',guide_addon_mods)
 addon_mods_label.bind('<Leave>',close_addon_guide)
+addon_ups_dx11_label.bind('<Enter>',guide_addon_dx11)
+addon_ups_dx11_label.bind('<Leave>',close_addon_dx11)
+addon_ups_dx12_label.bind('<Enter>',guide_addon_dx12)
+addon_ups_dx12_label.bind('<Leave>',close_addon_dx12)
 fps_user_entry.bind("<Key>", fps_isdigit)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
