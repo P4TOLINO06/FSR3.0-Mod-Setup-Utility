@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.2v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -243,10 +243,10 @@ def fsr_guide(event=None):
             screen_guide.withdraw()
 
 fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=200,y=367)
+fsr_guide_label.place(x=265,y=367)
 fsr_guide_var = tk.IntVar()
 fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=275,y=369)
+fsr_guide_cbox.place(x=340,y=369)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
@@ -672,13 +672,172 @@ def exit_fsr_guide(event=None):
 
 def guide_fsr_guide(event=None):
     guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
-    guide_fsr_label.place(x=200,y=390)
+    guide_fsr_label.place(x=265,y=390)
 
 def close_guide_fsr(event=None):
     guide_fsr_label.place_forget()
     
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
+
+var_copy_backup = False
+def comp_files(origins_path):
+    global nvngx_contr,var_copy_backup
+    
+    if select_mod in origins_path:
+        paths_backup = origins_path[select_mod]
+
+        try:
+            files_to_copy = []
+            file_path = ""
+
+            if isinstance(paths_backup, list):
+                for path_backup in paths_backup:
+                    origins_backup = os.path.join(path_backup)
+
+                    for file_backup in os.listdir(select_folder):
+                        file_path = os.path.join(origins_backup, file_backup)
+                        
+                    if os.path.isfile(file_path):
+                        files_to_copy.append(file_path)
+                        var_copy_backup = True
+            else:
+                path_backup = paths_backup
+                origins_backup = os.path.join(path_backup)
+
+                for file_backup in os.listdir(select_folder):
+                    file_path = os.path.join(origins_backup, file_backup)
+
+                    if os.path.isfile(file_path):
+                        var_copy_backup = True
+                        files_to_copy.append(file_path)
+
+            if var_copy_backup:
+                backup_folder = os.path.join(select_folder, 'Backup')
+                if not os.path.exists(backup_folder):
+                    create_backup_folder = messagebox.askyesno('Create Backup', 'Do you want to create a backup folder and perform a backup of the original game files?')
+
+                    if create_backup_folder:
+                        os.mkdir(backup_folder)
+                    else:
+                        return
+
+                if files_to_copy:  
+                    for file_path in files_to_copy:
+                        file_name = os.path.basename(file_path)
+                        folder_backup = os.path.join(backup_folder, file_name)
+                        shutil.copy(file_path, folder_backup)
+        except Exception as e:
+            print(e)
+
+        create_backup_folder = None
+        if var_copy_backup:
+            if not os.path.exists(backup_folder):
+                create_backup_folder = messagebox.askyesno('Create Backup','Do you want to create a backup folder and perform a backup of the original game files?')
+
+                if create_backup_folder:
+                    os.mkdir(backup_folder)
+                elif not create_backup_folder:
+                    return
+            
+            elif os.path.exists(backup_folder) and files_to_copy:
+                copy_files = messagebox.askyesno('Copy files','Do you want to copy the files to the Backup folder?')
+            elif os.path.exists(backup_folder) and not files_to_copy:
+                messagebox.showinfo('Without files','No files were found to perform the backup.')
+                return
+            
+            if create_backup_folder or copy_files:
+                for path_backup in paths_backup:
+                    origins_backup = os.path.join(path_backup)
+                    
+                    for file_backup in os.listdir(select_folder):
+                        file_path = os.path.join(origins_backup, file_backup)
+                        
+                        if os.path.isfile(file_path):
+                            folder_backup = os.path.join(backup_folder, file_backup) 
+                            shutil.copy(file_path, folder_backup) 
+            else:
+                return  
+      
+def backup_files():
+    global origins_2_2_folder,nvngx_folders,var_copy_backup
+    
+    if select_mod in origins_2_2_folder:
+        comp_files(origins_2_2_folder)
+        
+    if select_option == 'Red Dead Redemption 2' and select_mod in rdr2_folder:
+        comp_files(rdr2_folder)  
+    elif select_option == 'Red Dead Redemption 2' and select_mod in origins_rdr2_folder:
+        comp_files(origins_rdr2_folder)
+
+    if select_option == 'Baldurs Gate 3':
+        comp_files(bdg_origins)
+        
+    if select_option == 'The Callisto Protocol':
+        comp_files(callisto_origins)
+        
+    if select_option == 'Dragons Dogma 2':
+        comp_files(dd2_folder)
+        
+    if select_option == 'Elden Ring':
+        comp_files(er_origins)
+
+    select_nvngx_v1 = 'NVNGX Version 1'
+    name_nvngx_v1 = 'nvngx.ini'
+    search_nvngx = select_nvngx
+    
+    select_nvngx_default = 'Default'
+    name_nvngx = 'nvngx.dll'
+    
+    select_optiscaler_file = ['nvngx.dll','libxess.dll','nvngx.ini']
+    search_optiscaler = select_addon_mods
+    select_optiscaler_name = 'OptiScaler'
+    
+    select_pw_file = ['ReShade.ini','PalworldUpscalerPreset.ini','d3d12.dll',
+                     'd3dcompiler_47.dll','nvngx.dll']
+    search_pw = select_mod
+    select_pw_name = 'Palworld Build03'
+    
+    def search_dll_files(name_file_select,name_file,select_option_search):
+        backup_folder = os.path.join(select_folder, 'Backup')
+        
+        if select_option_search == name_file_select:
+            file_nvngx = os.listdir(select_folder)
+
+            for nvngx_file in file_nvngx:
+                if nvngx_file == name_file:
+                    source_path = os.path.join(select_folder, name_file)
+                    destination_path = os.path.join(backup_folder, name_file)
+                    
+                    if not os.path.exists(backup_folder):
+                        os.makedirs(backup_folder)
+
+                    shutil.copy(source_path, destination_path)
+                                           
+    if nvngx_contr:
+        if select_nvngx == 'Default':
+            search_dll_files(select_nvngx_default,name_nvngx,search_nvngx)
+        elif select_nvngx == 'NVNGX Version 1':
+            search_dll_files(select_nvngx_v1,name_nvngx_v1,search_nvngx)
+    
+    if addon_contr:
+        if select_addon_mods == 'OptiScaler':
+            for name_file_optiscaler in select_optiscaler_file:
+                search_dll_files(select_optiscaler_name,name_file_optiscaler,search_optiscaler)
+
+    if select_mod == 'Palworld Build03':
+        for file_select in select_pw_file:
+            search_dll_files(select_pw_name, file_select, search_pw)    
+    
+def cbox_backup():
+    if backup_var.get() == 1:
+        backup_files()
+
+backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
+backup_label.place(x=160,y=367)
+backup_var = IntVar()
+backup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=backup_var,command=cbox_backup)
+backup_cbox.place(x=215,y=369)
 
 addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
@@ -766,6 +925,7 @@ def update_ini(path_ini,key,value_ini):
                     file.write(line)
     except Exception as e:
         messagebox.showinfo('Error','Error while modifying the INI file.')
+        return
 
 addon_dx11_origins = {'fsr2.2 DX11':'fsr22',
                       'xess DX11':'xess',
@@ -1004,7 +1164,8 @@ def cbox_cleanup(event=None):
                     cleanup_cbox.deselect()
         except Exception:
             pass
-        
+ 
+      
 def clean_mod():
     global select_folder
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
@@ -1216,8 +1377,22 @@ def clean_mod():
             if os.path.exists(path_assets_tekken):
                 shutil.rmtree(path_assets_tekken)
     except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')  
-                
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
+    
+    try: 
+        path_original_files = os.path.join(select_folder,'Backup')
+        if os.path.exists(path_original_files):
+            copy_original_files = messagebox.askyesno('Original Files','A Backup folder was found, do you want to restore the original game files?')
+            if copy_original_files:
+                shutil.copytree(path_original_files,select_folder,dirs_exist_ok=True)
+            
+            del_backup_folder = messagebox.askyesno('Delete Backup','Do you want to delete the Backup folder?')
+            if del_backup_folder:
+                shutil.rmtree(path_original_files)
+             
+    except Exception:
+        messagebox.showinfo('Error','Error copying the original files, please select the path to the game\'s root folder, or if you prefer, perform the restoration manually; the Backup folder is located in the root of the game.')
+                  
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=426) 
 cleanup_var = IntVar()
@@ -1252,7 +1427,7 @@ def edit_disable_console():
             toml.dump(toml_dis,file)
         
 disable_console_label = tk.Label(screen,text='Disable Console',font=font_select,bg='black',fg='#C0C0C0')
-disable_console_label.place(x=0,y=366)
+disable_console_label.place(x=0,y=367)
 disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
 disable_console_cbox.place(x=108,y=369)
@@ -1529,10 +1704,8 @@ nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
 nvngx_listbox.place(x=90,y=497)
 nvngx_listbox.place_forget()
 
-def copy_nvngx():
-      
-    nvngx_folders = None
-    nvngx_folders = {
+nvngx_folders = None
+nvngx_folders = {
     '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\\nvngx',
     '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\\nvngx',
     '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\\nvngx',
@@ -1546,7 +1719,9 @@ def copy_nvngx():
     'RDR2 Build_4':'mods\Temp\RDR2_FSR3\\nvngx',
     'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx',
     'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\nvngx'
-    }
+}
+def copy_nvngx():
+    global nvngx_folders
     nvngx_folder = nvngx_folders.get(select_mod) 
     
     if select_mod not in nvngx_folders:
@@ -2650,42 +2825,44 @@ asi_global={
     }
 }
 
-def fsr_2_2():
-    origins_2_2 = None
+origins_2_2 = None
     
-    origins_2_2_folder = {
-        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
-        
-        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
-        
-        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
-        
-        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
-        
-        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
-                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
-        
-        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
-                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
-        
-        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
-                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
-        
-        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
-                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
-        
-        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
-                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
-        
-        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
-        
-        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
-                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
-        
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
+origins_2_2_folder = {
+    '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
+    
+    '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
+    
+    '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
+    
+    '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
+    
+    '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
+                'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+    
+    '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+    
+    '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+    
+    '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+    
+    '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+    
+    '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+    
+    '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
+                'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
+    
+    'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
+    'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
     }
+
+def fsr_2_2():
+    global origins_2_2_folder
     
     if select_mod in origins_2_2_folder:
         origins_2_2 = origins_2_2_folder[select_mod]
@@ -3456,7 +3633,7 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart','Pacific Drive']
 
@@ -3897,6 +4074,7 @@ fsr_game_version={
     'Icarus':'ICR',
     'Judgment':'2.1',
     'Kena: Bridge of Spirits':'2.2',
+    'Layers of Fear':'2.0',
     'Lies of P':'2.2',
     'Lords of the Fallen':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
@@ -4027,7 +4205,7 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
