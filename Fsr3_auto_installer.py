@@ -28,7 +28,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.4v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -61,7 +61,7 @@ select_label.place(x=0,y=33)
 fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0')
 fsr_label.place(x=313,y=33)
 canvas_options = Canvas(screen,width=200,height=15,bg='white')
-canvas_options.place(x=98,y=37)
+canvas_options.place(x=101,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
 exit_label.place(x=355,y=458)
@@ -261,8 +261,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Returnal',
+    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+                'Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -326,6 +326,11 @@ def text_guide():
 '1 - Start the game in DX11 and select Borderless.\n'
 '2 - Choose DLSS or DLAA.\n'
 '3 - Press the END key to enter the mod menu, check\nthe Frame Generation box to activate the mod; you can also\nadjust the Upscaler. (To activate Frame Generation, simply\npress the * key; you can also change the key in the mod\nmenu.)\n'  
+),
+
+'Blacktail':(
+  '1 - Select a mod of your choice (0.10.3 is recommended)\n'
+  '2 - "Check the Fake Nvidia GPU box.'  
 ),
 
 'Bright Memory: Infinite':(
@@ -416,6 +421,13 @@ def text_guide():
 "2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
 "3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
 "Other versions of the mod install normally, but may experience flickering on the HUD"
+),
+
+'Red Dead Redemption 2 MIX':(
+ '1 - Set the game to DX12 in advanced options.\n'
+'2 - Turn off Triple Buffering and Vsync, and set the game to Full Screen.\n'
+'3 - Select the RDR2 Mix mod and install it.\n'
+'4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
 ),
 
 'Shadow Warrior 3':(
@@ -647,6 +659,8 @@ def text_guide():
         screen_guide.geometry('520x305')
     elif select_game == 'Icarus':
         screen_guide.geometry('690x260')
+    elif select_game == 'Red Dead Redemption 2 MIX':
+        screen_guide.geometry('672x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -751,9 +765,10 @@ def comp_files(origins_path):
                         if os.path.isfile(file_path):
                             folder_backup = os.path.join(backup_folder, file_backup) 
                             shutil.copy(file_path, folder_backup) 
+                messagebox.showinfo('Success', 'Backup completed successfully.')
             else:
                 return  
-      
+   
 def backup_files():
     global origins_2_2_folder,nvngx_folders,var_copy_backup
     unlock_view_message = False
@@ -766,21 +781,28 @@ def backup_files():
         
     if select_option == 'Red Dead Redemption 2' and select_mod in rdr2_folder:
         comp_files(rdr2_folder)  
+        unlock_view_message = False
+        
     elif select_option == 'Red Dead Redemption 2' and select_mod in origins_rdr2_folder:
         comp_files(origins_rdr2_folder)
+        unlock_view_message = False
 
     if select_option == 'Baldurs Gate 3':
         comp_files(bdg_origins)
+        unlock_view_message = False  
         
     if select_option == 'The Callisto Protocol':
         comp_files(callisto_origins)
+        unlock_view_message = False
         
     if select_option == 'Dragons Dogma 2':
         comp_files(dd2_folder)
+        unlock_view_message = False
         
     if select_option == 'Elden Ring':
         comp_files(er_origins)
-
+        unlock_view_message = False
+        
     select_nvngx_v1 = 'NVNGX Version 1'
     name_nvngx_v1 = 'nvngx.ini'
     search_nvngx = select_nvngx
@@ -802,9 +824,13 @@ def backup_files():
     search_fl4 = select_mod
     select_fl4_name = 'Fallout 4 FSR3'
     
+    select_tlou_file = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll']
+    search_tlou = select_mod
+    select_tlou_name = 'Uniscaler Tlou'
+
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
-        
+
         try:               
             if select_option_search == name_file_select:
                 file_nvngx = os.listdir(select_folder)
@@ -822,33 +848,46 @@ def backup_files():
                         files_copied += 1
                         
                 if files_copied > 0:
-                    return True
+                    return True       
         except Exception:
             messagebox.showinfo('Error','Failed to create the backup, please try again.')
 
     view_message = False
+    sucess_message = None
     if unlock_view_message:
         view_message = messagebox.askyesno('Copy files', 'Would you like to copy the files to the Backup folder? If it doesn\'t exist, one will be created at the root of the game.')
     
     if view_message:    
         if nvngx_contr:
             if select_nvngx == 'Default':
-                search_dll_files(select_nvngx_default,name_nvngx,search_nvngx)
+                sucess_message = search_dll_files(select_nvngx_default,name_nvngx,search_nvngx)
             elif select_nvngx == 'NVNGX Version 1':
-                search_dll_files(select_nvngx_v1,name_nvngx_v1,search_nvngx)
+                sucess_message = search_dll_files(select_nvngx_v1,name_nvngx_v1,search_nvngx)
         
         if addon_contr:
             if select_addon_mods == 'OptiScaler':
                 for name_file_optiscaler in select_optiscaler_file:
-                    search_dll_files(select_optiscaler_name,name_file_optiscaler,search_optiscaler)
+                    sucess_message = search_dll_files(select_optiscaler_name,name_file_optiscaler,search_optiscaler)
 
         if select_mod == 'Palworld Build03':
             for file_select in select_pw_file:
-                search_dll_files(select_pw_name, file_select, search_pw)    
+                sucess_message = search_dll_files(select_pw_name, file_select, search_pw)    
         
         if select_mod == 'Fallout 4 FSR3':
             for fl4_file in select_fl4_file:
-                search_dll_files(select_fl4_name,fl4_file,search_fl4)                                  
+                sucess_message = search_dll_files(select_fl4_name,fl4_file,search_fl4)    
+        
+        if select_mod == 'Uniscaler Tlou':
+            for tlou_file in select_tlou_file:
+                sucess_message = search_dll_files(select_tlou_name,tlou_file,search_tlou)   
+    else:
+        return 
+    
+    if sucess_message and unlock_view_message:
+        messagebox.showinfo('Success', 'Backup completed successfully.')
+    elif not sucess_message and not unlock_view_message:
+        messagebox.showinfo('Not found', 'No matching files, backup was not completed.') 
+        return               
         
 def cbox_backup():
     if backup_var.get() == 1:
@@ -1215,6 +1254,8 @@ def clean_mod():
                        
     del_tekken_fsr3 = ['TekkenOverlay.exe','Tekken8OverlaySettings.yaml','Tekken8Overlay.dll','Tekken7Overlay.dll']
 
+    del_tlou_fsr3 = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll','uniscaler.asi','uniscaler.config.toml','uniscaler.log']
+    
     try:     
         for item in os.listdir(select_folder):
             if item in mod_clean_list:
@@ -1412,6 +1453,21 @@ def clean_mod():
              
     except Exception:
         messagebox.showinfo('Error','Error copying the original files, please select the path to the game\'s root folder, or if you prefer, perform the restoration manually; the Backup folder is located in the root of the game.')
+     
+    try:
+        path_uni_tlou = os.path.join(select_folder,'uniscaler')
+        
+        if select_mod == 'Uniscaler Tlou':
+            for i_tlou in os.listdir(select_folder):
+                if i_tlou in del_tlou_fsr3:
+                    os.remove(os.path.join(select_folder,i_tlou))
+                    
+            if os.path.exists(path_uni_tlou):
+                shutil.rmtree(path_uni_tlou)
+                
+    except Exception as e:
+        print(e)
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
                   
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=426) 
@@ -2759,7 +2815,7 @@ select_folder = None
 
 def open_explorer(event=None): #Function to select the game folder and create the selected path text on the Canvas
     global select_folder
-    select_folder =filedialog.askdirectory()
+    select_folder = filedialog.askdirectory()
     game_folder_canvas.delete('text')
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
 
@@ -3643,14 +3699,26 @@ def chernobylite_short_cut():
     
     if select_option == 'Chernobylite':
         auto_shortcut(shortcut_cbl_path,new_target_path,dx_12,game_name)
+
+def tlou_fsr():
+    path_uni_tlou_1080p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1080p Monitors'
+    path_uni_tlou_1440p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1440p Monitors'
+    
+    if select_mod == 'Uniscaler Tlou':
+        var_gpu_tlou = messagebox.askyesno('Resolution','Is your resolution above 1080p?')
+    
+    if var_gpu_tlou:
+        shutil.copytree(path_uni_tlou_1440p,select_folder,dirs_exist_ok=True)
+    else:
+        shutil.copytree(path_uni_tlou_1080p,select_folder,dirs_exist_ok=True)
       
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','The Last of Us','Uncharted: Legacy of Thieves Collection']
+fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
@@ -3907,6 +3975,8 @@ def install(event=None):
             fallout_fsr()
         elif select_mod  == 'Forza Horizon 5 FSR3':
             fh_fsr3()
+        elif select_mod == 'Uniscaler Tlou':
+            tlou_fsr()
         elif select_option == 'Icarus':
             icarus_fsr3()
 
@@ -3994,7 +4064,7 @@ def select_game_listbox_view(event):
         listbox.place_forget()
         listbox_visible = False
     else:
-        listbox.place(x=98,y=58)
+        listbox.place(x=101,y=58)
         listbox_visible = True
         
 listbox_visible = False
@@ -4069,6 +4139,7 @@ fsr_game_version={
     'Atomic Heart':'2.2',
     'Baldur\'s Gate 3':'PD',
     'Banishers: Ghosts of New Eden':'2.2',
+    'Blacktail':'2.2',
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Chernobylite':'2.1',
@@ -4123,7 +4194,7 @@ fsr_game_version={
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
-    'The Last of Us':'2.1',
+    'The Last of Us':'US',
     'The Medium':'2.2',
     'The Thaumaturge':'2.2',
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
@@ -4219,6 +4290,10 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Icarus FSR3 AMD/GTX','Icarus FSR3 RTX')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    elif select_option == 'The Last of Us':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Uniscaler Tlou')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -4227,7 +4302,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     update_rec_color()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
