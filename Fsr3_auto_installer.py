@@ -28,8 +28,8 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.4v")
-screen.geometry("700x580")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.5v")
+screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
@@ -899,6 +899,102 @@ backup_var = IntVar()
 backup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=backup_var,command=cbox_backup)
 backup_cbox.place(x=214,y=369)
 
+uni_custom_contr = False
+select_uni_custom = ""
+unlock_uni_custom_res = False
+def cbox_uni_custom():
+    global uni_custom_contr
+    
+    if uni_custom_var.get() == 1 and (select_mod == "Uniscaler" or select_mod == "Uniscaler + Xess + Dlss"):
+        uni_custom_canvas.config(bg='white')
+        uni_custom_contr = True
+    else:
+        uni_custom_canvas.config(bg='#C0C0C0')
+        uni_custom_contr = False
+        if not unlock_uni_custom_res:     
+            messagebox.showinfo('Select Uniscaler','Select an option Uniscaler')
+            uni_custom_cbox.deselect()
+
+uni_custom_view = False
+def uni_custom_res_view(event=None):
+    global uni_custom_view
+    
+    if uni_custom_contr and (select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss'):
+        if uni_custom_view:
+            uni_custom_view = False
+            uni_custom_listbox.place_forget()
+        else:
+            uni_custom_listbox.place(x=609,y=389)
+            uni_custom_view = True
+
+def unlock_uni_custom():
+    global unlock_uni_custom_res
+    if select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss':
+        unlock_uni_custom_res = True
+    else:
+        uni_custom_canvas.config(bg='#C0C0C0')
+        uni_custom_listbox.place_forget()
+        uni_custom_cbox.deselect()
+        unlock_uni_custom_res = False
+        return
+  
+uni_custom_preset_label = tk.Label(screen,text='Uni Resolution Custom',font=font_select,bg='black',fg='#C0C0C0')
+uni_custom_preset_label.place(x=420,y=363)
+uni_custom_var = IntVar()
+uni_custom_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=uni_custom_var,command=cbox_uni_custom)
+uni_custom_cbox.place(x=585,y=365)
+uni_custom_canvas = tk.Canvas(width=53,height=19,bg='#C0C0C0',highlightthickness=0)
+uni_custom_canvas.place(x=609,y=367)
+uni_custom_listbox = tk.Listbox(screen,width=9,height=0,bg='white',highlightthickness=0)
+uni_custom_listbox.place(x=565,y=389)
+uni_custom_listbox.place_forget()
+
+def uni_custom_preset():
+    custom_op = {
+    '1080p' : {
+        'balanced':'0.666667',
+        'quality':'0.886'
+    },
+    '1440p':{
+        'performance':'0.50',
+        'balanced':'0.666667',
+        'quality':'0.75'
+    },
+    '2160p':{
+        'ultra_performance':'0.33',
+        'performance':'0.44',
+        'balanced':'0.50',
+        'quality':'0.666667'
+    }
+    }
+    
+    if select_mod == 'Uniscaler':
+        path_uni_config = 'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml'
+    elif select_mod == 'Uniscaler + Xess + Dlss':
+        path_uni_config = 'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml'
+    
+    try:
+        key_1 = 'resolution_override'
+        
+        if select_uni_custom in custom_op:
+            custom_selected = custom_op[select_uni_custom]
+       
+            with open(path_uni_config, 'r') as file:
+                toml_uni = toml.load(file)
+        
+            if key_1 in toml_uni and custom_selected:
+
+                for key, value in custom_selected.items():
+                    if key in toml_uni[key_1]:
+                        toml_uni[key_1][key] = float(value)
+                        
+        with open(path_uni_config, 'w') as file:
+            toml.dump(toml_uni, file)
+                
+    except Exception as e:
+        messagebox.showinfo('Error','Error while modifying the Toml file.')
+        return
+
 addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
 select_addon_dx11 = 'auto'
@@ -942,7 +1038,7 @@ def addon_mods_view(event=None):
             addon_view = False
             addon_mods_listbox.place_forget()
         else:
-            addon_mods_listbox.place(x=548,y=457)
+            addon_mods_listbox.place(x=548,y=480)
             addon_view = True
             
 def addon_listbox_contr(event=None):
@@ -950,6 +1046,7 @@ def addon_listbox_contr(event=None):
     if not addon_contr and addon_view:
         addon_mods_listbox.place_forget()
         addon_ups_dx11_listbox.place_forget()
+        addon_ups_dx12_listbox.place_forget()
         addon_view = False
 
 addon_view_dx11 = False
@@ -961,7 +1058,7 @@ def addon_dx11_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx11_listbox.place(x=583,y=486)
+            addon_ups_dx11_listbox.place(x=583,y=511)
 
 addon_view_dx12 = False
 def addon_dx12_view(event=None):
@@ -972,7 +1069,7 @@ def addon_dx12_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx12_listbox.place(x=583,y=516)
+            addon_ups_dx12_listbox.place(x=583,y=541)
 
 def update_ini(path_ini,key,value_ini): 
     try:
@@ -1025,30 +1122,30 @@ def replace_ini():
         shutil.copy2(path_ini_origin,folder_ini)
 
 addon_ups_dx12_label = tk.Label(screen,text='Addon Upscaler DX12',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx12_label.place(x=420,y=490)
+addon_ups_dx12_label.place(x=420,y=515)
 addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx12_canvas.place(x=583,y=494)
+addon_ups_dx12_canvas.place(x=583,y=519)
 addon_ups_dx12_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_ups_dx12_listbox.place(x=583,y=516)
+addon_ups_dx12_listbox.place(x=583,y=541)
 addon_ups_dx12_listbox.place_forget()
         
 addon_ups_dx11_label = tk.Label(screen,text='Addon Upscaler DX11',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx11_label.place(x=420,y=460)
+addon_ups_dx11_label.place(x=420,y=485)
 addon_ups_dx11_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx11_canvas.place(x=583,y=464)
+addon_ups_dx11_canvas.place(x=583,y=489)
 addon_ups_dx11_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_ups_dx11_listbox.place(x=583,y=486)
+addon_ups_dx11_listbox.place(x=583,y=511)
 addon_ups_dx11_listbox.place_forget()
 
 addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
-addon_mods_label.place(x=420,y=430)
+addon_mods_label.place(x=420,y=455)
 addon_mods_var = tk.IntVar()
 addon_mods_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=addon_mods_var,command=cbox_addon_mods)
-addon_mods_cbox.place(x=522,y=432)
+addon_mods_cbox.place(x=522,y=457)
 addon_mods_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_mods_canvas.place(x=548,y=434)
+addon_mods_canvas.place(x=548,y=459)
 addon_mods_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_mods_listbox.place(x=543,y=457)
+addon_mods_listbox.place(x=548,y=480)
 addon_mods_listbox.place_forget()
 
 us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
@@ -1376,13 +1473,16 @@ def clean_mod():
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
     rename_old_dlss = 'nvngx_dlss.dll'
+    
     try:
         if select_mod == 'Uniscaler':
             if os.path.exists(name_dlss):
                 old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.7.0 and revert to the old version?')
+                
                 if old_dlss_rename:
                     os.remove(new_dlss)
                     os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
+                
             elif not os.path.exists(name_dlss):
                 if not os.path.exists(new_dlss):
                     return
@@ -1686,7 +1786,7 @@ def dxgi_cbox_view(event=None):
             dxgi_listbox.place_forget()
             dxgi_view = False
         else:
-            dxgi_listbox.place(x=520,y=428)
+            dxgi_listbox.place(x=520,y=448)
             dxgi_view = True
       
 def dxgi_listbox_contr(event=None):
@@ -1730,14 +1830,14 @@ def copy_dxgi():
             messagebox.showinfo('Error','Please select the destination folder')
            
 dxgi_label = tk.Label(screen,text='Dxgi.dll',font=font_select,bg='black',fg='#C0C0C0')
-dxgi_label.place(x=420,y=402)
+dxgi_label.place(x=420,y=423)
 dxgi_var = IntVar()
 dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=dxgi_var,command=cbox_dxgi)
-dxgi_cbox.place(x=493,y=403)
+dxgi_cbox.place(x=493,y=424)
 dxgi_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-dxgi_canvas.place(x=520,y=406)
+dxgi_canvas.place(x=520,y=427)
 dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-dxgi_listbox.place(x=520,y=428)
+dxgi_listbox.place(x=520,y=448)
 dxgi_listbox.place_forget()
 
 nvngx_contr = False
@@ -1759,7 +1859,7 @@ def nvngx_cbox_view(event=None):
             nvngx_listbox.place_forget()
             nvngx_view = False
         else:
-            nvngx_listbox.place(x=520,y=398)
+            nvngx_listbox.place(x=520,y=420)
             nvngx_view = True
             
 def nvngx_listbox_contr():
@@ -1769,36 +1869,32 @@ def nvngx_listbox_contr():
         nvngx_view = False
     
 nvngx_label = tk.Label(screen,text='Nvngx.dll',font=font_select,bg='black',fg='#C0C0C0')
-nvngx_label.place(x=420,y=373)
+nvngx_label.place(x=420,y=393)
 nvngx_var = IntVar()
 nvngx_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvngx_var,command=cbox_nvngx)
-nvngx_cbox.place(x=493,y=375)
+nvngx_cbox.place(x=493,y=395)
 nvngx_canvas = tk.Canvas(screen,width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-nvngx_canvas.place(x=520,y=377)
+nvngx_canvas.place(x=520,y=398)
 nvngx_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
 nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
-nvngx_listbox.place(x=90,y=497)
+nvngx_listbox.place(x=520,y=420)
 nvngx_listbox.place_forget()
+uni_custom_listbox.lift(nvngx_canvas)
 
-nvngx_folders = None
-nvngx_folders = {
-    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\\nvngx',
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\\nvngx',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\\nvngx',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\\nvngx',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\nvngx',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\nvngx',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\nvngx',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\nvngx',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\nvngx',
-    'RDR2 Build_2':'mods\Temp\RDR2_FSR3\\nvngx',
-    'RDR2 Build_4':'mods\Temp\RDR2_FSR3\\nvngx',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\nvngx',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\nvngx'
-}
+nvngx_path_global = 'mods\Temp\\nvngx_global\\nvngx'
+nvngx_folders = {}
+
+for nvn_key in [
+    '0.7.6', '0.8.0', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', 
+    '0.10.2h1', '0.10.3', '0.10.4', 'RDR2 Build_2', 'RDR2 Build_4', 
+    'Uniscaler', 'Uniscaler + Xess + Dlss'
+]:
+    nvngx_folders[nvn_key] = nvngx_path_global
+
 def copy_nvngx():
     global nvngx_folders
     nvngx_folder = nvngx_folders.get(select_mod) 
+    print(nvngx_folder)
     
     if select_mod not in nvngx_folders:
         messagebox.showinfo('Error','Please select a version starting at 0.7.6 ')
@@ -1831,10 +1927,20 @@ def copy_nvngx():
                         if os.path.exists(name_dlss) and not os.path.exists(name_old_dlss):
                             os.rename(name_dlss,os.path.join(select_folder,rename_dlss))
                         shutil.copy2(nvn_path, select_folder)
+                
+                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSS 3.7.0 FG':
+                    if item == 'nvngx_dlssg.dll':
+                        name_dlssg = os.path.join(select_folder,'nvngx_dlssg.dll')
+                        name_old_dlssg = os.path.join(select_folder,'nvngx_dlg.txt')
+                        rename_dlssg = 'nvngx_dlg.txt'
+                        if os.path.exists(name_dlssg) and not os.path.exists(name_old_dlssg):
+                            os.rename(name_dlssg,os.path.join(select_folder,rename_dlssg))
+                        shutil.copy2(nvn_path, select_folder)
                         
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
             print(e)
+            
 custom_fsr_act = False
 
 def unlock_custom():
@@ -3720,7 +3826,7 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank-Rift Apart','Pacific Drive']
 
@@ -4162,6 +4268,7 @@ fsr_game_version={
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
     'Hellblade: Senua\'s Sacrifice':'2.1',
+    'High On Life':'2.0',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
     'Icarus':'ICR',
@@ -4303,7 +4410,7 @@ def update_canvas(event=None): #canvas_options text configuration
     update_rec_color()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
@@ -4335,6 +4442,7 @@ def update_mod_version(event=None):
     unlock_fps_limit()
     unlock_sharp()
     update_nvngx()
+    unlock_uni_custom()
     mod_version_canvas.update()
 
 mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
@@ -4425,7 +4533,7 @@ def update_nvngx(event=None):
     if select_mod == 'Uniscaler + Xess + Dlss':
         nvngx_op = ['Default', 'NVNGX Version 1']
     else:
-        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0']
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSS 3.7.0 FG']
 
     nvngx_listbox.delete(0, tk.END) 
     for nvngx_options in nvngx_op:
@@ -4444,7 +4552,7 @@ def update_nvngx(event=None):
     
     nvngx_canvas.update()
 
-nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSS 3.7.0 FG']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END, nvngx_options)
     
@@ -4477,7 +4585,6 @@ def update_addon_mods(event=None):
         addon_ups_dx11_listbox.place_forget() 
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_listbox.place_forget()
-        screen_toml
     addon_mods_canvas.update()
 
 addon_op = ['OptiScaler','Tweak']
@@ -4509,6 +4616,28 @@ def update_addon_dx12(event=None):
 addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12']
 for addon_dx12_op in addon_dx12:
     addon_ups_dx12_listbox.insert(tk.END,addon_dx12_op)
+
+def update_uni_custom(event=None):
+    global select_uni_custom
+    index_uni_custom = uni_custom_listbox.curselection()
+    if index_uni_custom:
+        select_uni_custom = uni_custom_listbox.get(index_uni_custom)
+        uni_custom_canvas.delete('text')
+        uni_custom_canvas.create_text(2,8,anchor='w',text=select_uni_custom,fill='black',tags='text')
+    
+    if select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss':
+        uni_custom_canvas.config(bg='white')
+        uni_custom_preset()
+    elif select_mod != 'Uniscaler' or select_mod != 'Uniscaler + Xess + Dlss' or not uni_custom_contr:
+        uni_custom_canvas.config(bg='#C0C0C0')
+        uni_custom_listbox.place_forget()
+        uni_custom_cbox.deselect()
+
+    uni_custom_canvas.update()
+
+uni_custom_options = ['1080p' ,'1440p','2160p']
+for uni_custom_op in uni_custom_options:
+    uni_custom_listbox.insert(tk.END,uni_custom_op)
 
 canvas_options.bind('<Button-1>',select_game_listbox_view)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
@@ -4577,6 +4706,8 @@ addon_ups_dx11_canvas.bind('<Button-1>',addon_dx11_view)
 addon_ups_dx11_listbox.bind('<<ListboxSelect>>',update_addon_dx11)
 addon_ups_dx12_canvas.bind('<Button-1>',addon_dx12_view)
 addon_ups_dx12_listbox.bind('<<ListboxSelect>>',update_addon_dx12)
+uni_custom_canvas.bind('<Button-1>',uni_custom_res_view)
+uni_custom_listbox.bind('<<ListboxSelect>>',update_uni_custom)
 ue_label.bind('<Enter>',guide_ue)
 ue_label.bind('<Leave>',close_ueguide)
 macos_sup_label.bind('<Enter>',guide_mcos)

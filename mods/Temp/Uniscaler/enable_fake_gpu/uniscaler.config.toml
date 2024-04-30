@@ -1,16 +1,16 @@
 config_version = 3
 
 [general]
-upscaler = "dlss"
+upscaler = "fsr3"
 disable_frame_generation = false
 sharpness_override = -1.0
-force_auto_exposure = true
+force_auto_exposure = false
 original_frame_rate_limit = 0
 
 [resolution_override]
 native = 1.0
-quality = 0.666667
-balanced = 0.588235
+quality = 0.886
+balanced = 0.666667
 performance = 0.5
 ultra_performance = 0.333333
 ultra_quality = 0.769231
