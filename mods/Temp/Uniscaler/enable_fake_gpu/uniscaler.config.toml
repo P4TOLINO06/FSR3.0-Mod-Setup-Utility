@@ -12,7 +12,7 @@ native = 1.0
 quality = 0.886
 balanced = 0.666667
 performance = 0.5
-ultra_performance = 0.333333
+ultra_performance = 0.33
 ultra_quality = 0.769231
 
 [compatibility]

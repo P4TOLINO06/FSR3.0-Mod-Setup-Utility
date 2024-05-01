@@ -6,6 +6,7 @@ import subprocess,os,shutil
 import toml
 import sys
 import ctypes
+from tkinter import font as tkFont
 from configobj import ConfigObj
 import win32com.client
 import psutil
@@ -28,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.5v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.6v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -50,10 +51,17 @@ y_img = (900 - 250)//2
 bg_label = tk.Label(screen,image=img_tk,bg='black')
 bg_label.place(x=x_img,y=y_img)
 
-title_page = tk.Label(screen, text="FSR 3 Mods", font=("Segoe UI", 10, "bold"), fg="#778899", bg="black") 
-title_page.pack(anchor='w',pady=0)
+change_text = False
+try:
+    font_select = ("Segoe UI", 11,'bold')
 
-font_select = ("Segoe UI",11,"bold")
+    var_font = tk.Label(screen,text=".", font=font_select).destroy()
+except tk.TclError:
+    font_select = tkFont.Font(family="Arial",size=10)
+    change_text = True
+
+title_page = tk.Label(screen, text="FSR 3 Mods", font=("Arial", 11, "bold"), fg="#778899", bg="black") 
+title_page.pack(anchor='w',pady=0)
 
 select_label = tk.Label(screen, text="Game select:",font=font_select,bg='black',fg='#C0C0C0')
 select_label.place(x=0,y=33)
@@ -110,7 +118,7 @@ def epic_dis_over(event=None):
         epic_over_canvas.create_text(2, 8, anchor='w', text=path_over, fill='black', tags='text')
     else:
         messagebox.showinfo('Not Found', 'EOSOverlayRenderer-Win64-Shipping not found, please select the path manually')
-
+        
 epic_folder = None
 def epic_explorer(event=None): 
     global epic_folder,path_over
@@ -262,8 +270,8 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
+                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -319,7 +327,7 @@ def text_guide():
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - Set FSR in the game settings.\n"
-"5 - If the mod doesn't work, select one of the nvngx.dll\noptions."
+"5 - If the mod doesn't work, elect 'Default' in Nvngx.dll."
 ),
 
 'Baldur\'s Gate 3': (
@@ -348,11 +356,11 @@ def text_guide():
 "1 - Select a version of the mod of your choice (versions\nfrom 0.9.0 onwards \nare recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
-"4 - If the mod doesn't work, select one of the nvngx.dll options."   
+"4 - If the mod doesn't work, select 'Default' in Nvngx.dll."   
 ),
 
 'Deathloop':(
-  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n' 
+  '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n' 
   '2 - Activate Fake Nvidia Gpu and Nvapi Results (Only for\nAMD and GTX) ' 
 ),
 
@@ -399,7 +407,7 @@ def text_guide():
 ),
 
 'F1 2022' : (
-'1 - Choose a version of the mod you prefer (version 0.10.4 is\nrecommended).\n'
+'1 - Choose a version of the mod you prefer (version 0.10.3 is\nrecommended).\n'
 '2 - Select "Default" in Nvngx and check the box "Enable\nSignature Override.\n'
 '3 - Check the box "Fake Nvidia GPU" (AMD Only).\n'
 '4 - Within the game, under AntiAliasing, select DLSS or FSR.\n'
@@ -407,7 +415,7 @@ def text_guide():
 ),
 
 'F1 2023':(
-'1 - Choose a version of the mod you prefer (version 0.10.4 is\nrecommended).\n'
+'1 - Choose a version of the mod you prefer (version 0.10.3 is\nrecommended).\n'
 '2 - Select "Default" in Nvngx and check the box "Enable\nSignature Override.\n'
 '3 - Check the box "Fake Nvidia GPU" (AMD Only).\n'
 '4 - Inside the game, under AntiAliasing, select DLSS or FSR.'
@@ -430,6 +438,12 @@ def text_guide():
 '4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
 ),
 
+'Red Dead Redemption Mix 2':(
+'1 - Set the game to DX12.\n'
+'2 - Turn off Buffer Triple, Vsync, and disable any upscaler,\nleave it on TAA.\n'
+'3 - It\'s not necessary to activate any upscaler for the mod\nto work, but if you want to use one, refer to the RDR2 Mix\nguide.'   
+),
+
 'Shadow Warrior 3':(
 'Select a mod of your preference (0.10.3 is recommended)\n'
 '2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
@@ -437,7 +451,7 @@ def text_guide():
 ),
 
 'Ghostrunner 2': (
-    '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended)\n' 
+    '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended)\n' 
     '2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
     '3 - Activate Fake Nvidia Gpu (AMD only)\n'
     '4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
@@ -445,15 +459,20 @@ def text_guide():
 ),
 
 'Hellblade: Senua\'s Sacrifice':(
-    '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
+    '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n'
     '2 - Select Fake Nvidia Gpu and UE Compatibility (AMD only),\nselect Fake Nvidia Gpu and Nvapi Results (GTX only).'
+),
+
+'High On Life':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Enable Fake Nvidia Gpu.(only Amd and Gtx)'
 ),
 
 'Hogwarts legacy':(
 "1 - Select a version of the mod of your choice (versions from 0.9.0\nonwards are recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the mod\ndoesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
-"4 - Select an option nvngx.dll."
+"4 - Select 'Default' in Nvngx.dll."
 ),
 
 'Horizon Forbidden West':(
@@ -512,13 +531,13 @@ def text_guide():
 'Returnal':(
 "1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
-"3 - Select an option nvngx.dll."
+"3 - Select 'Default' in Nvngx.dll."
 ),
 
 'Star Wars: Jedi Survivor':(
 "1 - Choose a version of the mod you prefer (Recommended\nversion 0.10.2 or higher).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
-"3 - Select an option nvngx.dll."
+"3 - Select 'Default' in Nvngx.dll."
 ),
 
 'Sackboy: A Big Adventure':(
@@ -526,7 +545,7 @@ def text_guide():
 '2 - Select the game folder that has the ending\n"\GingerBread\Binaries\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
 '4 - In "Mod Operates", select "Replace Dlss FG".\n'
-'5 - Select an option nvngx.dll.\n'
+'5 - Select \'Default\' in Nvngx.dll\n'
 '6 - Enable the "Enable Signature Override" checkbox if the\nmod doesn\'t work.\n'
 ),
 
@@ -583,6 +602,11 @@ def text_guide():
 'The Callisto Protocol':(
   '1 - Select The Callisto Protocol Fsr 3 in Mod Version and\ncheck the Fake Nvidia GPU box and install.\n'
 '2 - To fix the HUD flickering: within the game, select fsr2,\nAnti-Aliasing to TemporalAA, and turn off the film grain, play\nfor a few seconds, return to the menu, and switch fsr2 to\nTemporal.'  
+),
+
+'The Chant':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Enable Fake Nvidia Gpu, if Frame Generation is not\ndetected, enable Nvapi Results. (only Amd and Gtx)'  
 ),
 
 "The Outer Worlds: Spacer's Choice Edition":(
@@ -911,6 +935,7 @@ def cbox_uni_custom():
     else:
         uni_custom_canvas.config(bg='#C0C0C0')
         uni_custom_contr = False
+        uni_custom_listbox.place_forget()
         if not unlock_uni_custom_res:     
             messagebox.showinfo('Select Uniscaler','Select an option Uniscaler')
             uni_custom_cbox.deselect()
@@ -1798,19 +1823,14 @@ def dxgi_listbox_contr(event=None):
 copy_all_dxgi = None       
 def copy_dxgi():
     global copy_all_dxgi
-    dxgi_folders = None
-    dxgi_folders = {
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\\dxgi',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\\dxgi',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\\dxgi',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\\dxgi',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\\dxgi',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\\dxgi',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\\dxgi',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\\dxgi',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\dxgi',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\dxgi'
-    }
+    
+    dxgi_folders = {}
+    path_dxgi_global = 'mods\Temp\dxgi_global'
+    for dxgi_key in  ['0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1',
+                    '0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']:
+    
+        dxgi_folders[dxgi_key] = path_dxgi_global
+           
     dxgi_folder = dxgi_folders.get(select_mod)
     
     if select_mod not in dxgi_folders and select_folder != None:
@@ -1894,7 +1914,6 @@ for nvn_key in [
 def copy_nvngx():
     global nvngx_folders
     nvngx_folder = nvngx_folders.get(select_mod) 
-    print(nvngx_folder)
     
     if select_mod not in nvngx_folders:
         messagebox.showinfo('Error','Please select a version starting at 0.7.6 ')
@@ -3529,7 +3548,8 @@ def fsr_rdr2():
 
 rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
                "RDR2 Build_4":'mods\\RDR2Upscaler-FSR3Build04',
-               "RDR2 Mix":'mods\\RDR2_FSR3_mix'}
+               "RDR2 Mix":'mods\\RDR2_FSR3_mix',
+               "RDR2 Mix 2":'mods\\RDR2_FSR3_mix'}
 def rdr2_build2():
     global rdr2_folder
     
@@ -3542,6 +3562,18 @@ def rdr2_build2():
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
     elif select_mod == 'RDR2 Mix':
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
+    elif select_mod == 'RDR2 Mix 2':
+        ignore_files = ('reshade-shaders','ReShade.ini')
+        
+        for i_rdr2_mx2 in os.listdir(origins_rdr2):
+            src_item = os.path.join(origins_rdr2, i_rdr2_mx2)
+            dst_item = os.path.join(select_folder, i_rdr2_mx2)
+            if os.path.isdir(src_item):
+                if not any(pattern in i_rdr2_mx2 for pattern in ignore_files):
+                    shutil.copytree(src_item, dst_item, ignore=shutil.ignore_patterns(*ignore_files),dirs_exist_ok=True)
+            else:
+                if not any(pattern in i_rdr2_mx2 for pattern in ignore_files):
+                    shutil.copy2(src_item, dst_item)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
@@ -3570,7 +3602,6 @@ def dd2_fsr():
         break 
     else:
         var_d_put = False
-    print(var_d_put)
     
     if select_mod == 'Uniscaler_DD2' and var_d_put or select_mod == 'Uniscaler + Xess + Dlss DD2' and var_d_put :
         us_dd2(var_d_put,origins_dd2)
@@ -3822,7 +3853,7 @@ install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
 
@@ -4214,6 +4245,75 @@ fsr_listbox.pack_forget()
 fsr_visible = False
 fsr_view_listbox = False
 
+change_font_var = IntVar()
+def cbox_change_font():
+    path_act = os.getcwd()
+    path_font = "Fonts\\CustomTkinter_shapes_font.otf"
+    dest_font= path_act+"\\lib\\customtkinter\\assets\\fonts"
+    
+    if change_font_var.get() == 1:
+        if os.path.exists(os.path.join("Fonts\\CustomTkinter_shapes_font.otf")):
+            var_copy_font = messagebox.askyesno("Change font",'Do you want to copy the file from the original Utility font? This may make the original font work. Currently, the font being used is Arial.')
+            try:
+                if var_copy_font:
+                    shutil.copy(path_font,dest_font)
+                    messagebox.showinfo('Sucess','Original font file copied successfully, restart the application. If the font is still not applied even after the restart, try installing the font manually. Follow this path: FSR3\lib\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
+            except Exception:
+                messagebox.showinfo('Error','The original font file could not be copied, perhaps your system is not compatible with this font. If you want to install manually, follow this path: FSR3\lib\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
+                return
+            
+def change_labels():
+    global change_text
+    if change_text:
+        
+        change_font_label = tk.Label(screen,text="Change font", font=font_select,bg='black',fg='#C0C0C0')
+        change_font_label.place(x=0,y=565)
+        change_font_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=change_font_var,command=cbox_change_font)
+        change_font_cbox.place(x=80,y=565)
+    
+        debug_tear_lines_label.place(x=120,y=338)
+        debug_tear_lines_cbox.place(x=239,y=338)
+        
+        lfz_sl_label.place(x=267,y=338)
+        lfz_sl_label_cbox.place(x=376,y=338)
+        
+        fakegpu_cbox.place(x=126,y=185)
+        nvapi_cbox.place(x=113,y=215)
+        ue_cbox.place(x=364,y=185)
+        macos_sup_cbox.place(x=374,y=215)
+        var_expo_cbox.place(x=310,y=245)
+        open_editor_cbox.place(x=332,y=276)
+        disable_sigover_cbox.place(x=365,y=306)
+        enable_sigover_cbox.place(x=159,y=306)
+        fps_user_entry.place(x=80,y=248)
+        var_frame_gen_cbox.place(x=110,y=276)
+        debug_view_cbox.place(x=90,y=335)
+        disable_console_cbox.place(x=117,y=367)
+        backup_cbox.place(x=214,y=367)
+        fsr_guide_cbox.place(x=348,y=366)
+        cleanup_cbox.place(x=100,y=425)
+        del_dxgi_cbox.place(x=118,y=459)
+        mod_operates_label.place(x=420,y=36)
+        sharpness_cbox.place(x=560,y=73)
+        nvngx_label.place(x=420,y=395)
+        dxgi_label.place(x=420,y=425)
+        addon_mods_label.place(x=420,y=457)
+        addon_ups_dx11_label.place(x=420,y=487)
+        addon_ups_dx12_label.place(x=420,y=517)
+        
+        uni_custom_canvas.place(x=602,y=365)
+        uni_custom_cbox.place(x=575,y=363)
+        
+        custom_fsr_cbox.place(x=658,y=144)
+        fsr_balanced_label.place(x=420,y=245)
+        fsr_ultraq_label.place(x=420,y=185)
+        fsr_quality_label.place(x=420,y=216)
+        fsr_ultrap_label.place(x=420,y=305)
+        fsr_performance_label.place(x=420,y=275)
+        native_res_label.place(x=420,y=335)
+change_labels()
+
+
 def close_all_listbox(event):
     global listbox_visible, fsr_visible
     
@@ -4301,6 +4401,7 @@ fsr_game_version={
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
+    'The Chant':'2.2',
     'The Last of Us':'US',
     'The Medium':'2.2',
     'The Thaumaturge':'2.2',
@@ -4355,7 +4456,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -4411,7 +4512,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 

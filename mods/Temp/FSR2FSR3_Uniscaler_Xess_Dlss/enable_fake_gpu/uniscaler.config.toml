@@ -9,7 +9,7 @@ original_frame_rate_limit = 0
 
 [resolution_override]
 native = 1.0
-quality = 0.75
+quality = 0.886
 balanced = 0.666667
 performance = 0.5
 ultra_performance = 0.333333
