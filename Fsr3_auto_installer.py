@@ -5,6 +5,7 @@ from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
 import toml
 import sys
+import re
 import ctypes
 from tkinter import font as tkFont
 from configobj import ConfigObj
@@ -29,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.6v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.7v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -55,7 +56,7 @@ change_text = False
 try:
     font_select = ("Segoe UI", 11,'bold')
 
-    var_font = tk.Label(screen,text=".", font=font_select).destroy()
+    var_font = tk.Label(screen,text=".", font=font_select,fg="black", bg="black")
 except tk.TclError:
     font_select = tkFont.Font(family="Arial",size=10)
     change_text = True
@@ -269,8 +270,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
+    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -281,7 +282,7 @@ def select_guide():
     select_game_canvas.update()
 
 s_games_listbox_view = False
-def view_listbox_s_games(event=None):
+def view_listbox_s_games(evnet=None):
     global s_games_listbox_view
     
     if s_games_listbox_view:
@@ -309,7 +310,8 @@ def text_guide():
 'Initial Information':(
 '1 - When selecting the game folder, look for the game\'s .exe file. Some games have the full name .exe or abbreviated,\n while others have the .exe file in the game folder but within subfolders with the ending\nBinaries\Win64, and the .exe usually ends with Win64-Shipping, for example: TheCallistoProtocol-Win64-Shipping.\n'
 '2 - It is recommended to read the guide before installing the mod. Some games do not have a guide because\nyou only need to install the mod, while others, like Fallout 4 for example, have extra steps for installation.\nIf something is done incorrectly, the mod will not work.\n'
-'3 - Some games may not work for certain users after installing the mod. It is recommended to select Default\nin NVGX and enable Signature Override if the mod does not work with the default files.'    
+'3 - Some games may not work for certain users after installing the mod. It is recommended to select Default\nin NVGX and enable Signature Override if the mod does not work with the default files.\n'    
+'4 - Games that don\'t have numbers in \'Fsr\' you don\'t need to check any option, just install the mod.'
 ),
 
 'Add-on Mods':(
@@ -350,6 +352,12 @@ def text_guide():
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - If it doesn\'t work with the default files, enable\nEnable Signature Override. If it still doesn\'t work, check the\nbox lfz.sl.dlss.\n'
 '3 - It\'s not necessary to activate an upscaler for this game\nfor the mod to work, so enable it if you want.'
+),
+
+'Chernobylite':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the box \'Fake Nvidia Gpu\' (only for Amd/Gtx).\n'
+'3 - To fix flickering in the hub, select Dlss, play for a few\nseconds, then select Fsr3 and repeat the process, finally\nselect Dlss.' 
 ),
 
 'Dead Space Remake':(
@@ -499,6 +507,12 @@ def text_guide():
 '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
 '2 - Activate Fake Nvidia Gpu and UE Compatibility Mode\n(AMD only).\n'
 '3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.'
+),
+
+'Manor Lords':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the Fake Nvidia GPU box. (Only for AMD/GTX).\n'
+'3 - In-game, select DLSS.'  
 ),
 
 'Martha Is Dead': (
@@ -694,7 +708,7 @@ def text_guide():
     
     guide_label.config(text=guide_text)
     
-def exit_fsr_guide(event=None):
+def exit_fsr_guide():
     global screen_guide,guide_label
     
     if screen_guide:
@@ -1066,7 +1080,7 @@ def addon_mods_view(event=None):
             addon_mods_listbox.place(x=548,y=480)
             addon_view = True
             
-def addon_listbox_contr(event=None):
+def addon_listbox_contr():
     global addon_view,addon_contr
     if not addon_contr and addon_view:
         addon_mods_listbox.place_forget()
@@ -1305,7 +1319,7 @@ fps_user_entry =  tk.Entry(screen,width=5,bg='#C0C0C0',state= 'readonly',borderw
 fps_user_entry.place(x=80,y=250)
 fps_user_entry.lift()
 
-def cbox_del_dxgi(event=None):
+def cbox_del_dxgi():
     if del_dxgi_var.get() == 1: 
         dxgi_clean_var = messagebox.askyesno('Uninstall','Would you like to proceed with the uninstallation of the DXGI/D3D12.dll files?')
         if dxgi_clean_var:
@@ -1328,7 +1342,7 @@ del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
 del_dxgi_cbox.place(x=120,y=462) 
    
-def cbox_cleanup(event=None):
+def cbox_cleanup():
     if cleanup_var.get() == 1:
         try:
             if select_folder == None:
@@ -1601,7 +1615,7 @@ cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlig
 cleanup_cbox.place(x=100,y=428)       
 
 disable_var = None
-def cbox_disable_console(event=None):
+def cbox_disable_console():
    global disable_var
    disable_var = bool(disable_console_var.get())
    edit_disable_console()
@@ -1670,7 +1684,7 @@ def var_mod_lfz():
         messagebox.showinfo('Select Folder','Please, select a destination folder')
         lfz_sl_label_cbox.deselect()
 
-def cbox_lfz_sl(event=None):
+def cbox_lfz_sl():
     global lfz_list
     if lfz_sl_var.get() == 1: 
         var_mod_lfz()
@@ -1682,7 +1696,7 @@ lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',hi
 lfz_sl_label_cbox.place(x=383,y=338)
 
 var_debug_tear = None
-def cbox_debug_tear_lines(event=None):
+def cbox_debug_tear_lines():
     global var_debug_tear
     var_debug_tear = bool(debug_tear_lines_var.get())
     edit_debug_tear_lines()
@@ -1720,7 +1734,7 @@ debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black
 debug_tear_lines_cbox.place(x=241,y=338)
 
 var_deb_view = False
-def cbox_debug_view(event=None):
+def cbox_debug_view():
     global var_deb_view
     var_deb_view = bool(debug_view_var.get())
     edit_debug_view()
@@ -1772,7 +1786,7 @@ def disable_over():
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_dis_over],capture_output=True)
         
-def cbox_enable_sigover(event=None):
+def cbox_enable_sigover():
     if enable_sigover_var.get() == 1:
         enable_over()
     
@@ -1782,7 +1796,7 @@ enable_sigover_var = IntVar()
 enable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=enable_sigover_var,command=cbox_enable_sigover)
 enable_sigover_cbox.place(x=162,y=308)
 
-def cbox_disable_sigover(event=None):
+def cbox_disable_sigover():
     if disable_sigover_var.get() == 1:
         disable_over()
 
@@ -1793,7 +1807,7 @@ disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black'
 disable_sigover_cbox.place(x=368,y=308)
 
 dxgi_contr = False
-def cbox_dxgi(event=None):
+def cbox_dxgi():
     global dxgi_contr
     if dxgi_var.get() == 1:
         dxgi_contr = True
@@ -1814,7 +1828,7 @@ def dxgi_cbox_view(event=None):
             dxgi_listbox.place(x=520,y=448)
             dxgi_view = True
       
-def dxgi_listbox_contr(event=None):
+def dxgi_listbox_contr():
     global dxgi_view,dxgi_contr
     if not dxgi_contr and dxgi_view:
         dxgi_listbox.place_forget()
@@ -1861,7 +1875,7 @@ dxgi_listbox.place(x=520,y=448)
 dxgi_listbox.place_forget()
 
 nvngx_contr = False
-def cbox_nvngx(event=None):
+def cbox_nvngx():
     global nvngx_contr
     if nvngx_var.get() == 1:
         nvngx_contr = True
@@ -1971,7 +1985,7 @@ def unlock_custom():
     else:
         return True
 
-def cbox_custom_fsr(event=None):
+def cbox_custom_fsr():
     global custom_fsr_act
     print(custom_fsr_var.get())
     if custom_fsr_var.get() == 0:
@@ -2384,12 +2398,10 @@ def copy_fake_gpu():
 def cbox_fakegpu():
     if fakegpu_cbox_var.get() == 1:
         fake_gpu_mod()
-        print('0')
         fakegpu_cbox_var.set == 0
     else:
         fakegpu_cbox_var.set == 1
         default_fake_gpu()
-        print('1')
 
 fakegpu_label = tk.Label(screen,text='Fake NVIDIA GPU',font=font_select,bg='black',fg='#C0C0C0')
 fakegpu_label.place(x=0,y=185)
@@ -2933,10 +2945,14 @@ def select_asi_view(event):
 
 select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_folder_canvas.place(x=350,y=75)
-select_folder_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
+select_folder_canvas.create_text(0,8,anchor='w',font=('Arial',9,'bold'),text='Browser',fill='black')
 select_folder_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
 select_folder_label.place(x=318,y=70)
 select_folder = None
+
+search_game_exe_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
+search_game_exe_canvas.place(x=350,y=95)
+search_game_exe_canvas.create_text(9,8,anchor='w',font=('Arial',9,'bold'),text='Auto',fill='black')
 
 def open_explorer(event=None): #Function to select the game folder and create the selected path text on the Canvas
     global select_folder
@@ -2944,6 +2960,86 @@ def open_explorer(event=None): #Function to select the game folder and create th
     game_folder_canvas.delete('text')
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
 
+def auto_search(path_origin,alt_path_origin,exe_name,game_select): #auto search for the exe path
+    user_disk_part = search_un()
+    path_over = None
+    
+    try:
+        for disk_name in user_disk_part:
+            default_path = os.path.join(disk_name,path_origin)
+            if os.path.exists(default_path):
+                for root, dirs, files in os.walk(default_path):
+                    for file_name in files:
+                        if file_name.endswith(exe_name):
+                            game_path = os.path.abspath(root)
+                            if game_select in game_path:
+                                path_over = os.path.join(root, file_name)
+                                break
+                    if path_over:
+                        break
+                if path_over:
+                    break
+            
+            alt_path = os.path.join(disk_name, alt_path_origin)
+            if os.path.exists(alt_path):
+                for root, dirs, files in os.walk(alt_path):
+                    for file_name in files:
+                        if file_name.endswith(exe_name):
+                            game_path = os.path.abspath(root)
+                            if game_select in game_path: 
+                                path_over = os.path.join(root, file_name)
+                                break
+                    if path_over:
+                        break
+                if path_over:
+                    break
+    except Exception:
+            messagebox.showinfo('Error','Error while fetching the path, please verify if you have selected the game correctly and try again.')
+            return
+        
+    if path_over is not None:
+        game_folder_canvas.delete('text')
+        game_folder_canvas.create_text(2,8, anchor='w',text=path_over,fill='black',tags='text') 
+        messagebox.showinfo('Sucess',f'Path found, please verify if it\'s correct: {path_over}')
+    else:
+        messagebox.showinfo('Not Found', 'Exe not found, please select the path manually')
+
+def search_game_exe(event=None):
+        exe_name = "Win64-Shipping.exe"
+        if select_option is not None:
+            game_select = select_option.replace(":", "").replace(" ", "")
+        path_steam = 'Program Files (x86)\Steam\steamapps\common'
+        alt_path_steam = 'SteamLibrary\steamapps\common'
+        
+        path_epic = 'Program Files\Epic Games'
+        alt_path_epic = 'Epic Games'
+        
+        tlou_name = 'tlou-i.exe'
+        game_select_tlou = select_option
+        
+        if select_option is not None:
+        
+            steam_path = messagebox.askyesno('Steam','Is your game on Steam?')
+            if not steam_path:
+                epic_path = messagebox.askyesno('Epic Games','Is your games on Epic Games?')
+            
+                if steam_path:
+                    if select_option == 'The Last of Us Part I':
+                        auto_search(path_steam,alt_path_steam,tlou_name,game_select_tlou)
+                    else:
+                        auto_search(path_steam,alt_path_steam,exe_name,game_select)
+                elif epic_path:
+                    if select_option == 'The Last of Us':
+                        auto_search(path_epic,alt_path_epic,tlou_name,game_select_tlou)
+                    else:
+                        auto_search(path_epic,alt_path_epic,exe_name,game_select)
+                else:
+                    messagebox.showinfo('Select Folder','Please select the path manually')
+                    return
+        else:            
+            messagebox.showinfo('Error','Please select a game') 
+            return
+               
 asi_global={
     '0.7.4':{
         '2.0':'mods\ASI\\ASI_0_7_4\\2.0',
@@ -3564,7 +3660,10 @@ def rdr2_build2():
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
     elif select_mod == 'RDR2 Mix 2':
         ignore_files = ('reshade-shaders','ReShade.ini')
-        
+
+        path_rdr2_ini = 'mods\\Temp\\RDR2_FSR3\\rdr2_mix2_ini\\RDR2Upscaler.ini'
+        dest_folder_mods = os.path.join(select_folder,'mods')
+    
         for i_rdr2_mx2 in os.listdir(origins_rdr2):
             src_item = os.path.join(origins_rdr2, i_rdr2_mx2)
             dst_item = os.path.join(select_folder, i_rdr2_mx2)
@@ -3574,6 +3673,16 @@ def rdr2_build2():
             else:
                 if not any(pattern in i_rdr2_mx2 for pattern in ignore_files):
                     shutil.copy2(src_item, dst_item)
+        
+        config_rdr2_ini = ConfigObj(path_rdr2_ini)
+
+        if 'Settings' not in config_rdr2_ini:
+            config_rdr2_ini['Settings'] = {}
+
+        config_rdr2_ini['Settings']['mUpscaleType'] = 1
+
+        config_rdr2_ini.write()
+        shutil.copy2(path_rdr2_ini,dest_folder_mods)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
@@ -3852,7 +3961,7 @@ def tlou_fsr():
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
+               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
@@ -3873,7 +3982,7 @@ nvngx_label_guide.place_forget()
 
 def guide_nvngx(event=None):
     nvngx_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    nvngx_label_guide.place(x=420,y=399)
+    nvngx_label_guide.place(x=420,y=419)
     
 def close_nvngx_guide(event=None):
     nvngx_label_guide.config(text="")
@@ -3884,9 +3993,8 @@ dxgi_label_guide.place_forget()
 
 def guide_dxgi(event=None):
     dxgi_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    dxgi_label_guide.place(x=420,y=428)
-    
-    
+    dxgi_label_guide.place(x=420,y=448)
+     
 def close_dxgi_guide(event=None):
     dxgi_label_guide.config(text="")
     dxgi_label_guide.place_forget()
@@ -4037,7 +4145,7 @@ addon_label_guide.place_forget()
 
 def guide_addon_mods(event=None):
     addon_label_guide.config(text="Addon Mods to assist the performance of FSR 3 mods, check the guide on FSR Guide for more information.")
-    addon_label_guide.place(x=420,y=454)
+    addon_label_guide.place(x=420,y=480)
 
 def close_addon_guide(event=None):
     addon_label_guide.config(text="")
@@ -4048,7 +4156,7 @@ addon_dx11_guide.place_forget()
 
 def guide_addon_dx11(event=None):
     addon_dx11_guide.config(text="Select upscaler for Dx11 games")
-    addon_dx11_guide.place(x=420,y=485)
+    addon_dx11_guide.place(x=420,y=510)
 
 def close_addon_dx11(event=None):
     addon_dx11_guide.config(text="")
@@ -4059,7 +4167,7 @@ addon_dx12_guide.place_forget()
 
 def guide_addon_dx12(event=None):
     addon_dx12_guide.config(text="Select upscaler for Dx12 games")
-    addon_dx12_guide.place(x=420,y=514)
+    addon_dx12_guide.place(x=420,y=540)
 
 def close_addon_dx12(event=None):
     addon_dx12_guide.config(text="")
@@ -4213,17 +4321,10 @@ scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(13,50))
 listbox.config(yscrollcommand=scroll_listbox.set)
 scroll_listbox.config(command=listbox.yview)
 
-def update_rec_color():#color setting fsr_rec
-    global color_rec
-    if color_rec_bool == True:
-        color_rec = 'white'
-    else:
-        color_rec = '#C0C0C0'
-    fsr_canvas.itemconfig(fsr_rec,fill=color_rec)
-
 select_asi_color = 'white'
 select_asi_bool = True
 select_asi_rec = select_asi_canvas.create_rectangle(0,0,50,30,fill=select_asi_color,outline='')
+
 def update_asi_color():
     global select_asi_color
     if select_asi_notvisible == True:
@@ -4231,13 +4332,16 @@ def update_asi_color():
     else:
         select_asi_color = '#C0C0C0'
     select_asi_canvas.itemconfig(select_asi_rec,fill=select_asi_color)
-    
+
+def fsr_listbox_view():
+    if color_rec_bool:
+        fsr_canvas.config(bg='white')
+    else:
+        fsr_canvas.config(bg='#C0C0C0')
+     
 fsr_canvas= Canvas(screen,width=50,height=19,bg='#C0C0C0',highlightthickness=0)
 fsr_canvas.place(x=350,y=37)
 color_rec_bool = False
-color_rec = 'white'
-fsr_rec = fsr_canvas.create_rectangle(0,0,50,30,fill=color_rec,outline='')
-fsr_vtext = ""
 fsr_listbox = tk.Listbox(screen,bg='white',width=8,height=0,highlightthickness=0)
 fsr_listbox.pack(side=tk.RIGHT,expand=True,padx=(280,0),pady=(0,610))
 fsr_listbox.pack_forget()
@@ -4377,6 +4481,7 @@ fsr_game_version={
     'Layers of Fear':'2.0',
     'Lies of P':'2.2',
     'Lords of the Fallen':'2.2',
+    'Manor Lords':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
     'Marvel\'s Spider-Man: Miles Morales':'2.1',
     'Metro Exodus Enhanced Edition': '2.2',
@@ -4402,7 +4507,7 @@ fsr_game_version={
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
     'The Chant':'2.2',
-    'The Last of Us':'US',
+    'The Last of Us Part I':'US',
     'The Medium':'2.2',
     'The Thaumaturge':'2.2',
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
@@ -4423,7 +4528,7 @@ select_dxgi = None
 x=0
 y=0
 def update_canvas(event=None): #canvas_options text configuration
-    global mod_options,x,y,select_fsr,fsr_visible,fsr_vtext,fsr_game_version,color_rec,color_rec_bool,select_option,fsr_view_listbox
+    global mod_options,x,y,select_fsr,fsr_visible,fsr_game_version,color_rec_bool,select_option,fsr_view_listbox
     
     def mod_text():
         mod_version_canvas.delete('text')
@@ -4438,11 +4543,11 @@ def update_canvas(event=None): #canvas_options text configuration
         select_option = listbox.get(index)
         x = 2
         y = 8
+        fsr_canvas.delete('text')
         if select_option != 'Select FSR version': 
-            fsr_view_listbox = False
             color_rec_bool = False
+            fsr_view_listbox = False
             canvas_options.delete('text')  
-            fsr_canvas.delete('text')
             canvas_options.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
             fsr_canvas.create_text(2, 8, anchor='w', text=fsr_game_version.get(select_option, ''), fill='black', tag='text')
             fsr_listbox.place_forget()
@@ -4450,7 +4555,6 @@ def update_canvas(event=None): #canvas_options text configuration
         fsr_view_listbox = True
         color_rec_bool = True
         canvas_options.delete('text')
-        fsr_canvas.delete('text')
         canvas_options.create_text(x, y, anchor='w', text='Select FSR version', fill='black', tag='text')
     
     if select_option == 'Red Dead Redemption 2':
@@ -4508,11 +4612,11 @@ def update_canvas(event=None): #canvas_options text configuration
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         for mod_op in mod_options:
             mod_version_listbox.insert(tk.END,mod_op)    
-    update_rec_color()
+    fsr_listbox_view()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Last of Us','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
@@ -4747,6 +4851,7 @@ fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
 fakegpu_label.bind('<Enter>',guide_fk_gpu)
 fakegpu_label.bind('<Leave>',close_fk_gpu_guide)
 select_folder_canvas.bind('<Button-1>',open_explorer)
+search_game_exe_canvas.bind('<Button-1>',search_game_exe)
 epic_over_browser_canvas.bind('<Button-1>',epic_explorer)
 epic_over_enable_label.bind('<Button-1>',enable_epic_over)
 epic_over_disable_label.bind('<Button-1>',disable_epic_over)

@@ -1,1 +1,1 @@
-Download the FSR3.0 Mod Setup Utility [HERE](https://www.mediafire.com/file/dej94ji695jqk3a/FSR3%25282%2529.rar/file)
+The mods folder will have to be removed, I don't know when it will be back. If you want more information about the Utility, contact me on Discord p4tolino06 or P4TOLINO06#2816.
