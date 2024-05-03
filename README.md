@@ -1,1 +1,1 @@
-The mods folder will have to be removed, I don't know when it will be back. If you want more information about the Utility, contact me on Discord p4tolino06 or P4TOLINO06#2816.
+Download the FSR3.0-Mod-Setup-Utility [Here](https://sharemods.com/uwh24kmamwev/FSR3_v1.7.8.rar.html)

@@ -5,7 +5,6 @@ from tkinter import Canvas,filedialog,messagebox
 import subprocess,os,shutil
 import toml
 import sys
-import re
 import ctypes
 from tkinter import font as tkFont
 from configobj import ConfigObj
@@ -30,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.7v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.8v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -272,7 +271,7 @@ def select_guide():
     
     s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uniscaler','XESS/DLSS']
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -327,7 +326,7 @@ def text_guide():
 'Alone in the Dark':(
 "1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
-"3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
+"3 - Enable Fake Nvidia GPU, if you want to use DLSS (Only\nfor AMD GPUs).\n"
 "4 - Set FSR in the game settings.\n"
 "5 - If the mod doesn't work, elect 'Default' in Nvngx.dll."
 ),
@@ -484,10 +483,13 @@ def text_guide():
 ),
 
 'Horizon Forbidden West':(
-'1 - Turn off MSI Afterburner/Rivatuner or any other FPS monitor to\navoid crashes.\n'
-'2 - If the game still crashes, select \'Nvngx: Default\' and enable\n\'Enable Signature Override\'\n'
-'3 - Turn Dynamic Resolution Scaling Off if you still have the black box\nsquare on-screen\n'
-'4 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the Fake Nvidia box (only for Amd/Gtxx)\n'
+'3 - Inside the game, select DLSS\n'
+'4 - Turn off MSI Afterburner/Rivatuner or any other FPS monitor to\navoid crashes.\n'
+'5 - If the game still crashes, select \'Nvngx: Default\' and enable\n\'Enable Signature Override\'\n'
+'6 - Turn Dynamic Resolution Scaling Off if you still have the black box\nsquare on-screen\n'
+'7 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
 ),
 
 'Icarus':(
@@ -636,6 +638,12 @@ def text_guide():
 '4 - Inside the game, select DLSS.\n'
 '• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
 '• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
+),
+
+'Uncharted':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n' 
+'2 - Run the game using the u4-l.exe executable. The game\nmay crash the first time, so just run it again.\n'
+'3 - Inside the game, select FSR.'
 ),
 
 'Uniscaler':(
@@ -824,7 +832,7 @@ def backup_files():
     elif select_option == 'Red Dead Redemption 2' and select_mod in origins_rdr2_folder:
         comp_files(origins_rdr2_folder)
         unlock_view_message = False
-
+    
     if select_option == 'Baldurs Gate 3':
         comp_files(bdg_origins)
         unlock_view_message = False  
@@ -865,6 +873,9 @@ def backup_files():
     select_tlou_file = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll']
     search_tlou = select_mod
     select_tlou_name = 'Uniscaler Tlou'
+    
+    search_spider = select_mod
+    select_spider_name = 'Uniscaler Spider'
 
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
@@ -917,7 +928,11 @@ def backup_files():
         
         if select_mod == 'Uniscaler Tlou':
             for tlou_file in select_tlou_file:
-                sucess_message = search_dll_files(select_tlou_name,tlou_file,search_tlou)   
+                sucess_message = search_dll_files(select_tlou_name,tlou_file,search_tlou)
+        
+        if select_mod == 'Uniscaler Spider':
+            for spider_file in select_tlou_file:
+                sucess_message = search_dll_files  (select_spider_name,spider_file,search_spider) 
     else:
         return 
     
@@ -928,9 +943,12 @@ def backup_files():
         return               
         
 def cbox_backup():
-    if backup_var.get() == 1:
+    if backup_var.get() == 1 and (select_folder is not None and select_mod is not None):
         backup_files()
-
+    else:
+        messagebox.showinfo('Error','Please select the three initial options: Select Game, Game Folder, and Mod Version.')
+        backup_cbox.deselect()
+        
 backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
 backup_label.place(x=156,y=367)
 backup_var = IntVar()
@@ -2961,6 +2979,7 @@ def open_explorer(event=None): #Function to select the game folder and create th
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
 
 def auto_search(path_origin,alt_path_origin,exe_name,game_select): #auto search for the exe path
+    global select_folder
     user_disk_part = search_un()
     path_over = None
     
@@ -2996,18 +3015,20 @@ def auto_search(path_origin,alt_path_origin,exe_name,game_select): #auto search 
     except Exception:
             messagebox.showinfo('Error','Error while fetching the path, please verify if you have selected the game correctly and try again.')
             return
-        
+    
     if path_over is not None:
+        select_folder = os.path.dirname(path_over)
         game_folder_canvas.delete('text')
         game_folder_canvas.create_text(2,8, anchor='w',text=path_over,fill='black',tags='text') 
         messagebox.showinfo('Sucess',f'Path found, please verify if it\'s correct: {path_over}')
     else:
         messagebox.showinfo('Not Found', 'Exe not found, please select the path manually')
-
+    
 def search_game_exe(event=None):
         exe_name = "Win64-Shipping.exe"
         if select_option is not None:
             game_select = select_option.replace(":", "").replace(" ", "")
+            
         path_steam = 'Program Files (x86)\Steam\steamapps\common'
         alt_path_steam = 'SteamLibrary\steamapps\common'
         
@@ -3018,27 +3039,23 @@ def search_game_exe(event=None):
         game_select_tlou = select_option
         
         if select_option is not None:
-        
             steam_path = messagebox.askyesno('Steam','Is your game on Steam?')
-            if not steam_path:
-                epic_path = messagebox.askyesno('Epic Games','Is your games on Epic Games?')
-            
-                if steam_path:
-                    if select_option == 'The Last of Us Part I':
-                        auto_search(path_steam,alt_path_steam,tlou_name,game_select_tlou)
-                    else:
-                        auto_search(path_steam,alt_path_steam,exe_name,game_select)
-                elif epic_path:
+            if steam_path:
+                if select_option == 'The Last of Us Part I':
+                    auto_search(path_steam,alt_path_steam,tlou_name,game_select_tlou)
+                else:
+                    auto_search(path_steam,alt_path_steam,exe_name,game_select)
+            else:
+                epic_path = messagebox.askyesno('Epic Games','Is your game on Epic Games?')
+                if epic_path:
                     if select_option == 'The Last of Us':
                         auto_search(path_epic,alt_path_epic,tlou_name,game_select_tlou)
                     else:
                         auto_search(path_epic,alt_path_epic,exe_name,game_select)
                 else:
                     messagebox.showinfo('Select Folder','Please select the path manually')
-                    return
         else:            
-            messagebox.showinfo('Error','Please select a game') 
-            return
+            messagebox.showinfo('Error','Please select a game')
                
 asi_global={
     '0.7.4':{
@@ -3250,6 +3267,8 @@ def fsr_2_1():
     
     if select_mod in origins_2_1_folder:
         origins_2_1 = origins_2_1_folder[select_mod]
+    else:
+        return
     
     if select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         try:
@@ -3957,12 +3976,30 @@ def tlou_fsr():
         shutil.copytree(path_uni_tlou_1440p,select_folder,dirs_exist_ok=True)
     else:
         shutil.copytree(path_uni_tlou_1080p,select_folder,dirs_exist_ok=True)
-      
+
+def spider_fsr():
+    path_xess_spider = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
+    path_dlss_spider = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
+    path_uni5_spider = 'mods\\FSR2FSR3_Spider\\Uniscaler.asi'
+    path_uni_spider = 'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
+
+    rtx_spider = messagebox.askyesno('RTX or AMD','Do you have an Nvidia Rtx?')
+    
+    if rtx_spider:
+        shutil.copytree(path_uni_spider,select_folder,dirs_exist_ok=True)
+        shutil.copy2(path_xess_spider,select_folder)
+        shutil.copy2(path_dlss_spider,select_folder)
+        shutil.copy2(path_uni5_spider,select_folder)
+    else:
+        shutil.copytree(path_uni_spider,select_folder,dirs_exist_ok=True)
+        shutil.copy2(path_xess_spider,select_folder)
+        shutil.copy2(path_uni5_spider,select_folder)
+            
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
 
@@ -4227,6 +4264,8 @@ def install(event=None):
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
+        if select_mod == 'Uniscaler Spider':
+            spider_fsr()
         if select_option== 'Chernobylite':
             chernobylite_short_cut()
         if select_mod == 'Unlock Fps Tekken 8':
@@ -4417,7 +4456,6 @@ def change_labels():
         native_res_label.place(x=420,y=335)
 change_labels()
 
-
 def close_all_listbox(event):
     global listbox_visible, fsr_visible
     
@@ -4507,6 +4545,7 @@ fsr_game_version={
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
     'The Chant':'2.2',
+    'The Invincible':'2.2',
     'The Last of Us Part I':'US',
     'The Medium':'2.2',
     'The Thaumaturge':'2.2',
@@ -4551,6 +4590,7 @@ def update_canvas(event=None): #canvas_options text configuration
             canvas_options.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
             fsr_canvas.create_text(2, 8, anchor='w', text=fsr_game_version.get(select_option, ''), fill='black', tag='text')
             fsr_listbox.place_forget()
+    
     if select_option == 'Select FSR version':
         fsr_view_listbox = True
         color_rec_bool = True
@@ -4606,6 +4646,10 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Uniscaler Tlou')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    elif select_option == 'Marvel\'s Spider-Man Remastered':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Uniscaler Spider','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -4616,7 +4660,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
