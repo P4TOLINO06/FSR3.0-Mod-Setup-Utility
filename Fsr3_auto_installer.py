@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.8v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.9v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -269,7 +269,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -455,6 +455,15 @@ def text_guide():
 'Select a mod of your preference (0.10.3 is recommended)\n'
 '2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
 '3 - Set Ambient Occlusion and Post Processing to Low.' 
+),
+
+'GTA V':(
+"Only Single Player\n"
+'1 - Select Dinput 8 and install\n'
+'2 - Open the game and disable MSAA and TXAA and select\nborderless window. If the mod doesn\'t work, disable FXAA.\n'
+'3 - Close the game and select GTA V FSR3 and install\n'
+'4 - Turn on Vsync, Nvidia (Vertical Sync), or AMD Adrenalin\n(Wait for Vertical Sync Update)\n'
+'5 - Press "Home" to open the menu. If the mod is disabled,\ncheck "Enable Frame Generation".'  
 ),
 
 'Ghostrunner 2': (
@@ -3035,21 +3044,61 @@ def search_game_exe(event=None):
         path_epic = 'Program Files\Epic Games'
         alt_path_epic = 'Epic Games'
         
-        tlou_name = 'tlou-i.exe'
         game_select_tlou = select_option
+        tlou_name = 'tlou-i.exe'
+        rdr2_name = 'RDR2.exe'
+        hfw_name = 'HorizonForbiddenWest.exe'
+        u4_name = 'u4.exe',
+        hzd_name = 'HorizonZeroDawn.exe'
+        aw2_name = 'AlanWake2.exe'
+        bg3_name = 'bg3.exe'
+        cyber2077_name = 'Cyberpunk2077.exe'
+        er_name = 'eldenring.exe'
+        spider_name = 'Spider-Man.exe'
+        spider_miles_name = 'MilesMorales.exe'
+        dd2_name = 'DD2.exe'
+        fl4_name = 'Fallout4.exe',
+        hogw_name = 'HogwartsLegacy.exe',
+        hellbalde_name = 'HellbladeGame-Win64-Shipping.exe',
+        lop_name = 'LOP-Win64-Test.exe',
+        ratchet_name = 'RiftApart.exe',
+        
+        game_search_origins = {'The Last of Us Part I':tlou_name,
+                                'Red Dead Redemption 2':rdr2_name,
+                                'Horizon Forbidden West':hfw_name,
+                                'Horizon Zero Dawn':hzd_name,
+                                'Uncharted Legacy of Thieves Collection':u4_name,
+                                'Alan Wake 2':aw2_name,
+                                'Baldur\'s Gate 3':bg3_name,
+                                'Cyberpunk 2077':cyber2077_name,
+                                'Marvel\'s Spider-Man Remastered':spider_name,
+                                'Marvel\'s Spider-Man Miles Morales':spider_miles_name,
+                                'Dragons Dogma 2':dd2_name,
+                                'Fallout 4':fl4_name,
+                                'Ratchet & Clank - Rift Apart':ratchet_name,
+                               
+                               }
         
         if select_option is not None:
             steam_path = messagebox.askyesno('Steam','Is your game on Steam?')
             if steam_path:
-                if select_option == 'The Last of Us Part I':
-                    auto_search(path_steam,alt_path_steam,tlou_name,game_select_tlou)
+                if select_option in game_search_origins:
+                    auto_search(path_steam, alt_path_steam, game_search_origins[select_option], game_select_tlou)
+                elif select_option == 'Elden Ring':
+                    auto_search(path_steam, alt_path_steam,er_name,'ELDEN RING')
+                elif select_option == 'Hellblade: Senua\'s Sacrifice':
+                    auto_search(path_steam, alt_path_steam,hellbalde_name,'Hellblade')
+                elif select_option == 'Hogwarts Legacy':
+                    auto_search(path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64', alt_path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64',hogw_name,'Hogwarts Legacy')
+                elif select_option == 'Lies of P':
+                    auto_search(path_steam, alt_path_steam,lop_name,'Lies of P')                    
                 else:
                     auto_search(path_steam,alt_path_steam,exe_name,game_select)
             else:
                 epic_path = messagebox.askyesno('Epic Games','Is your game on Epic Games?')
                 if epic_path:
-                    if select_option == 'The Last of Us':
-                        auto_search(path_epic,alt_path_epic,tlou_name,game_select_tlou)
+                    if select_option in game_search_origins:
+                        auto_search(path_epic, alt_path_epic, game_search_origins[select_option], game_select_tlou)
                     else:
                         auto_search(path_epic,alt_path_epic,exe_name,game_select)
                 else:
@@ -3776,14 +3825,18 @@ def run_dis_anti_c():
     if var_anti_c:
         subprocess.call(del_anti_c_path)
 
-bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\FSR3_BDG'}
+bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\\FSR3_BDG',
+               'Baldur\'s Gate 3 FSR3 V2':['mods\\FSR3_BDG','mods\\FSR3_BDG_2']}
 def bdg_fsr3():
     
     if select_mod in bdg_origins:
         bdg_origin = bdg_origins[select_mod]
     
-    if select_mod in bdg_origins:
-        shutil.copytree(bdg_origin,select_folder,dirs_exist_ok=True)
+        if isinstance(bdg_origin, list):  
+            for path_bdg in bdg_origin:
+                shutil.copytree(path_bdg, select_folder, dirs_exist_ok=True)
+        else:
+            shutil.copytree(bdg_origin, select_folder, dirs_exist_ok=True)
 
 callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Callisto'}
 def callisto_fsr():
@@ -3994,18 +4047,35 @@ def spider_fsr():
         shutil.copytree(path_uni_spider,select_folder,dirs_exist_ok=True)
         shutil.copy2(path_xess_spider,select_folder)
         shutil.copy2(path_uni5_spider,select_folder)
+
+def gtav_fsr3():
+    dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
+    gtav_fsr3_path ='mods\\FSR3_GTAV\\GtaV_B02_FSR3'
+    
+    dinput8_var = os.path.exists(os.path.join(select_folder,'dinput8.dll'))
+    
+    if select_mod == 'Dinput 8':
+        shutil.copytree(dinput8_gtav,select_folder,dirs_exist_ok=True)
+        return True
+        
+    elif select_mod == 'GTA V FSR3' and dinput8_var:
+        shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        return True
+    elif select_mod == 'GTA V FSR3' and not dinput8_var and select_mod :
+        messagebox.showinfo('Dinput 8 not found', 'Please install the \'dinput8\' file. Refer to the GTA V FSR Guide if you need assistance.')
+        return False
             
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Returnal','Uncharted: Legacy of Thieves Collection']
+fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Uncharted Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
-fsr_sdk_opt = ['Ratchet & Clank-Rift Apart','Pacific Drive']
+fsr_sdk_opt = ['Ratchet & Clank - Rift Apart','Pacific Drive']
 
 fsr_sct_2_2 = ['2.2']
 fsr_sct_2_1 = ['2.1']
@@ -4266,7 +4336,12 @@ def install(event=None):
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
             spider_fsr()
-        if select_option== 'Chernobylite':
+        if select_option == 'GTA V':
+            var_dinput_gtav = gtav_fsr3()
+            if not var_dinput_gtav:
+                return
+
+        if select_option == 'Chernobylite':
             chernobylite_short_cut()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
@@ -4500,6 +4575,7 @@ fsr_game_version={
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'Elden Ring':'PD',
+    'Everspace 2':'2.2',
     'Fallout 4':'PD',
     'F1 2022':'2.2',
     'F1 2023':'2.2',
@@ -4507,6 +4583,7 @@ fsr_game_version={
     'Fort Solis':'2.2',
     'Forza Horizon 5':'FH',
     'Ghostrunner 2':'2.0',
+    'GTA V':'PD',
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
     'Hellblade: Senua\'s Sacrifice':'2.1',
@@ -4521,13 +4598,13 @@ fsr_game_version={
     'Lords of the Fallen':'2.2',
     'Manor Lords':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
-    'Marvel\'s Spider-Man: Miles Morales':'2.1',
+    'Marvel\'s Spider-Man Miles Morales':'2.1',
     'Metro Exodus Enhanced Edition': '2.2',
     'Nightingale':'2.0',
     'Outpost: Infinity Siege':'2.2',
     'Pacific Drive':'SDK',
     'Palworld':'2.2',
-    'Ratchet & Clank-Rift Apart':'SDK',
+    'Ratchet & Clank - Rift Apart':'SDK',
     'Red Dead Redemption 2':'RDR2',
     'Ready or Not':'2.2',
     'Remnant II':'2.2',
@@ -4551,7 +4628,7 @@ fsr_game_version={
     'The Thaumaturge':'2.2',
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'The Witcher 3':'2.0',
-    'Uncharted: Legacy of Thieves Collection':'2.1',
+    'Uncharted Legacy of Thieves Collection':'2.1',
     'Wanted: Dead':'2.2'  
 }
 
@@ -4612,7 +4689,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3')
+        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3','Baldur\'s Gate 3 FSR3 V2')
     
     elif select_option == 'The Callisto Protocol':
         mod_text()
@@ -4649,6 +4726,10 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'Marvel\'s Spider-Man Remastered':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Uniscaler Spider','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+    elif select_option == 'GTA V':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     else:
         mod_version_canvas.delete('text')
@@ -4658,9 +4739,9 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man: Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank-Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted: Legacy of Thieves Collection','Wanted: Dead']#add options
+options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
