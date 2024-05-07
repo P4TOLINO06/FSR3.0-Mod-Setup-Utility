@@ -1,2 +1,1 @@
-Download the FSR3.0 Mod Setup Utility [HERE](https://sharemods.com/l4a9sxp4pbhl/FSR3_v1.7.9.rar.html)
->>>>>>> 069bcbe (Version 1.7.9)
+Download the FSR3.0 Mod Setup Utility [HERE](https://sharemods.com/cd42xquk1cm5/FSR3_v1.7.10.rar.html)

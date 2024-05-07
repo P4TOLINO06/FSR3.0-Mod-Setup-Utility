@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.9v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.10v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -270,7 +270,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
+                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -458,8 +458,8 @@ def text_guide():
 ),
 
 'GTA V':(
-"Only Single Player\n"
-'1 - Select Dinput 8 and install\n'
+"Single Player and Multiplayer\n"
+'1 - Select Dinput 8 and install. (only single player)\n'
 '2 - Open the game and disable MSAA and TXAA and select\nborderless window. If the mod doesn\'t work, disable FXAA.\n'
 '3 - Close the game and select GTA V FSR3 and install\n'
 '4 - Turn on Vsync, Nvidia (Vertical Sync), or AMD Adrenalin\n(Wait for Vertical Sync Update)\n'
@@ -518,6 +518,11 @@ def text_guide():
 '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
 '2 - Activate Fake Nvidia Gpu and UE Compatibility Mode\n(AMD only).\n'
 '3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.'
+),
+
+'Lords of the Fallen':(
+'1 - Run the game through the launch.bat file. During the mod\ninstallation, you will be asked if you want to create a shortcut\nfor the .bat file on the desktop. If you don\'t want to, run the\n.bat file directly from the folder where the mod was installed.\n'
+'2 - In-game, enable Frame Generation and select FSR or\nDLSS.'  
 ),
 
 'Manor Lords':(
@@ -821,6 +826,7 @@ def comp_files(origins_path):
                             folder_backup = os.path.join(backup_folder, file_backup) 
                             shutil.copy(file_path, folder_backup) 
                 messagebox.showinfo('Success', 'Backup completed successfully.')
+                backup_cbox.deselect()
             else:
                 return  
    
@@ -857,6 +863,13 @@ def backup_files():
     if select_option == 'Elden Ring':
         comp_files(er_origins)
         unlock_view_message = False
+    
+    origins_gtav = {'GTA V FSR3':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
+                    'GTA V FiveM':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
+                    'GTA Online':'mods\\FSR3_GTAV\\GtaV_B02_FSR3'}
+    if select_option == 'GTA V':
+        comp_files(origins_gtav)
+        unlock_view_message = False
         
     select_nvngx_v1 = 'NVNGX Version 1'
     name_nvngx_v1 = 'nvngx.ini'
@@ -885,6 +898,10 @@ def backup_files():
     
     search_spider = select_mod
     select_spider_name = 'Uniscaler Spider'
+    
+    select_lotf_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
+                        'DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
+    select_lotf_name = 'Lords of The Fallen FSR3'
 
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
@@ -941,7 +958,11 @@ def backup_files():
         
         if select_mod == 'Uniscaler Spider':
             for spider_file in select_tlou_file:
-                sucess_message = search_dll_files  (select_spider_name,spider_file,search_spider) 
+                sucess_message = search_dll_files (select_spider_name,spider_file,search_spider) 
+        
+        if select_mod == 'Lords of The Fallen FSR3':
+            for lotf_file in select_lotf_file:
+                sucess_message = search_dll_files (select_lotf_name,lotf_file,search_spider)
     else:
         return 
     
@@ -1419,6 +1440,11 @@ def clean_mod():
 
     del_tlou_fsr3 = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll','uniscaler.asi','uniscaler.config.toml','uniscaler.log']
     
+    del_gtav_fsr3 = ['GTAVUpscaler.org.asi','GTAVUpscaler.asi','dxgi.asi','d3d12.dll','GTAVUpscaler.dll','GTAVUpscaler.org.dll']
+    
+    del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
+                        'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
+    
     try:     
         for item in os.listdir(select_folder):
             if item in mod_clean_list:
@@ -1631,6 +1657,34 @@ def clean_mod():
             if os.path.exists(path_uni_tlou):
                 shutil.rmtree(path_uni_tlou)
                 
+    except Exception as e:
+        print(e)
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+    
+    try:
+        path_mods_gtav = os.path.join(select_folder,'mods')
+        
+        if select_option == 'GTA V':
+            for i_gtav in os.listdir(select_folder):
+                if i_gtav in del_gtav_fsr3:
+                    os.remove(os.path.join(select_folder,i_gtav))
+                    
+            if os.path.exists(path_mods_gtav):
+                shutil.rmtree(path_mods_gtav)
+    except Exception as e:
+        print(e)
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+    
+    try:
+        path_mods_lotf = os.path.join(select_folder,'uniscaler')
+        
+        if select_option == 'Lords of the Fallen':
+            for i_lotf in os.listdir(select_folder):
+                if i_lotf in del_lotf_fsr3:
+                    os.remove(os.path.join(select_folder,i_lotf))
+            if os.path.exists(path_mods_lotf):
+                shutil.rmtree(path_mods_lotf)
+            
     except Exception as e:
         print(e)
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
@@ -4051,6 +4105,13 @@ def spider_fsr():
 def gtav_fsr3():
     dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
     gtav_fsr3_path ='mods\\FSR3_GTAV\\GtaV_B02_FSR3'
+    file_dxgi_asi = os.path.join(select_folder,'dxgi.asi')
+    file_gtavups_asi = os.path.join(select_folder,'GTAVUpscaler.asi')
+    file_gtavups_org = os.path.join(select_folder,'GTAVUpscaler.org.asi')
+    rename_asi = 'dxgi.dll'
+    rename_asi_online = 'd3d12.dll'
+    rename_gtavups_asi = 'GTAVUpscaler.dll'
+    rename_gtavups_org = 'GTAVUpscaler.org.dll'
     
     dinput8_var = os.path.exists(os.path.join(select_folder,'dinput8.dll'))
     
@@ -4061,14 +4122,64 @@ def gtav_fsr3():
     elif select_mod == 'GTA V FSR3' and dinput8_var:
         shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
         return True
+    
+    elif select_mod == 'GTA V FiveM':
+        fivem_ui = messagebox.askyesno('UI Fix','Do you want to fix the delay in the FiveM user interface?')
+        shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        if fivem_ui:
+            os.rename(file_dxgi_asi,os.path.join(select_folder,rename_asi))
+        return True
+    
+    elif select_mod == 'GTA Online':
+        ban_var = messagebox.askyesno('Ban','We are not responsible if you get banned. Do you want to proceed with the installation of the mod?')
+        
+        if ban_var:
+            shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+            if os.path.exists(os.path.join(select_folder,file_dxgi_asi)):
+                
+                os.rename(file_dxgi_asi,os.path.join(select_folder,rename_asi_online))
+                os.rename(file_gtavups_asi,os.path.join(select_folder,rename_gtavups_asi))
+                os.rename(file_gtavups_org,os.path.join(select_folder,rename_gtavups_org))
+                
+                shutil.copy2(os.path.join(select_folder,rename_asi_online),os.path.join(select_folder,'mods'))
+                shutil.copy2(os.path.join(select_folder,rename_gtavups_asi),os.path.join(select_folder,'mods'))
+                shutil.copy2(os.path.join(select_folder,rename_gtavups_org),os.path.join(select_folder,'mods'))
+        else:
+            return
+        return True
+    
     elif select_mod == 'GTA V FSR3' and not dinput8_var and select_mod :
         messagebox.showinfo('Dinput 8 not found', 'Please install the \'dinput8\' file. Refer to the GTA V FSR Guide if you need assistance.')
         return False
-            
+
+def lotf_fsr3():
+    rtx_fsr3 = 'mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX'
+    amd_gtx_fsr3 = 'mods\\FSR3_LOTF\\AMD_GTX'
+    lotf_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+    
+    if select_mod == 'Lords of The Fallen FSR3':
+        rtx_amd = messagebox.askyesno('RTX','Do you have an RTX GPU?"?')
+        if rtx_amd:
+            shutil.copytree(rtx_fsr3,select_folder,dirs_exist_ok=True)
+        else:
+            shutil.copytree(amd_gtx_fsr3,select_folder,dirs_exist_ok=True)
+    
+        subprocess.run(lotf_rtx_reg,check=True)
+        
+        shortcut_lotf_bat = messagebox.askyesno('Shortcut','Do you want to create a shortcut for the .bat file? To make the mod work, you need to run the game through the .bat file')
+        bat_path = os.path.join(select_folder,'launch.bat')
+        if shortcut_lotf_bat:
+            shell_win = win32com.client.Dispatch("WScript.Shell")
+            desktop_path = shell_win.SpecialFolders("Desktop")
+            shortcut_path = os.path.join(desktop_path, 'launch.bat' + ".lnk")
+            shortcut_lotf= shell_win.CreateShortcut(shortcut_path)
+            shortcut_lotf.TargetPath = bat_path
+            shortcut_lotf.Save()
+                                
 install_contr = None
 fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Lords of The Fallen','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
+               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Uncharted Legacy of Thieves Collection']
@@ -4112,7 +4223,8 @@ asi_label_guide.place_forget()
 def guide_asi(event=None):
     asi_label_guide.config(text="Default: Copies the ASI file from the selected mod/FSR.\n\n"
     "Select ASI Loader: Copies the ASI file from the FSR version of the selected mod, FSR: 2.0, 2.1, 2.2, SDK.\n\n"
-    "ASI Loader for RDR2: Copies the Red Dead Redemption ASI file from the selected mod.")
+    "ASI Loader for RDR2: Copies the Red Dead Redemption ASI file from the selected mod.\n\n"
+    "Only select an option in the case of tests, choosing the wrong option may cause the mod not to work. If you have selected by mistake, choose Default.")
     asi_label_guide.place(x=0,y=173)
 
 def close_asi_guide(event=None):
@@ -4331,6 +4443,8 @@ def install(event=None):
             tlou_fsr()
         elif select_option == 'Icarus':
             icarus_fsr3()
+        elif select_option == 'Lords of the Fallen':
+            lotf_fsr3()
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
@@ -4596,6 +4710,7 @@ fsr_game_version={
     'Layers of Fear':'2.0',
     'Lies of P':'2.2',
     'Lords of the Fallen':'2.2',
+    'Loopmancer':'2.2',
     'Manor Lords':'2.2',
     'Marvel\'s Spider-Man Remastered':'2.1',
     'Marvel\'s Spider-Man Miles Morales':'2.1',
@@ -4711,26 +4826,37 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text()
         mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        
     elif select_option == 'TEKKEN 8':
         mod_text()
         mod_version_listbox.insert(tk.END,'Unlock Fps Tekken 8','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        
     elif select_option == 'Icarus':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Icarus FSR3 AMD/GTX','Icarus FSR3 RTX')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        
     elif select_option == 'The Last of Us':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Uniscaler Tlou')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        
     elif select_option == 'Marvel\'s Spider-Man Remastered':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Uniscaler Spider','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        
     elif select_option == 'GTA V':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3')
+        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        
+    elif select_option == 'Lords of the Fallen':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Lords of The Fallen FSR3')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -4740,7 +4866,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
