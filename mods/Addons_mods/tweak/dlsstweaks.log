@@ -1,0 +1,33 @@
+[2024-02-15 22:42:08.941] [info] DLSSTweaks v0.200.8.2, by emoose: XINPUT9_1_0.dll wrapper loaded
+[2024-02-15 22:42:08.941] [info] Game path: D:\CD Project Red\Cyberpunk 2077\bin\x64\Cyberpunk2077.exe
+[2024-02-15 22:42:08.941] [info] DLL path: D:\CD Project Red\Cyberpunk 2077\bin\x64\XINPUT9_1_0.dll
+[2024-02-15 22:42:08.941] [info] ---
+[2024-02-15 22:42:08.941] [info] Config read from D:\CD Project Red\Cyberpunk 2077\bin\x64\dlsstweaks.ini
+[2024-02-15 22:42:08.941] [info] Wrapped system DLL, watching for DLSS module load
+[2024-02-15 22:42:08.941] [info] INI monitoring: watching for INI updates...
+[2024-02-15 22:42:16.163] [info] nvngx: applied export hooks, waiting for game to call them...
+[2024-02-15 22:42:17.157] [info] nvngx_dlss: applied DLSS preset override hook (> v3.1.30)
+[2024-02-15 22:42:17.213] [warning] nvngx_dlss: failed to hook DLSS3.1.11+ preset selection code, presets may act strange when used with customized DLSSQualityLevels - recommend using DLSS 3.1.11 / 3.1.30!
+[2024-02-15 22:42:17.303] [info] nvngx_dlss: applied debug hud overlay hook via vftable hook
+[2024-02-15 22:42:18.183] [info] nvngx_dlssd: applied debug hud overlay hook via vftable hook
+[2024-02-15 22:42:22.533] [info] DLSS functions found & parameter hooks applied!
+[2024-02-15 22:42:22.533] [info] Settings:
+[2024-02-15 22:42:22.533] [info]  - VerboseLogging: false
+[2024-02-15 22:42:22.533] [info]  - ForceDLAA: false
+[2024-02-15 22:42:22.533] [info]  - OverrideAutoExposure: default
+[2024-02-15 22:42:22.533] [info]  - OverrideAppId: false
+[2024-02-15 22:42:22.533] [info]  - OverrideDlssHud: default
+[2024-02-15 22:42:22.533] [info]  - DisableDevWatermark: false
+[2024-02-15 22:42:22.533] [info]  - ResolutionOffset: 0
+[2024-02-15 22:42:22.533] [info]  - DynamicResolutionOverride: false
+[2024-02-15 22:42:22.533] [info]  - DynamicResolutionMinOffset: -1
+[2024-02-15 22:42:22.533] [info]  - DisableIniMonitoring: false
+[2024-02-15 22:42:22.533] [info]  - DLSSQualityLevels enabled: false
+[2024-02-15 22:42:22.533] [info]  - DLSSPresets:
+[2024-02-15 22:42:22.533] [info]   - DLAA: C
+[2024-02-15 22:42:22.533] [info]   - Quality: C
+[2024-02-15 22:42:22.533] [info]   - Balanced: C
+[2024-02-15 22:42:22.533] [info]   - Performance: C
+[2024-02-15 22:42:22.533] [info]   - UltraPerformance: C
+[2024-02-15 22:42:22.533] [info]   - UltraQuality: C
+[2024-02-15 22:42:22.533] [info]  - DLLPathOverrides: N/A
