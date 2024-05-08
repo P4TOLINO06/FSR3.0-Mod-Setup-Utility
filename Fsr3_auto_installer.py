@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.10v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.11v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -269,8 +269,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Returnal',
+    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','Returnal','Saints Row',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -395,6 +395,12 @@ def text_guide():
 '• Enable AntiAliasing and Motion Blur; this mod will skip the actual rendering of motion blur, so\ndon\'t worry if you don\'t like motion blur. The game only needs it to render motion vectors.'
 ),
 
+'Everspace 2':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Check Fake Nvidia Gpu and Nvapi Results.\n'
+'3 - Inside the game, select FSR or DLSS'   
+),
+
 'Fallout 4':(
   'Usage of the Sym Link:\n'
 '1 - In SymLink, click on add file and navigate to the root folder of the game. In the root folder, look\nfor Data\F4SE\Plugins, within this folder select Fallout4Upscaler.dll.\n'
@@ -449,6 +455,19 @@ def text_guide():
 '1 - Set the game to DX12.\n'
 '2 - Turn off Buffer Triple, Vsync, and disable any upscaler,\nleave it on TAA.\n'
 '3 - It\'s not necessary to activate any upscaler for the mod\nto work, but if you want to use one, refer to the RDR2 Mix\nguide.'   
+),
+
+'Red Dead Redemption V2':(
+'1 - Turn off Vsync, Triple Buffering, and set the game to DX12.\n'
+'2 - Install the mod.\n'
+'3 - In-game, press the "END" key and select an upscaler.\nIf you want to use native resolution, check the Native\nResolution box below the upscaler, and restart the game.\n(FSR3 Upscaling or FSR 2 is recommended; you can also\ntry others, but they may not work).'  
+),
+
+'Saints Row':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Choose the path for the overlay, under Epic Games\nOverlay, and select "Disable".\n'
+'3 - Start the game in DX12.\n'
+'4 - Inside the game, select FSR.'   
 ),
 
 'Shadow Warrior 3':(
@@ -3116,6 +3135,7 @@ def search_game_exe(event=None):
         hellbalde_name = 'HellbladeGame-Win64-Shipping.exe',
         lop_name = 'LOP-Win64-Test.exe',
         ratchet_name = 'RiftApart.exe',
+        es2_name  = 'ES2-Win64-Shipping.exe'
         
         game_search_origins = {'The Last of Us Part I':tlou_name,
                                 'Red Dead Redemption 2':rdr2_name,
@@ -3145,7 +3165,9 @@ def search_game_exe(event=None):
                 elif select_option == 'Hogwarts Legacy':
                     auto_search(path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64', alt_path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64',hogw_name,'Hogwarts Legacy')
                 elif select_option == 'Lies of P':
-                    auto_search(path_steam, alt_path_steam,lop_name,'Lies of P')                    
+                    auto_search(path_steam, alt_path_steam,lop_name,'Lies of P')     
+                elif select_option == 'Everspace 2':     
+                    auto_search(path_steam, alt_path_steam,es2_name,'Everspace 2')  
                 else:
                     auto_search(path_steam,alt_path_steam,exe_name,game_select)
             else:
@@ -3767,7 +3789,8 @@ def fsr_rdr2():
 rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
                "RDR2 Build_4":'mods\\RDR2Upscaler-FSR3Build04',
                "RDR2 Mix":'mods\\RDR2_FSR3_mix',
-               "RDR2 Mix 2":'mods\\RDR2_FSR3_mix'}
+               "RDR2 Mix 2":'mods\\RDR2_FSR3_mix',
+               "Red Dead Redemption V2":'mods\\RDR2_FSR3_V2'}
 def rdr2_build2():
     global rdr2_folder
     
@@ -3779,6 +3802,8 @@ def rdr2_build2():
     elif select_mod == 'RDR2 Build_4':
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
     elif select_mod == 'RDR2 Mix':
+        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
+    elif select_mod  == 'Red Dead Redemption V2':
         shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
     elif select_mod == 'RDR2 Mix 2':
         ignore_files = ('reshade-shaders','ReShade.ini')
@@ -4182,7 +4207,7 @@ fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Uncharted Legacy of Thieves Collection']
+fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
@@ -4725,7 +4750,9 @@ fsr_game_version={
     'Remnant II':'2.2',
     'Returnal':'2.1',
     'Rise of The Tomb Raider':'2.0',
+    'Ripout':'2.1',
     'RoboCop: Rogue City':'2.2',
+    'Saints Row':'2.1',
     'Satisfactory':'2.2',
     'Sackboy: A Big Adventure':'2.2',
     'Shadow of the Tomb Raider':'2.0',
@@ -4792,7 +4819,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -4867,7 +4894,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
