@@ -1,0 +1,29 @@
+config_version = 4
+
+[general]
+upscaler = "fsr3"
+disable_frame_generation = false
+sharpness_override = -1.0
+force_auto_exposure = false
+original_frame_rate_limit = 0
+
+[resolution_override]
+native = 1.0
+quality = 0.886
+balanced = 0.666667
+performance = 0.5
+ultra_performance = 0.333333
+ultra_quality = 0.769231
+
+[compatibility]
+fake_nvidia_gpu = false
+fake_nvapi_results = false
+amd_unreal_engine_dlss_workaround = false
+macos_crossover_support = false
+
+[logging]
+disable_console = false
+
+[debug]
+enable_debug_view = false
+enable_debug_tear_lines = false

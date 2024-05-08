@@ -1,0 +1,20 @@
+# visual studio
+*.sdf
+*.opensdf
+*.suo
+.vs
+*.VC.db
+*.VC.opendb
+*.ncb
+*.user
+
+# build output
+*.tlog
+*.lastbuildstate
+*.unsuccessfulbuild
+*.lib
+*.log
+*.obj
+*.idb
+*.pdb
+BuildLog.htm
