@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.12v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.13v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -269,7 +269,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','Returnal','Saints Row',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -321,6 +321,13 @@ def text_guide():
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
 
+),
+
+'Achilles Legends Untold':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the box for Fake Nvidia GPU (AMD/GTX only).\n'
+'3 - If the mod doesn\'t work, check the Nvapi Results box and\nselect Default in NVNGX.dll.\n'
+'4 - In-game, select DLSS.'    
 ),
 
 'Alone in the Dark':(
@@ -522,13 +529,10 @@ def text_guide():
 ),
 
 'Horizon Forbidden West':(
-'1 - Select a mod of your preference (0.10.3 is recommended).\n'
-'2 - Check the Fake Nvidia box (only for Amd/Gtxx)\n'
-'3 - Inside the game, select DLSS\n'
-'4 - Turn off MSI Afterburner/Rivatuner or any other FPS monitor to\navoid crashes.\n'
-'5 - If the game still crashes, select \'Nvngx: Default\' and enable\n\'Enable Signature Override\'\n'
-'6 - Turn Dynamic Resolution Scaling Off if you still have the black box\nsquare on-screen\n'
-'7 - If you experience sudden FPS drops during cutscenes, delete\ndstorage.dll and dstoragecore.dll (A function to delete these 2 files\nwill be implemented soon)\n'
+'1 - Select Horizon Forbidden West FSR3 and install\n'
+'2 - Choose Xess or FSR on the initial setup screen, turn on Frame\nGeneration, and do not select DLSS, otherwise the game will crash\n'
+'3 - In-game, select the Low quality preset, then adjust the settings as\ndesired, but do not modify options below Hair Quality\n'
+'4 - Select Xess or FSR.'
 ),
 
 'Icarus':(
@@ -939,6 +943,9 @@ def backup_files():
     select_lotf_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     select_lotf_name = 'Lords of The Fallen FSR3'
+    
+    select_hfw_file = ['version.dll','nvngx.dll','dlssg_to_fsr3_amd_is_better.dll','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
+    select_hfw_name = 'Horizon Forbidden West FSR3'
 
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
@@ -1000,6 +1007,10 @@ def backup_files():
         if select_mod == 'Lords of The Fallen FSR3':
             for lotf_file in select_lotf_file:
                 sucess_message = search_dll_files (select_lotf_name,lotf_file,search_spider)
+        
+        if select_mod == 'Horizon Forbidden West FSR3':
+            for hfw_file in select_hfw_file:
+                sucess_message = search_dll_files (select_hfw_name,hfw_file,search_spider)
     else:
         return 
     
@@ -1496,6 +1507,8 @@ def clean_mod():
     del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     
+    del_hfw_fsr = ['version.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
+    
     try:    
         
         if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt)):
@@ -1702,6 +1715,27 @@ def clean_mod():
             if os.path.exists(path_uni_tlou):
                 shutil.rmtree(path_uni_tlou)
                 
+    except Exception as e:
+        print(e)
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        
+    try:
+        
+        if select_mod == 'Horizon Forbidden West FSR3':
+            hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\RestoreNvidiaSignatureChecks.reg"]
+            hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"]
+            rtx_files = os.path.exists(os.path.join(select_folder,'RestoreNvidiaSignatureChecks.reg'))
+            
+            
+            if rtx_files:
+                subprocess.run(hfw_rtx_reg,check=True)
+            else:
+                subprocess.run(hfw_ot_gpu_reg,check=True)         
+                        
+            for i_hfw in os.listdir(select_folder):
+                if i_hfw in del_hfw_fsr:
+                    os.remove(os.path.join(select_folder,i_hfw))
+
     except Exception as e:
         print(e)
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
@@ -4214,11 +4248,31 @@ def lotf_fsr3():
 
 def cod_fsr():
     messagebox.showinfo('Ban','Do not use the mod in multiplayer, otherwise you may be banned. We are not responsible for any bans')
-                            
+
+def hfw_fsr3():
+    hfw_rtx = 'mods\\FSR3_HFW\\RTX FSR3'
+    xess_hfw ='mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
+    hfw_ot_gpu = 'mods\\FSR3_Callisto\\FSR_Callisto'
+    hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\DisableNvidiaSignatureChecks.reg"]
+    hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"]
+    
+    if select_mod == 'Horizon Forbidden West FSR3':
+        var_gpu = messagebox.askyesno('GPU','Do you have an RTX GPU?')
+        
+        if var_gpu:
+            shutil.copytree(hfw_rtx,select_folder,dirs_exist_ok=True)
+            shutil.copy2(xess_hfw,select_folder)
+            subprocess.run(hfw_rtx_reg,check=True)
+            
+        else:
+            shutil.copytree(hfw_ot_gpu,select_folder,dirs_exist_ok=True)
+            shutil.copy2(xess_hfw,select_folder)
+            subprocess.run(hfw_ot_gpu_reg,check=True)
+                              
 install_contr = None
-fsr_2_2_opt = ['Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
+fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Horizon Forbidden West','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Outpost: Infinity Siege',
+               'Fort Solis','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
@@ -4484,6 +4538,8 @@ def install(event=None):
             icarus_fsr3()
         elif select_option == 'Lords of the Fallen':
             lotf_fsr3()
+        elif select_option == 'Horizon Forbidden West':
+            hfw_fsr3()
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
@@ -4712,6 +4768,7 @@ fsr_game_version={
     'Horizon Forbidden West':'2.2',
     'The Last of Us':'2.1',
     'Uncharted: Legacy of Thievs':'2.1',
+    'Achilles Legends Untold':'2.2',
     'A Plague Tale Requiem':'2.2',
     'Alan Wake 2':'2.2',
     'Alone in the Dark':'2.0',
@@ -4898,11 +4955,16 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'GTA V':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'Lords of the Fallen':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Lords of The Fallen FSR3')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Horizon Forbidden West':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Horizon Forbidden West FSR3')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     else:
@@ -4913,7 +4975,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
