@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.13v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.14v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -270,7 +270,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','Returnal','Saints Row',
+                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Jusant','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam','Returnal','Saints Row',
                 'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -481,6 +481,12 @@ def text_guide():
 '3 - In-game, press the "END" key and select an upscaler.\nIf you want to use native resolution, check the Native\nResolution box below the upscaler, and restart the game.\n(FSR3 Upscaling or FSR 2 is recommended; you can also\ntry others, but they may not work).'  
 ),
 
+'RDR2 Non Steam':(
+'1- Leave the game in DX12 and turn off Vsync/Triple Buffering.\n'
+'2- In-game, if you have an RTX card, enable DLSS, if you\ndon\'t have an RTX card, disable any upscaler and turn on\nTAA. Press the "END" key, select FSR3 in Upscaler Type,\nand check the box "Enable Frame Generation.\n'    
+'3- If a DLL error occurs, reinstall the mod and click "YES" in\nthe DLL file installation message box'
+),
+
 'Saints Row':(
 '1 - Select a mod of your preference (0.10.3 is recommended)\n'
 '2 - Choose the path for the overlay, under Epic Games\nOverlay, and select "Disable".\n'
@@ -541,6 +547,12 @@ def text_guide():
 '3 - If the option is AMD/GTX and you notice that the mod is not generating FPS, open\nthe file fsr2fsr3.config and replace "mode = default" on the first line with "replace_dlss_fg",\nkeep it inside the quotation marks, it will look like this: mode = "replace_dlss_fg".\n'
 '4 - Start the game in DX12, if the game exe is in the destination folder where the mod was\ninstalled, a DX12 shortcut will be created on your Desktop. If the exe is not found, you\nneed to create a shortcut and in the properties, at the end of Target, add -dx12 outside the\nquotes if there are any, don\'t forget to put a space between -dx12 and the path.\n'  
 '5 - Run the game through the executable.'
+),
+
+'Jusant':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Check the box for Fake Nvidia GPU. If the mod doesn\'t\nwork, also check Nvapi Results (only for AMD and GTX)\nand select Default for Nvngx.dll\n'
+'3 - In-game, select DLSS and check the Frame Generation\nbox.'    
 ),
 
 'Kena: Bridge of Spirits': (
@@ -790,6 +802,7 @@ def close_guide_fsr(event=None):
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
 
+#Creates a Backup folder if there are files identical to those of the mod  
 var_copy_backup = False
 def comp_files(origins_path):
     global nvngx_contr,var_copy_backup
@@ -870,7 +883,8 @@ def comp_files(origins_path):
                 backup_cbox.deselect()
             else:
                 return  
-   
+
+#This def also creates a Backup folder, but for specific files or games where paths are not being passed through a dictionary and it's also the execution def
 def backup_files():
     global origins_2_2_folder,nvngx_folders,var_copy_backup
     unlock_view_message = False
@@ -883,6 +897,16 @@ def backup_files():
         
     if select_option == 'Red Dead Redemption 2' and select_mod in rdr2_folder:
         comp_files(rdr2_folder)  
+        
+        dll_rdr2 = ['ffx_fsr2_api_dx12_x64.dll','ffx_fsr2_api_vk_x64.dll','ffx_fsr2_api_x64.dll']
+        backup_folder_rdr2 = os.path.join(select_folder,'Backup')
+        
+        if select_mod == 'RDR2 Non Steam FSR3':
+            for i_dll in os.listdir(select_folder):
+                if i_dll in dll_rdr2:
+                    dll_path = os.path.join(select_folder, i_dll)
+                    shutil.copy(dll_path,backup_folder_rdr2)
+
         unlock_view_message = False
         
     elif select_option == 'Red Dead Redemption 2' and select_mod in origins_rdr2_folder:
@@ -907,7 +931,8 @@ def backup_files():
     
     origins_gtav = {'GTA V FSR3':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
                     'GTA V FiveM':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
-                    'GTA Online':'mods\\FSR3_GTAV\\GtaV_B02_FSR3'}
+                    'GTA Online':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
+                    'GTA V Epic':'mods\\FSR3_GTAV\\GtaV_B02_FSR3'}
     if select_option == 'GTA V':
         comp_files(origins_gtav)
         unlock_view_message = False
@@ -1084,6 +1109,7 @@ uni_custom_listbox = tk.Listbox(screen,width=9,height=0,bg='white',highlightthic
 uni_custom_listbox.place(x=565,y=389)
 uni_custom_listbox.place_forget()
 
+#Custom resolutions are passed to the TOML file of the Uniscaler mods, and the parameters are specific to each passed resolution
 def uni_custom_preset():
     custom_op = {
     '1080p' : {
@@ -1130,11 +1156,13 @@ def uni_custom_preset():
         messagebox.showinfo('Error','Error while modifying the Toml file.')
         return
 
+#Additional mods to assist in the functioning of the frs3 mods
 addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
 select_addon_dx11 = 'auto'
 select_addon_dx12 = 'auto'
 select_addon_mods = None
+
 def addon_mods():
     path_ini_optiscaler = 'mods\Temp\OptiScaler'
     if select_addon_mods in addon_origins:
@@ -1206,6 +1234,7 @@ def addon_dx12_view(event=None):
             addon_view = True
             addon_ups_dx12_listbox.place(x=583,y=541)
 
+#Changes the operation of the Optiscaler mod through the .ini file
 def update_ini(path_ini,key,value_ini): 
     try:
         with open(path_ini, 'r') as file:
@@ -1248,6 +1277,7 @@ def update_optiscaler_ini():
     
         update_ini(path_ini_dx11,key_dx12,value_ini_dx12)
 
+#Replaces the 'used' .ini file with a new one
 def replace_ini():
     path_ini = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
@@ -1283,9 +1313,9 @@ addon_mods_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthi
 addon_mods_listbox.place(x=548,y=480)
 addon_mods_listbox.place_forget()
 
+#Modifies the operation of Auto Exposure in the Uniscaler mods via the .toml file (true/false).
 us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
              'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml'}
-
 def var_auto_expo_en():
     if select_mod in us_origin:
         folder_auto_expo = us_origin[select_mod]
@@ -1361,8 +1391,10 @@ def var_frame_gen_dis():
 def cbox_var_frame_gen():
     if var_frame_gen_var.get() == 1 and select_mod in us_origin:
         var_frame_gen_en()
+        
     elif var_frame_gen_var.get() == 0 and select_mod in us_origin:
         var_frame_gen_dis()
+        
     elif var_frame_gen_var.get() == 1 and select_mod not in us_origin:
         messagebox.showinfo('Select Uniscaler','Please select Uniscaler or Uniscaler + Xess + Dlss to enable or disable this option')
         var_frame_gen_cbox.deselect()
@@ -1374,6 +1406,7 @@ var_frame_gen_var = tk.IntVar()
 var_frame_gen_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_frame_gen_var,command=cbox_var_frame_gen)
 var_frame_gen_cbox.place(x=110,y=279)
 
+#Limit the game's Fps to the value provided by the user through the .toml file
 def fps_limit():
     global us_origin
     key_us = 'general'
@@ -1400,6 +1433,7 @@ def fps_isdigit(event):
             fps_user_entry.insert(tk.END, event.char)
         else:
             fps_user_entry.delete(len(fps_user_entry.get()) - 1, tk.END)
+            
     fps_limit()
     return 'break'
 
@@ -1437,7 +1471,8 @@ del_dxgi_label.place(x=0,y=460)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
 del_dxgi_cbox.place(x=120,y=462) 
-   
+
+#Remove the mod files, the files for deletion are passed in lists and are checked according to the mod version selected by the user 
 def cbox_cleanup():
     if cleanup_var.get() == 1:
         try:
@@ -1456,6 +1491,7 @@ def cbox_cleanup():
         except Exception:
             pass
  
+#Same function, just to avoid repeating code
 def del_all_mods(mod_list,search_folder_name,game_name):
     global select_folder
     mods_path = os.path.join(select_folder, search_folder_name) 
@@ -1470,7 +1506,8 @@ def del_all_mods(mod_list,search_folder_name,game_name):
                 shutil.rmtree(mods_path)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
-    
+        
+#Execution def 
 def clean_mod():
     global select_folder
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
@@ -1515,7 +1552,10 @@ def clean_mod():
             for item in os.listdir(select_folder):
                 if item in mod_clean_list:
                     os.remove(os.path.join(select_folder,item))
-        
+    except Exception as e:
+        messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
+    
+    try:
         path_dd2_w = os.path.join(select_folder,'_storage_')
         if select_option == 'Dragons Dogma 2':
             if os.path.exists(path_dd2_w):
@@ -1523,19 +1563,17 @@ def clean_mod():
                     os.remove(os.path.join(path_dd2_w,del_winmm)) 
                 except FileNotFoundError:
                     pass 
-                
-            try:
-                storage_folder = os.path.join(select_folder, '_storage_')
-                var_storage = messagebox.askyesno('Storage','Would you like to delete the _storage_ folder? (folder created by the dinput8 file.')
-                if var_storage:
-                    if os.path.exists(storage_folder):
-                        shutil.rmtree(storage_folder)
-            except Exception as e:
-                    pass 
+    
+            storage_folder = os.path.join(select_folder, '_storage_')
+            var_storage = messagebox.askyesno('Storage','Would you like to delete the _storage_ folder? (folder created by the dinput8 file.')
+            if var_storage:
+                if os.path.exists(storage_folder):
+                    shutil.rmtree(storage_folder)
         
         uniscaler_folder = os.path.join(select_folder, 'uniscaler')
         if os.path.exists(uniscaler_folder):
             shutil.rmtree(uniscaler_folder)
+            
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
      
@@ -1757,6 +1795,7 @@ cleanup_var = IntVar()
 cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=cleanup_var,command=cbox_cleanup)
 cleanup_cbox.place(x=100,y=428)       
 
+#Disables the CMD console when starting the game,this function is only available in the mods listed below
 disable_var = None
 def cbox_disable_console():
    global disable_var
@@ -1790,6 +1829,7 @@ disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
 disable_console_cbox.place(x=117,y=369)
 
+#Copies the lfz file, this file can make old mods work
 lfz_list = {
 '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
 '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\lfz.sl.dlss',
@@ -1838,6 +1878,7 @@ lfz_sl_var = IntVar()
 lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
 lfz_sl_label_cbox.place(x=383,y=338)
 
+#For enabling FSR3FG debug overlay, through the .toml file
 var_debug_tear = None
 def cbox_debug_tear_lines():
     global var_debug_tear
@@ -1915,6 +1956,7 @@ debug_view_var = IntVar()
 debug_view_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_view_var,command=cbox_debug_view)
 debug_view_cbox.place(x=90,y=338)
 
+#Helps the mod work in some specific games, for example, The Callisto Protocol, 2 values are added to the registry editor, the path is available in the .reg file in the Temp folder
 def enable_over():
     global list_over
     folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
@@ -1949,6 +1991,7 @@ disable_sigover_var = IntVar()
 disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
 disable_sigover_cbox.place(x=368,y=308)
 
+#Copy the selected .dll file; it can help old mods work in specific games
 dxgi_contr = False
 def cbox_dxgi():
     global dxgi_contr
@@ -1992,16 +2035,21 @@ def copy_dxgi():
     
     if select_mod not in dxgi_folders and select_folder != None:
         messagebox.showinfo('Error','Please select a version starting 0.8.0')
+        
     elif select_mod not in dxgi_folders and select_folder == None:
         messagebox.showinfo('Error','Please select the destination folder')
+        
     try:
+        
         for item in os.listdir(dxgi_folder):
             dxgi_path = os.path.join(dxgi_folder,item)
+            
             if os.path.isfile(dxgi_path):
                 if select_dxgi == 'D3D12 DLL' and item == 'd3d12.dll':
                     shutil.copy2(dxgi_path,select_folder)
                 elif select_dxgi == 'DXGI DLL' and item == 'dxgi.dll':
                     shutil.copy2(dxgi_path,select_folder)
+                    
     except Exception as e:
         if select_mod in dxgi_folders and select_folder == None:
             messagebox.showinfo('Error','Please select the destination folder')
@@ -2017,6 +2065,7 @@ dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness
 dxgi_listbox.place(x=520,y=448)
 dxgi_listbox.place_forget()
 
+#Copy .dll files that can help specific games to function. The Default option includes the default nvngx.dll, and it also has the files DLSS 3.7.0 and XESS 1.3
 nvngx_contr = False
 def cbox_nvngx():
     global nvngx_contr
@@ -2116,9 +2165,9 @@ def copy_nvngx():
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
             print(e)
-            
-custom_fsr_act = False
 
+#Modify the upscaler resolution through the .toml file, with no default values like the Uniscaler Custom function, users can add values as they wish           
+custom_fsr_act = False
 def unlock_custom():
     list_custom = ['0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss']
     if select_mod not in list_custom:
@@ -2275,7 +2324,6 @@ def fsr_quality_up_custom(event=None):
     option_quality = 'quality'
     fsr_quality_up_count_f = f'{fsr_quality_up_count:.0f}'
     if custom_fsr_act and fsr_quality_up_count <= 100:
-        print(fsr_quality_up_count_f)
         fsr_quality_up_count += 1
         fsr_quality_canvas.delete('text')
         fsr_quality_canvas.create_text(2,8,anchor='w',text=fsr_quality_up_count_f,fill='black',tags='text')       
@@ -2432,6 +2480,7 @@ def native_res_down_custom(event=None):
 def color_native_down(event=None):
     native_res_label_down.configure(fg='#B0C4DE')
 
+#Modifies the mod's operation through the .toml file, changing the GPU to RTX 4xxx to unlock Nvidia features
 folder_fake_gpu ={
     '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -2552,6 +2601,7 @@ fakegpu_cbox_var = tk.IntVar()
 fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fakegpu_cbox_var,command=cbox_fakegpu)
 fakegpu_cbox.place(x=133,y=187)
 
+#Workaround graphical artifacts in Unreal Engine games when selecting DLSS
 list_ue = {
     '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -2610,6 +2660,7 @@ ue_cbox_var = tk.IntVar()
 ue_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ue_cbox_var,command=cbox_ue)
 ue_cbox.place(x=367,y=187)
 
+#Fixes issues with DLSS/FG not available on GTX GPUs
 list_nvapi = {
     '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -2672,6 +2723,7 @@ nvapi_cbox_var = tk.IntVar()
 nvapi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvapi_cbox_var,command=cbox_nvapi)
 nvapi_cbox.place(x=118,y=218)
 
+#Enable macOS-specific compatibility tweak
 list_macos = {
     '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -2733,6 +2785,7 @@ macos_sup_var = tk.IntVar()
 macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
 macos_sup_cbox.place(x=387,y=217)
 
+#Deletes the .toml file modified by the user and replaces it with a new one
 replace_flag = False 
 def rep_flag():
     global replace_flag
@@ -2784,6 +2837,7 @@ def replace_clean_file():
                 if os.path.isfile(c_file):
                     shutil.copy2(c_file,rep_clean_file)
 
+#Saves the changes made by the user in the TOML Editor
 def save_file():
     global file_w
     if file_w:
@@ -2817,6 +2871,7 @@ def cbox_editor():
         messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
         open_editor_cbox.deselect()
 
+#TOML Editor creation
 def screen_editor():
     global text_editor,default_file_path,default_path,b_reload,screen_toml
     def exit_screen():
@@ -2873,6 +2928,7 @@ open_editor_var = tk.IntVar()
 open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=open_editor_var,command=cbox_editor)
 open_editor_cbox.place(x=335,y=279)
 
+#Modify the sharpening via the .toml file, from 0.0 to 1.0, where 1.0 is the maximum and -1.0 disables it
 unlock_sharp_up_down = False
 unlock_cbox_sharp = None
 def cbox_sharpness():
@@ -2975,7 +3031,25 @@ def cont_sharpness_value_down(event=None):
 
 def color_sharpness_value_down(event=None):
     sharpness_value_label_down.configure(fg='#B0C4DE')
-    
+
+'''
+Modify the mod's operation through the .toml file
+
+0.9.0 onwards
+
+Default: How the mod used to operate. DLSS/FSR inputs used for FSR3 Upscaling and FSR3 Frame Generation.
+Enable Upscaling Only:  Same as default mode, but enables only FSR3 upscaling, FSR3 FG is disabled
+Replace DLSS - FG: For mixing other upscalers like DLSS or XeSS with FSR3 Frame Generation in games that have NATIVE DLSS3 Frame Generation, no HUD ghosting
+Use Game Upscaling: same as replace_dlss_fg, but for games WITHOUT Native DLSS3FG, there will be HUD ghosting
+
+Uniscaler
+
+Replaces the mod's operation to enable FG to work with the options below
+
+XESS: Replaces the upscaler to work with XESS
+DLSS: Replaces the upscaler to work with DLSS
+FSR3: Replaces the upscaler to work with FSR3
+'''   
 mod_operates_label = tk.Label(screen,text='Mod Operates:',font=font_select,bg='black',fg='#C0C0C0')
 mod_operates_label.place(x=420,y=33)
 mod_operates_canvas = tk.Canvas(screen,width=150,height=19,bg='#C0C0C0',highlightthickness=0)
@@ -3097,7 +3171,8 @@ search_game_exe_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highligh
 search_game_exe_canvas.place(x=350,y=95)
 search_game_exe_canvas.create_text(9,8,anchor='w',font=('Arial',9,'bold'),text='Auto',fill='black')
 
-def open_explorer(event=None): #Function to select the game folder and create the selected path text on the Canvas
+#Function to select the game folder and create the selected path text on the Canvas
+def open_explorer(event=None): 
     global select_folder
     select_folder = filedialog.askdirectory()
     game_folder_canvas.delete('text')
@@ -3685,11 +3760,11 @@ origins_rdr2_folder = {
                   'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'],
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod'
+        'Uniscaler + Xess + Dlss':'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod'
     }
 
 def xess_fsr():
-    path_xess = r'mods\FSR2FSR3_Uniscaler\CyberXeSS'
+    path_xess = 'mods\\FSR2FSR3_Uniscaler\\CyberXeSS'
     
     name_libxess = os.path.join(select_folder,'libxess.dll')
     name_libxess_old = os.path.join(select_folder,'libxess.txt')
@@ -3724,7 +3799,7 @@ def fsr_rdr2():
     if select_mod in origins_rdr2_folder:
         origins_rdr2 = origins_rdr2_folder[select_mod]
     
-    if select_mod != 'Uniscaler':
+    if select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss':
         try:
             for origin_folder in origins_rdr2:
                 for item in os.listdir(origin_folder):
@@ -3835,24 +3910,25 @@ rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
                "RDR2 Build_4":'mods\\RDR2Upscaler-FSR3Build04',
                "RDR2 Mix":'mods\\RDR2_FSR3_mix',
                "RDR2 Mix 2":'mods\\RDR2_FSR3_mix',
-               "Red Dead Redemption V2":'mods\\RDR2_FSR3_V2'}
+               "Red Dead Redemption V2":'mods\\RDR2_FSR3_V2',
+               "RDR2 Non Steam FSR3":'mods\\FSR3_RDR2_Non_Steam\\RDR2_FSR3'}
 def rdr2_build2():
     global rdr2_folder
     
     if select_mod in rdr2_folder:
         origins_rdr2 = rdr2_folder[select_mod]
-    
-    if select_mod == 'RDR2 Build_2':
-        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
-    elif select_mod == 'RDR2 Build_4':
-        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
-    elif select_mod == 'RDR2 Mix':
-        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
-    elif select_mod  == 'Red Dead Redemption V2':
-        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
-    elif select_mod == 'RDR2 Mix 2':
-        ignore_files = ('reshade-shaders','ReShade.ini')
 
+        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
+
+    if select_mod == 'RDR2 Mix 2':
+        ignore_files = ('reshade-shaders','ReShade.ini')
+    elif select_mod == 'RDR2 Non Steam FSR3':
+        dll_copy = messagebox.askyesno('DLL','Do you want to copy the DLL files? Some users may receive a DLL error when running the game with the mod. (Only select \'Yes\' if you have received the error)')
+        
+        if dll_copy:
+            shutil.copytree("mods\\FSR3_RDR2_Non_Steam\\RDR2_DLL",select_folder,dirs_exist_ok=True)
+    
+    if select_mod == 'RDR2 Mix 2':
         path_rdr2_ini = 'mods\\Temp\\RDR2_FSR3\\rdr2_mix2_ini\\RDR2Upscaler.ini'
         dest_folder_mods = os.path.join(select_folder,'mods')
     
@@ -4222,6 +4298,10 @@ def gtav_fsr3():
         messagebox.showinfo('Dinput 8 not found', 'Please install the \'dinput8\' file. Refer to the GTA V FSR Guide if you need assistance.')
         return False
 
+    elif select_mod == 'GTA V Epic':
+        shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        return True
+
 def lotf_fsr3():
     rtx_fsr3 = 'mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX'
     amd_gtx_fsr3 = 'mods\\FSR3_LOTF\\AMD_GTX'
@@ -4277,7 +4357,7 @@ fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Jusant','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank - Rift Apart','Pacific Drive']
 
@@ -4808,6 +4888,7 @@ fsr_game_version={
     'Hogwarts Legacy':'2.2',
     'Icarus':'ICR',
     'Judgment':'2.1',
+    'Jusant':'2.0',
     'Kena: Bridge of Spirits':'2.2',
     'Layers of Fear':'2.0',
     'Lies of P':'2.2',
@@ -4897,7 +4978,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -4954,7 +5035,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'GTA V':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online')
+        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online','GTA V Epic')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'Lords of the Fallen':
@@ -4976,7 +5057,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
