@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.14v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.15v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -269,9 +269,9 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
+    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Control','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
                 'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Jusant','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam','Returnal','Saints Row',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
+                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -358,6 +358,13 @@ def text_guide():
 '1 - Select a mod of your choice. (recommended 0.10.3)\n'
 '2 - Check the box for Fake Nvidia GPU.\n'
 '3 - If you don\'t see any differences, check the box for\nNvapi Results.'   
+),
+
+'Control':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the Fake Nvidia Gpu box. (Amd/Gtx).\n'
+'3 - Check the Enable Signature Override box.\n'
+'4 - Before installing, configure the game as you wish, do not\nchange the settings or turn off DLSS after the mod is\ninstalled, as the game will crash.'    
 ),
 
 'Dead Island 2':(
@@ -450,54 +457,6 @@ def text_guide():
 '2 - Select "Default" in Nvngx and check the box "Enable\nSignature Override.\n'
 '3 - Check the box "Fake Nvidia GPU" (AMD Only).\n'
 '4 - Inside the game, under AntiAliasing, select DLSS or FSR.'
-),
-
-'Red Dead Redemption 2':(
-"● RDR2_Build_2\n"
-"1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
-"•Attention,don't install another version of the Reshade app after using this mod\n\n"
-"If your game is still not open after turning Off Afterburner and Rivatuner, try\nsetting Run this program as administrator and Run this program in compatibility\nmode for Windows 7 of the Compatibility tab of the Properties in the right\nmouse menu.\n\n"
-"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
-"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
-"Other versions of the mod install normally, but may experience flickering on the HUD"
-),
-
-'Red Dead Redemption 2 MIX':(
- '1 - Set the game to DX12 in advanced options.\n'
-'2 - Turn off Triple Buffering and Vsync, and set the game to Full Screen.\n'
-'3 - Select the RDR2 Mix mod and install it.\n'
-'4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
-),
-
-'Red Dead Redemption Mix 2':(
-'1 - Set the game to DX12.\n'
-'2 - Turn off Buffer Triple, Vsync, and disable any upscaler,\nleave it on TAA.\n'
-'3 - It\'s not necessary to activate any upscaler for the mod\nto work, but if you want to use one, refer to the RDR2 Mix\nguide.'   
-),
-
-'Red Dead Redemption V2':(
-'1 - Turn off Vsync, Triple Buffering, and set the game to DX12.\n'
-'2 - Install the mod.\n'
-'3 - In-game, press the "END" key and select an upscaler.\nIf you want to use native resolution, check the Native\nResolution box below the upscaler, and restart the game.\n(FSR3 Upscaling or FSR 2 is recommended; you can also\ntry others, but they may not work).'  
-),
-
-'RDR2 Non Steam':(
-'1- Leave the game in DX12 and turn off Vsync/Triple Buffering.\n'
-'2- In-game, if you have an RTX card, enable DLSS, if you\ndon\'t have an RTX card, disable any upscaler and turn on\nTAA. Press the "END" key, select FSR3 in Upscaler Type,\nand check the box "Enable Frame Generation.\n'    
-'3- If a DLL error occurs, reinstall the mod and click "YES" in\nthe DLL file installation message box'
-),
-
-'Saints Row':(
-'1 - Select a mod of your preference (0.10.3 is recommended)\n'
-'2 - Choose the path for the overlay, under Epic Games\nOverlay, and select "Disable".\n'
-'3 - Start the game in DX12.\n'
-'4 - Inside the game, select FSR.'   
-),
-
-'Shadow Warrior 3':(
-'Select a mod of your preference (0.10.3 is recommended)\n'
-'2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
-'3 - Set Ambient Occlusion and Post Processing to Low.' 
 ),
 
 'GTA V':(
@@ -611,10 +570,82 @@ def text_guide():
 '• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
 ),
 
+'Ready or Not': (
+'1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
+'2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
+'3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
+'4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
+'5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
+'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'
+),
+
+'Red Dead Redemption 2':(
+"● RDR2_Build_2\n"
+"1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
+"•Attention,don't install another version of the Reshade app after using this mod\n\n"
+"If your game is still not open after turning Off Afterburner and Rivatuner, try\nsetting Run this program as administrator and Run this program in compatibility\nmode for Windows 7 of the Compatibility tab of the Properties in the right\nmouse menu.\n\n"
+"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
+"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
+"Other versions of the mod install normally, but may experience flickering on the HUD"
+),
+
+'Red Dead Redemption 2 MIX':(
+ '1 - Set the game to DX12 in advanced options.\n'
+'2 - Turn off Triple Buffering and Vsync, and set the game to Full Screen.\n'
+'3 - Select the RDR2 Mix mod and install it.\n'
+'4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
+),
+
+'Red Dead Redemption Mix 2':(
+'1 - Set the game to DX12.\n'
+'2 - Turn off Buffer Triple, Vsync, and disable any upscaler,\nleave it on TAA.\n'
+'3 - It\'s not necessary to activate any upscaler for the mod\nto work, but if you want to use one, refer to the RDR2 Mix\nguide.'   
+),
+
+'Red Dead Redemption V2':(
+'1 - Turn off Vsync, Triple Buffering, and set the game to DX12.\n'
+'2 - Install the mod.\n'
+'3 - In-game, press the "END" key and select an upscaler.\nIf you want to use native resolution, check the Native\nResolution box below the upscaler, and restart the game.\n(FSR3 Upscaling or FSR 2 is recommended; you can also\ntry others, but they may not work).'  
+),
+
+'RDR2 Non Steam':(
+'1- Leave the game in DX12 and turn off Vsync/Triple Buffering.\n'
+'2- In-game, if you have an RTX card, enable DLSS, if you\ndon\'t have an RTX card, disable any upscaler and turn on\nTAA. Press the "END" key, select FSR3 in Upscaler Type,\nand check the box "Enable Frame Generation.\n'    
+'3- If a DLL error occurs, reinstall the mod and click "YES" in\nthe DLL file installation message box'
+),
+
 'Returnal':(
 "1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
 "3 - Select 'Default' in Nvngx.dll."
+),
+
+'Rise of The Tomb Raider':(
+'1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
+'2 - Select the folder where the game\'s exe is located (something like\nROTTR.exe)\n'
+'3 - Activate Fake Nvidia GPU (if you don\'t have Rtx 3xxx/4xxx series)\n'
+'4 - Inside the game, select DLSS as desired, to remove the flickering\nfrom the HUD, select SMAA as Anti Aliasing (this will slightly decrease\nfps)\n'
+'• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
+'• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
+),
+
+'Saints Row':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Choose the path for the overlay, under Epic Games\nOverlay, and select "Disable".\n'
+'3 - Start the game in DX12.\n'
+'4 - Inside the game, select FSR.'   
+),
+
+'Shadow Warrior 3':(
+'Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
+'3 - Set Ambient Occlusion and Post Processing to Low.' 
+),
+
+'Spider Man/Miles':(
+'1 - Select a mod of your preference\n'
+'2 - The Uniscaler Spider does not require any additional\nconfiguration initially, just install it. If you choose another\nmod or the Dlss Frame Generation option is not available,\ncheck the Fake Nvidia Gpu box. (only Amd)\n'
+'3 - In-game, select an upscaler and enable Dlss Frame\nGeneration.'   
 ),
 
 'Star Wars: Jedi Survivor':(
@@ -647,24 +678,6 @@ def text_guide():
 '3 - Enable NVAPI Results (only for GTX).\n'
 '4 - In Mod Operates, select Enable Upscaling Only.\n\n'
 '● To fix the Hub Flickering, do not select any option in Mod\nOperates, open the game, and choose FSR 1.0.'
-),
-
-'Rise of The Tomb Raider':(
-'1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
-'2 - Select the folder where the game\'s exe is located (something like\nROTTR.exe)\n'
-'3 - Activate Fake Nvidia GPU (if you don\'t have Rtx 3xxx/4xxx series)\n'
-'4 - Inside the game, select DLSS as desired, to remove the flickering\nfrom the HUD, select SMAA as Anti Aliasing (this will slightly decrease\nfps)\n'
-'• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
-'• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
-),
-
-'Ready or Not': (
-'1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
-'2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
-'3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
-'4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
-'5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
-'After launching the game again, you need to set\nAnti-Aliasing back to High or Epic to activate the mod before\nplaying the character.'
 ),
 
 'TEKKEN 8':(
@@ -1512,7 +1525,7 @@ def clean_mod():
     global select_folder
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
-                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll',
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','fsr2fsr3.log',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
    
     del_winmm = 'winmm.dll'
@@ -1530,7 +1543,7 @@ def clean_mod():
                    'dinput8.dll','dlssg_to_fsr3.asi','nvapi64.asi','winmm.dll','winmm.ini']
     
     del_rdr2_fsr3 = ['ReShade.ini','RDR2UpscalerPreset.ini','d3dcompiler_47.dll','d3d12.dll','dinput8.dll','ScriptHookRDR2.dll','NVNGX_Loader.asi',
-                     'd3dcompiler_47.dll','nvngx.dll']
+                     'd3dcompiler_47.dll','nvngx.dll','winmm.ini','winmm.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','fsr2fsr3.log']
     
     del_icarus_otgpu_fsr3 = ['nvngx.dll', 'FSR2FSR3.asi','fsr2fsr3.config.toml','winmm.dll','winmm.ini']
     del_icarus_rtx_fsr3 = ['RestoreNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
@@ -4026,7 +4039,8 @@ def run_dis_anti_c():
         subprocess.call(del_anti_c_path)
 
 bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\\FSR3_BDG',
-               'Baldur\'s Gate 3 FSR3 V2':['mods\\FSR3_BDG','mods\\FSR3_BDG_2']}
+               'Baldur\'s Gate 3 FSR3 V2':['mods\\FSR3_BDG','mods\\FSR3_BDG_2'],
+               'Baldur\'s Gate 3 FSR3 V3':['mods\\FSR3_BDG','mods\\FSR3_BDG_2']}
 def bdg_fsr3():
     
     if select_mod in bdg_origins:
@@ -4037,7 +4051,14 @@ def bdg_fsr3():
                 shutil.copytree(path_bdg, select_folder, dirs_exist_ok=True)
         else:
             shutil.copytree(bdg_origin, select_folder, dirs_exist_ok=True)
-
+        
+        if select_mod == 'Baldur\'s Gate 3 FSR3 V3':
+            path_bdg_ini = 'mods\\FSR3_BDG_3\\BG3Upscaler.ini'
+            path_mods_bdg = os.path.join(select_folder,'mods')
+            
+            if os.path.exists(path_mods_bdg):
+                shutil.copy2(path_bdg_ini,path_mods_bdg)
+            
 callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Callisto'}
 def callisto_fsr():
     if select_mod in callisto_origins:
@@ -4348,10 +4369,15 @@ def hfw_fsr3():
             shutil.copytree(hfw_ot_gpu,select_folder,dirs_exist_ok=True)
             shutil.copy2(xess_hfw,select_folder)
             subprocess.run(hfw_ot_gpu_reg,check=True)
+
+def fsr3_control():
+    path_nvngx_control = 'mods\\FSR3_Control'
+    if select_option == 'Control':
+        shutil.copytree(path_nvngx_control,select_folder,dirs_exist_ok=True)
                               
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
@@ -4634,6 +4660,8 @@ def install(event=None):
             if not var_dinput_gtav:
                 return
 
+        if select_option == 'Control':
+            fsr3_control()
         if select_option == 'Chernobylite':
             chernobylite_short_cut()
         if select_mod == 'Unlock Fps Tekken 8':
@@ -4823,15 +4851,6 @@ def change_labels():
         fsr_performance_label.place(x=420,y=275)
         native_res_label.place(x=420,y=335)
 change_labels()
-
-def close_all_listbox(event):
-    global listbox_visible, fsr_visible
-    
-    if event.widget != mod_version_listbox:
-        mod_version_listbox.pack_forget()
-    
-    x = event.x
-    y = event.y 
     
 def fsr_listbox_visible(event):
     global fsr_visible
@@ -4861,6 +4880,7 @@ fsr_game_version={
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Chernobylite':'2.1',
     'Cod Black Ops Cold War':'2.2',
+    'Control':'2.2',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Deathloop':'2.0',
@@ -4990,7 +5010,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3','Baldur\'s Gate 3 FSR3 V2')
+        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3','Baldur\'s Gate 3 FSR3 V2','Baldur\'s Gate 3 FSR3 V3')
     
     elif select_option == 'The Callisto Protocol':
         mod_text()
@@ -5056,7 +5076,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
@@ -5387,7 +5407,5 @@ install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
 
 exit_label.bind('<Button-1>',exit_screen)
-
-#screen.bind('<Button-1>',close_all_listbox)
 
 screen.mainloop()
