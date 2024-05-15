@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.15v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.16v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -269,9 +269,10 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alone in the Dark','Baldur\'s Gate 3','Blacktail','Bright Memory: Infinite','Chernobylite','Cod Black Ops Cold War','Control','Dead Space Remake','Dead Island 2','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice',
-                'High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Jusant','Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam','Returnal','Saints Row',
-                'Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
+    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Jusant',
+                'Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
+                'Returnal','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -330,6 +331,19 @@ def text_guide():
 '4 - In-game, select DLSS.'    
 ),
 
+'Alan Wake 2':(
+'RTX\n'
+'1 - Select Alan Wake 2 FG RTX and install it.\n'
+'2 - In the game, select DLSS and enable Frame Generation.\n'
+'3 - It is also possible to use other versions of the mod.\n\n'
+
+'AMD/GTX\n'
+'1 - Select Alan Wake 2 Uniscaler Custom and install it.\n'
+'2 - In the game, select DLSS and enable Frame Generation\nif it is not enabled by default.\n'
+'3 - Do not switch to FSR as the game will crash.\n'
+'4 - It is also possible to use other versions of the mod,\nexcept Alan Wake 2 FG RTX.\n'    
+),
+
 'Alone in the Dark':(
 "1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
@@ -338,10 +352,27 @@ def text_guide():
 "5 - If the mod doesn't work, elect 'Default' in Nvngx.dll."
 ),
 
+'A Plague Tale Requiem':(
+'1 - Select a mod of your choice (0.10.3 is recommended).\n'
+'2 - Check the box for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). (If the mod doesn\'t work for AMD, also\ncheck Nvapi Results)\n'
+'3 - To fix hub flickering, enable DLSS and Frame Generation\nand play for a few seconds, then disable DLSS and leave\nonly Frame Generation enabled.'  
+),
+
+'Atomic Heart':(
+'1 - Select a mod of your choice (0.10.3 is recommended).\n'
+'2 - In the game, select FSR.'   
+),
+
 'Baldur\'s Gate 3': (
 '1 - Start the game in DX11 and select Borderless.\n'
 '2 - Choose DLSS or DLAA.\n'
 '3 - Press the END key to enter the mod menu, check\nthe Frame Generation box to activate the mod; you can also\nadjust the Upscaler. (To activate Frame Generation, simply\npress the * key; you can also change the key in the mod\nmenu.)\n'  
+),
+
+'Banishers Ghost of New Eden':(
+'1 - Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the box Fake Nvidia GPU and Nvapi Results\n(AMD/GTX).\n'
+'3 - In-game, select DLSS and DLSS FG'   
 ),
 
 'Blacktail':(
@@ -354,9 +385,15 @@ def text_guide():
   '2 -  To make the mod work, run it in DX12. To run it in DX12, right-click the game\'s\nexe and create a shortcut, then right-click the shortcut again,\ngo to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the\ngame, go to Settings > Properties > Startup options, and\nenter -dx12.'
 ),
 
+'Brothers a Tale of Two Sons':(
+'1- Select a mod of your preference (0.10.3 is recommended).\n'
+'2. Check the box Fake Nvidia GPU(AMD/GTX).\n'
+'In-game, select DLSS or FSR.'
+),
+
 'Cod Black Ops Cold War':(
 '1 - Select a mod of your choice. (recommended 0.10.3)\n'
-'2 - Check the box for Fake Nvidia GPU.\n'
+'2 - Check the box Fake Nvidia GPU.\n'
 '3 - If you don\'t see any differences, check the box for\nNvapi Results.'   
 ),
 
@@ -367,10 +404,31 @@ def text_guide():
 '4 - Before installing, configure the game as you wish, do not\nchange the settings or turn off DLSS after the mod is\ninstalled, as the game will crash.'    
 ),
 
+'Cyberpunk 2077':(
+'1 - Select a mod of your choice (Uniscaler is recommended).\n'
+'2 - Select Default in Nvngx.dll.\n'
+'3 - Check the box Enable Signature Override.\n'
+'4 - In-game, turn off Vsync, select DLSS (do not select auto\nas the game will crash), and turn on Frame Generation.'    
+),
+
+'Dakar Desert Rally':(
+'1- Select a mod of your preference (0.10.3 is recommended).\n'
+'2 - Check the box Fake Nvidia GPU and Nvapi Results\n(AMD/GTX).\n'
+'In-game, select DLSS and Frame Generation.'    
+),
+
 'Dead Island 2':(
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - If it doesn\'t work with the default files, enable\nEnable Signature Override. If it still doesn\'t work, check the\nbox lfz.sl.dlss.\n'
 '3 - It\'s not necessary to activate an upscaler for this game\nfor the mod to work, so enable it if you want.'
+),
+
+'Death Stranding Director\'s Cut':(
+'1 - Select a mod of your preference (0.10.3 or Uniscaler is\nrecommended).\n'
+'2 - Check the box for Fake Nvidia GPU (AMD/GTX).\n'
+'3 - Inside the game, select DLSS or FSR.\n'
+'4 - If you encounter problems related to DX12, select D3D12\nin Dxgi.dll.\n'
+'5 - The mod only works on the Director\'s Cut version.'    
 ),
 
 'Chernobylite':(
@@ -2799,6 +2857,24 @@ macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highl
 macos_sup_cbox.place(x=387,y=217)
 
 #Deletes the .toml file modified by the user and replaces it with a new one
+
+default_path ={
+    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml'
+}
+
 replace_flag = False 
 def rep_flag():
     global replace_flag
@@ -2874,19 +2950,26 @@ def open_file():
             text_editor.insert('1.0', content)
 
 def cbox_editor():
-    global replace_flag,screen_toml
-    if open_editor_var.get() == 1 and select_mod != None:
+    global replace_flag,screen_toml,default_path
+    if open_editor_var.get() == 1 and select_mod in default_path:
         screen_editor()
+        
     elif open_editor_var.get() == 0:
         screen_toml.destroy()
         replace_flag = False
-    else:
+        
+    elif open_editor_var.get() == 1 and select_mod == None:
         messagebox.showinfo('Select Mod','Please select the mod version to open TOML EDITOR')
+        open_editor_cbox.deselect()
+
+    elif open_editor_var.get() == 1 and select_mod not in default_path:
+        messagebox.showinfo('Select Mod','Please select a mod from version 0.7.4 onwards. Specific mods (for example: Alan Wake Uniscaler Custom) do not require changes to the TOML file')
         open_editor_cbox.deselect()
 
 #TOML Editor creation
 def screen_editor():
     global text_editor,default_file_path,default_path,b_reload,screen_toml
+    
     def exit_screen():
         global replace_flag
         screen_toml.destroy()
@@ -2898,27 +2981,12 @@ def screen_editor():
     screen_toml.title("Editor TOML")
     screen_toml.geometry("600x400")
 
-    default_path ={
-    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
-    'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml'
-    }
     if select_mod in default_path:
         default_file_path = os.path.join(default_path[select_mod])
+    
     text_editor = tk.Text(screen_toml)
     text_editor.pack(expand=True, fill='both')
-    
+
     open_file()
     
     menubar = tk.Menu(screen_toml)
@@ -4374,6 +4442,18 @@ def fsr3_control():
     path_nvngx_control = 'mods\\FSR3_Control'
     if select_option == 'Control':
         shutil.copytree(path_nvngx_control,select_folder,dirs_exist_ok=True)
+        
+def fsr3_aw2_rtx():
+    path_rtx = 'mods\\FSR3_AW2\\RTX'
+    path_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
+    path_amd = 'mods\\FSR3_AW2\\AMD'
+    
+    if select_mod == 'Alan Wake 2 FG RTX':
+        shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
+        shutil.copy2(path_dlss,select_folder)
+    
+    elif select_mod  == 'Alan Wake 2 Uniscaler Custom':
+        shutil.copytree(path_amd,select_folder,dirs_exist_ok=True)
                               
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -4602,7 +4682,7 @@ def get_mod_version_canvas():
             break
     if not option_mod_version:
         continue_install = False
-    
+  
 def install(event=None):
     global install_contr,var_d_put,continue_install
     try:
@@ -4664,6 +4744,8 @@ def install(event=None):
             fsr3_control()
         if select_option == 'Chernobylite':
             chernobylite_short_cut()
+        if select_option == 'Alan Wake 2':
+            fsr3_aw2_rtx()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
@@ -4688,7 +4770,8 @@ def install(event=None):
         elif install_contr and select_option == 'Select FSR version' and select_fsr == None:
             messagebox.showwarning('Select FSR Version','Please select the FSR version')
             return
-        if select_mod != None and select_folder != None and select_option != None:
+        
+        if select_mod != None and select_folder != None and select_option != None:           
             messagebox.showinfo('Successful','Successful installation')
         else:
             messagebox.showinfo('Error','Please fill out the first 3 options, Select Game, Select Folder, and Mod Options.')
@@ -5066,6 +5149,11 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'Horizon Forbidden West':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Horizon Forbidden West FSR3')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        
+    elif select_option == 'Alan Wake 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     else:
