@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.16v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.17v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -270,9 +270,9 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hogwarts legacy','Horizon Forbidden West','Icarus','Jusant',
-                'Kena: Bridge of Spirits','Lies of P','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Monster Hunter Rise','Palworld','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -496,6 +496,17 @@ def text_guide():
 '8 - In the game, press the "END" key to open the mod menu, select DLSS for RTX and FSR3 for\nnon-RTX.' 
 ),
 
+'Fist Forged in Shadow Torch':(
+ '1 - Select a mod of your choice. (0.10.3 is recommended)\n'
+'2 - Check the Fake Nvidia GPU box (AMD/GTX)'   
+),
+
+'Fort Solis':(
+'Select a mod of your preference. (0.10.3 is recommended)\n'
+'2 - Check the box for Fake Nvidia GPU (AMD/GTX) and the\nbox for Nvapi Results (GTX). If DLSS is not available for AMD,\ncheck the Nvapi Results box.\n'
+'3 - In the game, select DLSS and Frame Generation.'    
+),
+
 'Forza Horizon 5':(
 '1 - Choose Horizon Forza 5 FSR3 and install it. In the \nconfirmation window, select \'Yes\' for RTX or \'No\' for non-RTX.\n'
 '2 - For RTX, in-game, select DLSS and enable Frame \nGeneration.\n'
@@ -551,6 +562,12 @@ def text_guide():
 "4 - Select 'Default' in Nvngx.dll."
 ),
 
+'Hitman 3':(
+'Select a mod of your preference. (0.10.3 is recommended\nbut if it doesn\'t work, try 0.10.2)\n'
+'2 - Check the box for Fake Nvidia GPU (AMD/GTX).\n'
+'3 - In the game, select FSR and Frame Generation. If Frame\nGeneration is not available, you can check the Nvapi Results\nbox or download the file EnableDLSSFrameGenerationHitma\nnIII.reg and run it. This will activate Frame Generation even if\nit is not available.'  
+),
+
 'Horizon Forbidden West':(
 '1 - Select Horizon Forbidden West FSR3 and install\n'
 '2 - Choose Xess or FSR on the initial setup screen, turn on Frame\nGeneration, and do not select DLSS, otherwise the game will crash\n'
@@ -566,6 +583,11 @@ def text_guide():
 '5 - Run the game through the executable.'
 ),
 
+'Judgment':(
+'1 - Select a mod of your preference. (0.10.3 is recommended)\n'
+'2 - In the game, select FSR 2.1'    
+),
+
 'Jusant':(
 '1 - Select a mod of your preference (0.10.3 is recommended)\n'
 '2 - Check the box for Fake Nvidia GPU. If the mod doesn\'t\nwork, also check Nvapi Results (only for AMD and GTX)\nand select Default for Nvngx.dll\n'
@@ -577,10 +599,23 @@ def text_guide():
   '2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD only).'
 ),
 
+'Layers of Fear':(
+ '1 - Select a mod of your preference (0.10.3 is recommended)\n'   
+ '2 - Check the box Fake Nvidia GPU.(AMD/GTX)\n'
+ '3 - If you don\'t notice Frame Generation, select Replace\nDLSS FG in \'Mod Operates\'.\n'
+ '4 - In the game, select Frame Generation and DLSS or FSR'
+),
+
 'Lies of P':(
 '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
 '2 - Activate Fake Nvidia Gpu and UE Compatibility Mode\n(AMD only).\n'
 '3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.'
+),
+
+'Loopmancer':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n' 
+'2 - Check the box Fake Nvidia GPU.(AMD/GTX)\n'   
+'3 - In the game, select DLSS or FSR'
 ),
 
 'Lords of the Fallen':(
@@ -612,11 +647,31 @@ def text_guide():
 '• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'  
 ),
 
+'Metro Exodus Enhanced':(
+'Select Uniscaler.\n'
+'2 - Check the boxes for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). If the DLSS option is not available for\nAMD GPU, check the Nvapi Results box.\n'
+'3 - In Nvngx.dll, select Default and check the box Enable\nSignature Override.\n'
+'4 - In the game, select DLSS.'    
+),
+
 'Monster Hunter Rise':(
 '1 - Select a mod of your choice. (recommended 0.10.3)\n'
-'2 - Check the box for Fake Nvidia GPU.\n'
-'3 - If you don\'t see any differences, check the box for\nNvapi Results.\n'
+'2 - Check the box Fake Nvidia GPU.\n'
+'3 - If you don\'t see any differences, check the box\nNvapi Results.\n'
 '4 - To fix flickering in the hud, activate DLSS and play for a\nfew seconds, then return to the menu and deactivate DLSS.'
+),
+
+'Outpost Infinity Siege':(
+'1 - Select a mod of your preference; (0.10.3 is recommended)\n'
+'2 - Check the box Fake Nvidia GPU (AMD/GTX).\n'
+'3 - In the game, select DLSS and Frame Generation.\n'
+'4 - If you have any issues, in Nvngx.dll, select Default.'   
+),
+
+'Pacific Drive':(
+'1 - Select a mod of your preference, (0.10.3 is recommended)\n'
+'2 - Check the box Fake Nvidia GPU (AMD/GTX).\n'
+'3 - If you have any issues, in Nvngx.dll, select Default.'  
 ),
 
 'Palworld':(
@@ -626,6 +681,13 @@ def text_guide():
 '3. To run the game in DX12, simply confirm the window that\nappears after confirming the GPU selection. Make sure the\nmentioned exe is in the selected folder. Alternatively, you can\nignore the window and do it manually, by creating a shortcut\nand adding \'-dx12\' after the quotes in the \'Target\' field.\n'
 '4. Run the game through the shortcut.\n\n'
 '• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
+),
+
+'Ratchet and Clank':(
+'1 - Select a mod of your preference (0.10.3 is recommended,\nbut you can also try with Uniscaler).\n'
+'2 - If you encounter any issues, select Replace DLSS FG in\n\'Mod Operates\'.\n'
+'3 - In the initial configuration screen, select Frame\nGeneration and FSR.\n'
+'4 - In the game, turn off Frame Generation and then turn it\nback on again.'    
 ),
 
 'Ready or Not': (
@@ -685,6 +747,12 @@ def text_guide():
 '4 - Inside the game, select DLSS as desired, to remove the flickering\nfrom the HUD, select SMAA as Anti Aliasing (this will slightly decrease\nfps)\n'
 '• To use Uniscaler, it is necessary to select the \'DLSS\' option in\nMod Operates\n'
 '• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
+),
+
+'Ripout':(
+'1 - Select a mod of your preference (0.10.3 is recommended)\n'
+'2 - Check the box Fake Nvidia GPU (AMD/GTX).\n'  
+'3 - In the game, select DLSS and Frame Generation'  
 ),
 
 'Saints Row':(
@@ -1586,6 +1654,8 @@ def clean_mod():
                       'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','fsr2fsr3.log',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
    
+    del_uni = ['winmm.ini','winmm.dll','uniscaler.config.toml','Uniscaler.asi','nvngx.dll']
+   
     del_winmm = 'winmm.dll'
     
     del_elden_fsr3 =['_steam_appid.txt','_winhttp.dll','anti_cheat_toggler_config.ini','anti_cheat_toggler_mod_list.txt',
@@ -1619,10 +1689,23 @@ def clean_mod():
     
     try:    
         
+        path_uni = os.path.join(select_folder,'uniscaler')
+        path_uni_asi = os.path.join(select_folder,'Uniscaler.asi')
+        
         if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt)):
             for item in os.listdir(select_folder):
                 if item in mod_clean_list:
                     os.remove(os.path.join(select_folder,item))
+        
+        if os.path.exists(path_uni) or os.path.exists(path_uni_asi):
+            for i_uni in os.listdir(select_folder):
+                if i_uni in del_uni:
+                    os.remove(os.path.join(select_folder,i_uni))
+            
+            if os.path.exists(path_uni):
+                shutil.rmtree(path_uni)
+                    
+        
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
     
@@ -4454,7 +4537,14 @@ def fsr3_aw2_rtx():
     
     elif select_mod  == 'Alan Wake 2 Uniscaler Custom':
         shutil.copytree(path_amd,select_folder,dirs_exist_ok=True)
-                              
+
+def fsr3_motogp():
+    if select_option == 'MOTO GP 24':
+        path_uni = os.path.join(select_folder,'uniscaler')
+        
+        if os.path.exists(path_uni):
+            shutil.rmtree(path_uni)
+
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -4465,7 +4555,7 @@ fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice',
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Jusant','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
-fsr_sdk_opt = ['Ratchet & Clank - Rift Apart','Pacific Drive']
+fsr_sdk_opt = ['Ratchet & Clank - Rift Apart','Pacific Drive','MOTO GP 24']
 
 fsr_sct_2_2 = ['2.2']
 fsr_sct_2_1 = ['2.1']
@@ -4742,6 +4832,8 @@ def install(event=None):
 
         if select_option == 'Control':
             fsr3_control()
+        if select_option == 'MOTO GP 24':
+            fsr3_motogp()
         if select_option == 'Chernobylite':
             chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
@@ -5002,6 +5094,7 @@ fsr_game_version={
     'Marvel\'s Spider-Man Miles Morales':'2.1',
     'Metro Exodus Enhanced Edition': '2.2',
     'Monster Hunter Rise':'2.2',
+    'MOTO GP 24':'SDK',
     'Nightingale':'2.0',
     'Outpost: Infinity Siege':'2.2',
     'Pacific Drive':'SDK',
@@ -5165,7 +5258,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
