@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.7.17v")
+screen.title("FSR3.0 Mod Setup Utility - 1.7.18v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -270,9 +270,9 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Uncharted','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -537,6 +537,11 @@ def text_guide():
 '5 - Press "Home" to open the menu. If the mod is disabled,\ncheck "Enable Frame Generation".'  
 ),
 
+'Ghost of Tsushima':(
+'1 - Select Ghost of Tsushima FG DLSS and install\n'
+'2 - In the game, select DLSS Frame Generation'    
+),
+
 'Ghostrunner 2': (
     '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended)\n' 
     '2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
@@ -768,6 +773,12 @@ def text_guide():
 '3 - Set Ambient Occlusion and Post Processing to Low.' 
 ),
 
+'Smalland':(
+'1 - Select a mod of your choice. (0.10.3 is recommended)\n'
+'2 - Check the Fake Nvidia GPU box. (AMD/GTX)\n'
+'3 - In the game, select DLSS'    
+),
+
 'Spider Man/Miles':(
 '1 - Select a mod of your preference\n'
 '2 - The Uniscaler Spider does not require any additional\nconfiguration initially, just install it. If you choose another\nmod or the Dlss Frame Generation option is not available,\ncheck the Fake Nvidia Gpu box. (only Amd)\n'
@@ -831,6 +842,17 @@ def text_guide():
 '2 - Enable Fake Nvidia Gpu, if Frame Generation is not\ndetected, enable Nvapi Results. (only Amd and Gtx)'  
 ),
 
+'The Invicible':(
+'1 - Select a mod of your preference (0.10.3 is recommended,\nbut if it doesn\'t work, try older versions such as 0.7.6 and\ncheck the lfz.sl.dlss box)\n'
+'2 - In the game, select FSR or DLSS if the mod is not active.'    
+),
+
+'The Medium':(
+'1- Select a mod of your choice (0.10.3 is recommended)\n'
+'2- Check the Fake Nvidia GPU (AMD/GTX) and Nvapi Results\n(GTX) boxes. If the mod doesn\'t work on an AMD GPU, also\ncheck Nvapi Results.'
+'3- Run the game in DX12. During\ninstallation, a window will appear to create a DX12 shortcut,\nyou can accept this or do it manually.'    
+),
+
 "The Outer Worlds: Spacer's Choice Edition":(
 '1 - Select a mod of your preference (0.10.3 or Uniscaler is\nrecommended).\n'
 '2 - Within the game, select Fsr.\n'
@@ -846,10 +868,21 @@ def text_guide():
 '• If the game is on Epic Games, it is necessary to disable the Overlay,\nsimply go to \'Epic Games Overlay\'.'
 ),
 
+'The Witcher 3':(
+'1 - Select a mod of your choice. (0.10.3 is recommended)\n'
+'2 - Check the Fake Nvidia GPU (AMD/GTX) box. If you can\'t\nactivate DLSS on an AMD GPU, also check Nvapi Results.\n'
+'3 - In the game, select DLSS and Frame Generation. If you\nwant to use FSR, first enable DLSS and then switch to FSR.\n'    
+),
+
 'Uncharted':(
 '1 - Select a mod of your preference (0.10.3 is recommended).\n' 
 '2 - Run the game using the u4-l.exe executable. The game\nmay crash the first time, so just run it again.\n'
 '3 - Inside the game, select FSR.'
+),
+
+'Wanted Dead':(
+'1 - Select a mod of your choice. (0.10.3 is recommended)\n'
+'2 - In the game, select FSR.'    
 ),
 
 'Uniscaler':(
@@ -1631,18 +1664,18 @@ def cbox_cleanup():
             pass
  
 #Same function, just to avoid repeating code
-def del_all_mods(mod_list,search_folder_name,game_name):
+def del_all_mods(mod_list,game_name,search_folder_name = None):
     global select_folder
-    mods_path = os.path.join(select_folder, search_folder_name) 
-    
     try:
         if select_option == game_name:
             for item in os.listdir(select_folder):
                 if item in mod_list:
                     os.remove(os.path.join(select_folder,item))
-                    
-            if os.path.exists(mods_path):
-                shutil.rmtree(mods_path)
+            
+            if search_folder_name != None:
+                mods_path = os.path.join(select_folder, search_folder_name)        
+                if os.path.exists(mods_path):
+                    shutil.rmtree(mods_path)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
         
@@ -1684,6 +1717,8 @@ def clean_mod():
     
     del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
+    
+    del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
     
     del_hfw_fsr = ['version.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
     
@@ -1746,7 +1781,7 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
     
     if select_option == 'Baldur\'s Gate 3':
-        del_all_mods(del_bdg_fsr3,'mods','Baldur\'s Gate 3') 
+        del_all_mods(del_bdg_fsr3,'Baldur\'s Gate 3','mods') 
     
     name_xess = os.path.join(select_folder,'libxess.txt')
     new_xess = os.path.join(select_folder,'libxess.dll')
@@ -1934,14 +1969,20 @@ def clean_mod():
     
     if select_option == 'GTA V':
         path_dxgi = os.path.join(select_folder,'dxgi.dll')
-        del_all_mods(del_gtav_fsr3,'mods','GTA V')
+        del_all_mods(del_gtav_fsr3,'GTA V','mods')
 
         if os.path.exists(path_dxgi):
             os.rename(path_dxgi,os.path.join(select_folder,'dxgi.asi'))
     
     if select_option == 'Lords of the Fallen':
-        del_all_mods(del_lotf_fsr3,'uniscaler','Lords of the Fallen')
+        del_all_mods(del_lotf_fsr3,'Lords of the Fallen','uniscaler')
+    
+    if select_option == 'Ghost of Tsushima':
+        del_all_mods(del_got,'Ghost of Tsushima')
+        
+        got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\RestoreNvidiaSignatureChecks.reg"]
 
+        subprocess.run(got_reg,check=True)
                   
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=426) 
@@ -4545,6 +4586,23 @@ def fsr3_motogp():
         if os.path.exists(path_uni):
             shutil.rmtree(path_uni)
 
+def fsr3_got():
+    path_dlss_got = 'mods\\FSR3_GOT'
+    got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DisableNvidiaSignatureChecks.reg"]
+    
+    if select_option == 'Ghost of Tsushima':
+        shutil.copytree(path_dlss_got,select_folder,dirs_exist_ok=True)
+        
+        subprocess.run(got_reg,check=True)
+
+def fsr3_the_medium():
+    shortcut_medium_path = os.path.join(select_folder,'Medium-Win64-Shipping.exe')
+    new_target_path = ('The Medium') 
+    dx_12 = "-dx12"
+    game_name = 'The Medium'
+    if select_option == 'The Medium':
+        auto_shortcut(shortcut_medium_path,new_target_path,dx_12,game_name) 
+        
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -4834,6 +4892,10 @@ def install(event=None):
             fsr3_control()
         if select_option == 'MOTO GP 24':
             fsr3_motogp()
+        if select_option == 'Ghost of Tsushima':
+            fsr3_got()
+        if select_option == 'The Medium':
+            fsr3_the_medium()
         if select_option == 'Chernobylite':
             chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
@@ -5073,6 +5135,7 @@ fsr_game_version={
     'FIST: Forged In Shadow Torch':'2.2',
     'Fort Solis':'2.2',
     'Forza Horizon 5':'FH',
+    'Ghost of Tsushima':'DLSS',
     'Ghostrunner 2':'2.0',
     'GTA V':'PD',
     'Martha Is Dead':'2.1',
@@ -5247,6 +5310,11 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'Alan Wake 2':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+    
+    elif select_option == 'Ghost of Tsushima':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Ghost of Tsushima FG DLSS')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     else:
@@ -5258,7 +5326,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
