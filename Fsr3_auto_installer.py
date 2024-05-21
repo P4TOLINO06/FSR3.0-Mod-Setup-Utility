@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8v")
+screen.title("FSR3.0 Mod Setup Utility - 1.8.1v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -41,15 +41,6 @@ if not unlock_screen:
 
 icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
-
-img_bg = Image.open('images\gray-amd-logo-n657xc6ettzratsr...-removebg-preview.png')
-img_res = img_bg.resize((200,300))
-img_tk =ImageTk.PhotoImage(img_res)
-x_img = (410 - 180)//2
-y_img = (950 - 250)//2
-
-bg_label = tk.Label(screen,image=img_tk,bg='black')
-bg_label.place(x=x_img,y=y_img)
 
 change_text = False
 try:
@@ -246,10 +237,10 @@ def fsr_guide(event=None):
             screen_guide.withdraw()
 
 fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=200,y=335)
+fsr_guide_label.place(x=260,y=366)
 fsr_guide_var = tk.IntVar()
 fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=288,y=337)
+fsr_guide_cbox.place(x=347,y=369)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
@@ -269,7 +260,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
@@ -356,6 +347,12 @@ def text_guide():
 '1 - Select a mod of your choice (0.10.3 is recommended).\n'
 '2 - Check the box for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). (If the mod doesn\'t work for AMD, also\ncheck Nvapi Results)\n'
 '3 - To fix hub flickering, enable DLSS and Frame Generation\nand play for a few seconds, then disable DLSS and leave\nonly Frame Generation enabled.'  
+),
+
+'Assassin\'s Creed Valhalla':(
+'1 - Press the "End" key to open the Frame Gen menu or the\n"Home" key to open the main menu.\n'
+'2 - Select AC Valhalla DLSS3\n'
+'3 - In the game, enable Motion Blur and disable FSR'   
 ),
 
 'Atomic Heart':(
@@ -539,7 +536,8 @@ def text_guide():
 
 'Ghost of Tsushima':(
 '1 - Select Ghost of Tsushima FG DLSS and install\n'
-'2 - In the game, select DLSS Frame Generation'    
+'2 - In the game, select DLSS Frame Generation\n'   
+'3 - If you encounter any issues related to DX12, select "YES"\nin the "DX12" window that will appear during the installation.\nFirst, test the mod without confirming this window.' 
 ),
 
 'Ghostrunner 2': (
@@ -966,7 +964,7 @@ def exit_fsr_guide():
 
 def guide_fsr_guide(event=None):
     guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
-    guide_fsr_label.place(x=200,y=360)
+    guide_fsr_label.place(x=260,y=390)
 
 def close_guide_fsr(event=None):
     guide_fsr_label.place_forget()
@@ -1176,6 +1174,12 @@ def backup_files():
     
     select_hfw_file = ['version.dll','nvngx.dll','dlssg_to_fsr3_amd_is_better.dll','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
     select_hfw_name = 'Horizon Forbidden West FSR3'
+    
+    select_valhalla_file = ['ReShade.ini','dxgi.dll','ACVUpscalerPreset.ini']
+    select_valhalla_name = 'Ac Valhalla DLSS3 (Only RTX)'
+    
+    select_got_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll']
+    select_got_name = 'Ghost of Tsushima FG DLSS'
 
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
@@ -1197,7 +1201,7 @@ def backup_files():
                         files_copied += 1
                         
                 if files_copied > 0:
-                    return True       
+                    return True    
         except Exception:
             messagebox.showinfo('Error','Failed to create the backup, please try again.')
 
@@ -1241,27 +1245,37 @@ def backup_files():
         if select_mod == 'Horizon Forbidden West FSR3':
             for hfw_file in select_hfw_file:
                 sucess_message = search_dll_files (select_hfw_name,hfw_file,search_spider)
+        
+        if select_mod == 'Ac Valhalla DLSS3 (Only RTX)':
+            for valhalla_file in select_valhalla_file:
+                sucess_message = search_dll_files(select_valhalla_name,valhalla_file,search_spider)
+
+        if select_mod == 'Ghost of Tsushima FG DLSS':
+            for got_file in select_got_file:
+                sucess_message = search_dll_files(select_got_name,got_file,search_spider)
+        
     else:
         return 
     
     if sucess_message and unlock_view_message:
         messagebox.showinfo('Success', 'Backup completed successfully.')
     elif not sucess_message and not unlock_view_message:
-        messagebox.showinfo('Not found', 'No matching files, backup was not completed.') 
+        messagebox.showinfo('Not found', 'No matching files, backup was not completed.')
         return               
         
 def cbox_backup():
-    if backup_var.get() == 1 and (select_folder is not None and select_mod is not None):
-        backup_files()
-    else:
-        messagebox.showinfo('Error','Please select the three initial options: Select Game, Game Folder, and Mod Version.')
-        backup_cbox.deselect()
-        
+    if backup_var.get() == 1:
+        if select_folder is not None and select_mod is not None:
+            backup_files()
+        else:
+            messagebox.showinfo('Error','Please select the three initial options: Select Game, Game Folder, and Mod Version.')
+            backup_cbox.deselect()
+                  
 backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
-#backup_label.place(x=156,y=397)
+backup_label.place(x=160,y=366)
 backup_var = IntVar()
 backup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=backup_var,command=cbox_backup)
-#backup_cbox.place(x=214,y=399)
+backup_cbox.place(x=219,y=369)
 
 uni_custom_contr = False
 select_uni_custom = ""
@@ -1754,9 +1768,11 @@ def clean_mod():
     del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     
-    del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
+    del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll']
     
     del_hfw_fsr = ['version.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
+    
+    del_valhalla_fsr3 = ['ReShade.ini','dxgi.dll','ACVUpscalerPreset.ini']
     
     try:    
         
@@ -2016,9 +2032,15 @@ def clean_mod():
     if select_option == 'Ghost of Tsushima':
         del_all_mods(del_got,'Ghost of Tsushima')
         
-        got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\RestoreNvidiaSignatureChecks.reg"]
+        got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
 
         subprocess.run(got_reg,check=True)
+    
+    if select_option == 'Assassin\'s Creed Valhalla':
+        folder_ac = os.path.join(select_folder,'reshade-shaders')
+        del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
+        shutil.rmtree(folder_ac)
+        
                   
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=456) 
@@ -2105,10 +2127,10 @@ def cbox_lfz_sl():
         var_mod_lfz()
     
 lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
-lfz_sl_label.place(x=200,y=367)
+lfz_sl_label.place(x=0,y=366)
 lfz_sl_var = IntVar()
 lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
-lfz_sl_label_cbox.place(x=318,y=369)
+lfz_sl_label_cbox.place(x=120,y=369)
 guide_fsr_label.lift(lfz_sl_label)
 
 #For enabling FSR3FG debug overlay, through the .toml file
@@ -2147,9 +2169,9 @@ def edit_debug_tear_lines():
       
 debug_tear_lines_label = tk.Label(screen,text='Debug Tear Lines',font=font_select,bg='black',fg='#C0C0C0')
 debug_tear_lines_var = IntVar()
-debug_tear_lines_label.place(x=0,y=366)
+debug_tear_lines_label.place(x=200,y=336)
 debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_tear_lines_var,command=cbox_debug_tear_lines)
-debug_tear_lines_cbox.place(x=130,y=369)
+debug_tear_lines_cbox.place(x=329,y=339)
 
 var_deb_view = False
 def cbox_debug_view():
@@ -2226,6 +2248,7 @@ disable_sigover_var = IntVar()
 disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
 disable_sigover_cbox.place(x=373,y=400)
 guide_fsr_label.lift(disable_sigover_label)
+guide_fsr_label.lift(disable_sigover_cbox)
 
 #Copy the selected .dll file, it can help old mods work in specific games
 dxgi_contr = False
@@ -4656,13 +4679,19 @@ def fsr3_motogp():
             shutil.rmtree(path_uni)
 
 def fsr3_got():
-    path_dlss_got = 'mods\\FSR3_GOT'
-    got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DisableNvidiaSignatureChecks.reg"]
+    path_dlss_got = 'mods\\FSR3_GOT\\DLSS FG'
+    path_dx12 = 'mods\\FSR3_GOT\\Fix_DX12'
+    got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
     
     if select_option == 'Ghost of Tsushima':
         shutil.copytree(path_dlss_got,select_folder,dirs_exist_ok=True)
         
         subprocess.run(got_reg,check=True)
+    
+    dx12_got = messagebox.askyesno('DX12','Do you want to install the DX12 files? These files fix issues related to DX12. (Only confirm if you have encountered a DX12 related error)')
+
+    if dx12_got:
+        shutil.copytree(path_dx12,select_folder,dirs_exist_ok=True)
 
 def fsr3_the_medium():
     shortcut_medium_path = os.path.join(select_folder,'Medium-Win64-Shipping.exe')
@@ -4671,6 +4700,11 @@ def fsr3_the_medium():
     game_name = 'The Medium'
     if select_option == 'The Medium':
         auto_shortcut(shortcut_medium_path,new_target_path,dx_12,game_name) 
+
+def fsr3_ac_valhalla():
+    path_dlss = 'mods\\Ac_Valhalla_DLSS'
+    
+    shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
         
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -4816,7 +4850,7 @@ debug_label_guide.place_forget()
 
 def guide_debug_op (event=None):
     debug_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
-    debug_label_guide.place(x=0,y=392)
+    debug_label_guide.place(x=200,y=362)
     
 def close_debugguide(event=None):
     debug_label_guide.config(text="")
@@ -4849,7 +4883,7 @@ lfz_label_guide.place_forget()
 
 def guide_lfz(event=None):
     lfz_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    lfz_label_guide.place(x=200,y=390)
+    lfz_label_guide.place(x=0,y=390)
      
 def close_lfz_guide(event=None):
     lfz_label_guide.config(text="")
@@ -4957,6 +4991,8 @@ def install(event=None):
             if not var_dinput_gtav:
                 return
 
+        if select_option == 'Assassin\'s Creed Valhalla':
+            fsr3_ac_valhalla()
         if select_option == 'Control':
             fsr3_control()
         if select_option == 'MOTO GP 24':
@@ -5178,6 +5214,7 @@ fsr_game_version={
     'Alan Wake 2':'2.2',
     'Alone in the Dark':'2.0',
     'Assassin\'s Creed Mirage':'2.2',
+    'Assassin\'s Creed Valhalla':'DLSS',
     'Atomic Heart':'2.2',
     'Baldur\'s Gate 3':'PD',
     'Banishers: Ghosts of New Eden':'2.2',
@@ -5385,6 +5422,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Ghost of Tsushima FG DLSS')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Assassin\'s Creed Valhalla':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     else:
         mod_version_canvas.delete('text')
@@ -5394,7 +5436,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
