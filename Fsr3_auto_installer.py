@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.8.2v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -261,7 +261,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -541,16 +541,24 @@ def text_guide():
 ),
 
 'Ghostrunner 2': (
-    '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended)\n' 
-    '2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
-    '3 - Activate Fake Nvidia Gpu (AMD only)\n'
-    '4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
-    '• To fix the flickering of the HUD, activate and deactivate frame\ngeneration again (no need to apply settings).'
+'1 - Select a version of the mod of your choice (version 0.10.3\nis recommended)\n' 
+'2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
+'3 - Activate Fake Nvidia Gpu (AMD only)\n'
+'4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
+'• To fix the flickering of the HUD, activate and deactivate frame\ngeneration again (no need to apply settings).'
 ),
 
 'Hellblade: Senua\'s Sacrifice':(
-    '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n'
-    '2 - Select Fake Nvidia Gpu and UE Compatibility (AMD only),\nselect Fake Nvidia Gpu and Nvapi Results (GTX only).'
+'1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n'
+'2 - Select Fake Nvidia Gpu and UE Compatibility (AMD only),\nselect Fake Nvidia Gpu and Nvapi Results (GTX only).'
+),
+
+'Hellblade 2':(
+'1 - Select Hellblade 2 FSR3 and install it.\n'
+'2 - In the game, select Frame Generation.\n'
+'3 - This mod only works for RTX.\n\n'
+'• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
+'• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if the\nEngine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.' 
 ),
 
 'High On Life':(
@@ -944,6 +952,8 @@ def text_guide():
         screen_guide.geometry('690x260')
     elif select_game == 'Red Dead Redemption 2 MIX':
         screen_guide.geometry('672x260')
+    elif select_game == 'Hellblade 2':
+        screen_guide.geometry('520x280')
     else:
         screen_guide.geometry('520x260')
     
@@ -4705,7 +4715,70 @@ def fsr3_ac_valhalla():
     path_dlss = 'mods\\Ac_Valhalla_DLSS'
     
     shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
+
+def fsr3_hellblade_2():
+    global select_folder
+    path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
+    hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
+    
+    path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows\\Engine.ini'
+    alt_path_hb2 = os.getenv("LOCALAPPDATA") + '\\\Hellblade2\\Saved\\Config\\WinGDK\\Engine.ini'
+    
+    path_final = ""
+    
+    if os.path.exists(os.path.join(path_inihb2)):
+        path_final = path_inihb2
+            
+    elif os.path.exists(os.path.join(path_inihb2)):
+        path_final = alt_path_hb2
+    
+    if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
+        shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
+        subprocess.run(hb2_reg,check=True)
         
+    if select_mod == 'Remove Black Bars':
+        
+        if os.path.exists(path_final):
+            
+            select_folder = os.path.dirname(path_final)
+            
+            game_folder_canvas.delete('text')
+            game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
+            
+            config_ini_hb2 = ConfigObj(path_final)
+
+            config_ini_hb2['SystemSettings'] = {}
+
+            config_ini_hb2['SystemSettings']['r.NT.EnableConstrainAspectRatio'] = '0'
+
+            config_ini_hb2.write()
+            
+            messagebox.showinfo('Sucess','The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.')
+            
+        else:
+            messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
+            return
+        
+    elif select_mod == 'Remove Black Bars Alt':
+        if os.path.exists(path_final):
+            
+            config_ini_hb2 = ConfigObj(path_inihb2)
+
+            config_ini_hb2['SystemSettings'] = {}
+
+            config_ini_hb2['SystemSettings'] = {
+                'r.NT.AllowAspectRatioHorizontalExtension': '0',
+                'r.NT.EnableConstrainAspectRatio': '0'
+            }
+
+            config_ini_hb2.write()
+            
+            messagebox.showinfo('Sucess','The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.')
+            
+        else:
+            messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
+            return
+                     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
@@ -4991,6 +5064,8 @@ def install(event=None):
             if not var_dinput_gtav:
                 return
 
+        if select_option == 'Hellblade 2':
+            fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
             fsr3_ac_valhalla()
         if select_option == 'Control':
@@ -5247,6 +5322,7 @@ fsr_game_version={
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
     'Hellblade: Senua\'s Sacrifice':'2.1',
+    'Hellblade 2':'DLSS',
     'High On Life':'2.0',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
@@ -5427,6 +5503,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Hellblade 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     else:
         mod_version_canvas.delete('text')
@@ -5437,7 +5518,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
@@ -5459,7 +5540,7 @@ for fsr_op in fsr_options:
     fsr_listbox.insert(tk.END,fsr_op)
     
 def update_mod_version(event=None):
-    global select_mod
+    global select_mod,select_folder
     index_mod = mod_version_listbox.curselection()
     if index_mod:
         select_mod = mod_version_listbox.get(index_mod)
@@ -5470,6 +5551,18 @@ def update_mod_version(event=None):
     unlock_sharp()
     update_nvngx()
     unlock_uni_custom()
+    
+    if select_mod == 'Remove Black Bars' or select_mod == 'Remove Black Bars Alt':
+        fsr3_hellblade_2()
+    
+    if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
+        path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows'
+        alt_path_hb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\WinGDK'
+             
+        if select_folder == path_inihb2 or select_folder == alt_path_hb2:
+            game_folder_canvas.delete('text')
+            select_folder = None
+           
     mod_version_canvas.update()
 
 mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss']
