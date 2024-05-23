@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.8.3v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -554,11 +554,18 @@ def text_guide():
 ),
 
 'Hellblade 2':(
+'Only RTX\n'
 '1 - Select Hellblade 2 FSR3 and install it.\n'
 '2 - In the game, select Frame Generation.\n'
 '3 - This mod only works for RTX.\n\n'
+'All GPUs\n'
+'1 - Select Uniscaler V2 (you can also test with the other mods)\n'
+'2 - Check the box for Fake Nvidia GPU (AMD) and check the\nbox for UE compatibility mode (AMD and Nvidia)\n'
+'3 - In-game, select Frame Generation\n\n'
 '• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
-'• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if the\nEngine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.' 
+'• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if\nthe Engine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.\n\n' 
+'• To remove only the main effects, such as Lens Distortion,\nBlack Bars, and Chromatic Aberration, select Remove Post\nProcessing.\n\n'
+'• To remove all effects, select Remove All Post Processing\n(includes film grain).'
 ),
 
 'High On Life':(
@@ -953,7 +960,7 @@ def text_guide():
     elif select_game == 'Red Dead Redemption 2 MIX':
         screen_guide.geometry('672x260')
     elif select_game == 'Hellblade 2':
-        screen_guide.geometry('520x280')
+        screen_guide.geometry('535x500')
     else:
         screen_guide.geometry('520x260')
     
@@ -1405,6 +1412,7 @@ def addon_mods():
             shutil.copytree(path_ini_optiscaler,select_folder,dirs_exist_ok=True)
         elif select_addon_mods == 'Tweak':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
+           
     except Exception:
         messagebox.showinfo('Error','Error in installation, please check if you have correctly filled out Select Game, Select Folder, and Mod Version.')
         return
@@ -1784,6 +1792,8 @@ def clean_mod():
     
     del_valhalla_fsr3 = ['ReShade.ini','dxgi.dll','ACVUpscalerPreset.ini']
     
+    del_hb2 = ['version.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
+    
     try:    
         
         path_uni = os.path.join(select_folder,'uniscaler')
@@ -2046,12 +2056,19 @@ def clean_mod():
 
         subprocess.run(got_reg,check=True)
     
+    if select_option == 'Hellblade 2':
+        if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
+            
+            del_all_mods(del_hb2,'Hellblade 2')
+            hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
+            
+            subprocess.run(hb2_reg,check=True)
+    
     if select_option == 'Assassin\'s Creed Valhalla':
         folder_ac = os.path.join(select_folder,'reshade-shaders')
         del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
         shutil.rmtree(folder_ac)
-        
-                  
+                         
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=456) 
 cleanup_var = IntVar()
@@ -4716,73 +4733,108 @@ def fsr3_ac_valhalla():
     
     shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
+# Modify the ini file of Hellblade 2 to remove post-processing effects
+def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
+    global select_folder
+    
+    if os.path.exists(path_ini):
+      
+        select_folder = os.path.dirname(path_ini)
+        
+        game_folder_canvas.delete('text')
+        game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
+        config_ini_hb2 = ConfigObj(path_ini)
+
+        config_ini_hb2[key_ini] = {}
+
+        config_ini_hb2[key_ini] = value_ini
+
+        config_ini_hb2.write()
+        messagebox.showinfo('Sucess',message_hb2)
+    else:
+        messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
+        return
+
+def remove_post_processing_effects_hell2():
+    path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows\\Engine.ini'
+    alt_path_hb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\WinGDK\\Engine.ini'
+    
+    value_remove_black_bars = {'r.NT.EnableConstrainAspectRatio' :'0'}
+    value_remove_black_bars_alt = {
+                'r.NT.AllowAspectRatioHorizontalExtension': '0',
+                'r.NT.EnableConstrainAspectRatio': '0'
+            }
+    value_remove_pos_processing = {   
+                'r.NT.Lens.Distortion.Intensity':'0',
+                'r.NT.Lens.Distortion.Stretch':'0', 
+                'r.NT.Lens.ChromaticAberration.Intensity':'0',
+                'r.NT.AllowAspectRatioHorizontalExtension':'0',
+                'r.NT.EnableConstrainAspectRatio':'0'
+            } 
+    value_remove_all_pos_processing = {
+        'r.DefaultFeature.MotionBlur':'0',
+        'r.MotionBlurQuality':'0',
+        'r.NT.Lens.ChromaticAberration.Intensity':'0',
+        'r.Tonemapper.GrainQuantization':'0',
+        'r.DepthOfFieldQuality':'0',
+        'r.FilmGrain':'0',
+        'r.NT.DOF.NTBokehTransform':'0',
+        'r.NT.Lens.Distortion.Stretch':'0',
+        'r.NT.Lens.Distortion.Intensity':'0',
+        'r.SceneColorFringeQuality':'0',
+        'r.NT.DOF.RotationalBokeh':'0',
+        'r.NT.AllowAspectRatioHorizontalExtension':'0',
+        'r.Tonemapper.Quality':'0',
+        'r.NT.EnableConstrainAspectRatio':'0'
+    }
+    
+    key_remove_post_processing = 'SystemSettings'
+    message_black_bars = 'The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.'
+    message_post_processing = 'The main post processing effects were successfully removed.'
+    path_final = ""
+
+    if os.path.exists(os.path.join(path_inihb2)):
+        path_final = path_inihb2
+            
+    elif os.path.exists(os.path.join(alt_path_hb2)):
+        path_final = alt_path_hb2
+    
+    elif select_folder is None: 
+        messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK and then select the option again. If you need further instructions, refer to the Hellblade 2 FSR Guide') 
+        return
+    else:
+        manually_folder_ini = os.path.join(select_folder,'Engine.ini')
+        if os.path.exists(manually_folder_ini):
+            path_final = manually_folder_ini
+            
+    if select_mod  == 'Remove Black Bars':
+        config_ini_hell2(key_remove_post_processing,value_remove_black_bars,path_final,message_black_bars) 
+             
+    elif select_mod == 'Remove Black Bars Alt':  
+        config_ini_hell2(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_black_bars) 
+            
+    elif select_mod  == 'Remove Post Processing Effects':
+        config_ini_hell2(key_remove_post_processing,value_remove_pos_processing,path_final,message_post_processing) 
+    
+    elif select_mod  == 'Remove All Post Processing Effects':
+        config_ini_hell2(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_post_processing) 
+    
 def fsr3_hellblade_2():
     global select_folder
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
     hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
     
-    path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows\\Engine.ini'
-    alt_path_hb2 = os.getenv("LOCALAPPDATA") + '\\\Hellblade2\\Saved\\Config\\WinGDK\\Engine.ini'
-    
-    path_final = ""
-    
-    if os.path.exists(os.path.join(path_inihb2)):
-        path_final = path_inihb2
-            
-    elif os.path.exists(os.path.join(path_inihb2)):
-        path_final = alt_path_hb2
-    
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
         subprocess.run(hb2_reg,check=True)
         
-    if select_mod == 'Remove Black Bars':
-        
-        if os.path.exists(path_final):
-            
-            select_folder = os.path.dirname(path_final)
-            
-            game_folder_canvas.delete('text')
-            game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
-            
-            config_ini_hb2 = ConfigObj(path_final)
-
-            config_ini_hb2['SystemSettings'] = {}
-
-            config_ini_hb2['SystemSettings']['r.NT.EnableConstrainAspectRatio'] = '0'
-
-            config_ini_hb2.write()
-            
-            messagebox.showinfo('Sucess','The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.')
-            
-        else:
-            messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
-            return
-        
-    elif select_mod == 'Remove Black Bars Alt':
-        if os.path.exists(path_final):
-            
-            config_ini_hb2 = ConfigObj(path_inihb2)
-
-            config_ini_hb2['SystemSettings'] = {}
-
-            config_ini_hb2['SystemSettings'] = {
-                'r.NT.AllowAspectRatioHorizontalExtension': '0',
-                'r.NT.EnableConstrainAspectRatio': '0'
-            }
-
-            config_ini_hb2.write()
-            
-            messagebox.showinfo('Sucess','The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.')
-            
-        else:
-            messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
-            return
-                     
+    elif select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects']:
+        remove_post_processing_effects_hell2()
+                           
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Outpost: Infinity Siege',
+               'Fort Solis','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
@@ -5322,7 +5374,7 @@ fsr_game_version={
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
     'Hellblade: Senua\'s Sacrifice':'2.1',
-    'Hellblade 2':'DLSS',
+    'Hellblade 2':'2.2',
     'High On Life':'2.0',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
@@ -5506,8 +5558,8 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Hellblade 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     else:
         mod_version_canvas.delete('text')
@@ -5552,7 +5604,7 @@ def update_mod_version(event=None):
     update_nvngx()
     unlock_uni_custom()
     
-    if select_mod == 'Remove Black Bars' or select_mod == 'Remove Black Bars Alt':
+    if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects']:
         fsr3_hellblade_2()
     
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
