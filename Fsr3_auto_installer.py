@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.8.4v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -565,7 +565,9 @@ def text_guide():
 '• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
 '• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if\nthe Engine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.\n\n' 
 '• To remove only the main effects, such as Lens Distortion,\nBlack Bars, and Chromatic Aberration, select Remove Post\nProcessing.\n\n'
-'• To remove all effects, select Remove All Post Processing\n(includes film grain).'
+'• To remove all effects, select Remove All Post Processing\n(includes film grain).\n\n'
+'• To restore the Post Processing effects, simply select\n\'Restore Post Processing\', and the Engine.ini file will be replaced\nwith the default file.\n\n'
+'• If the Frame Generation is not visible, remove the black bars.'
 ),
 
 'High On Life':(
@@ -960,7 +962,7 @@ def text_guide():
     elif select_game == 'Red Dead Redemption 2 MIX':
         screen_guide.geometry('672x260')
     elif select_game == 'Hellblade 2':
-        screen_guide.geometry('535x500')
+        screen_guide.geometry('535x595')
     else:
         screen_guide.geometry('520x260')
     
@@ -1197,7 +1199,10 @@ def backup_files():
     
     select_got_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll']
     select_got_name = 'Ghost of Tsushima FG DLSS'
-
+    
+    select_hb2_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
+    select_hb2_name = 'Hellblade 2 FSR3 (Only RTX)'
+    
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
 
@@ -1271,6 +1276,9 @@ def backup_files():
             for got_file in select_got_file:
                 sucess_message = search_dll_files(select_got_name,got_file,search_spider)
         
+        if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
+            for hb2_file in select_hb2_file:
+                sucess_message = search_dll_files(select_hb2_name,hb2_file,search_spider)        
     else:
         return 
     
@@ -2063,7 +2071,7 @@ def clean_mod():
             hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
             
             subprocess.run(hb2_reg,check=True)
-    
+            
     if select_option == 'Assassin\'s Creed Valhalla':
         folder_ac = os.path.join(select_folder,'reshade-shaders')
         del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
@@ -4819,6 +4827,33 @@ def remove_post_processing_effects_hell2():
     elif select_mod  == 'Remove All Post Processing Effects':
         config_ini_hell2(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_post_processing) 
     
+    if select_mod == 'Restore Post Processing':
+        path_replace_ini = 'mods\\FSR3_HB2\\Replace_ini\\Engine.ini'
+        
+        var_replace_ini = messagebox.askyesno('Replace INI','Would you like to revert to the post-processing options? (Black bars, film grain, etc.)')
+        
+        if var_replace_ini:
+            if os.path.exists(os.path.join(path_inihb2)):
+                shutil.copy2(path_replace_ini,path_inihb2)
+                messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
+            
+            elif os.path.exists(os.path.join(alt_path_hb2)):
+                shutil.copy2(path_replace_ini,alt_path_hb2) 
+                messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
+            
+            elif select_folder is None: 
+                messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK and then select the option again. If you need further instructions, refer to the Hellblade 2 FSR Guide') 
+                return
+            
+            else:              
+                replace_ini_path = os.path.join(select_folder,'Engine.ini')
+                if os.path.exists(replace_ini_path):
+                    shutil.copy2(path_replace_ini,os.path.dirname(replace_ini_path)) 
+                    messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
+                else:
+                    messagebox.showinfo('INI Not Found','File not found in the specified path. Please select another path or verify if the Engine.ini file is in the selected path.')
+                    return
+            
 def fsr3_hellblade_2():
     global select_folder
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
@@ -4828,7 +4863,7 @@ def fsr3_hellblade_2():
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
         subprocess.run(hb2_reg,check=True)
         
-    elif select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects']:
+    elif select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
         remove_post_processing_effects_hell2()
                            
 install_contr = None
@@ -5558,8 +5593,8 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Hellblade 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
         
     else:
         mod_version_canvas.delete('text')
@@ -5604,7 +5639,7 @@ def update_mod_version(event=None):
     update_nvngx()
     unlock_uni_custom()
     
-    if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects']:
+    if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
         fsr3_hellblade_2()
     
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
