@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8.4v")
+screen.title("FSR3.0 Mod Setup Utility - 1.8.5v")
 screen.geometry("700x590")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -537,7 +537,8 @@ def text_guide():
 'Ghost of Tsushima':(
 '1 - Select Ghost of Tsushima FG DLSS and install\n'
 '2 - In the game, select DLSS Frame Generation\n'   
-'3 - If you encounter any issues related to DX12, select "YES"\nin the "DX12" window that will appear during the installation.\nFirst, test the mod without confirming this window.' 
+'3 - If you encounter any issues related to DX12, select "YES"\nin the "DX12" window that will appear during the installation.\nFirst, test the mod without confirming this window.\n'
+'4 - If you are experiencing any issues with crashes, select\n"Yes" in the "Crash Issues" window that will appear during\nthe mod installation.' 
 ),
 
 'Ghostrunner 2': (
@@ -1101,6 +1102,7 @@ def comp_files(origins_path):
                         if os.path.isfile(file_path):
                             folder_backup = os.path.join(backup_folder, file_backup) 
                             shutil.copy(file_path, folder_backup) 
+                            
                 messagebox.showinfo('Success', 'Backup completed successfully.')
                 backup_cbox.deselect()
             else:
@@ -1197,7 +1199,7 @@ def backup_files():
     select_valhalla_file = ['ReShade.ini','dxgi.dll','ACVUpscalerPreset.ini']
     select_valhalla_name = 'Ac Valhalla DLSS3 (Only RTX)'
     
-    select_got_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll']
+    select_got_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll','GhostOfTsushima.exe']
     select_got_name = 'Ghost of Tsushima FG DLSS'
     
     select_hb2_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
@@ -1223,7 +1225,7 @@ def backup_files():
                         files_copied += 1
                         
                 if files_copied > 0:
-                    return True    
+                    return True   
         except Exception:
             messagebox.showinfo('Error','Failed to create the backup, please try again.')
 
@@ -2058,11 +2060,18 @@ def clean_mod():
         del_all_mods(del_lotf_fsr3,'Lords of the Fallen','uniscaler')
     
     if select_option == 'Ghost of Tsushima':
+        rename_got = 'GhostOfTsushima.exe'
+        path_got_txt = os.path.join(select_folder,'GhostOfTsushima.txt')
+        
         del_all_mods(del_got,'Ghost of Tsushima')
         
         got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
 
         subprocess.run(got_reg,check=True)
+        
+        if os.path.exists(path_got_txt):
+            os.remove(os.path.join(select_folder,'GhostOfTsushima.exe'))
+            os.rename(path_got_txt,os.path.join(select_folder,rename_got))
     
     if select_option == 'Hellblade 2':
         if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
@@ -4717,6 +4726,9 @@ def fsr3_got():
     path_dlss_got = 'mods\\FSR3_GOT\\DLSS FG'
     path_dx12 = 'mods\\FSR3_GOT\\Fix_DX12'
     got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
+    fix_crashes_path = 'mods\\FSR3_GOT\\Fix_Crashes'
+    exe_got = os.path.join(select_folder,'GhostOfTsushima.exe')
+    exe_rename = 'GhostOfTsushima.txt'
     
     if select_option == 'Ghost of Tsushima':
         shutil.copytree(path_dlss_got,select_folder,dirs_exist_ok=True)
@@ -4727,7 +4739,19 @@ def fsr3_got():
 
     if dx12_got:
         shutil.copytree(path_dx12,select_folder,dirs_exist_ok=True)
-
+    
+    
+    crash_got = messagebox.askyesno("Crash Issues",'Would you like to add the files to fix the crash issues?')
+    
+    if crash_got:
+        if os.path.exists(os.path.join(select_folder,'Backup')) and os.path.exists(exe_got):
+            shutil.copy2(exe_got,os.path.join(select_folder,'Backup'))
+        
+        elif os.path.exists(exe_got):
+            os.rename(exe_got,os.path.join(select_folder,exe_rename))
+            
+        shutil.copytree(fix_crashes_path,select_folder,dirs_exist_ok=True)
+        
 def fsr3_the_medium():
     shortcut_medium_path = os.path.join(select_folder,'Medium-Win64-Shipping.exe')
     new_target_path = ('The Medium') 
