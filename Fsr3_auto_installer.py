@@ -29,8 +29,8 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.8.5v")
-screen.geometry("700x590")
+screen.title("FSR3.0 Mod Setup Utility - 1.9v")
+screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
@@ -309,6 +309,9 @@ def text_guide():
 'OptiScaler \n'
 'Is drop-in DLSS2 to XeSS/FSR2 replacement for games.\n'
 'OptiScaler implements all necessary API methods of DLSS2\n& NVAPI to act as a man in the middle. So from games\nperspective it\'s using DLSS2 but actually using OptiScaler\nand calls are interpreted/redirected to XeSS & FSR2.\n\n'  
+'Force add INVERTED_DEPTH: Force add INVERTED_DEPTH to\ninit flags.\n'
+'CAS sharpening for XeSS: Enables CAS sharpening for XeSS.\n'
+'Override DLSS sharpness: Override DLSS sharpness paramater\nwith fixed shapness value\n\n'
 
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
@@ -964,6 +967,8 @@ def text_guide():
         screen_guide.geometry('672x260')
     elif select_game == 'Hellblade 2':
         screen_guide.geometry('535x595')
+    elif select_game == 'Add-on Mods':
+        screen_guide.geometry('550x290')
     else:
         screen_guide.geometry('520x260')
     
@@ -1409,6 +1414,7 @@ addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
 select_addon_dx11 = 'auto'
 select_addon_dx12 = 'auto'
+select_options_optiscaler = None
 select_addon_mods = None
 
 def addon_mods():
@@ -1437,6 +1443,7 @@ def cbox_addon_mods():
         addon_mods_canvas.config(bg='#C0C0C0')
         addon_ups_dx11_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
+        options_optiscaler_canvas.config(bg='#C0C0C0')
         addon_mods_canvas.delete('text')
         select_addon_mods = None
         addon_contr = False
@@ -1459,9 +1466,9 @@ def addon_listbox_contr():
         addon_mods_listbox.place_forget()
         addon_ups_dx11_listbox.place_forget()
         addon_ups_dx12_listbox.place_forget()
+        options_optiscaler_listbox.place_forget()
         addon_view = False
 
-addon_view_dx11 = False
 def addon_dx11_view(event=None):
     global addon_view,addon_contr
     if addon_contr and select_addon_mods == 'OptiScaler':
@@ -1470,9 +1477,8 @@ def addon_dx11_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx11_listbox.place(x=583,y=511)
+            addon_ups_dx11_listbox.place(x=583,y=541)
 
-addon_view_dx12 = False
 def addon_dx12_view(event=None):
     global addon_view,addon_contr
     if addon_contr and select_addon_mods == 'OptiScaler':
@@ -1481,7 +1487,18 @@ def addon_dx12_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx12_listbox.place(x=583,y=541)
+            addon_ups_dx12_listbox.place(x=583,y=571)
+
+def options_optiscaler_view(event=None):
+    global addon_view,addon_contr
+    
+    if addon_contr and select_addon_mods == 'OptiScaler':
+        if addon_view:
+            options_optiscaler_listbox.place_forget()
+            addon_view = False
+        else:
+            addon_view = True
+            options_optiscaler_listbox.place(x=557,y=511)
 
 #Changes the operation of the Optiscaler mod through the .ini file
 def update_ini(path_ini,key,value_ini): 
@@ -1509,11 +1526,12 @@ addon_dx12_origins= {'xess DX12':'xess',
                     'fsr2.2 DX12':'fsr22' }
 
 def update_optiscaler_ini():
+    path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+    value_ini_true = 'true'
     
     if select_addon_dx11 in addon_dx11_origins:
         option_addon = addon_dx11_origins[select_addon_dx11]
-    
-        path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+
         key_dx11 = 'Dx11Upscaler'
         value_ini_dx11 = option_addon
         
@@ -1525,6 +1543,25 @@ def update_optiscaler_ini():
         value_ini_dx12 = option_addon
     
         update_ini(path_ini_dx11,key_dx12,value_ini_dx12)
+    
+    if select_options_optiscaler == 'Enable overlay menu':
+        key_overlay_menu = 'OverlayMenu'
+        update_ini(path_ini_dx11,key_overlay_menu,value_ini_true)
+    
+    if select_options_optiscaler == 'CAS sharpening for XeSS':
+        key_cas = 'Enabled'
+        update_ini(path_ini_dx11,key_cas,value_ini_true)
+    
+    if select_options_optiscaler == 'Override DLSS sharpness':
+        key_dlss_sharp = 'OverrideSharpness'
+        update_ini(path_ini_dx11,key_dlss_sharp,value_ini_true)
+    
+    if select_options_optiscaler == 'Force INVERTED_DEPTH':
+        key_inverted_depth = 'DepthInverted'
+        update_ini(path_ini_dx11,key_inverted_depth,value_ini_true)
+    
+    if select_options_optiscaler == 'Replace ini':
+        replace_ini()
 
 #Replaces the 'used' .ini file with a new one
 def replace_ini():
@@ -1536,20 +1573,28 @@ def replace_ini():
         shutil.copy2(path_ini_origin,folder_ini)
 
 addon_ups_dx12_label = tk.Label(screen,text='Addon Upscaler DX12',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx12_label.place(x=420,y=515)
+addon_ups_dx12_label.place(x=420,y=545)
 addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx12_canvas.place(x=583,y=519)
+addon_ups_dx12_canvas.place(x=583,y=549)
 addon_ups_dx12_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
 addon_ups_dx12_listbox.place(x=583,y=541)
 addon_ups_dx12_listbox.place_forget()
         
 addon_ups_dx11_label = tk.Label(screen,text='Addon Upscaler DX11',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx11_label.place(x=420,y=485)
+addon_ups_dx11_label.place(x=420,y=515)
 addon_ups_dx11_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx11_canvas.place(x=583,y=489)
+addon_ups_dx11_canvas.place(x=583,y=519)
 addon_ups_dx11_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_ups_dx11_listbox.place(x=583,y=511)
+addon_ups_dx11_listbox.place(x=583,y=541)
 addon_ups_dx11_listbox.place_forget()
+
+options_optiscaler_label = tk.Label(screen,text='Optiscaler Options',font=font_select,bg='black',fg='#C0C0C0')
+options_optiscaler_label.place(x=420,y=485)
+options_optiscaler_canvas = tk.Canvas(width=130,height=19,bg='#C0C0C0',highlightthickness=0)
+options_optiscaler_canvas.place(x=557,y=489)
+options_optiscaler_listbox = tk.Listbox(screen,width=22,height=0,bg='white',highlightthickness=0)
+options_optiscaler_listbox.place(x=557,y=511)
+options_optiscaler_listbox.place_forget()
 
 addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
 addon_mods_label.place(x=420,y=455)
@@ -1809,7 +1854,7 @@ def clean_mod():
         path_uni = os.path.join(select_folder,'uniscaler')
         path_uni_asi = os.path.join(select_folder,'Uniscaler.asi')
         
-        if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt)):
+        if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt,fsr_sdk_opt)):
             for item in os.listdir(select_folder):
                 if item in mod_clean_list:
                     os.remove(os.path.join(select_folder,item))
@@ -3722,7 +3767,7 @@ origins_2_2_folder = {
     
     '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
     
-    '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
+    '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_220',
                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
     
     '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
@@ -3731,8 +3776,8 @@ origins_2_2_folder = {
     '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
                 'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
     
-    '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+    '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
     
     '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
                 'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
@@ -3823,8 +3868,8 @@ def fsr_2_1():
         '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210',
                     'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_210',
-                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_210',
+                    'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
         '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210',
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
@@ -3914,8 +3959,8 @@ def fsr_2_0():
         '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_200',
                     'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_200',
-                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_200',
+                    'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
         '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_200',
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
@@ -4002,8 +4047,8 @@ def fsr_sdk():
         '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK',
                     'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
         
-        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\Generic FSR\FSR2FSR3_SDK',
-                    'mods\FSR2FSR3_0.10.1h1\FSR2FSR3_COMMON'],
+        '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_SDK',
+                    'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
         '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK',
                     'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
@@ -5811,11 +5856,14 @@ def update_addon_mods(event=None):
     if select_addon_mods == 'OptiScaler':
         addon_ups_dx11_canvas.config(bg='white')
         addon_ups_dx12_canvas.config(bg='white')
+        options_optiscaler_canvas.config(bg='white')
     elif select_addon_mods != 'OptiScaler' or not addon_contr:
         addon_ups_dx11_canvas.config(bg='#C0C0C0')
         addon_ups_dx11_listbox.place_forget() 
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_listbox.place_forget()
+        options_optiscaler_canvas.config(bg='#C0C0C0')
+        options_optiscaler_listbox.place_forget()
     addon_mods_canvas.update()
 
 addon_op = ['OptiScaler','Tweak']
@@ -5847,6 +5895,23 @@ def update_addon_dx12(event=None):
 addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12']
 for addon_dx12_op in addon_dx12:
     addon_ups_dx12_listbox.insert(tk.END,addon_dx12_op)
+
+def update_options_optiscaler(event=None):
+    global select_options_optiscaler
+    index_options_optiscaler = options_optiscaler_listbox.curselection()
+    if index_options_optiscaler:
+        select_options_optiscaler = options_optiscaler_listbox.get(index_options_optiscaler)
+        options_optiscaler_canvas.delete('text')
+        options_optiscaler_canvas.create_text(2,8,anchor='w',text=select_options_optiscaler,fill='black',tags='text')
+    
+    if select_options_optiscaler in options_optiscaler_opt:
+        update_optiscaler_ini()
+
+    options_optiscaler_canvas.update()
+    
+options_optiscaler_opt = ['Enable overlay menu','CAS sharpening for XeSS','Override DLSS sharpness','Force INVERTED_DEPTH','Replace ini']
+for options_optiscaler_op in options_optiscaler_opt:
+    options_optiscaler_listbox.insert(tk.END,options_optiscaler_op)
 
 def update_uni_custom(event=None):
     global select_uni_custom
@@ -5938,6 +6003,8 @@ addon_ups_dx11_canvas.bind('<Button-1>',addon_dx11_view)
 addon_ups_dx11_listbox.bind('<<ListboxSelect>>',update_addon_dx11)
 addon_ups_dx12_canvas.bind('<Button-1>',addon_dx12_view)
 addon_ups_dx12_listbox.bind('<<ListboxSelect>>',update_addon_dx12)
+options_optiscaler_canvas.bind('<Button-1>',options_optiscaler_view)
+options_optiscaler_listbox.bind('<<ListboxSelect>>',update_options_optiscaler)
 uni_custom_canvas.bind('<Button-1>',uni_custom_res_view)
 uni_custom_listbox.bind('<<ListboxSelect>>',update_uni_custom)
 ue_label.bind('<Enter>',guide_ue)
