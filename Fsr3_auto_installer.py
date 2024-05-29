@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.1v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -311,7 +311,13 @@ def text_guide():
 'OptiScaler implements all necessary API methods of DLSS2\n& NVAPI to act as a man in the middle. So from games\nperspective it\'s using DLSS2 but actually using OptiScaler\nand calls are interpreted/redirected to XeSS & FSR2.\n\n'  
 'Force add INVERTED_DEPTH: Force add INVERTED_DEPTH to\ninit flags.\n'
 'CAS sharpening for XeSS: Enables CAS sharpening for XeSS.\n'
-'Override DLSS sharpness: Override DLSS sharpness paramater\nwith fixed shapness value\n\n'
+'Force ENABLE_AUTOEXPOSURE: Force add ENABLE_AUTOEXPOSURE\nto init flags.\n'
+'Force HDR_INPUT_COLOR: Force add HDR_INPUT_COLOR to init flags.\n'
+'Enable Output Scaling: Enable output scaling option for Dx12 and Dx11\nwith Dx12 backends.\n'
+'Hook SLProxy: If sl.interposer is in memory use it\'s implementation, to create\nDXGIFactory, for frame-generation it is, usually prevent crashed when using\nmenu.\n'
+'Hook SLDevice: If sl.interposer is in memory use it\'s implementation, to create\nD3D12Device, for frame-generation it is, usually prevent crashed when using\nmenu, or Unreal engine games this option is force disabled.\n'
+'Override DLSS sharpness: Override DLSS sharpness paramater with fixed\nshapness value.\n'
+'Sharpening Amplifier: Enable sharpening amplifier based on motion\n\n'
 
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
@@ -968,7 +974,7 @@ def text_guide():
     elif select_game == 'Hellblade 2':
         screen_guide.geometry('535x595')
     elif select_game == 'Add-on Mods':
-        screen_guide.geometry('550x290')
+        screen_guide.geometry('620x480')
     else:
         screen_guide.geometry('520x260')
     
@@ -1559,6 +1565,30 @@ def update_optiscaler_ini():
     if select_options_optiscaler == 'Force INVERTED_DEPTH':
         key_inverted_depth = 'DepthInverted'
         update_ini(path_ini_dx11,key_inverted_depth,value_ini_true)
+        
+    if select_options_optiscaler == 'Force ENABLE_AUTOEXPOSURE':
+        key_autoexposure = 'AutoExposure'
+        update_ini(path_ini_dx11,key_autoexposure,value_ini_true)
+    
+    if select_options_optiscaler == 'Force HDR_INPUT_COLOR':
+        key_hdr = 'HDR'
+        update_ini(path_ini_dx11,key_hdr,value_ini_true)
+    
+    if select_options_optiscaler == 'Enable Output Scaling':
+        key_output = 'OutputScalingEnabled'
+        update_ini(path_ini_dx11,key_output,value_ini_true)
+    
+    if select_options_optiscaler == 'Hook SLDevice':
+        key_device = 'HookSLDevice'
+        update_ini(path_ini_dx11,key_device,value_ini_true)
+    
+    if select_options_optiscaler == 'Hook SLProxy':
+        key_sldevice = 'Hook SLDevice'
+        update_ini(path_ini_dx11,key_sldevice,value_ini_true)
+    
+    if select_options_optiscaler == 'Sharpening Amplifier':
+        key_motion_sharp = 'MotionSharpnessEnabled'
+        update_ini(path_ini_dx11,key_motion_sharp,value_ini_true)
     
     if select_options_optiscaler == 'Replace ini':
         replace_ini()
@@ -5909,7 +5939,7 @@ def update_options_optiscaler(event=None):
 
     options_optiscaler_canvas.update()
     
-options_optiscaler_opt = ['Enable overlay menu','CAS sharpening for XeSS','Override DLSS sharpness','Force INVERTED_DEPTH','Replace ini']
+options_optiscaler_opt = ['Enable overlay menu','CAS sharpening for XeSS','Override DLSS sharpness','Force INVERTED_DEPTH','Force HDR_INPUT_COLOR','Force ENABLE_AUTOEXPOSURE','Enable Output Scaling','Hook SLDevice','Hook SLProxy','Sharpening Amplifier','Replace ini']
 for options_optiscaler_op in options_optiscaler_opt:
     options_optiscaler_listbox.insert(tk.END,options_optiscaler_op)
 
