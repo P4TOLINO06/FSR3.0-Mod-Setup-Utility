@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.1v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.2v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -317,7 +317,14 @@ def text_guide():
 'Hook SLProxy: If sl.interposer is in memory use it\'s implementation, to create\nDXGIFactory, for frame-generation it is, usually prevent crashed when using\nmenu.\n'
 'Hook SLDevice: If sl.interposer is in memory use it\'s implementation, to create\nD3D12Device, for frame-generation it is, usually prevent crashed when using\nmenu, or Unreal engine games this option is force disabled.\n'
 'Override DLSS sharpness: Override DLSS sharpness paramater with fixed\nshapness value.\n'
-'Sharpening Amplifier: Enable sharpening amplifier based on motion\n\n'
+'Sharpening Amplifier: Enable sharpening amplifier based on motion.\n'
+'Sync After Dx12: Start output copy back sync after or before Dx12 execution.\n'
+'Use Delay Init: Delay some operations during creation of D11-Dx12 features\nto increase compatibility.\n'
+'Build Pipelines: Building pipeline for XeSS before init.\n'
+'Create Heaps:  Creating heap objects for XeSS before init.\n'
+'Drs MinOverride: Set this to true to enable limiting DRS min resolution to\nrendering resolution.\n'
+'Drs MaxOverride: Set this to true to enable limiting DRS max resolution to\nrendering resolution.\n'
+'Disable Reactive Mask: Force remove RESPONSIVE_PIXEL_MASK from init\nflags.\n\n'
 
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
@@ -974,7 +981,7 @@ def text_guide():
     elif select_game == 'Hellblade 2':
         screen_guide.geometry('535x595')
     elif select_game == 'Add-on Mods':
-        screen_guide.geometry('620x480')
+        screen_guide.geometry('620x660')
     else:
         screen_guide.geometry('520x260')
     
@@ -1590,6 +1597,34 @@ def update_optiscaler_ini():
         key_motion_sharp = 'MotionSharpnessEnabled'
         update_ini(path_ini_dx11,key_motion_sharp,value_ini_true)
     
+    if select_options_optiscaler == 'Sync After Dx12':
+        key_sync_dx12 = 'SyncAfterDx12'
+        update_ini(path_ini_dx11,key_sync_dx12,value_ini_true)
+    
+    if select_options_optiscaler == 'Use Delay Init':
+        key_delay_dx12 = 'UseDelayedInit'
+        update_ini(path_ini_dx11,key_delay_dx12,value_ini_true)
+    
+    if select_options_optiscaler == 'Build Pipelines':
+        key_pipelines= 'BuildPipelines'
+        update_ini(path_ini_dx11,key_pipelines,value_ini_true)
+    
+    if select_options_optiscaler == 'Create Heaps':
+        key_heaps = 'CreateHeaps'
+        update_ini(path_ini_dx11,key_heaps,value_ini_true)
+    
+    if select_options_optiscaler == 'Drs MinOverride':
+        key_drs = 'DrsMinOverrideEnabled'
+        update_ini(path_ini_dx11,key_drs,value_ini_true)
+    
+    if select_options_optiscaler == 'Drs MaxOverride':
+        key_drs_max = 'DrsMaxOverrideEnabled'
+        update_ini(path_ini_dx11,key_drs_max,value_ini_true)
+    
+    if select_options_optiscaler == 'Disable Reactive Mask':
+        key_mask = 'DisableReactiveMask'
+        update_ini(path_ini_dx11,key_mask,value_ini_true)
+    
     if select_options_optiscaler == 'Replace ini':
         replace_ini()
 
@@ -1871,7 +1906,7 @@ def clean_mod():
     del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     
-    del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll']
+    del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll','no-filmgrain.reg']
     
     del_hfw_fsr = ['version.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
     
@@ -2137,17 +2172,29 @@ def clean_mod():
     if select_option == 'Ghost of Tsushima':
         rename_got = 'GhostOfTsushima.exe'
         path_got_txt = os.path.join(select_folder,'GhostOfTsushima.txt')
-        
-        del_all_mods(del_got,'Ghost of Tsushima')
-        
+        reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
         got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
-
-        subprocess.run(got_reg,check=True)
+        
+        try:
+            if os.path.exists(os.path.join(select_folder,'no-filmgrain.reg')):
+                restore_post_processing = messagebox.askyesno('Restore Post Processing','Would you like to restore the post-processing effects?')
+                
+                if restore_post_processing:
+                    for file_reg in os.listdir(reg_folder):
+                        if file_reg.endswith('.reg'):
+                            reg_path = os.path.join(reg_folder,file_reg)
+                            
+                            subprocess.run(['reg','import',reg_path],check=True)
+        except Exception as e:
+            messagebox.showerror('Error','It was not possible to remove the post-processing effects. Please try again.')
         
         if os.path.exists(path_got_txt):
             os.remove(os.path.join(select_folder,'GhostOfTsushima.exe'))
             os.rename(path_got_txt,os.path.join(select_folder,rename_got))
-    
+        
+        subprocess.run(got_reg,check=True)
+        del_all_mods(del_got,'Ghost of Tsushima')
+             
     if select_option == 'Hellblade 2':
         if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
             
@@ -4804,6 +4851,8 @@ def fsr3_got():
     fix_crashes_path = 'mods\\FSR3_GOT\\Fix_Crashes'
     exe_got = os.path.join(select_folder,'GhostOfTsushima.exe')
     exe_rename = 'GhostOfTsushima.txt'
+    post_processing_got_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing'
+    path_var_post_processing_got = 'mods\\FSR3_GOT\\Remove_Post_Processing\\no-filmgrain.reg'
     
     if select_option == 'Ghost of Tsushima':
         shutil.copytree(path_dlss_got,select_folder,dirs_exist_ok=True)
@@ -4826,7 +4875,23 @@ def fsr3_got():
             os.rename(exe_got,os.path.join(select_folder,exe_rename))
             
         shutil.copytree(fix_crashes_path,select_folder,dirs_exist_ok=True)
+    
+    remove_post_processing_got = messagebox.askyesno('Remove Post Processing','Would you like to remove the post-processing effects? (Film grain, Mouse Smoothing, etc.)')
+    
+    try:
         
+        if remove_post_processing_got:
+            for file_post in os.listdir(post_processing_got_folder):
+                if file_post.endswith('.reg'):
+                    reg_got_path = os.path.join(post_processing_got_folder,file_post)
+                    subprocess.run(['reg','import',reg_got_path],check=True)
+            
+            shutil.copy2(path_var_post_processing_got,select_folder)
+            
+    except Exception as e:
+        messagebox.showinfo('Error','It was not possible to remove the post-processing effects.')
+        print(e)
+    
 def fsr3_the_medium():
     shortcut_medium_path = os.path.join(select_folder,'Medium-Win64-Shipping.exe')
     new_target_path = ('The Medium') 
