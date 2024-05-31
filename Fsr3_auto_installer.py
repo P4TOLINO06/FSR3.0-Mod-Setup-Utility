@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.2v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.3v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -578,7 +578,8 @@ def text_guide():
 'All GPUs\n'
 '1 - Select Uniscaler V2 (you can also test with the other mods)\n'
 '2 - Check the box for Fake Nvidia GPU (AMD) and check the\nbox for UE compatibility mode (AMD and Nvidia)\n'
-'3 - In-game, select Frame Generation\n\n'
+'3 - In-game, select Frame Generation\n'
+'• If you can\'t see the DLSS option in the game, select\n"YES" in the "DLSS Fix" window during installation. \n\n'
 '• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
 '• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if\nthe Engine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.\n\n' 
 '• To remove only the main effects, such as Lens Distortion,\nBlack Bars, and Chromatic Aberration, select Remove Post\nProcessing.\n\n'
@@ -4915,13 +4916,17 @@ def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
         
         game_folder_canvas.delete('text')
         game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
-        config_ini_hb2 = ConfigObj(path_ini)
+      
+        with open(path_ini, 'a') as configfile:
+           
+            if configfile.tell() > 0:
+                configfile.write("\n")
+            
+            configfile.write(f"\n[{key_ini}]\n")
 
-        config_ini_hb2[key_ini] = {}
-
-        config_ini_hb2[key_ini] = value_ini
-
-        config_ini_hb2.write()
+            for key, value in value_ini.items():
+                configfile.write(f"{key}={value}\n")
+           
         messagebox.showinfo('Sucess',message_hb2)
     else:
         messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
@@ -5022,13 +5027,20 @@ def fsr3_hellblade_2():
     global select_folder
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
     hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
+    fix_dlss_hb2 = 'mods\\FSR3_HB2\\Fix_rtx_gtx'
     
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
         subprocess.run(hb2_reg,check=True)
-        
-    elif select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
+    
+    if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
         remove_post_processing_effects_hell2()
+
+    if select_mod not in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
+        fix_dlss = messagebox.askyesno('DLSS fix','Do you want to install the nvngx.dll file? (recommended for users who cannot see DLSS in the game)')
+    
+        if fix_dlss:
+            shutil.copytree(fix_dlss_hb2,select_folder,dirs_exist_ok=True)
                            
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
