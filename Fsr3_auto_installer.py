@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.3v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.4v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -815,7 +815,11 @@ def text_guide():
 'Spider Man/Miles':(
 '1 - Select a mod of your preference\n'
 '2 - The Uniscaler Spider does not require any additional\nconfiguration initially, just install it. If you choose another\nmod or the Dlss Frame Generation option is not available,\ncheck the Fake Nvidia Gpu box. (only Amd)\n'
-'3 - In-game, select an upscaler and enable Dlss Frame\nGeneration.'   
+'3 - In-game, select an upscaler and enable Dlss Frame\nGeneration.\n\n'
+'Uni Custom Miles\n'
+'1 -Check the Fake Nvidia GPU box (if you can\'t see DLSS in\nthe game, check the Nvapi Results box as well).\n'
+'2 - On the initial configuration screen, select DLSS or XESS\nand check the Frame Generation box.\n'
+'3 - If you have an RTX, you can improve image quality by\nselecting \'DLSS\' in Mode Settings'   
 ),
 
 'Star Wars: Jedi Survivor':(
@@ -983,6 +987,8 @@ def text_guide():
         screen_guide.geometry('535x595')
     elif select_game == 'Add-on Mods':
         screen_guide.geometry('620x660')
+    elif select_game == 'Spider Man/Miles':
+        screen_guide.geometry('520x280')
     else:
         screen_guide.geometry('520x260')
     
@@ -1932,8 +1938,7 @@ def clean_mod():
             
             if os.path.exists(path_uni):
                 shutil.rmtree(path_uni)
-                    
-        
+                        
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
     
@@ -2608,7 +2613,6 @@ def unlock_custom():
 
 def cbox_custom_fsr():
     global custom_fsr_act
-    print(custom_fsr_var.get())
     if custom_fsr_var.get() == 0:
         custom_fsr_act = False
         fsr_balanced_canvas.configure(bg='#C0C0C0')
@@ -2927,6 +2931,7 @@ folder_fake_gpu ={
     'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
 }
 
 def fake_gpu_mod():
@@ -2938,7 +2943,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uni Custom Miles']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -2975,7 +2980,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uni Custom Miles']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -3098,7 +3103,8 @@ list_nvapi = {
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
-    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_nvapi():
     global list_nvapi
@@ -3235,7 +3241,8 @@ default_path ={
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
     'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
 }
 
 replace_flag = False 
@@ -3260,7 +3267,8 @@ def replace_clean_file():
             'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu',
             'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
             'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu',
-            'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\enable_fake_gpu'
+            'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\enable_fake_gpu',
+            'Uni Custom Miles':'mods\\FSR2FSR3_Miles\\uni_miles_toml'
         }
         
         clean_file_rep = {
@@ -3279,13 +3287,14 @@ def replace_clean_file():
             'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
             'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu',
             'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu',
+            'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu'
         }
 
         if select_mod in clean_file and select_mod in clean_file_rep:
             clean_file_copy = clean_file[select_mod]
             rep_clean_file = clean_file_rep[select_mod]
 
-        if os.path.isdir(clean_file_copy ) and os.path.isdir(rep_clean_file):
+        if os.path.isdir(clean_file_copy) and os.path.isdir(rep_clean_file):
             for file_clean in os.listdir(clean_file_copy):
                 c_file = os.path.join(clean_file_copy,file_clean)
                 if os.path.isfile(c_file):
@@ -3523,7 +3532,8 @@ def edit_mod_operates():
     '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
-    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml'
+    'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
+    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
     
     if select_mod in mod_folder_list:
@@ -3531,17 +3541,17 @@ def edit_mod_operates():
         key_mod_operates = 'general'
         
     if select_mod == '0.9.0' and select_mod_operates == 'Enable Upscaling Only':
-        print(select_mod_operates)
         options_mod_op = 'enable_upscaling_only'
         select_mod_op_options = True
     elif select_mod == '0.9.0' and select_mod_operates == 'Default':
         options_mod_op = 'enable_upscaling_only'
         select_mod_op_options = False
-    elif select_mod != '0.9.0' and select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss' or select_mod != 'Uniscaler V2':
+    elif select_mod != '0.9.0' and select_mod != 'Uniscaler' and select_mod != 'Uniscaler + Xess + Dlss' and select_mod != 'Uniscaler V2' and select_mod != 'Uni Custom Miles':
         options_mod_op = 'mode'
         select_mod_op_options = str(select_mod_operates).lower().replace(" ", '_')
-    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss' or select_mod == 'Uniscaler V2':
+    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss' or select_mod == 'Uniscaler V2' or select_mod == 'Uni Custom Miles':
         options_mod_op = 'upscaler'
+        print('MILEs')
         select_mod_op_options = str(select_mod_operates).lower()
              
     if mod_operates_folder is not None: 
@@ -4100,7 +4110,6 @@ def fsr_2_0():
                 file_fsr_2_1 = os.path.join(origins_2_0_f,i_2_1)
                 if os.path.isfile(file_fsr_2_1):
                     shutil.copy2(file_fsr_2_1,select_folder)
-            print("Files from directory", origins_2_0_f, "were copied.")
     except Exception as e:
         print(e)
 
@@ -5041,6 +5050,11 @@ def fsr3_hellblade_2():
     
         if fix_dlss:
             shutil.copytree(fix_dlss_hb2,select_folder,dirs_exist_ok=True)
+
+def fsr3_miles():
+    path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
+    
+    shutil.copytree(path_uni_custom_miles,select_folder,dirs_exist_ok=True)
                            
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -5271,7 +5285,7 @@ def get_mod_version_canvas():
         continue_install = False
   
 def install(event=None):
-    global install_contr,var_d_put,continue_install
+    global install_contr,var_d_put,continue_install,replace_flag
     try:
         install_contr = True       
         get_mod_version_canvas()
@@ -5318,6 +5332,8 @@ def install(event=None):
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
             spider_fsr()
+        if select_mod == 'Uni Custom Miles':
+            fsr3_miles()
             
         if select_option == 'Cod Black Ops Cold War':
             cod_fsr()
@@ -5374,7 +5390,9 @@ def install(event=None):
             messagebox.showinfo('Error','Please fill out the first 3 options, Select Game, Select Folder, and Mod Options.')
         
         fps_limit()
+        replace_flag = True
         replace_clean_file()
+        replace_flag = False
 
         install_label.configure(fg='black')
         screen.after(100,install_false)
@@ -5736,6 +5754,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Uniscaler Spider','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+    
+    elif select_option == 'Marvel\'s Spider-Man Miles Morales':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Uni Custom Miles','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'GTA V':
         mod_text() 
@@ -5895,7 +5918,7 @@ def select_mod_op_lock():
         unlock_listbox_mod_op = True
         mod_operates_canvas.config(bg='white')
         
-    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss' or select_mod == 'Uniscaler V2':
+    elif select_mod == 'Uniscaler' or select_mod == 'Uniscaler + Xess + Dlss' or select_mod == 'Uniscaler V2' or select_mod == 'Uni Custom Miles':
         mod_op_list = ['FSR3','DLSS','XESS']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
