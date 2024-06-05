@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.4v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.5v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1214,6 +1214,10 @@ def backup_files():
     search_spider = select_mod
     select_spider_name = 'Uniscaler Spider'
     
+        
+    select_miles_file = ['winmm.dll','winmm.ini']
+    select_miles_name = 'Uni Custom Miles'
+    
     select_lotf_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     select_lotf_name = 'Lords of The Fallen FSR3'
@@ -1305,7 +1309,11 @@ def backup_files():
         
         if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
             for hb2_file in select_hb2_file:
-                sucess_message = search_dll_files(select_hb2_name,hb2_file,search_spider)        
+                sucess_message = search_dll_files(select_hb2_name,hb2_file,search_spider)  
+        
+        if select_mod == 'Uni Custom Miles':
+            for miles_files in select_miles_file:
+                sucess_message = search_dll_files(select_miles_name,miles_files,search_spider)      
     else:
         return 
     
@@ -2202,12 +2210,21 @@ def clean_mod():
         del_all_mods(del_got,'Ghost of Tsushima')
              
     if select_option == 'Hellblade 2':
+        cpu_reg = ['regedit.exe', '/s', "mods\\FSR3_HB2\\Cpu_Hb2\\Uninstall Hellblade 2 CPU Priority.reg"]
+        
         if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
             
             del_all_mods(del_hb2,'Hellblade 2')
             hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
             
             subprocess.run(hb2_reg,check=True)
+        
+        if os.path.exists(os.path.join(select_folder,"Install Hellblade 2 CPU Priority.reg")):
+            cpu_message = messagebox.askyesno("Anti Stutter","Would you like to remove the Anti Stutter?")
+            
+            if cpu_message:
+                pass
+                subprocess.run(cpu_reg,check=True)
             
     if select_option == 'Assassin\'s Creed Valhalla':
         folder_ac = os.path.join(select_folder,'reshade-shaders')
@@ -2350,7 +2367,7 @@ def cbox_debug_view():
     global var_deb_view
     var_deb_view = bool(debug_view_var.get())
     edit_debug_view()
-
+    
 def edit_debug_view():
     global var_deb_view
     debug_view_mod_list = {
@@ -3115,7 +3132,7 @@ def edit_nvapi():
     if select_mod in list_nvapi:
         nvapi_folder = list_nvapi[select_mod]
     else:
-        messagebox.showwarning('Error','Please select a mod version starting from 0.10.2h.')
+        messagebox.showwarning('Error','Please select a mod version starting from 0.10.2h1.')
         nvapi_cbox.deselect()
     
     if nvapi_folder is not None:
@@ -3251,6 +3268,7 @@ def rep_flag():
     replace_flag = True
 
 def replace_clean_file():
+    clean_file_copy = ""
     if replace_flag:
         clean_file = {
             '0.7.4':'mods\FSR2FSR3_0.7.4\enable_fake_gpu',
@@ -3289,7 +3307,7 @@ def replace_clean_file():
             'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu',
             'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu'
         }
-
+        
         if select_mod in clean_file and select_mod in clean_file_rep:
             clean_file_copy = clean_file[select_mod]
             rep_clean_file = clean_file_rep[select_mod]
@@ -3932,7 +3950,6 @@ def fsr_2_2():
                 file_fsr_2_2 = os.path.join(origins_2_2_f,i_2_2)
                 if os.path.isfile(file_fsr_2_2):
                     shutil.copy2(file_fsr_2_2,select_folder)
-            print("Files from directory", origins_2_2_f, "were copied.")
     except Exception as e:
         print(e)
     
@@ -5037,6 +5054,7 @@ def fsr3_hellblade_2():
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
     hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
     fix_dlss_hb2 = 'mods\\FSR3_HB2\\Fix_rtx_gtx'
+    cpu_reg = ['regedit.exe', '/s', "mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg"]
     
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
@@ -5050,7 +5068,14 @@ def fsr3_hellblade_2():
     
         if fix_dlss:
             shutil.copytree(fix_dlss_hb2,select_folder,dirs_exist_ok=True)
-
+    
+    if select_mod not in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
+        cpu_message = messagebox.askyesno("Anti Stutter","Would you like to apply the Anti Stutter? It can reduce game stuttering.")
+        
+        if cpu_message:
+            subprocess.run(cpu_reg,check=True)
+            shutil.copy2("mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg",select_folder)
+        
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
     

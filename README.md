@@ -1,1 +1,1 @@
-Download the FSR3.0-Mod-Setup-Utility [Here](https://sharemods.com/2ejhdk8labjz/FSR3_v1.9.4.rar.ht)
+Download the FSR3.0-Mod-Setup-Utility [Here](https://sharemods.com/6fqje3otd9ks/FSR3_v1.9.5.rar.html)
