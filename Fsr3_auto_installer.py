@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.6v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.7v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1240,6 +1240,9 @@ def backup_files():
     select_hb2_file = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg']
     select_hb2_name = 'Hellblade 2 FSR3 (Only RTX)'
     
+    select_cb2077_file = ['nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
+    select_cb2077_name = "RTX DLSS FG"
+    
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
 
@@ -1324,6 +1327,10 @@ def backup_files():
         if select_mod == "Dlss Jedi":
             for jedi_files in  select_miles_file:
                 sucess_message = search_dll_files(select_jedi_name,jedi_files,search_spider) 
+        
+        if select_option == "Cyberpunk 2077" and select_mod == "RTX DLSS FG":
+            for cb2077_files in select_cb2077_file:
+                sucess_message = search_dll_files(select_cb2077_name,cb2077_files,search_spider)
            
     else:
         return 
@@ -1932,6 +1939,8 @@ def clean_mod():
     del_lotf_fsr3 = ['version.dll','RestoreNvidiaSignatureChecks.reg','nvngx.dll','launch.bat','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg',
                         'Uniscaler.asi','DisableEasyAntiCheat.bat','winmm.dll','winmm.ini']
     
+    del_cb2077 = ['nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
+    
     del_got = ['version.dll','RestoreNvidiaSignatureChecks.reg','dxgi.dll','dlssg_to_fsr3_amd_is_better.dll','DisableNvidiaSignatureChecks.reg','d3d12core.dll','d3d12.dll','no-filmgrain.reg']
     
     del_hfw_fsr = ['version.dll','nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','fsr2fsr3.config.toml','FSR2FSR3.asi','','lfz.sl.dlss.dll','winmm.dll','winmm.ini','libxess.dll']
@@ -2004,6 +2013,29 @@ def clean_mod():
     new_xess = os.path.join(select_folder,'libxess.dll')
     rename_old_xess = 'libxess.dll'
     
+    try:
+        if select_option == "Cyberpunk 2077":
+            path_mods_cb2077 = os.path.join(select_folder,"archive\\pc\\mod")
+            mods_files = ["#####-NovaLUT-2.archive","HD Reworked Project.archive"]
+            cb2077_reg = ['regedit.exe', '/s', "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"]
+            
+            if select_mod == "RTX DLSS FG":
+                for file_del in os.listdir(select_folder):
+                    if file_del in del_cb2077:
+                        os.remove(os.path.join(select_folder,file_del)) 
+                subprocess.run(cb2077_reg,check=True)
+            
+            if os.path.exists(path_mods_cb2077 + "\\#####-NovaLUT-2.archive"):
+                
+                remove_mods_cb2077 = messagebox.askyesno("Mods","Would you like to remove the mods? Nova Lut and Cyberpunk 2077 HD Reworked")
+                
+                if remove_mods_cb2077:
+                    for files in mods_files:
+                        full_path_mods = os.path.join(path_mods_cb2077,files)
+                        os.remove(full_path_mods)
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+            
     try:
         if select_mod == 'Uniscaler' or select_mod == 'Uniscaler V2':
             if os.path.exists(name_xess):
@@ -2169,7 +2201,7 @@ def clean_mod():
             hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\RestoreNvidiaSignatureChecks.reg"]
             hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"]
             rtx_files = os.path.exists(os.path.join(select_folder,'RestoreNvidiaSignatureChecks.reg'))
-            
+            original_exe = os.path.join(select_folder,"HorizonForbiddenWestOriginalEXE.txt")
             
             if rtx_files:
                 subprocess.run(hfw_rtx_reg,check=True)
@@ -2179,6 +2211,10 @@ def clean_mod():
             for i_hfw in os.listdir(select_folder):
                 if i_hfw in del_hfw_fsr:
                     os.remove(os.path.join(select_folder,i_hfw))
+            
+            if os.path.exists(original_exe):
+                os.remove(os.path.join(select_folder,"HorizonForbiddenWest.exe"))
+                os.rename(original_exe,os.path.join(select_folder,"HorizonForbiddenWest.exe"))
 
     except Exception as e:
         print(e)
@@ -3946,7 +3982,7 @@ def fsr_2_2():
         except shutil.Error as e:
             print(e)
     
-    if select_mod in asi_global and(select_asi  in asi_global[select_mod] or option_asi in asi_global[select_mod]):
+    if select_mod in asi_global and(select_asi in asi_global[select_mod] or option_asi in asi_global[select_mod]):
         if select_mod in asi_global[select_mod]:
             origins_2_2_f = asi_global[select_mod][select_asi]
         elif select_mod in asi_global[select_mod]:
@@ -4849,6 +4885,8 @@ def hfw_fsr3():
     hfw_ot_gpu = 'mods\\FSR3_Callisto\\FSR_Callisto'
     hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\DisableNvidiaSignatureChecks.reg"]
     hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"]
+    path_crash_fix= "mods\\FSR3_HFW\\Crash_Fix"
+    path_exe = os.path.join(select_folder,"HorizonForbiddenWest.exe")
     
     if select_mod == 'Horizon Forbidden West FSR3':
         var_gpu = messagebox.askyesno('GPU','Do you have an RTX GPU?')
@@ -4862,6 +4900,13 @@ def hfw_fsr3():
             shutil.copytree(hfw_ot_gpu,select_folder,dirs_exist_ok=True)
             shutil.copy2(xess_hfw,select_folder)
             subprocess.run(hfw_ot_gpu_reg,check=True)
+    
+    crash_fix_hfw = messagebox.askyesno("Crash Fix","Would you like to install the crash fix?")
+    
+    if crash_fix_hfw:
+        if os.path.exists(path_exe):
+            os.rename(path_exe, os.path.join(select_folder,"HorizonForbiddenWestOriginalEXE.txt"))
+        shutil.copytree(path_crash_fix, select_folder, dirs_exist_ok=True)
 
 def fsr3_control():
     path_nvngx_control = 'mods\\FSR3_Control'
@@ -5100,6 +5145,22 @@ def fsr3_miles():
 def fsr3_jedi():
     path_uni_jedi = "mods\\FSR2FSR3_Miles\\Uni_Custom_miles"
     shutil.copytree(path_uni_jedi,select_folder,dirs_exist_ok=True)
+
+def fsr3_cyber():
+    path_mods = {"mods\\FSR3_CYBER2077\\mods\\Cyberpunk 2077 HD Reworked",
+                 "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1"}
+    path_rtx_dlss = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal"
+    cb2077_reg = ['regedit.exe', '/s', "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"]
+    
+    if select_mod == "RTX DLSS FG":
+        shutil.copytree(path_rtx_dlss,select_folder,dirs_exist_ok=True)
+        subprocess.run(cb2077_reg,check=True)
+    
+    mods_message = messagebox.askyesno("Mods","Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?")
+    
+    if mods_message:
+        for path_cb2077 in path_mods:
+            shutil.copytree(path_cb2077,select_folder,dirs_exist_ok=True)
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -5390,6 +5451,8 @@ def install(event=None):
             if not var_dinput_gtav:
                 return
 
+        if select_option == "Cyberpunk 2077":
+            fsr3_cyber()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
@@ -5846,6 +5909,11 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'STAR WARS Jedi: Survivor':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Dlss Jedi','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Cyberpunk 2077':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
         
     else:
