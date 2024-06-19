@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.7v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.8v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -4547,7 +4547,8 @@ def us_dd2(var_d_put,origins_dd2):
                     os.remove(os.path.join(select_folder,shader_c2))
 
 er_origins = {'Disable_Anti-Cheat':'mods\Elden_Ring_FSR3\ToggleAntiCheat',
-              'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3'}
+              'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3',
+              'Elden_Ring_FSR3 V2':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v2'}
 def elden_fsr3():
     global er_origins
     
@@ -5819,7 +5820,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Elden Ring':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3')
+        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2')
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
