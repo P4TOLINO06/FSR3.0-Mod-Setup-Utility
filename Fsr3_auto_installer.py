@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 1.9.8v")
+screen.title("FSR3.0 Mod Setup Utility - 1.9.9v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -260,7 +260,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
@@ -415,6 +415,12 @@ def text_guide():
 '2 - Check the Fake Nvidia Gpu box. (Amd/Gtx).\n'
 '3 - Check the Enable Signature Override box.\n'
 '4 - Before installing, configure the game as you wish, do not\nchange the settings or turn off DLSS after the mod is\ninstalled, as the game will crash.'    
+),
+
+'Crime Boss Rockay City':(
+'1 - Select a mod of your choice (0.10.4 is recommended).\n'
+'2 - Check the Fake Nvidia GPU box for AMD/GTX users.\nIf you can\'t see DLSS in the game, check the Nvapi Results\nand UE Compatibility Mode boxes.\n'
+'3 - In the game, turn off Anti-Aliasing and select DLSS as\nthe upscaler.'  
 ),
 
 'Cyberpunk 2077':(
@@ -1916,6 +1922,8 @@ def clean_mod():
                      'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
                      'dxgi.dll','d3dcompiler_47.dll','']
     
+    del_elden_fsr3_v3 = ['ERSS2.dll','dxgi.dll']
+    
     del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
     
     del_fl4_fsr3 = ['f4se_whatsnew.txt','f4se_steam_loader.dll','f4se_readme.txt','f4se_loader.exe','f4se_1_10_163.dll',
@@ -1993,7 +2001,7 @@ def clean_mod():
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
      
     try:
-        if select_option == 'Elden Ring':
+        if select_option == 'Elden Ring' and select_mod != 'Elden_Ring_FSR3_V3':
             for item in os.listdir(select_folder):
                 if item in mod_clean_list or item in del_elden_fsr3:
                     os.remove(os.path.join(select_folder,item))
@@ -2002,7 +2010,13 @@ def clean_mod():
                 er_reshade = os.path.join(select_folder, 'reshade-shaders')
                 if os.path.exists(er_mods or er_reshade):
                     shutil.rmtree(er_reshade)
-                    shutil.rmtree(er_mods)           
+                    shutil.rmtree(er_mods)    
+        elif select_option == 'Elden Ring' and select_mod == 'Elden_Ring_FSR3_V3':
+            for itemv3 in os.listdir(select_folder):
+                if itemv3 in del_elden_fsr3_v3:
+                    os.remove(os.path.join(select_folder,itemv3))  
+            if os.path.exists(os.path.join(select_folder,'ERSS2')):
+                shutil.rmtree(os.path.join(select_folder,'ERSS2'))  
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
     
@@ -4548,7 +4562,8 @@ def us_dd2(var_d_put,origins_dd2):
 
 er_origins = {'Disable_Anti-Cheat':'mods\Elden_Ring_FSR3\ToggleAntiCheat',
               'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3',
-              'Elden_Ring_FSR3 V2':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v2'}
+              'Elden_Ring_FSR3 V2':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v2',
+              'Elden_Ring_FSR3_V3':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v3'}
 def elden_fsr3():
     global er_origins
     
@@ -4802,6 +4817,7 @@ def spider_fsr():
 def gtav_fsr3():
     dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
     gtav_fsr3_path ='mods\\FSR3_GTAV\\GtaV_B02_FSR3'
+    gta_v_epic = 'mods\\FSR3_GTAV\\Gtav_Epic'
     file_dxgi_asi = os.path.join(select_folder,'dxgi.asi')
     file_gtavups_asi = os.path.join(select_folder,'GTAVUpscaler.asi')
     file_gtavups_org = os.path.join(select_folder,'GTAVUpscaler.org.asi')
@@ -4851,6 +4867,10 @@ def gtav_fsr3():
 
     elif select_mod == 'GTA V Epic':
         shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        return True
+    
+    elif select_mod == 'GTA V Epic V2':
+        shutil.copytree(gta_v_epic,select_folder,dirs_exist_ok=True)
         return True
 
 def lotf_fsr3():
@@ -5171,7 +5191,7 @@ fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
 
-fsr_2_0_opt = ['Alone in the Dark','Deathloop','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Jusant','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
+fsr_2_0_opt = ['Alone in the Dark','Deathloop','Crime Boss Rockay City','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Jusant','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
 fsr_sdk_opt = ['Ratchet & Clank - Rift Apart','Pacific Drive','MOTO GP 24']
 
@@ -5692,6 +5712,7 @@ fsr_game_version={
     'Chernobylite':'2.1',
     'Cod Black Ops Cold War':'2.2',
     'Control':'2.2',
+    'Crime Boss Rockay City':'2.0',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Deathloop':'2.0',
@@ -5820,7 +5841,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Elden Ring':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2')
+        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','Elden_Ring_FSR3_V3')
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
@@ -5874,7 +5895,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'GTA V':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online','GTA V Epic')
+        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online','GTA V Epic','GTA V Epic V2')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'Lords of the Fallen':
@@ -5925,7 +5946,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
