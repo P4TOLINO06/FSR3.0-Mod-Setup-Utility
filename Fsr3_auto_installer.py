@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.0v")
+screen.title("FSR3.0 Mod Setup Utility - 2.1v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -63,10 +63,10 @@ canvas_options = Canvas(screen,width=200,height=15,bg='white')
 canvas_options.place(x=101,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
-exit_label.place(x=355,y=488)
+exit_label.place(x=355,y=515)
 
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
-install_label.place(x=295,y=488)
+install_label.place(x=295,y=515)
 
 def search_un():
     local_disk_names = []
@@ -183,7 +183,7 @@ def disable_epic_over(event=None):
          
 def guide_epic(event=None):
     epic_label_guide.config(text='Enable or disable the Epic Games Overlay, the Overlay along with the FSR3 mod can cause bugs and crashes in some games')
-    epic_label_guide.place(x=0,y=450)
+    epic_label_guide.place(x=0,y=480)
     epic_label_guide.lift()
 
 def close_guide_epic(event=None):
@@ -193,26 +193,26 @@ epic_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',
 epic_label_guide.place_forget()
 
 epic_over_label = tk.Label(screen,text='Epic Games Overlay:',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_label.place(x=0,y=425)
+epic_over_label.place(x=0,y=455)
 
 epic_over_canvas = tk.Canvas(screen,width=162,height=19,bg='white',highlightthickness=0)
-epic_over_canvas.place(x=152,y=430)
+epic_over_canvas.place(x=152,y=460)
 
 epic_over_browser_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 epic_over_browser_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
-epic_over_browser_canvas.place(x=340,y=430)
+epic_over_browser_canvas.place(x=340,y=460)
 
 epic_over_marc_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_marc_label.place(x=319,y=425)
+epic_over_marc_label.place(x=319,y=455)
 
 epic_over_disable_label = tk.Label(screen,text='Disable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_disable_label.place(x=330,y=455)
+epic_over_disable_label.place(x=330,y=485)
 
 epic_over_enable_label = tk.Label(screen,text='Enable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_enable_label.place(x=270,y=455)
+epic_over_enable_label.place(x=270,y=485)
 
 epic_over_auto_label = tk.Label(screen,text='Auto Search',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_auto_label.place(x=175,y=455)
+epic_over_auto_label.place(x=175,y=485)
 
 fsr_guide_cbox = None
 screen_guide = None
@@ -237,10 +237,10 @@ def fsr_guide(event=None):
             screen_guide.withdraw()
 
 fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=260,y=366)
+fsr_guide_label.place(x=260,y=393)
 fsr_guide_var = tk.IntVar()
 fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=347,y=369)
+fsr_guide_cbox.place(x=347,y=395)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
@@ -1020,13 +1020,67 @@ def exit_fsr_guide():
 
 def guide_fsr_guide(event=None):
     guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
-    guide_fsr_label.place(x=260,y=390)
+    guide_fsr_label.place(x=260,y=420)
 
 def close_guide_fsr(event=None):
     guide_fsr_label.place_forget()
     
 guide_fsr_label = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 guide_fsr_label.place_forget()
+
+var_ignore_fg = False
+def cbox_ignore_fg():
+    global var_ignore_fg
+    if select_mod == 'Uniscaler V3':
+        var_ignore_fg = bool(ignore_ingame_fg_var.get())
+        key_v3 = 'general'
+        path_uniscaler_v3 ='mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml'
+        
+        with open(path_uniscaler_v3,'r') as file:
+            toml_v3 = toml.load(file)
+            
+        toml_v3.setdefault(key_v3,{})
+        toml_v3[key_v3]['ignore_ingame_frame_generation_toggle'] = var_ignore_fg
+        
+        with open(path_uniscaler_v3,'w') as file:
+            toml.dump(toml_v3,file)
+    else:
+        ignore_ingame_fg_cbox.deselect()
+        messagebox.showinfo('Uniscaler V3','Select Uniscaler V3 to use this option.')
+        return
+
+var_ignore_fg_resources = False
+def cbox_ignore_fg_resources():
+    global var_ignore_fg_resources
+    if select_mod == 'Uniscaler V3':
+        var_ignore_fg_resources = bool(ignore_ingame_fg_resources_var.get())
+        key_v3 = 'general'
+        path_uniscaler_v3 ='mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml'
+        
+        with open(path_uniscaler_v3,'r') as file:
+            toml_v3 = toml.load(file)
+            
+        toml_v3.setdefault(key_v3,{})
+        toml_v3[key_v3]['ignore_ingame_frame_generation_resources'] = var_ignore_fg_resources
+        
+        with open(path_uniscaler_v3,'w') as file:
+            toml.dump(toml_v3,file)
+    else:
+        ignore_ingame_fg_resources_cbox.deselect()
+        messagebox.showinfo('Uniscaler V3','Select Uniscaler V3 to use this option.')
+        return
+
+ignore_ingame_fg_label = tk.Label(screen,text='Ignore Ingame Fg',font=font_select,bg='black',fg='#C0C0C0')
+ignore_ingame_fg_label.place(x=0,y=365)
+ignore_ingame_fg_var = IntVar()
+ignore_ingame_fg_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ignore_ingame_fg_var,command=cbox_ignore_fg)
+ignore_ingame_fg_cbox.place(x=130,y=367)
+
+ignore_ingame_fg_resources_label = tk.Label(screen,text='Ignore Fg Resources',font=font_select,bg='black',fg='#C0C0C0')
+ignore_ingame_fg_resources_label.place(x=200,y=365)
+ignore_ingame_fg_resources_var = IntVar()
+ignore_ingame_fg_resources_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ignore_ingame_fg_resources_var,command=cbox_ignore_fg_resources)
+ignore_ingame_fg_resources_cbox.place(x=350,y=367)
 
 #Disable the overlay of some launchers, such as Epic Games for example. Overlays can cause conflicts with the mod. Change the disable_overlay_blocker option in the .toml file to True or False
 var_remove_over = False
@@ -1359,10 +1413,10 @@ def cbox_backup():
             backup_cbox.deselect()
                   
 backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
-backup_label.place(x=160,y=366)
+backup_label.place(x=160,y=393)
 backup_var = IntVar()
 backup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=backup_var,command=cbox_backup)
-backup_cbox.place(x=219,y=369)
+backup_cbox.place(x=219,y=395)
 
 uni_custom_contr = False
 select_uni_custom = ""
@@ -1874,10 +1928,10 @@ def clean_dxgi():
             os.remove(os.path.join(select_folder,item))
 
 del_dxgi_label = tk.Label(screen,text='Del Only dxgi.dll',font=font_select,bg='black',fg='#E6E6FA')
-del_dxgi_label.place(x=0,y=490)
+del_dxgi_label.place(x=0,y=515)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
-del_dxgi_cbox.place(x=120,y=492) 
+del_dxgi_cbox.place(x=120,y=517) 
 
 #Remove the mod files, the files for deletion are passed in lists and are checked according to the mod version selected by the user 
 def cbox_cleanup():
@@ -2301,10 +2355,10 @@ def clean_mod():
         shutil.rmtree(folder_ac)
                          
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
-cleanup_label.place(x=0,y=456) 
+cleanup_label.place(x=0,y=485) 
 cleanup_var = IntVar()
 cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=cleanup_var,command=cbox_cleanup)
-cleanup_cbox.place(x=100,y=458)       
+cleanup_cbox.place(x=100,y=487)       
 
 #Disables the CMD console when starting the game,this function is only available in the mods listed below
 disable_var = None
@@ -2385,10 +2439,10 @@ def cbox_lfz_sl():
         var_mod_lfz()
     
 lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
-lfz_sl_label.place(x=0,y=366)
+lfz_sl_label.place(x=0,y=393)
 lfz_sl_var = IntVar()
 lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
-lfz_sl_label_cbox.place(x=120,y=369)
+lfz_sl_label_cbox.place(x=120,y=395)
 guide_fsr_label.lift(lfz_sl_label)
 
 #For enabling FSR3FG debug overlay, through the .toml file
@@ -2493,20 +2547,20 @@ def cbox_enable_sigover():
         enable_over()
     
 enable_sigover_label = tk.Label(screen,text='Enable Signature Over',font=font_select,bg='black',fg='#C0C0C0')
-enable_sigover_label.place(x=0,y=397)
+enable_sigover_label.place(x=0,y=423)
 enable_sigover_var = IntVar()
 enable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=enable_sigover_var,command=cbox_enable_sigover)
-enable_sigover_cbox.place(x=165,y=400)
+enable_sigover_cbox.place(x=165,y=425)
 
 def cbox_disable_sigover():
     if disable_sigover_var.get() == 1:
         disable_over()
 
 disable_sigover_label = tk.Label(screen,text='Disable Signature Over',font=font_select,bg='black',fg='#C0C0C0')
-disable_sigover_label.place(x=205,y=397)
+disable_sigover_label.place(x=205,y=423)
 disable_sigover_var = IntVar()
 disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
-disable_sigover_cbox.place(x=373,y=400)
+disable_sigover_cbox.place(x=373,y=425)
 guide_fsr_label.lift(disable_sigover_label)
 guide_fsr_label.lift(disable_sigover_cbox)
 
@@ -5386,7 +5440,7 @@ en_sig_label_guide.place_forget()
 
 def guide_en_sig (event=None):
     en_sig_label_guide.config(text="Enable Signature Override can help some games to work, it is also recommended to activate in older versions of the mod")
-    en_sig_label_guide.place(x=0,y=422)
+    en_sig_label_guide.place(x=0,y=447)
     
 def close_en_sigguide(event=None):
     en_sig_label_guide.config(text="")
@@ -5397,7 +5451,7 @@ lfz_label_guide.place_forget()
 
 def guide_lfz(event=None):
     lfz_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    lfz_label_guide.place(x=0,y=390)
+    lfz_label_guide.place(x=0,y=415)
      
 def close_lfz_guide(event=None):
     lfz_label_guide.config(text="")
@@ -5419,7 +5473,7 @@ addon_dx11_guide.place_forget()
 
 def guide_addon_dx11(event=None):
     addon_dx11_guide.config(text="Select upscaler for Dx11 games")
-    addon_dx11_guide.place(x=420,y=510)
+    addon_dx11_guide.place(x=420,y=540)
 
 def close_addon_dx11(event=None):
     addon_dx11_guide.config(text="")
@@ -5430,11 +5484,33 @@ addon_dx12_guide.place_forget()
 
 def guide_addon_dx12(event=None):
     addon_dx12_guide.config(text="Select upscaler for Dx12 games")
-    addon_dx12_guide.place(x=420,y=540)
-
+    addon_dx12_guide.place(x=420,y=570)
+ 
 def close_addon_dx12(event=None):
     addon_dx12_guide.config(text="")
     addon_dx12_guide.place_forget()
+
+ignore_ingame_fg_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+ignore_ingame_fg_guide.place_forget()
+
+def guide_ignore_ingame_fg(event=None):
+    ignore_ingame_fg_guide.config(text="Enables Frame Gen regardless of the ingame DLSS-FG/FSR3-FG setting.")
+    ignore_ingame_fg_guide.place(x=0,y=390)
+
+def close_guide_ignore_ingame_fg(event=None):
+    ignore_ingame_fg_guide.config(text="")
+    ignore_ingame_fg_guide.place_forget()
+
+ignore_ingame_fg_resources_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
+ignore_ingame_fg_resources_guide.place_forget()
+
+def guide_ignore_ingame_fg_resources(event=None):
+    ignore_ingame_fg_resources_guide.config(text="Disables the use of game provided HUD less and UI resources. Will only cause more graphical issues in most games, so you should leave this turned off in most cases.")
+    ignore_ingame_fg_resources_guide.place(x=200,y=390)
+
+def close_guide_ignore_ingame_fg_resources(event=None):
+    ignore_ingame_fg_resources_guide.config(text="")
+    ignore_ingame_fg_resources_guide.place_forget()
 
 continue_install = None 
 def get_mod_version_canvas():
@@ -6348,6 +6424,10 @@ addon_ups_dx11_label.bind('<Enter>',guide_addon_dx11)
 addon_ups_dx11_label.bind('<Leave>',close_addon_dx11)
 addon_ups_dx12_label.bind('<Enter>',guide_addon_dx12)
 addon_ups_dx12_label.bind('<Leave>',close_addon_dx12)
+ignore_ingame_fg_label.bind('<Enter>',guide_ignore_ingame_fg)
+ignore_ingame_fg_label.bind('<Leave>',close_guide_ignore_ingame_fg)
+ignore_ingame_fg_resources_label.bind('<Enter>',guide_ignore_ingame_fg_resources)
+ignore_ingame_fg_resources_label.bind('<Leave>',close_guide_ignore_ingame_fg_resources)
 fps_user_entry.bind("<Key>", fps_isdigit)
 install_label.bind('<Button-1>',install)
 install_label.bind('<ButtonRelease-1>', install_false)
