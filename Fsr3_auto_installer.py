@@ -29,7 +29,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.2v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -324,7 +324,11 @@ def text_guide():
 'Create Heaps:  Creating heap objects for XeSS before init.\n'
 'Drs MinOverride: Set this to true to enable limiting DRS min resolution to\nrendering resolution.\n'
 'Drs MaxOverride: Set this to true to enable limiting DRS max resolution to\nrendering resolution.\n'
-'Disable Reactive Mask: Force remove RESPONSIVE_PIXEL_MASK from init\nflags.\n\n'
+'Disable Reactive Mask: Force remove RESPONSIVE_PIXEL_MASK from init\nflags.\n'
+'Fake Nvidia GPU for DXGI: Enables Nvidia GPU spoofing for DXGI.(Default is\ntrue)\n'
+'Fake Nvidia GPu for Vulkan: Enables Nvidia GPU spoofing for Vulkan.(Default\nis true)\n'
+'Dxgi Xess No Spoof: Skips DXGI GPU spoofing for XeSS (Only for OptiScaler\ninstances) Might have compatibility issues, if screen is black try enabling\nautoexposure.(Default is true)\n'
+'Override Nvapi Dll: Override loading of nvapi64.dll\n\n'
 
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
@@ -997,7 +1001,7 @@ def text_guide():
     elif select_game == 'Hellblade 2':
         screen_guide.geometry('535x595')
     elif select_game == 'Add-on Mods':
-        screen_guide.geometry('620x660')
+        screen_guide.geometry('620x790')
     elif select_game == 'Spider Man/Miles':
         screen_guide.geometry('520x280')
     else:
@@ -1608,10 +1612,12 @@ def options_optiscaler_view(event=None):
     if addon_contr and select_addon_mods == 'OptiScaler':
         if addon_view:
             options_optiscaler_listbox.place_forget()
+            options_optiscaler_scroll.place_forget()
             addon_view = False
         else:
             addon_view = True
-            options_optiscaler_listbox.place(x=557,y=511)
+            options_optiscaler_listbox.place(x=537,y=511)
+            options_optiscaler_scroll.place(x=680, y=511, height=98)
 
 #Changes the operation of the Optiscaler mod through the .ini file
 def update_ini(path_ini,key,value_ini): 
@@ -1724,8 +1730,25 @@ def update_optiscaler_ini():
     if select_options_optiscaler == 'Disable Reactive Mask':
         key_mask = 'DisableReactiveMask'
         update_ini(path_ini_dx11,key_mask,value_ini_true)
+      
+    if select_options_optiscaler == 'Fake Nvidia GPU for DXGI':
+        key_mask = 'Dxgi'
+        update_ini(path_ini_dx11,key_mask,'false')
     
-    if select_options_optiscaler == 'Replace ini':
+    if select_options_optiscaler == 'Fake Nvidia GPU for Vulkan':
+        key_mask = 'Vulkan'
+        update_ini(path_ini_dx11,key_mask,value_ini_true)
+        
+    if select_options_optiscaler == 'Dxgi Xess No Spoof':
+        key_mask = 'DxgiXessNoSpoof'
+        update_ini(path_ini_dx11,key_mask,'false')
+     
+    if select_options_optiscaler == 'Override Nvapi Dll':
+        key_mask = 'NvApi'
+        update_ini(path_ini_dx11,key_mask,value_ini_true)
+    
+    if select_options_optiscaler == 'Restore Default':
+        messagebox.showinfo("Options Restored","The options were successfully restored to the default settings.")
         replace_ini()
 
 #Replaces the 'used' .ini file with a new one
@@ -1753,13 +1776,13 @@ addon_ups_dx11_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highligh
 addon_ups_dx11_listbox.place(x=583,y=541)
 addon_ups_dx11_listbox.place_forget()
 
-options_optiscaler_label = tk.Label(screen,text='Optiscaler Options',font=font_select,bg='black',fg='#C0C0C0')
+options_optiscaler_label = tk.Label(screen,text='Optiscaler Opts',font=font_select,bg='black',fg='#C0C0C0')
 options_optiscaler_label.place(x=420,y=485)
-options_optiscaler_canvas = tk.Canvas(width=130,height=19,bg='#C0C0C0',highlightthickness=0)
-options_optiscaler_canvas.place(x=557,y=489)
-options_optiscaler_listbox = tk.Listbox(screen,width=22,height=0,bg='white',highlightthickness=0)
-options_optiscaler_listbox.place(x=557,y=511)
-options_optiscaler_listbox.place_forget()
+options_optiscaler_canvas = tk.Canvas(width=150,height=19,bg='#C0C0C0',highlightthickness=0)
+options_optiscaler_canvas.place(x=537,y=489)
+options_optiscaler_scroll = tk.Scrollbar(screen)
+options_optiscaler_listbox = tk.Listbox(screen, width=24, height=6, bg='white', highlightthickness=0, yscrollcommand=options_optiscaler_scroll.set)
+options_optiscaler_scroll.config(command=options_optiscaler_listbox.yview)
 
 addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
 addon_mods_label.place(x=420,y=455)
@@ -2696,7 +2719,7 @@ def copy_nvngx():
     path_nvngx_uni_v2 =  'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\stub_nvngx\\nvngx.dll'
     
     if select_mod not in nvngx_folders:
-        messagebox.showinfo('Error','Please select a version starting at 0.7.6 ')
+        messagebox.showinfo('0.7.6','The selected mod has been installed. To use the Nvngx.dll option, select a mod version starting from 0.7.6')
     else:
         try:
             for item in os.listdir(nvngx_folder):
@@ -2737,10 +2760,39 @@ def copy_nvngx():
                         if os.path.exists(name_dlssg) and not os.path.exists(name_old_dlssg):
                             os.rename(name_dlssg,os.path.join(select_folder,rename_dlssg))
                         shutil.copy2(nvn_path, select_folder)
-                        
+            
+            def copy_dlss(path_dlss_origin,name_old_dlss,path_dlss,rename_dlss):
+                if os.path.exists(path_dlss_origin) and not os.path.exists(name_old_dlss):
+                    os.rename(path_dlss_origin, os.path.join(select_folder, rename_dlss))
+                
+                shutil.copy2(path_dlss, select_folder)
+                
+            if select_nvngx == 'DLSS 3.7.1':
+                path_dlss_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss_3_7_1\\nvngx_dlss.dll'
+                name_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.dll')
+                name_old_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.txt')
+                rename_dlss_371 = 'nvngx_dlss.txt'
+                
+                copy_dlss(name_dlss_371,name_old_dlss_371,path_dlss_371,rename_dlss_371)
+            
+            elif select_nvngx == 'DLSSG 3.7.1 FG':
+                path_dlssg_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
+                name_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.dll')
+                name_old_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.txt')
+                rename_dlssg_371 = 'nvngx_dlssg.txt'
+                
+                copy_dlss(name_dlssg_371,name_old_dlssg_371,path_dlssg_371,rename_dlssg_371)
+            
+            elif select_nvngx == 'DLSSD 3.7.1':
+                path_dlssd_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
+                name_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.dll')
+                name_old_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.txt')
+                rename_dlssd_371 = 'nvngx_dlssd.txt'
+                
+                copy_dlss(name_dlssd_371,name_old_dlssd_371,path_dlssd_371,rename_dlssd_371)
+                                                      
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
-            print(e)
 
 #Modify the upscaler resolution through the .toml file, with no default values like the Uniscaler Custom function, users can add values as they wish           
 custom_fsr_act = False
@@ -5613,6 +5665,8 @@ def install(event=None):
             update_optiscaler_ini()
         if  nvngx_contr:
             copy_nvngx()
+            if select_mod not in nvngx_folders:
+                return
         if dxgi_contr:
             copy_dxgi()
         if addon_contr:
@@ -6200,7 +6254,7 @@ def update_nvngx(event=None):
     if select_mod == 'Uniscaler + Xess + Dlss':
         nvngx_op = ['Default', 'NVNGX Version 1']
     else:
-        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSS 3.7.0 FG']
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.7.1','DLSSG 3.7.1 FG','DLSSD 3.7.1']
 
     nvngx_listbox.delete(0, tk.END) 
     for nvngx_options in nvngx_op:
@@ -6219,7 +6273,7 @@ def update_nvngx(event=None):
     
     nvngx_canvas.update()
 
-nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSS 3.7.0 FG']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.7.1','DLSSG 3.7.1 FG','DLSSD 3.7.1']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END, nvngx_options)
     
@@ -6300,7 +6354,7 @@ def update_options_optiscaler(event=None):
 
     options_optiscaler_canvas.update()
     
-options_optiscaler_opt = ['Enable overlay menu','CAS sharpening for XeSS','Override DLSS sharpness','Force INVERTED_DEPTH','Force HDR_INPUT_COLOR','Force ENABLE_AUTOEXPOSURE','Enable Output Scaling','Hook SLDevice','Hook SLProxy','Sharpening Amplifier','Replace ini']
+options_optiscaler_opt = ['Enable overlay menu','CAS sharpening for XeSS','Override DLSS sharpness','Force INVERTED_DEPTH','Force HDR_INPUT_COLOR','Force ENABLE_AUTOEXPOSURE','Enable Output Scaling','Hook SLDevice','Hook SLProxy','Sharpening Amplifier','Fake Nvidia GPU for DXGI','Fake Nvidia GPU for Vulkan','Dxgi Xess No Spoof','Override Nvapi Dll','Restore Default']
 for options_optiscaler_op in options_optiscaler_opt:
     options_optiscaler_listbox.insert(tk.END,options_optiscaler_op)
 
