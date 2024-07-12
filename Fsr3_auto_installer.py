@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from PIL import ImageTk, Image
 from customtkinter import *
 from tkinter import Canvas,filedialog,messagebox
@@ -29,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.2v")
+screen.title("FSR3.0 Mod Setup Utility - 2.3v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -260,7 +261,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
@@ -333,6 +334,14 @@ def text_guide():
 'Tweak\n'
 'Helps \'improve\' aliasing caused by FSR 3 mod, may also\nslightly reduce ghosting, doesn\'t work in all games.\n\n'
 
+),
+
+'Optiscaler Method':(
+'Installation Method for Optiscaler\n\n'
+'Method Default: Default installation method.(Recommended\nfor testing)\n'
+'Method 1 (RTX/RX 6000-7000): Installation method for RTX\nand RX 6xxx/7xxx series GPUs.\n'
+'Method 2 (GTX/Old AMD): Installation method for older GPUs\nsuch as GTX and RX 5000 and below.\n'
+'Method 3 (If none of the others work): Modified installation\nmethod if none of the other options work.'
 ),
 
 'Achilles Legends Untold':(
@@ -1619,6 +1628,101 @@ def options_optiscaler_view(event=None):
             options_optiscaler_listbox.place(x=537,y=511)
             options_optiscaler_scroll.place(x=680, y=511, height=98)
 
+screen_method_open = False
+var_method = None
+def install_method(event=None):
+    global screen_method_open
+
+    if screen_method_open:
+        return
+
+    def on_closing():
+        global screen_method_open
+        screen_method_open = False
+        screen_method.destroy()
+        messagebox.showinfo('Optiscaler Installation Method', 'You haven\'t selected any installation method. Please select "Optiscaler" again and choose an installation method if you wish to install "Optiscaler".')
+    
+    screen_method = tk.Toplevel(screen)
+    screen_method.title('Optiscaler Installation Method')
+    screen_method_width = screen_method.winfo_screenwidth()
+    screen_method_height = screen_method.winfo_screenheight()
+    x_screen_method = (screen_method_width - 550) // 2 
+    y_screen_method = (screen_method_height - 120) // 2 
+    screen_method.geometry(f"220x160+{x_screen_method}+{y_screen_method }")
+    screen_method.protocol("WM_DELETE_WINDOW", on_closing)
+
+    screen_method_open = True
+
+    def method_selected(method):
+        global screen_method_open,var_method
+        
+        if method == 'Method Default (For test)':
+            var_method = 'Method Default (For test)'
+        elif method == 'Method 1 (RTX/RX 6000-7000)':
+            var_method = 'Method 1 (RTX/RX 6000-7000)'
+        elif method == 'Method 2 (GTX/Old AMD)':
+            var_method = 'Method 2 (GTX/Old AMD)'
+        elif method == 'Method 3 (If none of the others work)':
+            var_method = 'Method 3 (If none of the others work)'
+        
+        screen_method_open = False
+        screen_method.destroy()
+    
+    method0 = ttk.Button(screen_method, text='Method Default (For test)', command=lambda: method_selected('Method Default (For test)'))
+    method0.pack(pady=5)
+
+    method1 = ttk.Button(screen_method, text='Method 1 (RTX/RX 6000-7000)', command=lambda: method_selected('Method 1 (RTX/RX 6000-7000)'))
+    method1.pack(pady=5)
+
+    method2 = ttk.Button(screen_method, text='Method 2 (GTX/Old AMD)', command=lambda: method_selected('Method 2 (GTX/Old AMD)'))
+    method2.pack(pady=5)
+
+    method3 = ttk.Button(screen_method, text='Method 3 (If none of the others work)', command=lambda: method_selected('Method 3 (If none of the others work)'))
+    method3.pack(pady=5)
+    screen_method.focus_set()      
+    screen_method.transient(screen)
+
+def update_install_method():
+
+    backup_dir = os.path.join(select_folder, "Backup Dll")
+    files_optis = ['libxess.dll','amd_fidelityfx_vk.dll','nvngx.dll','amd_fidelityfx_dx12.dll']
+    optiscaler_reg = ['regedit.exe', '/s', "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"]
+    os.makedirs(backup_dir, exist_ok=True) 
+
+    if var_method == 'Method Default (For test)': #Default installation 
+        pass
+
+    if var_method == 'Method 1 (RTX/RX 6000-7000)': #Default installation 
+       pass
+    
+    elif var_method == 'Method 2 (GTX/Old AMD)':
+        shutil.copy2("mods\Addons_mods\Optiscaler dxgi\dxgi.dll", select_folder)
+
+    elif var_method == 'Method 3 (If none of the others work)':
+        rename_nvngx_dlss = "nvngx.dll"
+        rename_nvngx = "dxgi.dll"
+
+        if os.path.exists(os.path.join(select_folder, "nvngx.dll")):
+
+            if os.path.exists(os.path.join(select_folder, "dxgi.dll")):
+                shutil.copy2(os.path.join(select_folder, "dxgi.dll"), backup_dir)
+                os.remove(select_folder + "dxgi.dll")
+
+            if os.path.exists(os.path.join(select_folder, "nvngx.dll")):
+                shutil.copy2(os.path.join(select_folder, "nvngx.dll"), backup_dir)
+
+            if os.path.exists(os.path.join(select_folder, "nvngx_dlss.dll")):
+                shutil.copy2(os.path.join(select_folder, "nvngx_dlss.dll"), backup_dir)
+
+            os.rename(os.path.join(select_folder, "nvngx.dll"), os.path.join(select_folder, rename_nvngx))
+            if os.path.exists(os.path.join(select_folder, "nvngx_dlss.dll")):
+                os.rename(os.path.join(select_folder, "nvngx_dlss.dll"), os.path.join(select_folder, rename_nvngx_dlss))
+
+    for optis_bk_files in os.listdir(select_folder):
+        for optis_bk_files in files_optis:
+            shutil.copy2(os.path.join(select_folder,optis_bk_files),backup_dir)
+    subprocess.run(optiscaler_reg, check=True)
+            
 #Changes the operation of the Optiscaler mod through the .ini file
 def update_ini(path_ini,key,value_ini): 
     try:
@@ -2042,6 +2146,8 @@ def clean_mod():
     
     del_hb2 = ['version.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
     
+    del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
+
     try:    
         
         path_uni = os.path.join(select_folder,'uniscaler')
@@ -2376,7 +2482,23 @@ def clean_mod():
         folder_ac = os.path.join(select_folder,'reshade-shaders')
         del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
         shutil.rmtree(folder_ac)
-                         
+
+    try: 
+        if select_addon_mods == "OptiScaler":
+            if os.path.exists(os.path.join(select_folder,'amd_fidelityfx_vk.dll')):
+                for optis_files in os.listdir(select_folder):
+                    if optis_files in del_optiscaler:
+                        os.remove(os.path.join(select_folder,optis_files))
+            
+            if os.path.exists(os.path.join(select_folder,'Backup Dll')):
+                shutil.copytree(os.path.join(select_folder,'Backup Dll'),select_folder,dirs_exist_ok=True)
+                shutil.rmtree(os.path.join(select_folder,'Backup Dll'))
+        optiscaler_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+            
+        subprocess.run(optiscaler_reg,check=True)
+    except Exception:
+        messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
+                                        
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
 cleanup_var = IntVar()
@@ -5661,16 +5783,23 @@ def install(event=None):
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
+
+        if addon_contr:
+            addon_mods()
         if select_addon_mods == 'OptiScaler':
             update_optiscaler_ini()
-        if  nvngx_contr:
+            if (var_method is None):
+                messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
+                return
+            else:
+                update_install_method()
+
+        if nvngx_contr:
             copy_nvngx()
             if select_mod not in nvngx_folders:
                 return
         if dxgi_contr:
             copy_dxgi()
-        if addon_contr:
-            addon_mods()
         if install_contr:
             replace_ini()
             backup_cbox.deselect()
@@ -6299,6 +6428,7 @@ def update_addon_mods(event=None):
         addon_mods_canvas.create_text(2,8,anchor='w',text=select_addon_mods,fill='black',tags='text')
     
     if select_addon_mods == 'OptiScaler':
+        install_method()
         addon_ups_dx11_canvas.config(bg='white')
         addon_ups_dx12_canvas.config(bg='white')
         options_optiscaler_canvas.config(bg='white')
