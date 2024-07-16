@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.3v")
+screen.title("FSR3.0 Mod Setup Utility - 2.4v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -147,7 +147,7 @@ def enable_epic_over(event=None):
         os.rename(file_to_32_rename, os.path.join(path_over, rename_32_exe))
         messagebox.showinfo('Sucess','Overlay enabled successfully.')
         if epic_over_canvas is None:
-            print('1')
+            pass
     except Exception:
         messagebox.showinfo('Error','Error enabling Overlay')
 
@@ -1549,7 +1549,7 @@ def addon_mods():
         path_addon = addon_origins[select_addon_mods]
     
     try:
-        if select_addon_mods == 'OptiScaler':
+        if select_addon_mods == 'OptiScaler' and select_mod != 'The Witcher 3 Optiscaler FG':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
             shutil.copytree(path_ini_optiscaler,select_folder,dirs_exist_ok=True)
         elif select_addon_mods == 'Tweak':
@@ -1610,10 +1610,12 @@ def addon_dx12_view(event=None):
     if addon_contr and select_addon_mods == 'OptiScaler':
         if addon_view:
             addon_ups_dx12_listbox.place_forget()
+            addon_ups_dx12_scroll.place_forget()
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx12_listbox.place(x=583,y=571)
+            addon_ups_dx12_listbox.place(x=583,y=569)
+            addon_ups_dx12_scroll.place(x=670,y=569, height=52)
 
 def options_optiscaler_view(event=None):
     global addon_view,addon_contr
@@ -1742,15 +1744,24 @@ def update_ini(path_ini,key,value_ini):
 addon_dx11_origins = {'fsr2.2 DX11':'fsr22',
                       'xess DX11':'xess',
                       'fsr2.1 DX11':'fsr21_12',
-                      'fsr2.2 DX11 - DX12':'fsr22_12'}
+                      'fsr2.2 DX11 - DX12':'fsr22_12',
+                      'fsr3.1 DX11':'fsr31_12'
+                      }
 
 addon_dx12_origins= {'xess DX12':'xess',
                     'fsr2.1 DX12':'fsr21',
-                    'fsr2.2 DX12':'fsr22' }
+                    'fsr2.2 DX12':'fsr22',
+                    'fsr3.1 DX12': 'fsr31'}
 
 def update_optiscaler_ini():
     path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     value_ini_true = 'true'
+
+    if select_mod == 'The Witcher 3 Optiscaler FG':
+        path_ini_dx11 = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
+
+    elif select_mod != 'The Witcher 3 Optiscaler FG':
+        path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
     if select_addon_dx11 in addon_dx11_origins:
         option_addon = addon_dx11_origins[select_addon_dx11]
@@ -1860,7 +1871,18 @@ def replace_ini():
     path_ini = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
     folder_ini = 'mods\\Temp\\OptiScaler'
-    if select_addon_mods == 'OptiScaler':
+
+    if select_mod == 'The Witcher 3 Optiscaler FG':
+        path_ini = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
+        path_ini_origin = 'mods\\Optiscaler FSR 3.1 Custom\\nvngx.ini'
+        folder_ini = 'mods\\Temp\\Optiscaler FG 3.1'
+
+    elif select_addon_mods == 'OptiScaler':
+        path_ini = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+        path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
+        folder_ini = 'mods\\Temp\\OptiScaler'
+
+    if select_addon_mods == 'OptiScaler' or select_mod == 'The Witcher 3 Optiscaler FG':
         os.remove(path_ini)
         shutil.copy2(path_ini_origin,folder_ini)
 
@@ -1868,8 +1890,12 @@ addon_ups_dx12_label = tk.Label(screen,text='Addon Upscaler DX12',font=font_sele
 addon_ups_dx12_label.place(x=420,y=545)
 addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
 addon_ups_dx12_canvas.place(x=583,y=549)
-addon_ups_dx12_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_ups_dx12_listbox.place(x=583,y=541)
+addon_ups_dx12_scroll = tk.Scrollbar(screen)
+addon_ups_dx12_listbox = tk.Listbox(screen, width=14,height=3, bg='white', highlightthickness=0, yscrollcommand=addon_ups_dx12_scroll.set)
+addon_ups_dx12_scroll.config(command=addon_ups_dx12_listbox.yview)
+addon_ups_dx12_listbox.place(x=583,y=569)
+addon_ups_dx12_scroll.place(x=670,y=569, height=52)
+addon_ups_dx12_scroll.place_forget()
 addon_ups_dx12_listbox.place_forget()
         
 addon_ups_dx11_label = tk.Label(screen,text='Addon Upscaler DX11',font=font_select,bg='black',fg='#C0C0C0')
@@ -4404,6 +4430,8 @@ def fsr_2_0():
     
     if select_mod in origins_2_0_folder:
         origins_2_0 = origins_2_0_folder[select_mod]
+    else:
+        return
      
     if select_mod not in list_uni:   
         try:
@@ -5276,8 +5304,12 @@ def fsr3_the_medium():
 
 def fsr3_ac_valhalla():
     path_dlss = 'mods\\Ac_Valhalla_DLSS'
+    path_dlss2 = 'mods\\Ac_Valhalla_DLSS2'
     
-    shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
+    if select_mod == "Ac Valhalla DLSS3 (Only RTX)":
+        shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
+    elif  select_mod == "Ac Valhalla FSR3 All GPU":
+        shutil.copytree(path_dlss2,select_folder,dirs_exist_ok=True)
 
 # Modify the ini file of Hellblade 2 to remove post-processing effects
 def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
@@ -5447,6 +5479,16 @@ def fsr3_cyber():
     if mods_message:
         for path_cb2077 in path_mods:
             shutil.copytree(path_cb2077,select_folder,dirs_exist_ok=True)
+
+def fsr3_tw3():
+    path_tw3_fg = "mods\\Optiscaler FSR 3.1 Custom"
+    path_ini_optiscaler = 'mods\\Temp\Optiscaler FG 3.1\\nvngx.ini'
+    if select_mod == "The Witcher 3 Optiscaler FG":
+        shutil.copytree(path_tw3_fg,select_folder,dirs_exist_ok=True)
+        shutil.copy2(path_ini_optiscaler,select_folder)
+        tw3_reg = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\EnableSignatureOverride.reg"]
+        tw3_reg2 = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\DisableNvidiaSignatureChecks.reg"]
+
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -5742,6 +5784,7 @@ def install(event=None):
         elif select_option == 'Horizon Forbidden West':
             hfw_fsr3()
 
+
         if select_mod == 'Palworld Build03':
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
@@ -5750,6 +5793,8 @@ def install(event=None):
             fsr3_miles()
         if select_mod == 'Dlss Jedi':
             fsr3_jedi()
+        if select_mod == 'The Witcher 3 Optiscaler FG':
+            fsr3_tw3()
             
         if select_option == 'Cod Black Ops Cold War':
             cod_fsr()
@@ -5788,11 +5833,12 @@ def install(event=None):
             addon_mods()
         if select_addon_mods == 'OptiScaler':
             update_optiscaler_ini()
-            if (var_method is None):
-                messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
-                return
-            else:
-                update_install_method()
+            if select_mod != 'The Witcher 3 Optiscaler FG':
+                if (var_method is None):
+                    messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
+                    return
+                else:
+                    update_install_method()
 
         if nvngx_contr:
             copy_nvngx()
@@ -6216,8 +6262,13 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Assassin\'s Creed Valhalla':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)')
+        mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)','Ac Valhalla FSR3 All GPU')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    if select_option == 'The Witcher 3':
+        mod_text()
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+        mod_version_listbox.insert(tk.END,'The Witcher 3 Optiscaler FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Hellblade 2':
         mod_text() 
@@ -6428,7 +6479,8 @@ def update_addon_mods(event=None):
         addon_mods_canvas.create_text(2,8,anchor='w',text=select_addon_mods,fill='black',tags='text')
     
     if select_addon_mods == 'OptiScaler':
-        install_method()
+        if select_mod != 'The Witcher 3 Optiscaler FG':
+            install_method()
         addon_ups_dx11_canvas.config(bg='white')
         addon_ups_dx12_canvas.config(bg='white')
         options_optiscaler_canvas.config(bg='white')
@@ -6452,9 +6504,13 @@ def update_addon_dx11(event=None):
         select_addon_dx11 = addon_ups_dx11_listbox.get(index_addon_dx11)
         addon_ups_dx11_canvas.delete('text')
         addon_ups_dx11_canvas.create_text(2,8,anchor='w',text=select_addon_dx11,fill='black',tags='text')
+    
+    if select_addon_dx11 in addon_dx11:
+        update_optiscaler_ini()
+        
     addon_ups_dx11_canvas.update()
 
-addon_dx11 = ['fsr2.2 DX11','xess DX11','fsr2.2 DX11 - DX12','fsr2.1 DX11']
+addon_dx11 = ['fsr2.2 DX11','xess DX11','fsr2.2 DX11 - DX12','fsr2.1 DX11', 'fsr3.1 DX11']
 for addon_dx11_op in addon_dx11:
     addon_ups_dx11_listbox.insert(tk.END,addon_dx11_op)
 
@@ -6465,9 +6521,13 @@ def update_addon_dx12(event=None):
         select_addon_dx12 = addon_ups_dx12_listbox.get(index_addon_dx12)
         addon_ups_dx12_canvas.delete('text')
         addon_ups_dx12_canvas.create_text(2,8,anchor='w',text=select_addon_dx12,fill='black',tags='text')
+    
+    if select_addon_dx12 in addon_dx12:
+        update_optiscaler_ini()
+
     addon_ups_dx12_canvas.update()
 
-addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12']
+addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12', 'fsr3.1 DX12']
 for addon_dx12_op in addon_dx12:
     addon_ups_dx12_listbox.insert(tk.END,addon_dx12_op)
 
