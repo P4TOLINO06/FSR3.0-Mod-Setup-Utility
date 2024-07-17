@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.4v")
+screen.title("FSR3.0 Mod Setup Utility - 2.4.1v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1549,7 +1549,7 @@ def addon_mods():
         path_addon = addon_origins[select_addon_mods]
     
     try:
-        if select_addon_mods == 'OptiScaler' and select_mod != 'The Witcher 3 Optiscaler FG':
+        if select_addon_mods == 'OptiScaler' and select_mod != 'FSR 3.1/DLSS Optiscaler':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
             shutil.copytree(path_ini_optiscaler,select_folder,dirs_exist_ok=True)
         elif select_addon_mods == 'Tweak':
@@ -1561,18 +1561,22 @@ def addon_mods():
     
 addon_contr = False
 def cbox_addon_mods():
-    global addon_contr,select_addon_mods
+    global addon_contr,select_addon_mods,var_method
     if addon_mods_var.get() == 1:
         addon_mods_canvas.config(bg='white')
         addon_contr = True
+        if var_method != None:
+            var_method = None #Display the Optiscaler Method screen again
     else:
         addon_mods_canvas.config(bg='#C0C0C0')
         addon_ups_dx11_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
         options_optiscaler_canvas.config(bg='#C0C0C0')
         addon_mods_canvas.delete('text')
+        addon_ups_dx12_scroll.place_forget()
         select_addon_mods = None
         addon_contr = False
+        var_method = None #Display the Optiscaler Method screen again
         addon_listbox_contr()
         
 addon_view = False
@@ -1633,16 +1637,20 @@ def options_optiscaler_view(event=None):
 screen_method_open = False
 var_method = None
 def install_method(event=None):
-    global screen_method_open
+    global screen_method_open,addon_contr,addon_view
 
-    if screen_method_open:
+    if screen_method_open or var_method != None:
         return
 
     def on_closing():
-        global screen_method_open
+        global screen_method_open,var_method
         screen_method_open = False
         screen_method.destroy()
-        messagebox.showinfo('Optiscaler Installation Method', 'You haven\'t selected any installation method. Please select "Optiscaler" again and choose an installation method if you wish to install "Optiscaler".')
+        addon_mods_cbox.deselect()
+        addon_mods_canvas.delete('text')
+        addon_mods_listbox.place_forget()
+        var_method = 'Method Default (For test)'
+        messagebox.showinfo('Optiscaler Installation Method', 'You did not select any installation method, so it has been set to: Method Default (For test). If you want to select another method, check the Add-on Mods box and select Optiscaler".')
     
     screen_method = tk.Toplevel(screen)
     screen_method.title('Optiscaler Installation Method')
@@ -1753,14 +1761,11 @@ addon_dx12_origins= {'xess DX12':'xess',
                     'fsr2.2 DX12':'fsr22',
                     'fsr3.1 DX12': 'fsr31'}
 
-def update_optiscaler_ini():
-    path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
-    value_ini_true = 'true'
-
-    if select_mod == 'The Witcher 3 Optiscaler FG':
+def update_optiscaler_dx11_dx12():
+    if select_mod == 'FSR 3.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
 
-    elif select_mod != 'The Witcher 3 Optiscaler FG':
+    elif select_mod != 'FSR 3.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
     if select_addon_dx11 in addon_dx11_origins:
@@ -1777,6 +1782,18 @@ def update_optiscaler_ini():
         value_ini_dx12 = option_addon
     
         update_ini(path_ini_dx11,key_dx12,value_ini_dx12)
+
+def update_optiscaler_ini():
+    global select_options_optiscaler
+    
+    path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
+    value_ini_true = 'true'
+
+    if select_mod == 'FSR 3.1/DLSS Optiscaler':
+        path_ini_dx11 = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
+
+    elif select_mod != 'FSR 3.1/DLSS Optiscaler':
+        path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
     if select_options_optiscaler == 'Enable overlay menu':
         key_overlay_menu = 'OverlayMenu'
@@ -1865,6 +1882,8 @@ def update_optiscaler_ini():
     if select_options_optiscaler == 'Restore Default':
         messagebox.showinfo("Options Restored","The options were successfully restored to the default settings.")
         replace_ini()
+        options_optiscaler_canvas.delete('text')
+        select_options_optiscaler = None #Prevents the .ini file from being restored more than once
 
 #Replaces the 'used' .ini file with a new one
 def replace_ini():
@@ -1872,7 +1891,7 @@ def replace_ini():
     path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
     folder_ini = 'mods\\Temp\\OptiScaler'
 
-    if select_mod == 'The Witcher 3 Optiscaler FG':
+    if select_mod == 'FSR 3.1/DLSS Optiscaler':
         path_ini = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
         path_ini_origin = 'mods\\Optiscaler FSR 3.1 Custom\\nvngx.ini'
         folder_ini = 'mods\\Temp\\Optiscaler FG 3.1'
@@ -1882,7 +1901,7 @@ def replace_ini():
         path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
         folder_ini = 'mods\\Temp\\OptiScaler'
 
-    if select_addon_mods == 'OptiScaler' or select_mod == 'The Witcher 3 Optiscaler FG':
+    if select_addon_mods == 'OptiScaler' or select_mod == 'FSR 3.1/DLSS Optiscaler':
         os.remove(path_ini)
         shutil.copy2(path_ini_origin,folder_ini)
 
@@ -2174,6 +2193,11 @@ def clean_mod():
     
     del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
 
+    del_optiscaler_custom = [
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'DisableSignatureOverride.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 
+    'dxgi.dll', 'EnableSignatureOverride.reg', 'libxess.dll', 'licenses', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', 'unins000.exe', 'version.dll', '_nvngx.dll'
+    ]
+
     try:    
         
         path_uni = os.path.join(select_folder,'uniscaler')
@@ -2423,7 +2447,6 @@ def clean_mod():
                 shutil.rmtree(path_uni_tlou)
                 
     except Exception as e:
-        print(e)
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         
     try:
@@ -2448,7 +2471,6 @@ def clean_mod():
                 os.rename(original_exe,os.path.join(select_folder,"HorizonForbiddenWest.exe"))
 
     except Exception as e:
-        print(e)
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     if select_option == 'GTA V':
@@ -2524,6 +2546,20 @@ def clean_mod():
         subprocess.run(optiscaler_reg,check=True)
     except Exception:
         messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
+    
+    try: 
+        if select_mod == 'FSR 3.1/DLSS Optiscaler':
+            if os.path.exists(os.path.join(select_folder,'amd_fidelityfx_vk.dll')):
+                for optis_custom_files in os.listdir(select_folder):
+                    if optis_custom_files in del_optiscaler_custom:
+                        os.remove(os.path.join(select_folder,optis_custom_files))
+            
+        optiscaler_custom_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+            
+        subprocess.run(optiscaler_custom_reg,check=True)
+    except Exception:
+        messagebox.showinfo("Optiscaler Custom","Error clearing Optiscaler Custom files, please try again or do it manually")
+    
                                         
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
@@ -5480,15 +5516,14 @@ def fsr3_cyber():
         for path_cb2077 in path_mods:
             shutil.copytree(path_cb2077,select_folder,dirs_exist_ok=True)
 
-def fsr3_tw3():
-    path_tw3_fg = "mods\\Optiscaler FSR 3.1 Custom"
-    path_ini_optiscaler = 'mods\\Temp\Optiscaler FG 3.1\\nvngx.ini'
-    if select_mod == "The Witcher 3 Optiscaler FG":
-        shutil.copytree(path_tw3_fg,select_folder,dirs_exist_ok=True)
-        shutil.copy2(path_ini_optiscaler,select_folder)
-        tw3_reg = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\EnableSignatureOverride.reg"]
-        tw3_reg2 = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\DisableNvidiaSignatureChecks.reg"]
+def optiscaler_fsr3():
+    path_optiscaler_custom = 'mods\\Optiscaler FSR 3.1 Custom'
+    path_ini_optiscaler_custom = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
+    shutil.copytree(path_optiscaler_custom,select_folder,dirs_exist_ok=True)
+    shutil.copy2(path_ini_optiscaler_custom,select_folder)
 
+    optiscaler_reg = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\EnableSignatureOverride.reg"]
+    optiscaler_reg2= ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\DisableNvidiaSignatureChecks.reg"]
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -5741,7 +5776,7 @@ def get_mod_version_canvas():
         continue_install = False
   
 def install(event=None):
-    global install_contr,var_d_put,continue_install,replace_flag
+    global install_contr,var_d_put,continue_install,replace_flag,var_method
     try:
         install_contr = True       
         get_mod_version_canvas()
@@ -5793,8 +5828,8 @@ def install(event=None):
             fsr3_miles()
         if select_mod == 'Dlss Jedi':
             fsr3_jedi()
-        if select_mod == 'The Witcher 3 Optiscaler FG':
-            fsr3_tw3()
+        if select_mod == "FSR 3.1/DLSS Optiscaler":
+            optiscaler_fsr3()
             
         if select_option == 'Cod Black Ops Cold War':
             cod_fsr()
@@ -5832,13 +5867,15 @@ def install(event=None):
         if addon_contr:
             addon_mods()
         if select_addon_mods == 'OptiScaler':
+            update_optiscaler_dx11_dx12()
             update_optiscaler_ini()
-            if select_mod != 'The Witcher 3 Optiscaler FG':
-                if (var_method is None):
+            if select_mod != 'FSR 3.1/DLSS Optiscaler':
+                if var_method is None:
                     messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
                     return
                 else:
                     update_install_method()
+            var_method = None #Display the Optiscaler Method screen again
 
         if nvngx_contr:
             copy_nvngx()
@@ -5873,7 +5910,6 @@ def install(event=None):
         
     except Exception as e: 
         messagebox.showwarning('Error',f'Installation error')
-        print(e)
         return
         
 def install_false(event=None):
@@ -6175,7 +6211,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -6252,7 +6288,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'Alan Wake 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Ghost of Tsushima':
@@ -6268,7 +6304,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'The Witcher 3':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'The Witcher 3 Optiscaler FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS Optiscaler','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
     
     elif select_option == 'Hellblade 2':
         mod_text() 
@@ -6282,7 +6318,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Cyberpunk 2077':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1/DLSS Optiscaler','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
         
     else:
@@ -6341,7 +6377,7 @@ def update_mod_version(event=None):
            
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','FSR 3.1/DLSS Optiscaler','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
   
@@ -6472,6 +6508,7 @@ for dxgi_options in dxgi_op:
 
 def update_addon_mods(event=None):
     global select_addon_mods
+
     index_addon_mods = addon_mods_listbox.curselection()
     if index_addon_mods:
         select_addon_mods = addon_mods_listbox.get(index_addon_mods)
@@ -6484,6 +6521,7 @@ def update_addon_mods(event=None):
         addon_ups_dx11_canvas.config(bg='white')
         addon_ups_dx12_canvas.config(bg='white')
         options_optiscaler_canvas.config(bg='white')
+
     elif select_addon_mods != 'OptiScaler' or not addon_contr:
         addon_ups_dx11_canvas.config(bg='#C0C0C0')
         addon_ups_dx11_listbox.place_forget() 
@@ -6506,7 +6544,7 @@ def update_addon_dx11(event=None):
         addon_ups_dx11_canvas.create_text(2,8,anchor='w',text=select_addon_dx11,fill='black',tags='text')
     
     if select_addon_dx11 in addon_dx11:
-        update_optiscaler_ini()
+        update_optiscaler_dx11_dx12()
         
     addon_ups_dx11_canvas.update()
 
@@ -6523,7 +6561,7 @@ def update_addon_dx12(event=None):
         addon_ups_dx12_canvas.create_text(2,8,anchor='w',text=select_addon_dx12,fill='black',tags='text')
     
     if select_addon_dx12 in addon_dx12:
-        update_optiscaler_ini()
+        update_optiscaler_dx11_dx12()
 
     addon_ups_dx12_canvas.update()
 
