@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.4.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.5v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1538,7 +1538,6 @@ def uni_custom_preset():
 #Additional mods to assist in the functioning of the frs3 mods
 addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
-select_addon_dx11 = 'auto'
 select_addon_dx12 = 'auto'
 select_options_optiscaler = None
 select_addon_mods = None
@@ -1569,7 +1568,6 @@ def cbox_addon_mods():
             var_method = None #Display the Optiscaler Method screen again
     else:
         addon_mods_canvas.config(bg='#C0C0C0')
-        addon_ups_dx11_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
         options_optiscaler_canvas.config(bg='#C0C0C0')
         addon_mods_canvas.delete('text')
@@ -1594,7 +1592,6 @@ def addon_listbox_contr():
     global addon_view,addon_contr
     if not addon_contr and addon_view:
         addon_mods_listbox.place_forget()
-        addon_ups_dx11_listbox.place_forget()
         addon_ups_dx12_listbox.place_forget()
         options_optiscaler_listbox.place_forget()
         addon_view = False
@@ -1603,11 +1600,9 @@ def addon_dx11_view(event=None):
     global addon_view,addon_contr
     if addon_contr and select_addon_mods == 'OptiScaler':
         if addon_view:
-            addon_ups_dx11_listbox.place_forget()
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx11_listbox.place(x=583,y=541)
 
 def addon_dx12_view(event=None):
     global addon_view,addon_contr
@@ -1618,8 +1613,8 @@ def addon_dx12_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx12_listbox.place(x=583,y=569)
-            addon_ups_dx12_scroll.place(x=670,y=569, height=52)
+            addon_ups_dx12_listbox.place(x=570,y=539)
+            addon_ups_dx12_scroll.place(x=657,y=539, height=66)
 
 def options_optiscaler_view(event=None):
     global addon_view,addon_contr
@@ -1750,16 +1745,24 @@ def update_ini(path_ini,key,value_ini):
         return
 
 addon_dx11_origins = {'fsr2.2 DX11':'fsr22',
-                      'xess DX11':'xess',
                       'fsr2.1 DX11':'fsr21_12',
                       'fsr2.2 DX11 - DX12':'fsr22_12',
-                      'fsr3.1 DX11':'fsr31_12'
-                      }
+                      'fsr3.1 DX11':'fsr31_12',
+                      'xess DX11':'xess',
+                      'dlss DX11':'dlss'}
 
-addon_dx12_origins= {'xess DX12':'xess',
+addon_dx12_origins= {
+                    'xess DX12':'xess',
                     'fsr2.1 DX12':'fsr21',
                     'fsr2.2 DX12':'fsr22',
-                    'fsr3.1 DX12': 'fsr31'}
+                    'fsr3.1 DX12': 'fsr31',
+                    'dlss DX12':'dlss'}
+
+addon_vulkan_origins = {
+                    'fsr2.1 DX12':'fsr21',
+                    'fsr2.2 DX12':'fsr22',
+                    'fsr3.1 DX12': 'fsr31',
+                    'dlss Vulkan':'dlss'}
 
 def update_optiscaler_dx11_dx12():
     if select_mod == 'FSR 3.1/DLSS Optiscaler':
@@ -1768,20 +1771,26 @@ def update_optiscaler_dx11_dx12():
     elif select_mod != 'FSR 3.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
-    if select_addon_dx11 in addon_dx11_origins:
-        option_addon = addon_dx11_origins[select_addon_dx11]
-
-        key_dx11 = 'Dx11Upscaler'
-        value_ini_dx11 = option_addon
-        
-        update_ini(path_ini_dx11,key_dx11,value_ini_dx11)
-    
     if select_addon_dx12 in addon_dx12_origins:
         option_addon = addon_dx12_origins[select_addon_dx12]
         key_dx12 = 'Dx12Upscaler'
         value_ini_dx12 = option_addon
     
         update_ini(path_ini_dx11,key_dx12,value_ini_dx12)
+
+    elif select_addon_dx12 in addon_dx11_origins:
+        option_addon = addon_dx11_origins[select_addon_dx12]
+        key_dx11 = 'Dx11Upscaler'
+        value_ini_dx11 = option_addon
+
+        update_ini(path_ini_dx11,key_dx11,value_ini_dx11)
+    
+    elif select_addon_dx12 in addon_vulkan_origins:
+        option_addon = addon_vulkan_origins[select_addon_dx12]
+        key_vulkan = 'VulkanUpscaler'
+        value_ini_vulkan = option_addon
+
+        update_ini(path_ini_dx11,key_vulkan,value_ini_vulkan)
 
 def update_optiscaler_ini():
     global select_options_optiscaler
@@ -1905,25 +1914,13 @@ def replace_ini():
         os.remove(path_ini)
         shutil.copy2(path_ini_origin,folder_ini)
 
-addon_ups_dx12_label = tk.Label(screen,text='Addon Upscaler DX12',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx12_label.place(x=420,y=545)
+addon_ups_dx12_label = tk.Label(screen,text='Upscaler Optiscaler',font=font_select,bg='black',fg='#C0C0C0')
+addon_ups_dx12_label.place(x=420,y=515)
 addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx12_canvas.place(x=583,y=549)
+addon_ups_dx12_canvas.place(x=570,y=519)
 addon_ups_dx12_scroll = tk.Scrollbar(screen)
-addon_ups_dx12_listbox = tk.Listbox(screen, width=14,height=3, bg='white', highlightthickness=0, yscrollcommand=addon_ups_dx12_scroll.set)
+addon_ups_dx12_listbox = tk.Listbox(screen, width=14,height=4, bg='white', highlightthickness=0, yscrollcommand=addon_ups_dx12_scroll.set)
 addon_ups_dx12_scroll.config(command=addon_ups_dx12_listbox.yview)
-addon_ups_dx12_listbox.place(x=583,y=569)
-addon_ups_dx12_scroll.place(x=670,y=569, height=52)
-addon_ups_dx12_scroll.place_forget()
-addon_ups_dx12_listbox.place_forget()
-        
-addon_ups_dx11_label = tk.Label(screen,text='Addon Upscaler DX11',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx11_label.place(x=420,y=515)
-addon_ups_dx11_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx11_canvas.place(x=583,y=519)
-addon_ups_dx11_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_ups_dx11_listbox.place(x=583,y=541)
-addon_ups_dx11_listbox.place_forget()
 
 options_optiscaler_label = tk.Label(screen,text='Optiscaler Opts',font=font_select,bg='black',fg='#C0C0C0')
 options_optiscaler_label.place(x=420,y=485)
@@ -2347,9 +2344,19 @@ def clean_mod():
                 shutil.rmtree(path_rdr2_shader)  
                 if os.path.exists(os.path.join(select_folder,'PalworldUpscalerPreset.ini')):
                     os.remove(os.path.join(select_folder,'PalworldUpscalerPreset.ini')) 
+
+        if select_mod == "RDR2 FSR 3.1 FG":
+            for optis_rdr2 in os.listdir(select_folder):
+                    if optis_rdr2 in del_optiscaler_custom:
+                        os.remove(os.path.join(select_folder,optis_rdr2))
+            
+            optiscaler_rdr2_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+                
+            subprocess.run(optiscaler_rdr2_reg,check=True)
                             
-    except Exception:
+    except Exception as ee:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        print (ee)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
@@ -4794,7 +4801,8 @@ rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
                "RDR2 Mix":'mods\\RDR2_FSR3_mix',
                "RDR2 Mix 2":'mods\\RDR2_FSR3_mix',
                "Red Dead Redemption V2":'mods\\RDR2_FSR3_V2',
-               "RDR2 Non Steam FSR3":'mods\\FSR3_RDR2_Non_Steam\\RDR2_FSR3'}
+               "RDR2 Non Steam FSR3":'mods\\FSR3_RDR2_Non_Steam\\RDR2_FSR3',
+               "RDR2 FSR 3.1 FG":"mods\\RDR2_FSR3_1"}
 def rdr2_build2():
     global rdr2_folder
     
@@ -4834,6 +4842,9 @@ def rdr2_build2():
 
         config_rdr2_ini.write()
         shutil.copy2(path_rdr2_ini,dest_folder_mods)
+    
+    if select_mod == "RDR2 FSR 3.1 FG":
+        shutil.copytree("mods\\Optiscaler FSR 3.1 Custom",select_folder,dirs_exist_ok=True)
 
 dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler_DD2':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
@@ -6045,7 +6056,6 @@ def change_labels():
         nvngx_label.place(x=420,y=395)
         dxgi_label.place(x=420,y=425)
         addon_mods_label.place(x=420,y=457)
-        addon_ups_dx11_label.place(x=420,y=487)
         addon_ups_dx12_label.place(x=420,y=517)
         
         uni_custom_canvas.place(x=602,y=365)
@@ -6211,7 +6221,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -6301,7 +6311,7 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)','Ac Valhalla FSR3 All GPU')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
-    if select_option == 'The Witcher 3':
+    elif select_option == 'The Witcher 3':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS Optiscaler','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler + Xess + Dlss')
@@ -6518,13 +6528,10 @@ def update_addon_mods(event=None):
     if select_addon_mods == 'OptiScaler':
         if select_mod != 'The Witcher 3 Optiscaler FG':
             install_method()
-        addon_ups_dx11_canvas.config(bg='white')
         addon_ups_dx12_canvas.config(bg='white')
         options_optiscaler_canvas.config(bg='white')
 
     elif select_addon_mods != 'OptiScaler' or not addon_contr:
-        addon_ups_dx11_canvas.config(bg='#C0C0C0')
-        addon_ups_dx11_listbox.place_forget() 
         addon_ups_dx12_canvas.config(bg='#C0C0C0')
         addon_ups_dx12_listbox.place_forget()
         options_optiscaler_canvas.config(bg='#C0C0C0')
@@ -6534,23 +6541,6 @@ def update_addon_mods(event=None):
 addon_op = ['OptiScaler','Tweak']
 for addon_options in addon_op:
     addon_mods_listbox.insert(tk.END,addon_options)
-
-def update_addon_dx11(event=None):
-    global select_addon_dx11
-    index_addon_dx11 = addon_ups_dx11_listbox.curselection()
-    if index_addon_dx11:
-        select_addon_dx11 = addon_ups_dx11_listbox.get(index_addon_dx11)
-        addon_ups_dx11_canvas.delete('text')
-        addon_ups_dx11_canvas.create_text(2,8,anchor='w',text=select_addon_dx11,fill='black',tags='text')
-    
-    if select_addon_dx11 in addon_dx11:
-        update_optiscaler_dx11_dx12()
-        
-    addon_ups_dx11_canvas.update()
-
-addon_dx11 = ['fsr2.2 DX11','xess DX11','fsr2.2 DX11 - DX12','fsr2.1 DX11', 'fsr3.1 DX11']
-for addon_dx11_op in addon_dx11:
-    addon_ups_dx11_listbox.insert(tk.END,addon_dx11_op)
 
 def update_addon_dx12(event=None):
     global select_addon_dx12
@@ -6565,7 +6555,8 @@ def update_addon_dx12(event=None):
 
     addon_ups_dx12_canvas.update()
 
-addon_dx12 = ['xess DX12','fsr2.2 DX12','fsr2.1 DX12', 'fsr3.1 DX12']
+addon_dx12 = ['fsr2.1 DX11','fsr2.2 DX11 - DX12','fsr3.1 DX11','xess DX11','fsr2.2 DX11','xess DX12','dlss DX11','fsr2.2 DX12','fsr2.1 DX12', 'fsr3.1 DX12','dlss DX12','fsr2.1 Vulkan','fsr2.2 Vulkan ','fsr3.1 Vulkan','dlss Vulkan']
+
 for addon_dx12_op in addon_dx12:
     addon_ups_dx12_listbox.insert(tk.END,addon_dx12_op)
 
@@ -6672,8 +6663,6 @@ nvngx_label.bind('<Enter>',guide_nvngx)
 nvngx_label.bind('<Leave>',close_nvngx_guide)
 addon_mods_canvas.bind('<Button-1>',addon_mods_view)
 addon_mods_listbox.bind('<<ListboxSelect>>',update_addon_mods)
-addon_ups_dx11_canvas.bind('<Button-1>',addon_dx11_view)
-addon_ups_dx11_listbox.bind('<<ListboxSelect>>',update_addon_dx11)
 addon_ups_dx12_canvas.bind('<Button-1>',addon_dx12_view)
 addon_ups_dx12_listbox.bind('<<ListboxSelect>>',update_addon_dx12)
 options_optiscaler_canvas.bind('<Button-1>',options_optiscaler_view)
@@ -6702,8 +6691,6 @@ fsr_guide_label.bind('<Enter>',guide_fsr_guide)
 fsr_guide_label.bind('<Leave>',close_guide_fsr)
 addon_mods_label.bind('<Enter>',guide_addon_mods)
 addon_mods_label.bind('<Leave>',close_addon_guide)
-addon_ups_dx11_label.bind('<Enter>',guide_addon_dx11)
-addon_ups_dx11_label.bind('<Leave>',close_addon_dx11)
 addon_ups_dx12_label.bind('<Enter>',guide_addon_dx12)
 addon_ups_dx12_label.bind('<Leave>',close_addon_dx12)
 ignore_ingame_fg_label.bind('<Enter>',guide_ignore_ingame_fg)
