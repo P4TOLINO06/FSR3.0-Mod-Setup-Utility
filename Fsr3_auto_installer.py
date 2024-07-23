@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.5.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -3048,10 +3048,10 @@ def cbox_custom_fsr():
         custom_fsr_act = False
         
 custom_fsr_label = tk.Label(screen,text='Resolution Override  -  Custom FSR',font=font_select,bg='black',fg='#C0C0C0')
-custom_fsr_label.place(x=420,y=145)
+custom_fsr_label.place(x=420,y=153)
 custom_fsr_var = IntVar()
 custom_fsr_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=custom_fsr_var,command=cbox_custom_fsr)
-custom_fsr_cbox.place(x=672,y=147)
+custom_fsr_cbox.place(x=672,y=155)
 
 fsr_ultraq_canvas = tk.Canvas(screen,bg='#C0C0C0',width=50,height=19,highlightthickness=0)
 fsr_ultraq_canvas.place(x=565,y=188)
@@ -3874,18 +3874,18 @@ def edit_sharpeness_up():
         unlock_cbox_sharp = False    
     
 sharpness_label = tk.Label(screen,text='Sharpness Override',font=font_select,bg='black',fg='#C0C0C0')
-sharpness_label.place(x=420,y=73)
+sharpness_label.place(x=420,y=96)
 sharpness_var = tk.IntVar()
 sharpness_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=sharpness_var,command=cbox_sharpness)
-sharpness_cbox.place(x=560,y=76)
+sharpness_cbox.place(x=560,y=98)
 sharpness_value_label = tk.Label(screen,text='Sharpness Value:',font=font_select,bg='black',fg='#C0C0C0')
-sharpness_value_label.place(x=420,y=103)
+sharpness_value_label.place(x=420,y=125)
 sharpness_value_canvas = tk.Canvas(screen,width=80,height=19,bg='#C0C0C0',highlightthickness=0)
-sharpness_value_canvas.place(x=565,y=108)
+sharpness_value_canvas.place(x=565,y=130)
 sharpness_value_label_up = tk.Label(screen,text='+',font=(font_select,14),bg='black',fg='#B0C4DE')
-sharpness_value_label_up.place(x=545,y=103)
+sharpness_value_label_up.place(x=545,y=124)
 sharpness_value_label_down = tk.Label(screen,text='-',font=(font_select,22),bg='black',fg='#B0C4DE')
-sharpness_value_label_down.place(x=648,y=95)
+sharpness_value_label_down.place(x=648,y=117)
 
 cont_value_up = 0
 cont_value_up_f = '0.0'
@@ -3927,6 +3927,57 @@ def cont_sharpness_value_down(event=None):
 
 def color_sharpness_value_down(event=None):
     sharpness_value_label_down.configure(fg='#B0C4DE')
+
+
+#Define which frame gen will be used, FSR 3.1 or FSR3
+fg_mode_label = tk.Label(screen,text='Frame Gen Method',font=font_select,bg='black',fg='#C0C0C0')
+fg_mode_label.place(x=420,y=68)
+fg_mode_canvas = tk.Canvas(screen,width=116,height=19,bg='#C0C0C0',highlightthickness=0)
+fg_mode_canvas.place(x=565,y=72)
+fg_mode_listbox = tk.Listbox(screen,bg='white',width=19,height=0,highlightthickness=0)
+
+fg_mode_list = ['Uniscaler FSR 3.1']
+fg_mode_visible = False
+unlock_listbox_fg_mode = False
+select_fg_mode = None
+
+def unlock_fg_mode():
+    global unlock_listbox_fg_mode
+    if select_mod == 'Uniscaler FSR 3.1':
+        unlock_listbox_fg_mode = True
+        fg_mode_canvas.config(bg='white')
+    else:
+        fg_mode_listbox.place_forget()
+        fg_mode_canvas.delete('text')
+        fg_mode_canvas.config(bg='#C0C0C0')
+        unlock_listbox_fg_mode  = False
+
+def fg_mode_view(event):
+    global fg_mode_visible,unlock_listbox_fg_mode
+    if unlock_listbox_fg_mode == True:
+        if fg_mode_visible:
+            fg_mode_listbox.place_forget()
+            fg_mode_visible = False
+        else:
+            fg_mode_listbox.place(x=565,y=95)
+            fg_mode_visible = True
+
+def edit_fg_mode():
+    global select_fg_mode
+    path_fg_mode = {'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml'}
+    key_fg_mode = 'general'
+
+    if select_mod in path_fg_mode:
+        ini_fg_mode = path_fg_mode[select_mod]
+
+        with open (ini_fg_mode,'r') as file:
+            toml_fg = toml.load(file)
+
+        toml_fg.setdefault(key_fg_mode,{})
+        toml_fg[key_fg_mode]['frame_generator'] = str(select_fg_mode).replace('.','_').lower()
+        
+        with open(ini_fg_mode,'w') as file:
+            toml.dump(toml_fg,file)
 
 '''
 Modify the mod's operation through the .toml file
@@ -5701,7 +5752,7 @@ sharp_over_label_guide.place_forget()
 def guide_sharp_over(event=None):
     sharp_over_label_guide.config(text="Default value is -1.0, override disabled, uses game sharpening\n"
     "values 0.0-1.0, 0.0 disables sharpening completely, 1.0 max sharpening")
-    sharp_over_label_guide.place(x=420,y=98)
+    sharp_over_label_guide.place(x=420,y=118)
 
 def close_sharp_overguide(event=None):
     sharp_over_label_guide.config(text="")
@@ -5723,6 +5774,17 @@ def guide_mod_op(event=None):
 def close_mod_opguide(event=None):
     mod_op_label_guide.config(text="")
     mod_op_label_guide.place_forget()
+
+fg_mode_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
+fg_mode_label_guide.place_forget()
+
+def guide_fg_mode(event=None):
+    fg_mode_label_guide.config(text="Define which frame generator will be used, FSR 3.1 or FSR3")
+    fg_mode_label_guide.place(x=420,y=90)
+
+def close_fg_modeguide(event=None):
+    fg_mode_label_guide.config(text="")
+    fg_mode_label_guide.place_forget()
 
 dis_con_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=220)
 dis_con_label_guide.place_forget()
@@ -5790,23 +5852,12 @@ def close_addon_guide(event=None):
     addon_label_guide.config(text="")
     addon_label_guide.place_forget()
 
-addon_dx11_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
-addon_dx11_guide.place_forget()
-
-def guide_addon_dx11(event=None):
-    addon_dx11_guide.config(text="Select upscaler for Dx11 games")
-    addon_dx11_guide.place(x=420,y=540)
-
-def close_addon_dx11(event=None):
-    addon_dx11_guide.config(text="")
-    addon_dx11_guide.place_forget()
-
 addon_dx12_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 addon_dx12_guide.place_forget()
 
 def guide_addon_dx12(event=None):
-    addon_dx12_guide.config(text="Select upscaler for Dx12 games")
-    addon_dx12_guide.place(x=420,y=570)
+    addon_dx12_guide.config(text="Select the upscaler that the mod will use")
+    addon_dx12_guide.place(x=420,y=540)
  
 def close_addon_dx12(event=None):
     addon_dx12_guide.config(text="")
@@ -6433,6 +6484,7 @@ def update_mod_version(event=None):
     unlock_fps_limit()
     unlock_sharp()
     update_nvngx()
+    unlock_fg_mode()
     unlock_uni_custom()
     
     if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
@@ -6538,7 +6590,21 @@ def select_mod_op_lock():
         
     for mod_operates_ins in mod_op_list:
         mod_operates_listbox.insert(tk.END,mod_operates_ins)
-  
+
+def update_fg_mode(event=None):
+    global select_fg_mode
+    index_fg_mode = fg_mode_listbox.curselection()
+    if index_fg_mode:
+        select_fg_mode = fg_mode_listbox.get(index_fg_mode)
+        fg_mode_canvas.delete('text')
+        fg_mode_canvas.create_text(2,8,anchor='w',text=select_fg_mode,fill='black',tags='text')
+    edit_fg_mode()
+    fg_mode_canvas.update()
+
+fg_mode_options =  ['FSR3.1','FSR3']
+for fg_mode_opts in fg_mode_options:
+    fg_mode_listbox.insert(tk.END,fg_mode_opts)
+     
 def update_nvngx(event=None):
     global select_nvngx,nvngx_op
     index_nvngx_op = nvngx_listbox.curselection()
@@ -6693,6 +6759,8 @@ sharpness_label.bind('<Enter>',guide_sharp_over)
 sharpness_label.bind('<Leave>',close_sharp_overguide)
 mod_operates_listbox.bind('<<ListboxSelect>>',update_mod_operates)
 mod_operates_canvas.bind('<Button-1>',mod_operates_view)
+fg_mode_listbox.bind('<<ListboxSelect>>',update_fg_mode)
+fg_mode_canvas.bind('<Button-1>',fg_mode_view)
 fsr_ultraq_label_up.bind('<Button-1>',fsr_ultraq_up_custom)
 fsr_ultraq_label_up.bind('<ButtonRelease-1>',color_fsr_ultraq_up)
 fsr_ultraq_label_down.bind('<Button-1>',fsr_ultraq_down_custom)
@@ -6741,6 +6809,8 @@ macos_sup_label.bind('<Enter>',guide_mcos)
 macos_sup_label.bind('<Leave>',close_mcosguide)
 mod_operates_label.bind('<Enter>',guide_mod_op)
 mod_operates_label.bind('<Leave>',close_mod_opguide)
+fg_mode_label.bind('<Enter>',guide_fg_mode)
+fg_mode_label.bind('<Leave>',close_fg_modeguide)
 disable_console_label.bind('<Enter>',guide_dis_con_op)
 disable_console_label.bind('<Leave>',close_dis_conguide)
 debug_tear_lines_label.bind('<Enter>',guide_debug_op)
