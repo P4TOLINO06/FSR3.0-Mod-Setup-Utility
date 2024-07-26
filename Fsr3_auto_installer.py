@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.1v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1273,7 +1273,7 @@ def backup_files():
         comp_files(callisto_origins)
         unlock_view_message = False
         
-    if select_option == 'Dragons Dogma 2':
+    if select_option == 'Dragons Dogma 2' and select_mod != 'FSR 3.1/DLSS DD2 ALL GPU' and select_mod != 'FSR 3.1/DLSS DD2 NVIDIA':
         comp_files(dd2_folder)
         unlock_view_message = False
         
@@ -1340,7 +1340,17 @@ def backup_files():
     
     select_cb2077_file = ['nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
     select_cb2077_name = "RTX DLSS FG"
-    
+
+    select_dd2_file =  ['amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll','dinput8.dll','dxgi.dll' 'libxess.dll', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 
+    'nvngx.ini', 'openvr_api.dll', 'openxr_loader.dll','_nvngx.dll']
+    select_dd2_name = "FSR 3.1/DLSS DD2 ALL GPU"
+
+    select_dd2_nv_file = ['amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll','dinput8.dll', 'dxgi.dll', 
+    'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'openvr_api.dll', 'openxr_loader.dll', 
+    'unins000.dat', 'unins000.exe']
+
+    select_dd2_nv_name = 'FSR 3.1/DLSS DD2 NVIDIA' 
+
     def search_dll_files(name_file_select,name_file,select_option_search):
         backup_folder = os.path.join(select_folder, 'Backup')
 
@@ -1429,7 +1439,15 @@ def backup_files():
         if select_option == "Cyberpunk 2077" and select_mod == "RTX DLSS FG":
             for cb2077_files in select_cb2077_file:
                 sucess_message = search_dll_files(select_cb2077_name,cb2077_files,search_spider)
-           
+
+        if select_option == 'Dragons Dogma 2' and select_mod == 'FSR 3.1/DLSS DD2 ALL GPU':
+            for dd2_all_files in select_dd2_file:
+                sucess_message = search_dll_files(select_dd2_name,dd2_all_files,search_spider)
+
+        if select_option == 'Dragons Dogma 2' and select_mod == 'FSR 3.1/DLSS DD2 NVIDIA':
+            for dd2_nv_files in select_dd2_nv_file:
+                sucess_message = search_dll_files(select_dd2_nv_name,dd2_nv_files,search_spider)
+
     else:
         return 
     
@@ -2210,6 +2228,22 @@ def clean_mod():
     
     del_hb2 = ['version.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
     
+    del_dd2_all_gpu = [
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DELETE_OPENVR_API_DLL_IF_YOU_WANT_TO_USE_OPENXR', 
+    'dinput8.dll', 'DisableNvidiaSignatureChecks.reg', 'DisableSignatureOverride.reg', 'dlss-enabler-upscaler.dll',
+    'dlss-enabler.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'EnableSignatureOverride.reg', 
+    'libxess.dll', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'openvr_api.dll', 
+    'openxr_loader.dll', 'reframework_revision.txt', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', '_nvngx.dll'
+    ]
+
+    del_dd2_nv = [
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DELETE_OPENVR_API_DLL_IF_YOU_WANT_TO_USE_OPENXR', 
+    'dinput8.dll', 'DisableSignatureOverride.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll',
+    'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 
+    'EnableSignatureOverride.reg', 'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 
+    'nvngx.ini', 'openvr_api.dll', 'openxr_loader.dll', 'reframework_revision.txt', 
+    'unins000.dat', 'unins000.exe']
+
     del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
 
     del_optiscaler_custom = [
@@ -2240,7 +2274,7 @@ def clean_mod():
     
     try:
         path_dd2_w = os.path.join(select_folder,'_storage_')
-        if select_option == 'Dragons Dogma 2':
+        if select_option == 'Dragons Dogma 2' and select_mod != 'FSR 3.1/DLSS DD2 ALL GPU' and select_mod != 'FSR 3.1/DLSS DD2 NVIDIA':
             if os.path.exists(path_dd2_w):
                 try:
                     os.remove(os.path.join(path_dd2_w,del_winmm)) 
@@ -2253,6 +2287,20 @@ def clean_mod():
                 if os.path.exists(storage_folder):
                     shutil.rmtree(storage_folder)
         
+        elif select_mod == 'FSR 3.1/DLSS DD2 ALL GPU':
+            for all_gpu_dd2 in os.listdir(select_folder):
+                if all_gpu_dd2 in  del_dd2_all_gpu:
+                    os.remove(os.path.join(select_folder,all_gpu_dd2))
+            
+            shutil.rmtree(os.path.join(select_folder,'reframework'))
+        
+        elif select_mod == 'FSR 3.1/DLSS DD2 NVIDIA':
+            for nv_dd2 in os.listdir(select_folder):
+                if nv_dd2 in  del_dd2_nv:
+                    os.remove(os.path.join(select_folder,nv_dd2))
+
+            shutil.rmtree(os.path.join(select_folder,'reframework'))
+
         uniscaler_folder = os.path.join(select_folder, 'uniscaler')
         if os.path.exists(uniscaler_folder):
             shutil.rmtree(uniscaler_folder)
@@ -2261,7 +2309,7 @@ def clean_mod():
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
      
     try:
-        if select_option == 'Elden Ring' and select_mod != 'Elden_Ring_FSR3_V3':
+        if select_option == 'Elden Ring' and select_mod != 'Elden_Ring_FSR3_V3' and select_mod != 'Unlock FPS Elden':
             for item in os.listdir(select_folder):
                 if item in mod_clean_list or item in del_elden_fsr3:
                     os.remove(os.path.join(select_folder,item))
@@ -2270,14 +2318,29 @@ def clean_mod():
                 er_reshade = os.path.join(select_folder, 'reshade-shaders')
                 if os.path.exists(er_mods or er_reshade):
                     shutil.rmtree(er_reshade)
-                    shutil.rmtree(er_mods)    
+                    shutil.rmtree(er_mods)   
+            if os.path.exists(os.path.join(select_folder,'mods')):
+                if os.path.exists(os.path.join(select_folder,'UnlockFps.txt')):
+                    os.remove(os.path.join(select_folder,'mods\\UnlockTheFps.dll'))
+                    os.remove(os.path.join(select_folder,'UnlockFps.txt'))
+                    shutil.rmtree(os.path.join(select_folder,'mods\\UnlockTheFps'))
+
+
         elif select_option == 'Elden Ring' and select_mod == 'Elden_Ring_FSR3_V3':
             for itemv3 in os.listdir(select_folder):
                 if itemv3 in del_elden_fsr3_v3:
                     os.remove(os.path.join(select_folder,itemv3))  
             if os.path.exists(os.path.join(select_folder,'ERSS2')):
                 shutil.rmtree(os.path.join(select_folder,'ERSS2'))  
+        
+            if os.path.exists(os.path.join(select_folder,'mods')):
+                if os.path.exists(os.path.join(select_folder,'UnlockFps.txt')):
+                    os.remove(os.path.join(select_folder,'mods\\UnlockTheFps.dll'))
+                    os.remove(os.path.join(select_folder,'UnlockFps.txt'))
+                    shutil.rmtree(os.path.join(select_folder,'mods\\UnlockTheFps'))
+
     except Exception as e:
+        print(e)
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
     
     if select_option == 'Baldur\'s Gate 3':
@@ -4961,10 +5024,15 @@ dd2_folder = {'Dinput8':'mods\\FSR3_DD2\\dinput',
               'Uniscaler + Xess + Dlss DD2':'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
               'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
               'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
-              'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\Uniscaler_FSR31'
+              'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\Uniscaler_FSR31',
 }
+dd2_fsr31_list = ['FSR 3.1/DLSS ALL GPU']
+
 def dd2_fsr():
     global dd2_folder,var_d_put
+
+    dd2_reg = ['regedit.exe', '/s', "mods\Temp\enable signature override\EnableSignatureOverride.reg"]
+    dd2_reg2 = ['regedit.exe', '/s', "mods\FSR2FSR3_DD2_FSR31\DD2_DLSS\DisableNvidiaSignatureChecks.reg"]
     
     var_d_put = False
     
@@ -4986,12 +5054,45 @@ def dd2_fsr():
         break 
     else:
         var_d_put = False
+
+    if select_mod == 'FSR 3.1/DLSS DD2 ALL GPU':
+        var_d_put = True #Allows the installation of the mod for DD2
+
+        fsr31_dd2 = messagebox.askyesno('FSR 3.1','Would you like to use FSR 3.1? The game might have some graphical bugs')
+
+        if fsr31_dd2:
+            update_ini('mods\\Temp\\Optiscaler_DD2\\nvngx.ini','Dx12Upscaler','fsr31')
+        else:
+            update_ini('mods\\Temp\\Optiscaler_DD2\\nvngx.ini','Dx12Upscaler','xess')
+
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Re_Framework',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\DD2_DLSS',select_folder,dirs_exist_ok=True)
+        shutil.copy2('mods\\Temp\\Optiscaler_DD2\\nvngx.ini',select_folder)
+        shutil.copy2('mods\\FSR2FSR3_DD2_FSR31\\Optiscaler_DD2\\nvngx.ini','mods\\Temp\\Optiscaler_DD2\\nvngx.ini') #Replace the modified .ini file with a clean .ini file.
+        subprocess.run(dd2_reg,check=True)
+        subprocess.run(dd2_reg2,check=True)
+
+        if os.path.exists(os.path.join(select_folder,'shader.cache2')):
+            os.remove(os.path.join(select_folder,'shader.cache2'))
     
+    elif select_mod == 'FSR 3.1/DLSS DD2 NVIDIA':
+        var_d_put = True #Allows the installation of the mod for DD2
+
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Re_Framework',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\DD2_NVIDIA',select_folder,dirs_exist_ok=True)
+        subprocess.run(dd2_reg,check=True)
+        subprocess.run(dd2_reg2,check=True)
+
+        if os.path.exists(os.path.join(select_folder,'shader.cache2')):
+            os.remove(os.path.join(select_folder,'shader.cache2'))
+
     if select_mod == 'Uniscaler_DD2' and var_d_put or select_mod == 'Uniscaler + Xess + Dlss DD2' and var_d_put :
         us_dd2(var_d_put,origins_dd2)
     elif select_mod == 'Uniscaler_DD2' and not var_d_put or select_mod == 'Uniscaler + Xess + Dlss DD2' and not var_d_put:
         messagebox.showinfo('Not Found','Deput8.dll file not found, please select "Deput8" in "Select mod" before installing the mod, we recommend checking out the Dragons Dogmas 2 guide on FSR GUIDE.')
-
+   
 def us_dd2(var_d_put,origins_dd2):
     del_shader = ['shader.cache2']
     
@@ -5014,7 +5115,9 @@ def us_dd2(var_d_put,origins_dd2):
 er_origins = {'Disable_Anti-Cheat':'mods\Elden_Ring_FSR3\ToggleAntiCheat',
               'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3',
               'Elden_Ring_FSR3 V2':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v2',
-              'Elden_Ring_FSR3_V3':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v3'}
+              'Elden_Ring_FSR3_V3':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v3',
+              }
+
 def elden_fsr3():
     global er_origins
     
@@ -5023,7 +5126,10 @@ def elden_fsr3():
     
     if select_mod in er_origins:
         shutil.copytree(elden_folder,select_folder, dirs_exist_ok=True)
-        
+
+    if select_mod == 'Unlock FPS Elden':  
+        shutil.copytree('mods\\Elden_Ring_FSR3\\Unlock_Fps',select_folder,dirs_exist_ok=True)
+
     if os.path.exists(os.path.join(select_folder, 'toggle_anti_cheat.exe')):
         run_dis_anti_c()
 
@@ -5918,11 +6024,11 @@ def install(event=None):
             fsr_rdr2()
         elif select_fsr in fsr_sct_rdr2 and select_mod in rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in rdr2_folder and install_contr:
             rdr2_build2()
-        elif select_mod in dd2_folder:
+        elif select_mod in dd2_folder or select_mod == 'FSR 3.1/DLSS DD2 NVIDIA' or select_mod == 'FSR 3.1/DLSS DD2 ALL GPU':
             dd2_fsr()
             if var_d_put == False:
                 return
-        elif select_mod in er_origins:
+        elif select_mod in er_origins or select_mod == 'Unlock FPS Elden':
             elden_fsr3()
         elif select_mod in bdg_origins:
             bdg_fsr3()
@@ -5940,7 +6046,6 @@ def install(event=None):
             lotf_fsr3()
         elif select_option == 'Horizon Forbidden West':
             hfw_fsr3()
-
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
@@ -6031,6 +6136,7 @@ def install(event=None):
         screen.after(100,install_false)
         
     except Exception as e: 
+        print(e)
         messagebox.showwarning('Error',f'Installation error')
         return
         
@@ -6337,11 +6443,11 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Dinput8','Uniscaler_DD2','Uniscaler + Xess + Dlss DD2')
+        mod_version_listbox.insert(tk.END,'Dinput8','FSR 3.1/DLSS DD2 ALL GPU','FSR 3.1/DLSS DD2 NVIDIA','Uniscaler_DD2','Uniscaler + Xess + Dlss DD2')
     
     elif select_option == 'Elden Ring':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','Elden_Ring_FSR3_V3')
+        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','Elden_Ring_FSR3_V3','Unlock FPS Elden')
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
