@@ -30,7 +30,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.2v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -261,8 +261,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -423,6 +423,12 @@ def text_guide():
 '3 - If you don\'t see any differences, check the box for\nNvapi Results.'   
 ),
 
+'Cod MW3':(
+'1 - Select the game path: CallofDuty\Content\sp23\n'
+'2 - Select the COD MW3 FSR3 mod and install it\n'
+'3 - In the game, select DLSS Frame Generation\n'
+),
+
 'Control':(
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - Check the Fake Nvidia Gpu box. (Amd/Gtx).\n'
@@ -531,6 +537,11 @@ def text_guide():
 'Fist Forged in Shadow Torch':(
  '1 - Select a mod of your choice. (0.10.3 is recommended)\n'
 '2 - Check the Fake Nvidia GPU box (AMD/GTX)'   
+),
+
+'Flintlock: The Siege of Dawn':(
+'1 - Select the FSR 3.1/DLSS Optiscaler mod and install it.\n'
+'2 - In the game, select DLSS, press the Insert key to open\nthe Optiscaler menu, in Upscalers select an upscaler of your\npreference. If you cannot see the menu, after installing the\nmod, select Optiscaler in the Utility and choose an upscaler\nin Upscaler Optiscaler and install.'
 ),
 
 'Fort Solis':(
@@ -2251,6 +2262,18 @@ def clean_mod():
     'dxgi.dll', 'EnableSignatureOverride.reg', 'libxess.dll', 'licenses', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', 'unins000.exe', 'version.dll', '_nvngx.dll'
     ]
 
+    del_codmw3_rtx =[ 
+    'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll',
+    'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat',
+    'version.dll','cod_rtx.txt'
+    ]
+    del_codmw3_amd = [
+    'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe',
+    'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll',
+    'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg',
+    'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','cod_amd.txt'
+    ]
+
     try:    
         
         path_uni = os.path.join(select_folder,'uniscaler')
@@ -2652,6 +2675,22 @@ def clean_mod():
     except Exception:
         messagebox.showinfo("Optiscaler Custom","Error clearing Optiscaler Custom files, please try again or do it manually")
     
+    try:
+        if os.path.exists(os.path.join(select_folder,'cod_amd.txt')):
+            for cod_amd in os.listdir(select_folder):
+                if cod_amd in del_codmw3_amd:
+                    os.remove(os.path.join(select_folder,cod_amd))
+        
+        elif os.path.exists(os.path.join(select_folder,'cod_rtx.txt')):
+            for cod_rtx in os.listdir(select_folder):
+                if cod_rtx in del_codmw3_rtx:
+                    os.remove(os.path.join(select_folder,cod_rtx))  
+
+        cod_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+            
+        subprocess.run(cod_reg,check=True)
+    except Exception:
+        messagebox.showinfo("COD MW3 FSR3","Error clearing COD MW3 FSR3 files, please try again or do it manually")
                                         
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
@@ -5457,6 +5496,21 @@ def lotf_fsr3():
 def cod_fsr():
     messagebox.showinfo('Ban','Do not use the mod in multiplayer, otherwise you may be banned. We are not responsible for any bans')
 
+def cod_mw3_fsr3():
+    path_cod_rtx = 'mods\\FSR2FSR3_CODMW3\\RTX'
+    path_cod_amd = 'mods\\FSR2FSR3_CODMW3\\AMD'
+    cod_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+
+    var_codmw3 = messagebox.askyesno('GPU','Do you have a GPU starting from GTX 1660?')
+
+    if var_codmw3:
+        shutil.copytree(path_cod_rtx,select_folder,dirs_exist_ok=True)
+        subprocess.run(cod_rtx_reg,check=True)
+    
+    else:
+        shutil.copytree(path_cod_amd,select_folder,dirs_exist_ok=True)
+        subprocess.run(cod_rtx_reg,check=True)
+
 def hfw_fsr3():
     hfw_rtx = 'mods\\FSR3_HFW\\RTX FSR3'
     xess_hfw ='mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
@@ -6060,6 +6114,8 @@ def install(event=None):
             
         if select_option == 'Cod Black Ops Cold War':
             cod_fsr()
+        if select_option == 'COD MW3':
+            cod_mw3_fsr3()
         
         if select_option == 'GTA V':
             var_dinput_gtav = gtav_fsr3()
@@ -6316,6 +6372,7 @@ fsr_game_version={
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Chernobylite':'2.1',
     'Cod Black Ops Cold War':'2.2',
+    'Cod MW3':'3.0',
     'Control':'2.2',
     'Crime Boss Rockay City':'2.0',
     'Cyberpunk 2077':'2.2',
@@ -6333,6 +6390,7 @@ fsr_game_version={
     'F1 2022':'2.2',
     'F1 2023':'2.2',
     'FIST: Forged In Shadow Torch':'2.2',
+    'Flintlock: The Siege of Dawn':'3.1',
     'Fort Solis':'2.2',
     'Forza Horizon 5':'FH',
     'Ghost of Tsushima':'DLSS',
@@ -6548,7 +6606,17 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1/DLSS Optiscaler','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-        
+    
+    elif select_option == 'Flintlock: The Siege of Dawn':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'COD MW3':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'COD MW3 FSR3')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -6557,7 +6625,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
