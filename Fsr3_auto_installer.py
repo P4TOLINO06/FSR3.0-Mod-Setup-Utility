@@ -9,6 +9,7 @@ import sys
 import ctypes
 from tkinter import font as tkFont
 from configobj import ConfigObj
+import json
 import win32com.client
 import psutil
 
@@ -30,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.2v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.3v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -888,7 +889,15 @@ def text_guide():
 '3 - In the configuration window, disable \'AMD FidelityFX CAS\' and select an option in XESS/DLSS.\n'
 '4 - Within the game, adjust the options as desired (you can reactivate AMD FidelityFX CAS)\n'
 '5 - To activate Frame Generation, select an option in XESS/DLSS, select an Anti-aliasing option if\ndesired (Frame Generation will remain active).\n'
-'● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).'
+'● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).\n\n'
+
+'Uniscaler V3\n'
+'1 - Select Uniscaler V3\n'
+'2 - In Mod Operates, select XESS, and in Frame Gen Method, select FSR3\n'
+'3 - If you don\'t have an RTX GPU, check the Nvngx.dll box and select Default\n'  
+'4 - In the game, turn off Anti-Aliasing and set XESS to Quality\n'  
+'5 - To fix the HUD error, go to settings after completing the step above, turn off XESS, and select\nSMAA in Anti-Aliasing.'
+
 ),
 
 'Steelrising':(
@@ -1000,7 +1009,7 @@ def text_guide():
     elif select_game == 'Uniscaler':
         screen_guide.geometry('538x260')
     elif select_game == 'Shadow of the Tomb Raider':
-        screen_guide.geometry('740x260')
+        screen_guide.geometry('740x320')
     elif select_game == 'Horizon Forbidden West':
         screen_guide.geometry('573x260')
     elif select_game == 'Rise of The Tomb Raider':
@@ -2262,16 +2271,16 @@ def clean_mod():
     'dxgi.dll', 'EnableSignatureOverride.reg', 'libxess.dll', 'licenses', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', 'unins000.exe', 'version.dll', '_nvngx.dll'
     ]
 
-    del_codmw3_rtx =[ 
+    del_dlss_rtx =[ 
     'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll',
     'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat',
-    'version.dll','cod_rtx.txt'
+    'version.dll','dlss_rtx.txt'
     ]
-    del_codmw3_amd = [
+    del_dlss_amd = [
     'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe',
     'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll',
     'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg',
-    'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','cod_amd.txt'
+    'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','dlss_amd.txt'
     ]
 
     try:    
@@ -2676,14 +2685,14 @@ def clean_mod():
         messagebox.showinfo("Optiscaler Custom","Error clearing Optiscaler Custom files, please try again or do it manually")
     
     try:
-        if os.path.exists(os.path.join(select_folder,'cod_amd.txt')):
+        if os.path.exists(os.path.join(select_folder,'dlss_amd.txt')):
             for cod_amd in os.listdir(select_folder):
-                if cod_amd in del_codmw3_amd:
+                if cod_amd in del_dlss_amd:
                     os.remove(os.path.join(select_folder,cod_amd))
         
-        elif os.path.exists(os.path.join(select_folder,'cod_rtx.txt')):
+        elif os.path.exists(os.path.join(select_folder,'dlss_rtx.txt')):
             for cod_rtx in os.listdir(select_folder):
-                if cod_rtx in del_codmw3_rtx:
+                if cod_rtx in del_dlss_rtx:
                     os.remove(os.path.join(select_folder,cod_rtx))  
 
         cod_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
@@ -4874,6 +4883,21 @@ def dlss_fsr():
     if put_dlss and select_nvngx != 'DLSS 3.7.0' or put_dlss and not nvngx_contr :
         shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
+def global_dlss():
+    path_dlss_rtx = 'mods\\DLSS_Global\\AMD'
+    path_dlss_amd = 'mods\\DLSS_Global\\RTX'
+    dlss_global_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+
+    var_global_dlss = messagebox.askyesno('GPU','Do you have a GPU starting from GTX 1660?')
+
+    if var_global_dlss:
+        shutil.copytree(path_dlss_rtx,select_folder,dirs_exist_ok=True)
+    
+    else:
+        shutil.copytree(path_dlss_amd,select_folder,dirs_exist_ok=True)
+
+    subprocess.run(dlss_global_reg,check=True)
+
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
     
@@ -5497,19 +5521,10 @@ def cod_fsr():
     messagebox.showinfo('Ban','Do not use the mod in multiplayer, otherwise you may be banned. We are not responsible for any bans')
 
 def cod_mw3_fsr3():
-    path_cod_rtx = 'mods\\FSR2FSR3_CODMW3\\RTX'
-    path_cod_amd = 'mods\\FSR2FSR3_CODMW3\\AMD'
-    cod_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+    global_dlss()
 
-    var_codmw3 = messagebox.askyesno('GPU','Do you have a GPU starting from GTX 1660?')
-
-    if var_codmw3:
-        shutil.copytree(path_cod_rtx,select_folder,dirs_exist_ok=True)
-        subprocess.run(cod_rtx_reg,check=True)
-    
-    else:
-        shutil.copytree(path_cod_amd,select_folder,dirs_exist_ok=True)
-        subprocess.run(cod_rtx_reg,check=True)
+def dl2_fsr3():
+    global_dlss()
 
 def hfw_fsr3():
     hfw_rtx = 'mods\\FSR3_HFW\\RTX FSR3'
@@ -5549,6 +5564,7 @@ def fsr3_aw2_rtx():
     path_rtx = 'mods\\FSR3_AW2\\RTX'
     path_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
     path_amd = 'mods\\FSR3_AW2\\AMD'
+    path_iniaw2 = os.getenv("LOCALAPPDATA") + '\\Remedy\\AlanWake2\\renderer.ini'
     
     if select_mod == 'Alan Wake 2 FG RTX':
         shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
@@ -5556,6 +5572,17 @@ def fsr3_aw2_rtx():
     
     elif select_mod  == 'Alan Wake 2 Uniscaler Custom':
         shutil.copytree(path_amd,select_folder,dirs_exist_ok=True)
+    
+    var_aw2 = messagebox.askyesno('Fix Ghosting Aw2','Do you want to fix possible ghosting issues caused by the FSR3 mod?')
+
+    value_remove_pos_processing = {   
+                "m_bLensDistortion": False,
+                "m_bFilmGrain": False,
+                "m_bVignette": False
+            } 
+
+    if var_aw2:
+        config_json(path_iniaw2,value_remove_pos_processing,'Post-processing effects successfully removed')
 
 def fsr3_motogp():
     if select_option == 'MOTO GP 24':
@@ -5655,6 +5682,50 @@ def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
         messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
         return
 
+def config_json(path_json, values_json,ini_message=None):
+
+    var_config_json = False
+
+    try:
+        if os.path.exists(path_json):
+            var_config_json = True
+        else:
+            var_config_json = False
+
+            var_folder_ini = messagebox.askyesno('Path Not Found','Path not found, the path to the renderer.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Remedy\\AlanWake2. Would you like to select the path manually?')
+
+            if var_folder_ini:
+                folder_ini = filedialog.askdirectory()
+            else:
+                return
+            
+            if folder_ini:
+                if os.path.exists(os.path.join(folder_ini,"renderer.ini")):
+                    var_config_json = True
+                else:
+                    messagebox.showinfo("File Not Found","renderer.ini was not found in the folder. Please select the folder containing the renderer.ini file. Click 'Install' again and select a path")
+                    return
+            else:
+                var_config_json = False
+                messagebox.showinfo("Empty path","No path was selected. Click 'Install' again and select a path")
+                return
+        
+        if var_config_json:
+            with open(path_json, 'r', encoding='utf8') as file:
+                data = json.load(file)
+
+            for key, new_value in values_json.items():
+                if key in data:
+                    data[key] = new_value
+
+            with open(path_json, 'w', encoding='utf8') as file:
+                json.dump(data, file, indent=4)
+
+            messagebox.showinfo('Sucess',ini_message)
+
+    except Exception as e:
+        messagebox.showinfo("Error","An error occurred in the Utility. Try closing and reopening it")
+    
 def remove_post_processing_effects_hell2():
     path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows\\Engine.ini'
     alt_path_hb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\WinGDK\\Engine.ini'
@@ -6105,6 +6176,8 @@ def install(event=None):
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
             spider_fsr()
+        if select_mod == 'DL2 DLSS FG':
+            dl2_fsr3()
         if select_mod == 'Uni Custom Miles':
             fsr3_miles()
         if select_mod == 'Dlss Jedi':
@@ -6616,6 +6689,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'COD MW3 FSR3')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Dying Light 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'DL2 DLSS FG','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     else:
         mod_version_canvas.delete('text')
