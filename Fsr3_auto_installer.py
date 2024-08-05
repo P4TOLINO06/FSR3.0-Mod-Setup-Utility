@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.3v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.4v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -909,12 +909,10 @@ def text_guide():
 ),
 
 'TEKKEN 8':(
-'1 - Select a mod of your preference (0.10.3 is recommended).\n'
-'2 - Enable Fake Nvidia GPU.\n'
-'3 - To fix the flickering of the HUD, select any upscaler\n(except DLSS) and wait for 30 seconds, then select DLSS.\nYou may need to do this more than once.\n\n'
-
-'• Fix slow-motion problem\n'
-'Turn off v-sync and motion blur, and lower all your settings\n(except Textual quality + FSR2 or DLSS) until your game no\nlonger experiences the slow-motion problem.\n\n'
+'1 - Select Uniscaler V3\n'
+'2 - If you want to use DLSS, check the Fake Nvidia GPU box\n'
+'3 - Check the Nvngx.dll box and select Default\n'
+'4 - To fix the HUD error, test all the Upscalers in-game and\nsee which one works best for you.\n\n'
 
 'Unlock FPS\n'
 '1 - Unlock FPS cannot be used alongside FSR3 mod.\n'
@@ -2283,27 +2281,6 @@ def clean_mod():
     'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','dlss_amd.txt'
     ]
 
-    try:    
-        
-        path_uni = os.path.join(select_folder,'uniscaler')
-        path_uni_asi = os.path.join(select_folder,'Uniscaler.asi')
-        
-        if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt,fsr_sdk_opt)):
-            for item in os.listdir(select_folder):
-                if item in mod_clean_list:
-                    os.remove(os.path.join(select_folder,item))
-        
-        if os.path.exists(path_uni) or os.path.exists(path_uni_asi):
-            for i_uni in os.listdir(select_folder):
-                if i_uni in del_uni:
-                    os.remove(os.path.join(select_folder,i_uni))
-            
-            if os.path.exists(path_uni):
-                shutil.rmtree(path_uni)
-                        
-    except Exception as e:
-        messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
-    
     try:
         path_dd2_w = os.path.join(select_folder,'_storage_')
         if select_option == 'Dragons Dogma 2' and select_mod != 'FSR 3.1/DLSS DD2 ALL GPU' and select_mod != 'FSR 3.1/DLSS DD2 NVIDIA':
@@ -2413,9 +2390,7 @@ def clean_mod():
                     os.remove(new_xess)
                     os.rename(name_xess,os.path.join(select_folder,rename_old_xess))
             elif not os.path.exists(name_xess):
-                if not os.path.exists(new_xess):
-                    return
-                else:
+                if os.path.exists(new_xess):
                     os.remove(new_xess)
     except Exception as e:
         messagebox.showinfo('Xess does not exist','Xess 1.3 does not exist or has already been removed previously.')
@@ -2471,7 +2446,7 @@ def clean_mod():
                 
             subprocess.run(optiscaler_rdr2_reg,check=True)
                             
-    except Exception as ee:
+    except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         print (ee)
     
@@ -2489,9 +2464,7 @@ def clean_mod():
                     os.rename(name_dlss,os.path.join(select_folder,rename_old_dlss))
                 
             elif not os.path.exists(name_dlss):
-                if not os.path.exists(new_dlss):
-                    return
-                else:
+                if os.path.exists(new_dlss):
                     os.remove(new_dlss)
 
     except Exception as e:
@@ -2655,6 +2628,21 @@ def clean_mod():
         del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
         shutil.rmtree(folder_ac)
 
+    try:
+        if select_option == 'Alan Wake 2':
+            path_old_iniaw2 = os.getenv("LOCALAPPDATA") + '\\Remedy\\AlanWake2\\renderer.ini'
+            path_new_iniaw2 = os.path.abspath(os.path.join(path_old_iniaw2,'..','..')) #Look for the backup file renderer.ini in the path C:\Users\YourName\AppData\Local\Remedy
+
+            if os.path.exists(path_new_iniaw2 + '\\renderer.ini'): 
+                restore_aw2_ini = messagebox.askyesno('Post-processing','Do you want to restore the post-processing effects?')
+
+                if restore_aw2_ini:
+                    shutil.copy2(path_new_iniaw2 + '\\renderer.ini',os.path.abspath(os.path.join(path_old_iniaw2,'..')))
+                
+                os.remove(path_new_iniaw2 + '\\renderer.ini')
+    except Exception as e:
+        messagebox.showinfo('Error','Unable to restore the post-processing effects')
+
     try: 
         if select_addon_mods == "OptiScaler":
             if os.path.exists(os.path.join(select_folder,'amd_fidelityfx_vk.dll')):
@@ -2700,6 +2688,27 @@ def clean_mod():
         subprocess.run(cod_reg,check=True)
     except Exception:
         messagebox.showinfo("COD MW3 FSR3","Error clearing COD MW3 FSR3 files, please try again or do it manually")
+
+    try:    
+        path_uni = os.path.join(select_folder,'uniscaler')
+        path_uni_asi = os.path.join(select_folder,'Uniscaler.asi')
+        
+        if any (select_option in opt for opt in (fsr_2_0_opt, fsr_2_1_opt, fsr_2_2_opt,fsr_sdk_opt)):
+            for item in os.listdir(select_folder):
+                if item in mod_clean_list:
+                    os.remove(os.path.join(select_folder,item))
+        
+        if os.path.exists(path_uni) or os.path.exists(path_uni_asi):
+            for i_uni in os.listdir(select_folder):
+                if i_uni in del_uni:
+                    os.remove(os.path.join(select_folder,i_uni))
+            
+            if os.path.exists(path_uni):
+                shutil.rmtree(path_uni)
+                        
+    except Exception as e:
+        messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
+    
                                         
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
@@ -5582,7 +5591,7 @@ def fsr3_aw2_rtx():
             } 
 
     if var_aw2:
-        config_json(path_iniaw2,value_remove_pos_processing,'Post-processing effects successfully removed')
+        config_json(path_iniaw2,value_remove_pos_processing,"'Path not found, the path to the renderer.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Remedy\\AlanWake2. Would you like to select the path manually?'",'Post-processing effects successfully removed')
 
 def fsr3_motogp():
     if select_option == 'MOTO GP 24':
@@ -5682,35 +5691,38 @@ def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
         messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
         return
 
-def config_json(path_json, values_json,ini_message=None):
+def config_json(path_json, values_json,path_not_found_message,ini_message=None):
 
     var_config_json = False
 
     try:
-        if os.path.exists(path_json):
-            var_config_json = True
-        else:
-            var_config_json = False
+        while not var_config_json:
 
-            var_folder_ini = messagebox.askyesno('Path Not Found','Path not found, the path to the renderer.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Remedy\\AlanWake2. Would you like to select the path manually?')
-
-            if var_folder_ini:
-                folder_ini = filedialog.askdirectory()
-            else:
-                return
-            
-            if folder_ini:
-                if os.path.exists(os.path.join(folder_ini,"renderer.ini")):
-                    var_config_json = True
-                else:
-                    messagebox.showinfo("File Not Found","renderer.ini was not found in the folder. Please select the folder containing the renderer.ini file. Click 'Install' again and select a path")
-                    return
+            if os.path.exists(path_json):
+                var_config_json = True
             else:
                 var_config_json = False
-                messagebox.showinfo("Empty path","No path was selected. Click 'Install' again and select a path")
-                return
+
+                var_folder_ini = messagebox.askyesno('Path Not Found',path_not_found_message)
+
+                if var_folder_ini:
+                    folder_ini = filedialog.askdirectory()
+                else:
+                    messagebox.showinfo("Empty path","No path was selected, post-processing effects were not removed")
+                    return
+                
+                if folder_ini:
+                    if os.path.exists(os.path.join(folder_ini,"renderer.ini")):
+                        var_config_json = True
+                else:
+                    var_config_json = False
+                    messagebox.showinfo("Empty path","No path was selected, post-processing effects were not removed")
+                    return
         
         if var_config_json:
+
+            shutil.copy2(path_json,os.path.join(path_json,'..','..')) #.ini file backup
+
             with open(path_json, 'r', encoding='utf8') as file:
                 data = json.load(file)
 
