@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.4v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.5v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -2448,7 +2448,7 @@ def clean_mod():
                             
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print (ee)
+        print (e)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
@@ -3075,7 +3075,7 @@ def copy_nvngx():
                     if item == 'nvngx.ini':
                         shutil.copy2(nvn_path, select_folder)
                         
-                elif os.path.isfile(nvn_path) and select_nvngx == 'XESS 1.3':
+                elif os.path.isfile(nvn_path) and select_nvngx == 'XESS 1.3.1':
                     if item == 'libxess.dll':
                         name_libxess = os.path.join(select_folder,'libxess.dll')
                         name_libxess_old = os.path.join(select_folder,'libxess.txt')
@@ -3108,7 +3108,7 @@ def copy_nvngx():
                 
                 shutil.copy2(path_dlss, select_folder)
                 
-            if select_nvngx == 'DLSS 3.7.1':
+            if select_nvngx == 'DLSS 3.7.2':
                 path_dlss_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss_3_7_1\\nvngx_dlss.dll'
                 name_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.dll')
                 name_old_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.txt')
@@ -4869,11 +4869,11 @@ def xess_fsr():
     name_libxess_old = os.path.join(select_folder,'libxess.txt')
     rename_libxess = 'libxess.txt'
     
-    put_xess = messagebox.askyesno('Install Xess 1.3','Would you like to enable XESS 1.3?')
+    put_xess = messagebox.askyesno('Install Xess 1.3.1','Would you like to enable XESS 1.3.1?')
     if put_xess and os.path.exists(name_libxess) and not os.path.exists(name_libxess_old):
         os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
     
-    if put_xess and select_nvngx != 'XESS 1.3' or put_xess and not nvngx_contr :
+    if put_xess and select_nvngx != 'XESS 1.3.1' or put_xess and not nvngx_contr :
         shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
 
 def dlss_fsr():
@@ -6227,7 +6227,7 @@ def install(event=None):
             fsr3_aw2_rtx()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
-        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
+        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3.1' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
@@ -6876,7 +6876,7 @@ def update_nvngx(event=None):
     if select_mod == 'Uniscaler + Xess + Dlss':
         nvngx_op = ['Default', 'NVNGX Version 1']
     else:
-        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.7.1','DLSSG 3.7.1 FG','DLSSD 3.7.1']
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSS 3.7.0 FG','DLSS 3.7.2','DLSSG 3.7.1 FG','DLSSD 3.7.1']
 
     nvngx_listbox.delete(0, tk.END) 
     for nvngx_options in nvngx_op:
@@ -6890,12 +6890,12 @@ def update_nvngx(event=None):
 
     text_canvas_nvngx = nvngx_canvas.itemcget(get_canvas, "text")
     
-    if select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'XESS 1.3' or select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'DLSS 3.7.0':
+    if select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'XESS 1.3.1' or select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'DLSS 3.7.0':
         nvngx_canvas.delete('text')
     
     nvngx_canvas.update()
 
-nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.7.1','DLSSG 3.7.1 FG','DLSSD 3.7.1']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.7.2','DLSSG 3.7.1 FG','DLSSD 3.7.1']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END, nvngx_options)
     
