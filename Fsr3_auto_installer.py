@@ -31,7 +31,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.5v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.6v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -262,7 +262,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong Bench Tool','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
@@ -400,6 +400,17 @@ def text_guide():
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - Check the box Fake Nvidia GPU and Nvapi Results\n(AMD/GTX).\n'
 '3 - In-game, select DLSS and DLSS FG'   
+),
+
+'Black Myth: Wukong Bench Tool':(
+'RTX\n'
+'1 - Select \'RTX DLSS FG Wukong\' and install.\n'
+'2 - In the game, select DLSS and Frame Generation.\n\n'
+'AMD/GTX\n'
+'1 - Select the 0.10.4 mod.\n'
+'2 - Check the box for Fake Nvidia GPU and Nvapi Results.\n'
+'3 - In the game, select DLSS and Frame Generation.\n'
+'4 - If you cannot see DLSS in the game, also check the\nNvngx box, select Default, and install.'
 ),
 
 'Blacktail':(
@@ -2281,6 +2292,8 @@ def clean_mod():
     'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','dlss_amd.txt'
     ]
 
+    del_dlss_to_fg = ['dlssg_to_fsr3_amd_is_better.dll','version.dll']
+
     try:
         path_dd2_w = os.path.join(select_folder,'_storage_')
         if select_option == 'Dragons Dogma 2' and select_mod != 'FSR 3.1/DLSS DD2 ALL GPU' and select_mod != 'FSR 3.1/DLSS DD2 NVIDIA':
@@ -2448,7 +2461,6 @@ def clean_mod():
                             
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print (e)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
@@ -2709,7 +2721,20 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
     
-                                        
+    try:
+        if select_mod == 'Black Myth: Wukong Bench Tool':
+            if os.path.exists(os.path.join(select_folder,'dlssg_to_fsr3_amd_is_better.dll')):
+                for wukong_files_rtx in os.listdir(select_folder):
+                    if wukong_files_rtx in del_dlss_to_fg:
+                        os.remove(os.path.join(select_folder,wukong_files_rtx))
+
+                wukong_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+
+                subprocess.run(wukong_reg,check=True)
+
+    except Exception as e:
+        messagebox.showinfo('Error','It was not possible to remove the mod files from \'Black Myth: Wukong Bench Tool\'. Please close the game or any other folders related to the game and try again.')
+                                          
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
 cleanup_var = IntVar()
@@ -3054,6 +3079,7 @@ def copy_nvngx():
     nvngx_folder = nvngx_folders.get(select_mod)
     path_nvngx_uni_v2 =  'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\stub_nvngx\\nvngx.dll'
     path_nvngx_uni_fsr31 = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_uni_fsr3\\nvngx.dll'
+    path_nvngx_0_10_4 = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_0_10_4\\nvngx.dll'
     
     if select_mod not in nvngx_folders:
         messagebox.showinfo('0.7.6','The selected mod has been installed. To use the Nvngx.dll option, select a mod version starting from 0.7.6')
@@ -3063,11 +3089,13 @@ def copy_nvngx():
                 nvn_path = os.path.join(nvngx_folder, item)
 
                 if os.path.isfile(nvn_path) and select_nvngx == 'Default':
-                    if select_mod != "Uniscaler V2" and select_mod != 'Uniscaler FSR 3.1':
+                    if select_mod != "Uniscaler V2" and select_mod != 'Uniscaler FSR 3.1' and select_mod != '0.10.4':
                         if item == 'nvngx.dll':
                             shutil.copy2(nvn_path, select_folder)
                     elif select_mod == 'Uniscaler FSR 3.1':
                         shutil.copy2(path_nvngx_uni_fsr31,select_folder)
+                    elif  select_mod == '0.10.4':
+                        shutil.copy2(path_nvngx_0_10_4,select_folder)
                     else:
                         shutil.copy2(path_nvngx_uni_v2, select_folder)   
 
@@ -4907,6 +4935,14 @@ def global_dlss():
 
     subprocess.run(dlss_global_reg,check=True)
 
+def dlss_to_fsr():
+    path_dlss_to_fsr = 'mods\DLSS_TO_FSR'
+    dlss_to_fsr_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+
+    shutil.copytree(path_dlss_to_fsr,select_folder,dirs_exist_ok=True)
+
+    subprocess.run(dlss_to_fsr_reg,check=True)
+
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
     
@@ -5881,6 +5917,10 @@ def fsr3_cyber():
         for path_cb2077 in path_mods:
             shutil.copytree(path_cb2077,select_folder,dirs_exist_ok=True)
 
+def wukong_fsr3():
+    if select_mod == 'RTX DLSS FG Wukong':
+        dlss_to_fsr()
+
 def optiscaler_fsr3():
     path_optiscaler_custom = 'mods\\Optiscaler FSR 3.1 Custom'
     path_ini_optiscaler_custom = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
@@ -5892,7 +5932,7 @@ def optiscaler_fsr3():
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
                'Fort Solis','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
@@ -6209,6 +6249,8 @@ def install(event=None):
 
         if select_option == "Cyberpunk 2077":
             fsr3_cyber()
+        if select_option == 'Black Myth: Wukong Bench Tool':
+            wukong_fsr3()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
@@ -6452,6 +6494,7 @@ fsr_game_version={
     'Atomic Heart':'2.2',
     'Baldur\'s Gate 3':'PD',
     'Banishers: Ghosts of New Eden':'2.2',
+    'Black Myth: Wukong Bench Tool':'2.2',
     'Blacktail':'2.2',
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
@@ -6707,6 +6750,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END,'DL2 DLSS FG','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
+    elif select_option == 'Black Myth: Wukong Bench Tool':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -6715,7 +6763,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
