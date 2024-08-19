@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import asyncio
 from PIL import ImageTk, Image
 from customtkinter import *
 from tkinter import Canvas,filedialog,messagebox
@@ -31,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.6v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.7v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -263,7 +264,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong Bench Tool','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -458,7 +459,14 @@ def text_guide():
 '1 - Select a mod of your choice (Uniscaler is recommended).\n'
 '2 - Select Default in Nvngx.dll.\n'
 '3 - Check the box Enable Signature Override.\n'
-'4 - In-game, turn off Vsync, select DLSS (do not select auto\nas the game will crash), and turn on Frame Generation.'    
+'4 - In-game, turn off Vsync, select DLSS (do not select auto\nas the game will crash), and turn on Frame Generation.\n\n'    
+
+'ReShade\n'
+'1 - Download and install ReShade.\n'
+'2 - Select Cyberpunk 2077 and check all effects (you can also\nuse \'Uncheck all\' and \'Check all\' to select everything at once).\n' 
+'3 - Install the mod using the Utility.\n'
+'4 - In the game, press the Home key.\n'
+'5 - Skip the tutorial if needed, select the preset from the top\nbar of the interface, and click \'Select\'.'
 ),
 
 'Dakar Desert Rally':(
@@ -610,6 +618,14 @@ def text_guide():
 '3 - Activate Fake Nvidia Gpu (AMD only)\n'
 '4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
 '• To fix the flickering of the HUD, activate and deactivate frame\ngeneration again (no need to apply settings).'
+),
+
+'Ghostwire: Tokyo':(
+'1- Select Uniscaler V3\n'  
+'2 - Check the Fake Nvidia GPU box (AMD/GTX). If you can\'t\nsee DLSS in the game, also check the Nvapi Results box.\n'
+'3 - Check the Nvngx.dll box and select Default, then check\nthe Enable Signature Override box.\n'
+'4 - In the game, select DLSS to enable Frame Generation.\n'  
+'5 - To fix the HUD glitch, switch between the upscalers (FSR,\nDLSS, etc.) until the HUD stops flickering.'
 ),
 
 'Hellblade: Senua\'s Sacrifice':(
@@ -1059,6 +1075,8 @@ def text_guide():
         screen_guide.geometry('520x280')
     elif select_game == "Ghost of Tsushima" or select_game == 'The Witcher 3':
         screen_guide.geometry('520x320')
+    elif select_game == 'Cyberpunk 2077':
+        screen_guide.geometry('540x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -2377,7 +2395,8 @@ def clean_mod():
             path_mods_cb2077 = os.path.join(select_folder,"archive\\pc\\mod")
             mods_files = ["#####-NovaLUT-2.archive","HD Reworked Project.archive"]
             cb2077_reg = ['regedit.exe', '/s', "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"]
-            
+            reshade_path = '\\bin\\x64\\V2.0 Real Life Reshade.ini'
+
             if select_mod == "RTX DLSS FG":
                 for file_del in os.listdir(select_folder):
                     if file_del in del_cb2077:
@@ -2392,8 +2411,13 @@ def clean_mod():
                     for files in mods_files:
                         full_path_mods = os.path.join(path_mods_cb2077,files)
                         os.remove(full_path_mods)
+            
+            if os.path.exists(os.path.join(select_folder + reshade_path)):
+                os.remove(select_folder + reshade_path)
+
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        print(e)
             
     try:
         if select_mod == 'Uniscaler' or select_mod == 'Uniscaler V2' or select_mod == 'Uniscaler V3' or select_mod == 'Uniscaler FSR 3.1':
@@ -2593,8 +2617,6 @@ def clean_mod():
         del_all_mods(del_lotf_fsr3,'Lords of the Fallen','uniscaler')
     
     if select_option == 'Ghost of Tsushima':
-        rename_got = 'GhostOfTsushima.exe'
-        path_got_txt = os.path.join(select_folder,'GhostOfTsushima.txt')
         reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
         got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
         
@@ -2610,11 +2632,7 @@ def clean_mod():
                             subprocess.run(['reg','import',reg_path],check=True)
         except Exception as e:
             messagebox.showerror('Error','It was not possible to remove the post-processing effects. Please try again.')
-        
-        if os.path.exists(path_got_txt):
-            os.remove(os.path.join(select_folder,'GhostOfTsushima.exe'))
-            os.rename(path_got_txt,os.path.join(select_folder,rename_got))
-        
+             
         subprocess.run(got_reg,check=True)
         del_all_mods(del_got,'Ghost of Tsushima')
              
@@ -5640,9 +5658,7 @@ def fsr3_got():
     path_dlss_got = 'mods\\FSR3_GOT\\DLSS FG'
     path_dx12 = 'mods\\FSR3_GOT\\Fix_DX12'
     got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
-    fix_crashes_path = 'mods\\FSR3_GOT\\Fix_Crashes'
     exe_got = os.path.join(select_folder,'GhostOfTsushima.exe')
-    exe_rename = 'GhostOfTsushima.txt'
     post_processing_got_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing'
     path_var_post_processing_got = 'mods\\FSR3_GOT\\Remove_Post_Processing\\no-filmgrain.reg'
     
@@ -5655,18 +5671,6 @@ def fsr3_got():
 
     if dx12_got:
         shutil.copytree(path_dx12,select_folder,dirs_exist_ok=True)
-    
-    
-    crash_got = messagebox.askyesno("Crash Issues",'Would you like to add the files to fix the crash issues?')
-    
-    if crash_got:
-        if os.path.exists(os.path.join(select_folder,'Backup')) and os.path.exists(exe_got):
-            shutil.copy2(exe_got,os.path.join(select_folder,'Backup'))
-        
-        elif os.path.exists(exe_got):
-            os.rename(exe_got,os.path.join(select_folder,exe_rename))
-            
-        shutil.copytree(fix_crashes_path,select_folder,dirs_exist_ok=True)
     
     remove_post_processing_got = messagebox.askyesno('Remove Post Processing','Would you like to remove the post-processing effects? (Film grain, Mouse Smoothing, etc.)')
     
@@ -5682,7 +5686,6 @@ def fsr3_got():
             
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to remove the post-processing effects.')
-        print(e)
     
 def fsr3_the_medium():
     shortcut_medium_path = os.path.join(select_folder,'Medium-Win64-Shipping.exe')
@@ -5901,21 +5904,36 @@ def fsr3_jedi():
     path_uni_jedi = "mods\\FSR2FSR3_Miles\\Uni_Custom_miles"
     shutil.copytree(path_uni_jedi,select_folder,dirs_exist_ok=True)
 
-def fsr3_cyber():
-    path_mods = {"mods\\FSR3_CYBER2077\\mods\\Cyberpunk 2077 HD Reworked",
-                 "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1"}
+async def fsr3_cyber():
+    path_mods = {
+        "mods\\FSR3_CYBER2077\\mods\\Cyberpunk 2077 HD Reworked",
+        "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1"
+    }
+    path_reshade_2077 = "mods\\FSR3_CYBER2077\\mods\\V2.0 Real Life Reshade"
     path_rtx_dlss = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal"
-    cb2077_reg = ['regedit.exe', '/s', "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"]
+    cb2077_reg = [
+        'regedit.exe', '/s', 
+        "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"
+    ]
     
-    if select_mod == "RTX DLSS FG":
-        shutil.copytree(path_rtx_dlss,select_folder,dirs_exist_ok=True)
-        subprocess.run(cb2077_reg,check=True)
-    
-    mods_message = messagebox.askyesno("Mods","Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?")
-    
-    if mods_message:
-        for path_cb2077 in path_mods:
-            shutil.copytree(path_cb2077,select_folder,dirs_exist_ok=True)
+    try:
+        if select_mod == "RTX DLSS FG":
+            await asyncio.to_thread(shutil.copytree, path_rtx_dlss, select_folder, dirs_exist_ok=True)
+            await asyncio.to_thread(subprocess.run, cb2077_reg, check=True)
+        
+        mods_message = messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?")
+        
+        if mods_message:
+            for path_cb2077 in path_mods:
+                await asyncio.to_thread(shutil.copytree, path_cb2077, select_folder, dirs_exist_ok=True)
+        
+        reshade_message = messagebox.askyesno('Reshade', 'Do you want to install Reshade Real Life 2.0? (It is necessary to install Reshade for this mod to work. Please refer to the FSR Guide for installation instructions.)')
+        
+        if reshade_message:
+            await asyncio.to_thread(shutil.copytree, path_reshade_2077, select_folder, dirs_exist_ok=True)
+    except Exception as e:
+        messagebox.showinfo('Error','Failed to install the mod. Please try again.')
+        return
 
 def wukong_fsr3():
     if select_mod == 'RTX DLSS FG Wukong':
@@ -5933,7 +5951,7 @@ def optiscaler_fsr3():
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
-               'Fort Solis','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
+               'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
@@ -6248,7 +6266,7 @@ def install(event=None):
                 return
 
         if select_option == "Cyberpunk 2077":
-            fsr3_cyber()
+            asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong Bench Tool':
             wukong_fsr3()
         if select_option == 'Hellblade 2':
@@ -6523,6 +6541,7 @@ fsr_game_version={
     'Forza Horizon 5':'FH',
     'Ghost of Tsushima':'DLSS',
     'Ghostrunner 2':'2.0',
+    'Ghostwire: Tokyo':'2.2',
     'GTA V':'PD',
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
@@ -6764,7 +6783,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
