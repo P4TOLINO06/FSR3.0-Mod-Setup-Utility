@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.7v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.8v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -263,8 +263,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong Bench Tool','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -403,15 +403,43 @@ def text_guide():
 '3 - In-game, select DLSS and DLSS FG'   
 ),
 
-'Black Myth: Wukong Bench Tool':(
+'Black Myth: Wukong':(
 'RTX\n'
 '1 - Select \'RTX DLSS FG Wukong\' and install.\n'
 '2 - In the game, select DLSS and Frame Generation.\n\n'
-'AMD/GTX\n'
-'1 - Select the 0.10.4 mod.\n'
-'2 - Check the box for Fake Nvidia GPU and Nvapi Results.\n'
-'3 - In the game, select DLSS and Frame Generation.\n'
-'4 - If you cannot see DLSS in the game, also check the\nNvngx box, select Default, and install.'
+'AMD/GTX DLSS FG\n'
+'1 - Select Optiscaler FSR 3.1/DLSS and install it.\n'
+'2 - In the game, press the \'Insert\' key to open\nthe menu, and in the menu, select the upscaler you want to use.\n\n'
+
+'Graphic Preset\n'
+'1 - Install the mod and the ReShade application\n'
+'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Black Myth Wukong.ini (the path should\nlook something like BlackMythWukong\Black Myth Wukong.ini) and select it, then click on \'Uncheck All\' and \'Next\'.\n'
+'3 - In the game, press the \'Insert\' key to open\nthe menu and check the options you want.\n\n'
+
+'Optimized Wukong\n'
+'Faster Loading Times - By tweaking async-related settings:\n' 
+'AsyncLoadingThread\n' 
+'the mod allows assets to load in the background, reducing loading times\n' 
+'and potentially eliminating loading pauses during gameplay.\n' 
+
+'Optimized CPU and GPU Utilization - by tweaking multi-core rendering:\n' 
+'MultiCoreRendering\nand multi-threaded shader compilation:\n' 
+'MultiThreadedShaderCompile*\n' 
+'allows the game to utilize the full potential of modern CPUs and GPUs.\n' 
+'This can result in improved performance, higher frame\n' 
+'rates, and more stable gameplay.\n' 
+
+'Enhanced Streaming and Level Loading - By tweaking various streaming\nvariables:\n' 
+'r.Streaming.\n s.LevelStreamingComponents*\n' 
+'the mod improves the efficiency of streaming assets and\n' 
+'level loading. This can lead to faster streaming and reduced stuttering\n' 
+'when moving through different areas of the game world.\n' 
+
+'Optimized Memory Management - By adjusting memory-related settings:\n' 
+'MinBulkDataSizeForAsyncLoading & ForceGCAfterLevelStreamedOut*\n' 
+'the mod optimizes memory allocation and garbage collection. This\n' 
+'can lead to more efficient memory usage, reduced memory-related\n' 
+'stutters, and improved overall performance.'
 ),
 
 'Blacktail':(
@@ -1077,6 +1105,8 @@ def text_guide():
         screen_guide.geometry('520x320')
     elif select_game == 'Cyberpunk 2077':
         screen_guide.geometry('540x260')
+    elif select_game == 'Black Myth: Wukong':
+        screen_guide.geometry('620x790')
     else:
         screen_guide.geometry('520x260')
     
@@ -2713,7 +2743,7 @@ def clean_mod():
                 if cod_rtx in del_dlss_rtx:
                     os.remove(os.path.join(select_folder,cod_rtx))  
 
-        cod_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+        cod_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"]
             
         subprocess.run(cod_reg,check=True)
     except Exception:
@@ -2740,7 +2770,7 @@ def clean_mod():
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
     
     try:
-        if select_mod == 'Black Myth: Wukong Bench Tool':
+        if select_option == 'Black Myth: Wukong':
             if os.path.exists(os.path.join(select_folder,'dlssg_to_fsr3_amd_is_better.dll')):
                 for wukong_files_rtx in os.listdir(select_folder):
                     if wukong_files_rtx in del_dlss_to_fg:
@@ -2749,10 +2779,47 @@ def clean_mod():
                 wukong_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
 
                 subprocess.run(wukong_reg,check=True)
+        
+        fullpath_optimize_wukong_del = os.path.abspath(os.path.join(select_folder, '..\\..\\Content\\Paks'))
+        
+        if os.path.exists(fullpath_optimize_wukong_del + '\\~mods\\pakchunk99-Mods_CustomMod_P.pak'):
+            remove_optimize_wukong = messagebox.askyesno('Remove','Do you want to remove the optimization mod?')
+            if remove_optimize_wukong:
+                os.remove(fullpath_optimize_wukong_del + '\\~mods\\pakchunk99-Mods_CustomMod_P.pak')
 
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to remove the mod files from \'Black Myth: Wukong Bench Tool\'. Please close the game or any other folders related to the game and try again.')
-                                          
+
+    try:
+        if select_option == 'Final Fantasy XVI':
+            if os.path.exists(os.path.join(select_folder,'dlssg_to_fsr3_amd_is_better.dll')):
+                for ffxvi_rtx in os.listdir(select_folder):
+                    if ffxvi_rtx in del_dlss_to_fg:
+                        os.remove(os.path.join(select_folder,ffxvi_rtx))
+
+                ffxvi_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+
+                subprocess.run(ffxvi_reg,check=True) 
+
+        if os.path.exists(os.path.join(select_folder,'dlss_amd.txt')):
+            for ffxvi_amd in os.listdir(select_folder):
+                if ffxvi_amd in del_dlss_amd:
+                    os.remove(os.path.join(select_folder,ffxvi_amd))
+        
+        elif os.path.exists(os.path.join(select_folder,'dlss_rtx.txt')):
+            for ffxvi_rtx in os.listdir(select_folder):
+                if ffxvi_rtx in del_dlss_rtx:
+                    os.remove(os.path.join(select_folder,ffxvi_rtx))  
+
+        ffxvi_reg_global = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"]
+
+        if os.path.exists(os.path.join(select_folder,'dlss_amd.txt') or os.path.join(select_folder,'dlss_rtx.txt')):   
+            subprocess.run(ffxvi_reg_global ,check=True)
+
+    except Exception as e:
+            messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
+                                        
+                                              
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
 cleanup_var = IntVar()
@@ -5704,6 +5771,49 @@ def fsr3_ac_valhalla():
     elif  select_mod == "Ac Valhalla FSR3 All GPU":
         shutil.copytree(path_dlss2,select_folder,dirs_exist_ok=True)
 
+def fsr3_ffvxi():
+    if select_mod == 'FFXVI DLSS RTX':
+        dlss_to_fsr()
+    elif select_mod == 'FFXVI DLSS ALL GPU':
+        global_dlss()
+
+def wukong_fsr3():
+    wukong_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Install High CPU Priority.reg"]
+    wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF\pakchunk99-Mods_CustomMod_P.pak'
+    wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset\Black Myth Wukong.ini'
+    
+    if select_mod == 'RTX DLSS FG Wukong':
+        dlss_to_fsr()
+
+    wukong_stutter = messagebox.askyesno('High CPU Priority','Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)')
+
+    if wukong_stutter:
+        subprocess.run(wukong_stutter_reg,check=True)
+        shutil.copy('mods\\FSR3_WUKONG\\HIGH CPU Priority\\Anti-Stutter - Utility.txt',select_folder) #File used in mod uninstallation in Cleanup Mod
+    
+    wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
+
+    if wukong_optimized:
+        full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
+        if os.path.exists(full_path_optimized):
+            if not os.path.exists(full_path_optimized + "\\~mods"):
+                os.makedirs(full_path_optimized + "\\~mods")
+
+            shutil.copy(wukong_file_optimized,full_path_optimized + "\\~mods")
+
+            messagebox.showinfo('Sucess','Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
+        else:
+            messagebox.showinfo('Not Found','Path "b1\Content\Paks" not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+
+    preset_wukong = messagebox.askyesno('Graphic Preset','Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)')
+
+    if preset_wukong:
+        full_path_preset = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+        if os.path.exists(full_path_preset + '\\b1.exe'):
+            shutil.copy(wukong_graphic_preset,full_path_preset)
+        else:
+            messagebox.showinfo('Not Found','File "b1.exe" not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+
 # Modify the ini file of Hellblade 2 to remove post-processing effects
 def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
     global select_folder
@@ -5935,10 +6045,6 @@ async def fsr3_cyber():
         messagebox.showinfo('Error','Failed to install the mod. Please try again.')
         return
 
-def wukong_fsr3():
-    if select_mod == 'RTX DLSS FG Wukong':
-        dlss_to_fsr()
-
 def optiscaler_fsr3():
     path_optiscaler_custom = 'mods\\Optiscaler FSR 3.1 Custom'
     path_ini_optiscaler_custom = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
@@ -5950,7 +6056,7 @@ def optiscaler_fsr3():
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
@@ -6242,6 +6348,7 @@ def install(event=None):
         elif select_option == 'Horizon Forbidden West':
             hfw_fsr3()
 
+
         if select_mod == 'Palworld Build03':
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
@@ -6267,7 +6374,7 @@ def install(event=None):
 
         if select_option == "Cyberpunk 2077":
             asyncio.run(fsr3_cyber())
-        if select_option == 'Black Myth: Wukong Bench Tool':
+        if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
@@ -6277,6 +6384,8 @@ def install(event=None):
             fsr3_control()
         if select_option == 'MOTO GP 24':
             fsr3_motogp()
+        if select_option == 'Final Fantasy XVI':
+            fsr3_ffvxi()
         if select_option == 'Ghost of Tsushima':
             fsr3_got()
         if select_option == 'The Medium':
@@ -6512,7 +6621,7 @@ fsr_game_version={
     'Atomic Heart':'2.2',
     'Baldur\'s Gate 3':'PD',
     'Banishers: Ghosts of New Eden':'2.2',
-    'Black Myth: Wukong Bench Tool':'2.2',
+    'Black Myth: Wukong':'2.2',
     'Blacktail':'2.2',
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
@@ -6533,6 +6642,7 @@ fsr_game_version={
     'Everspace 2':'2.2',
     'Evil West':'2.2',
     'Fallout 4':'PD',
+    'Final Fantasy XVI':'2.2',
     'F1 2022':'2.2',
     'F1 2023':'2.2',
     'FIST: Forged In Shadow Torch':'2.2',
@@ -6769,9 +6879,14 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END,'DL2 DLSS FG','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
-    elif select_option == 'Black Myth: Wukong Bench Tool':
+    elif select_option == 'Black Myth: Wukong':
         mod_text() 
         mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+
+    elif select_option == 'Final Fantasy XVI':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'FFXVI DLSS ALL GPU','FFXVI DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     else:
@@ -6782,7 +6897,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong Bench Tool','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
