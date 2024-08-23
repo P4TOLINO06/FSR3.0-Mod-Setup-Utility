@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.8v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.9v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -977,8 +977,28 @@ def text_guide():
 ),
 
 'The Callisto Protocol':(
-  '1 - Select The Callisto Protocol Fsr 3 in Mod Version and\ncheck the Fake Nvidia GPU box and install.\n'
-'2 - To fix the HUD flickering: within the game, select fsr2,\nAnti-Aliasing to TemporalAA, and turn off the film grain, play\nfor a few seconds, return to the menu, and switch fsr2 to\nTemporal.'  
+'The Callisto Protocol Fsr3\n'
+'1 - Select The Callisto Protocol Fsr3\n' 
+'2 - Check the Fake Nvidia GPU box and install.\n\n'
+
+'Uniscaler V3\n'
+'1 - Select Uniscaler V3\n'
+'2 - Check the Nvngx box and select Default\n'
+'3 - Check the Enable Signature Over box\n\n'
+
+'HUD Correction\n'
+'Select FSR2 and start the campaign, play for a few\nseconds, and return to the menu. In the menu, select\nTemporal and return to the campaign.\n\n'
+
+'Real Life\n'
+'Adds more detail to the world making them wood effects\nstand out more as well as the ground, lighting, walls and dirt\nmarks, and skin.\n\n'
+
+'TCP\n'
+'A ReShade config that implements duller colours,\nnearby sharpness and distant depth of field blur to give a\ngrittier and more cinematic style to emphasise the sci-fi horror\natmosphere.\n\n'
+
+'1 - Install the ReShade application\n'
+'2 - Select DirectX 10/11/12, click \'Browse\' and select the\nTCP.ini file that was installed in the destination folder chosen\nin the Utility.\n'
+'3 - Click \'Uncheck All\' and then click \'Next\'.\n' 
+'4 - Do the same for the Real Life mod.'
 ),
 
 'The Chant':(
@@ -1107,6 +1127,8 @@ def text_guide():
         screen_guide.geometry('540x260')
     elif select_game == 'Black Myth: Wukong':
         screen_guide.geometry('620x790')
+    elif select_game == 'The Callisto Protocol':
+        screen_guide.geometry('530x550')
     else:
         screen_guide.geometry('520x260')
     
@@ -2645,6 +2667,22 @@ def clean_mod():
     
     if select_option == 'Lords of the Fallen':
         del_all_mods(del_lotf_fsr3,'Lords of the Fallen','uniscaler')
+    
+    if select_option == 'The Callisto Protocol':
+        if select_mod == 'The Callisto Protocol FSR3':
+            del_all_mods(del_uni,'The Callisto Protocol','uniscaler')
+        
+        if os.path.exists(os.path.join(select_folder + '\\The Real Life The Callisto Protocol Reshade BETTER TEXTURES and Realism 2022.ini')):
+            del_real_life = messagebox.askyesno('Del Real Life','Do you want to remove the Real Life mod?')
+
+            if del_real_life:
+                os.remove(select_folder + '\\The Real Life The Callisto Protocol Reshade BETTER TEXTURES and Realism 2022.ini')
+        
+        if os.path.exists(os.path.join(select_folder + '\\TCP.ini')):
+            del_tcp = messagebox.askyesno('Del TCP','Do you want to remove the TCP mod?')
+
+            if del_tcp:
+                os.remove(select_folder + '\\TCP.ini')
     
     if select_option == 'Ghost of Tsushima':
         reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
@@ -5356,11 +5394,24 @@ def bdg_fsr3():
             
 callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Callisto'}
 def callisto_fsr():
+    path_tcp = 'mods\\FSR3_Callisto\\Reshade\\TCP Cinematic\\TCP.ini'
+    path_real_life = 'mods\\FSR3_Callisto\\Reshade\\The Real Life\\The Real Life The Callisto Protocol Reshade BETTER TEXTURES and Realism 2022.ini'
+
     if select_mod in callisto_origins:
         callisto_origin  = callisto_origins[select_mod]
     
     if select_mod in callisto_origins:
         shutil.copytree(callisto_origin,select_folder,dirs_exist_ok=True)
+    
+    callisto_tcp = messagebox.askyesno('TCP MOD','Do you want to install the TCP mod? (It is necessary to install ReShade for this mod to work, check the guide in FSR GUIDE for more information about the mod.)')
+
+    if callisto_tcp:
+        shutil.copy(path_tcp,select_folder)
+    
+    callisto_real_life = messagebox.askyesno('Real Life','Do you want to install the Real Life mod? (It is necessary to install ReShade for the mod to work, check the guide in FSR GUIDE for more information about the mod and how to install it.)')
+
+    if callisto_real_life:
+        shutil.copy(path_real_life,select_folder)
 
 def fallout_fsr():
     high_fps_path = 'mods\FSR3_Fallout4\High FPS Physics'
@@ -6060,7 +6111,7 @@ fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','
                'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
-fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','Uncharted Legacy of Thieves Collection']
+fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
 fsr_2_0_opt = ['Alone in the Dark','Deathloop','Crime Boss Rockay City','Dying Light 2','Brothers: A Tale of Two Sons Remake','Ghostrunner 2','High On Life','Jusant','Layers of Fear','Marvel\'s Guardians of the Galaxy','Nightingale','Rise of The Tomb Raider','Shadow of the Tomb Raider','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3']
 
@@ -6333,8 +6384,6 @@ def install(event=None):
             elden_fsr3()
         elif select_mod in bdg_origins:
             bdg_fsr3()
-        elif select_mod in callisto_origins:
-            callisto_fsr()
         elif select_mod == 'Fallout 4 FSR3':
             fallout_fsr()
         elif select_mod  == 'Forza Horizon 5 FSR3':
@@ -6376,6 +6425,8 @@ def install(event=None):
             asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
+        if select_option == 'The Callisto Protocol':
+            callisto_fsr()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
@@ -6770,7 +6821,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'The Callisto Protocol':
         mod_text()
-        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3')  
+        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3','Uniscaler V3')  
     
     elif select_option == 'Fallout 4':
         mod_text()
