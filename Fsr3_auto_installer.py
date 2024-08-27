@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.9v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.10v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -2364,6 +2364,12 @@ def clean_mod():
 
     del_dlss_to_fg = ['dlssg_to_fsr3_amd_is_better.dll','version.dll']
 
+
+    def ask_and_remove(file_path,message):
+        if os.path.exists(file_path):
+            if messagebox.askyesno('Remove',message):
+                os.remove(file_path)
+
     try:
         path_dd2_w = os.path.join(select_folder,'_storage_')
         if select_option == 'Dragons Dogma 2' and select_mod != 'FSR 3.1/DLSS DD2 ALL GPU' and select_mod != 'FSR 3.1/DLSS DD2 NVIDIA':
@@ -2819,12 +2825,33 @@ def clean_mod():
                 subprocess.run(wukong_reg,check=True)
         
         fullpath_optimize_wukong_del = os.path.abspath(os.path.join(select_folder, '..\\..\\Content\\Paks'))
-        
-        if os.path.exists(fullpath_optimize_wukong_del + '\\~mods\\pakchunk99-Mods_CustomMod_P.pak'):
-            remove_optimize_wukong = messagebox.askyesno('Remove','Do you want to remove the optimization mod?')
-            if remove_optimize_wukong:
-                os.remove(fullpath_optimize_wukong_del + '\\~mods\\pakchunk99-Mods_CustomMod_P.pak')
 
+        files_to_check = {
+            '\\~mods\\pakchunk99-Mods_CustomMod_P.pak': 'Do you want to remove the optimization mod?',
+            '\\~mods\\Force_HDR_Mode_P.pak': 'Do you want to remove the HDR correction?',
+        }
+        
+        for path_wukong_mods, message in files_to_check.items():
+            ask_and_remove(fullpath_optimize_wukong_del + '\\' + path_wukong_mods, message)
+        
+        path_map_wukong = fullpath_optimize_wukong_del + '\\LogicMods'
+        if os.path.exists(path_map_wukong):
+            if messagebox.askyesno('Remove Map', 'Do you want to remove the mini map?'):
+                shutil.rmtree(path_map_wukong)
+                
+                if os.path.exists(select_folder + '\\dwmapi.dll'):
+                    os.remove(select_folder + '\\dwmapi.dll')
+                    shutil.rmtree(select_folder + '\\ue4ss')
+        
+        path_anti_stutter = select_folder + '\\Anti-Stutter - Utility.txt'
+        if os.path.exists( path_anti_stutter):
+            if messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stuttering?'):
+                wukong_anti_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"]
+
+                subprocess.run(wukong_anti_stutter_reg,check=True)
+
+                os.remove(select_folder + '\\Anti-Stutter - Utility.txt')
+                
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to remove the mod files from \'Black Myth: Wukong Bench Tool\'. Please close the game or any other folders related to the game and try again.')
 
@@ -5828,19 +5855,34 @@ def fsr3_ffvxi():
     elif select_mod == 'FFXVI DLSS ALL GPU':
         global_dlss()
 
+def handle_prompt(window_title, window_message, wukong_message=None,action_func=None):
+    user_choice = messagebox.askyesno(window_title, window_message)
+    
+    if user_choice and action_func:
+        action_func(wukong_message)
+    if wukong_message:
+        return True
+
+def copy_if_exists(folder_path, dest_path, is_tree=False):
+    if os.path.exists(folder_path):
+        if is_tree:
+            shutil.copytree(folder_path, dest_path, dirs_exist_ok=True)
+        else:
+            shutil.copy(folder_path, dest_path)
+    else:
+        messagebox.showinfo('Not Found', f'{dest_path} not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+
 def wukong_fsr3():
-    wukong_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Install High CPU Priority.reg"]
+    wukong_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"]
     wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF\pakchunk99-Mods_CustomMod_P.pak'
     wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset\Black Myth Wukong.ini'
+    wukong_ue4_map = r"mods\FSR3_WUKONG\Map\WukongUE4SS"
+    wukong_map = r"mods\FSR3_WUKONG\Map\b1"
+    wukong_hdr = r"mods\FSR3_WUKONG\HDR"
+    full_path_wukong = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     
     if select_mod == 'RTX DLSS FG Wukong':
         dlss_to_fsr()
-
-    wukong_stutter = messagebox.askyesno('High CPU Priority','Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)')
-
-    if wukong_stutter:
-        subprocess.run(wukong_stutter_reg,check=True)
-        shutil.copy('mods\\FSR3_WUKONG\\HIGH CPU Priority\\Anti-Stutter - Utility.txt',select_folder) #File used in mod uninstallation in Cleanup Mod
     
     wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
 
@@ -5851,19 +5893,43 @@ def wukong_fsr3():
                 os.makedirs(full_path_optimized + "\\~mods")
 
             shutil.copy(wukong_file_optimized,full_path_optimized + "\\~mods")
-
-            messagebox.showinfo('Sucess','Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
         else:
             messagebox.showinfo('Not Found','Path "b1\Content\Paks" not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
 
-    preset_wukong = messagebox.askyesno('Graphic Preset','Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)')
+    handle_prompt(
+    'High CPU Priority',
+    'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
+    lambda: (
+        subprocess.run(wukong_stutter_reg, check=True),
+        shutil.copy(r'mods\FSR3_WUKONG\HIGH CPU Priority\Anti-Stutter - Utility.txt', select_folder)
+        )
+    )
 
-    if preset_wukong:
-        full_path_preset = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
-        if os.path.exists(full_path_preset + '\\b1.exe'):
-            shutil.copy(wukong_graphic_preset,full_path_preset)
-        else:
-            messagebox.showinfo('Not Found','File "b1.exe" not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+    handle_prompt(
+        'Graphic Preset',
+        'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
+        lambda: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1")
+    )
+
+    view_message_wukong = handle_prompt(
+        'Mini Map',
+        'Would you like to install the mini map?',
+        wukong_message= True,
+        action_func=lambda flag:(
+            copy_if_exists(wukong_ue4_map,select_folder, is_tree=True),
+            copy_if_exists(wukong_map,full_path_wukong + "\\b1", is_tree=True),
+        )
+    )
+
+    view_message_wukong = handle_prompt(
+        'HDR',
+        'Would you like to install the HDR correction?',
+        wukong_message=True,
+         action_func=lambda flag: copy_if_exists(wukong_hdr,full_path_wukong, is_tree=True)
+    )
+
+    if view_message_wukong or wukong_optimized:
+        messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
 
 # Modify the ini file of Hellblade 2 to remove post-processing effects
 def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
