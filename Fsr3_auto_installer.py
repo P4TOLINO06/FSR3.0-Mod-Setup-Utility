@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.10v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.11v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -927,6 +927,17 @@ def text_guide():
 '1 - Select a mod of your preference (recommended 0.10.3\n/0.10.4 or Uniscaler)\n'
 '2 - Check the box Fake Nvidia GPU (GTX and AMD), Nvapi\nResults (GTX and AMD), and UE Compatibility (AMD)\n'
 '3 - In-game, select FSR and Frame Gen'
+),
+
+'Star Wars Outlaws':(
+'RTX\n'
+'1 - Select Star Wars DLSS RTX and install\n'
+'2 - Inside the game, select DLSS and Frame Gen\n\n'
+
+'All GPUs\n'
+'1 - Select FSR 3.1/DLSS Optiscaler\n'
+'2 - Inside the game, select an upscaler of your choice.\n'
+'3 - Press the Insert key to open the menu and select an\nupscaler of your choice.'
 ),
 
 'Sackboy: A Big Adventure':(
@@ -2275,6 +2286,21 @@ def del_all_mods(mod_list,game_name,search_folder_name = None):
                     shutil.rmtree(mods_path)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
+
+def del_all_mods2(mod_list,mod_name,search_folder_name = None):
+    global select_folder
+    try:
+        if select_mod == mod_name:
+            for item in os.listdir(select_folder):
+                if item in mod_list:
+                    os.remove(os.path.join(select_folder,item))
+            
+            if search_folder_name != None:
+                mods_path = os.path.join(select_folder, search_folder_name)        
+                if os.path.exists(mods_path):
+                    shutil.rmtree(mods_path)
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
         
 #Execution def 
 def clean_mod():
@@ -2823,34 +2849,41 @@ def clean_mod():
                 wukong_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
 
                 subprocess.run(wukong_reg,check=True)
-        
-        fullpath_optimize_wukong_del = os.path.abspath(os.path.join(select_folder, '..\\..\\Content\\Paks'))
 
-        files_to_check = {
-            '\\~mods\\pakchunk99-Mods_CustomMod_P.pak': 'Do you want to remove the optimization mod?',
-            '\\~mods\\Force_HDR_Mode_P.pak': 'Do you want to remove the HDR correction?',
-        }
-        
-        for path_wukong_mods, message in files_to_check.items():
-            ask_and_remove(fullpath_optimize_wukong_del + '\\' + path_wukong_mods, message)
-        
-        path_map_wukong = fullpath_optimize_wukong_del + '\\LogicMods'
-        if os.path.exists(path_map_wukong):
-            if messagebox.askyesno('Remove Map', 'Do you want to remove the mini map?'):
-                shutil.rmtree(path_map_wukong)
-                
-                if os.path.exists(select_folder + '\\dwmapi.dll'):
-                    os.remove(select_folder + '\\dwmapi.dll')
-                    shutil.rmtree(select_folder + '\\ue4ss')
-        
-        path_anti_stutter = select_folder + '\\Anti-Stutter - Utility.txt'
-        if os.path.exists( path_anti_stutter):
-            if messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stuttering?'):
-                wukong_anti_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"]
+            if select_mod == "FSR 3.1 Custom Wukong":
+                files_fsr31_wukong = ['amd_fidelityfx_dx12.dll','amd_fidelityfx_vk.dll','libxess.dll']
 
-                subprocess.run(wukong_anti_stutter_reg,check=True)
+                for files_31_wukong in os.listdir(select_folder):
+                    if files_31_wukong in files_fsr31_wukong:
+                        os.remove(os.path.join(select_folder,files_31_wukong))
 
-                os.remove(select_folder + '\\Anti-Stutter - Utility.txt')
+            fullpath_optimize_wukong_del = os.path.abspath(os.path.join(select_folder, '..\\..\\Content\\Paks'))
+
+            files_to_check = {
+                '\\~mods\\pakchunk99-Mods_CustomMod_P.pak': 'Do you want to remove the optimization mod?',
+                '\\~mods\\Force_HDR_Mode_P.pak': 'Do you want to remove the HDR correction?',
+            }
+            
+            for path_wukong_mods, message in files_to_check.items():
+                ask_and_remove(fullpath_optimize_wukong_del + '\\' + path_wukong_mods, message)
+            
+            path_map_wukong = fullpath_optimize_wukong_del + '\\LogicMods'
+            if os.path.exists(path_map_wukong):
+                if messagebox.askyesno('Remove Map', 'Do you want to remove the mini map?'):
+                    shutil.rmtree(path_map_wukong)
+                    
+                    if os.path.exists(select_folder + '\\dwmapi.dll'):
+                        os.remove(select_folder + '\\dwmapi.dll')
+                        shutil.rmtree(select_folder + '\\ue4ss')
+            
+            path_anti_stutter = select_folder + '\\Anti-Stutter - Utility.txt'
+            if os.path.exists( path_anti_stutter):
+                if messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stuttering?'):
+                    wukong_anti_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"]
+
+                    subprocess.run(wukong_anti_stutter_reg,check=True)
+
+                    os.remove(select_folder + '\\Anti-Stutter - Utility.txt')
                 
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to remove the mod files from \'Black Myth: Wukong Bench Tool\'. Please close the game or any other folders related to the game and try again.')
@@ -2883,7 +2916,11 @@ def clean_mod():
 
     except Exception as e:
             messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
-                                        
+
+    try:
+        del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
+    except Exception:   
+        messagebox.showinfo('Error','It was not possible to remove the mod files from Star Wars Outlaws. Please close the game or any other folders related to the game and try again.')                             
                                               
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
 cleanup_label.place(x=0,y=485) 
@@ -3065,7 +3102,7 @@ debug_view_cbox.place(x=290,y=309)
 def enable_over():
     global list_over
     folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
-    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1']
+    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','FSR 3.1 Custom Wukong']
 
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_en_over],capture_output=True)
@@ -3650,6 +3687,7 @@ folder_fake_gpu ={
     'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
+    'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu\\uniscaler.config.toml'
 }
 
 def fake_gpu_mod():
@@ -3661,7 +3699,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi','FSR 3.1 Custom Wukong']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -3698,7 +3736,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi','FSR 3.1 Custom Wukong']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -3951,7 +3989,6 @@ macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highl
 macos_sup_cbox.place(x=387,y=217)
 
 #Deletes the .toml file modified by the user and replaces it with a new one
-
 default_path ={
     '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
     '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
@@ -3971,7 +4008,8 @@ default_path ={
     'Uniscaler V3': 'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
     'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
+    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
+    'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu\\uniscaler.config.toml'
 }
 
 replace_flag = False 
@@ -4001,7 +4039,8 @@ def replace_clean_file():
             'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\enable_fake_gpu',
             'Uni Custom Miles':'mods\\FSR2FSR3_Miles\\uni_miles_toml',
-            'Dlss Jedi':'mods\\FSR2FSR3_Miles\\uni_miles_toml'
+            'Dlss Jedi':'mods\\FSR2FSR3_Miles\\uni_miles_toml',
+            'FSR 3.1 Custom Wukong':'mods\\FSR3_WUKONG\\WukongFSR31\\enable_fake_gpu'
         }
         
         clean_file_rep = {
@@ -4023,7 +4062,8 @@ def replace_clean_file():
             'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu',
             'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu',
-            'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu'
+            'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu',
+            'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu'
         }
         
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -5855,81 +5895,89 @@ def fsr3_ffvxi():
     elif select_mod == 'FFXVI DLSS ALL GPU':
         global_dlss()
 
-def handle_prompt(window_title, window_message, wukong_message=None,action_func=None):
+def fsr3_outlaws():
+    if select_mod == 'Outlaws DLSS RTX':
+        dlss_to_fsr()
+
+def handle_prompt(window_title, window_message,action_func=None):
     user_choice = messagebox.askyesno(window_title, window_message)
     
     if user_choice and action_func:
-        action_func(wukong_message)
-    if wukong_message:
-        return True
+        action_func(user_choice)
 
-def copy_if_exists(folder_path, dest_path, is_tree=False):
-    if os.path.exists(folder_path):
-        if is_tree:
+    return user_choice
+
+def copy_if_exists(folder_path, dest_path):
+    try:
+        if os.path.exists(folder_path):
             shutil.copytree(folder_path, dest_path, dirs_exist_ok=True)
         else:
-            shutil.copy(folder_path, dest_path)
-    else:
-        messagebox.showinfo('Not Found', f'{dest_path} not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+            messagebox.showinfo('Not Found', f'{dest_path} not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+    except Exception as e:
+        messagebox.showinfo('Error','It was not possible to complete the installation, please restart the Utility and try again.')
+        print(e)
 
 def wukong_fsr3():
     wukong_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"]
-    wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF\pakchunk99-Mods_CustomMod_P.pak'
-    wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset\Black Myth Wukong.ini'
+    wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF'
+    wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset'
     wukong_ue4_map = r"mods\FSR3_WUKONG\Map\WukongUE4SS"
     wukong_map = r"mods\FSR3_WUKONG\Map\b1"
     wukong_hdr = r"mods\FSR3_WUKONG\HDR"
     full_path_wukong = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+    path_fsr31_wukong = 'mods\\FSR3_WUKONG\\WukongFSR31\\FSR31_Wukong'
     
     if select_mod == 'RTX DLSS FG Wukong':
         dlss_to_fsr()
+    if select_mod == 'FSR 3.1 Custom Wukong':
+        shutil.copytree(path_fsr31_wukong,select_folder,dirs_exist_ok=True)
     
     wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
 
-    if wukong_optimized:
-        full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
-        if os.path.exists(full_path_optimized):
-            if not os.path.exists(full_path_optimized + "\\~mods"):
-                os.makedirs(full_path_optimized + "\\~mods")
+    if os.path.exists(os.path.join(full_path_wukong + "\\b1\\Binaries\\Win64")):
 
-            shutil.copy(wukong_file_optimized,full_path_optimized + "\\~mods")
-        else:
-            messagebox.showinfo('Not Found','Path "b1\Content\Paks" not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+        if wukong_optimized:
+            full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
+            if os.path.exists(full_path_optimized):
+                if not os.path.exists(full_path_optimized + "\\~mods"):
+                    os.makedirs(full_path_optimized + "\\~mods")
 
-    handle_prompt(
-    'High CPU Priority',
-    'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
-    lambda: (
-        subprocess.run(wukong_stutter_reg, check=True),
-        shutil.copy(r'mods\FSR3_WUKONG\HIGH CPU Priority\Anti-Stutter - Utility.txt', select_folder)
+                shutil.copytree(wukong_file_optimized,full_path_optimized + "\\~mods",dirs_exist_ok=True)
+    
+        handle_prompt(
+        'High CPU Priority',
+        'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
+        lambda _: (
+            subprocess.run(wukong_stutter_reg, check=True),
+            shutil.copy(r'mods\FSR3_WUKONG\HIGH CPU Priority\Anti-Stutter - Utility.txt', select_folder)
+            )
         )
-    )
 
-    handle_prompt(
-        'Graphic Preset',
-        'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
-        lambda: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1")
-    )
-
-    view_message_wukong = handle_prompt(
-        'Mini Map',
-        'Would you like to install the mini map?',
-        wukong_message= True,
-        action_func=lambda flag:(
-            copy_if_exists(wukong_ue4_map,select_folder, is_tree=True),
-            copy_if_exists(wukong_map,full_path_wukong + "\\b1", is_tree=True),
+        handle_prompt(
+            'Graphic Preset',
+            'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
+            lambda _: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1")
         )
-    )
 
-    view_message_wukong = handle_prompt(
-        'HDR',
-        'Would you like to install the HDR correction?',
-        wukong_message=True,
-         action_func=lambda flag: copy_if_exists(wukong_hdr,full_path_wukong, is_tree=True)
-    )
+        view_message_wukong = handle_prompt(
+            'Mini Map',
+            'Would you like to install the mini map?',
+            lambda _:(
+                copy_if_exists(wukong_ue4_map,select_folder),
+                copy_if_exists(wukong_map,full_path_wukong + "\\b1"),
+            )
+        )
 
-    if view_message_wukong or wukong_optimized:
-        messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
+        view_message_wukong = handle_prompt(
+            'HDR',
+            'Would you like to install the HDR correction?',
+            lambda _: copy_if_exists(wukong_hdr,full_path_wukong)
+        )
+
+        if view_message_wukong or wukong_optimized:
+            messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
+    else:
+        messagebox.showinfo('Not Founde','Path not found, please select the correct path: BlackMythWukong\\b1\\Binaries\\Win64')
 
 # Modify the ini file of Hellblade 2 to remove post-processing effects
 def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
@@ -6175,7 +6223,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -6503,6 +6551,8 @@ def install(event=None):
             fsr3_motogp()
         if select_option == 'Final Fantasy XVI':
             fsr3_ffvxi()
+        if select_option == 'Star Wars Outlaws':
+            fsr3_outlaws()
         if select_option == 'Ghost of Tsushima':
             fsr3_got()
         if select_option == 'The Medium':
@@ -6812,6 +6862,7 @@ fsr_game_version={
     'Smalland':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
+    'Star Wars Outlaws':'2.2',
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
@@ -6998,12 +7049,17 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Black Myth: Wukong':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     elif select_option == 'Final Fantasy XVI':
         mod_text() 
         mod_version_listbox.insert(tk.END,'FFXVI DLSS ALL GPU','FFXVI DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Star Wars Outlaws':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     else:
@@ -7016,7 +7072,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
