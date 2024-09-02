@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.11v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.12v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -937,7 +937,12 @@ def text_guide():
 'All GPUs\n'
 '1 - Select FSR 3.1/DLSS Optiscaler\n'
 '2 - Inside the game, select an upscaler of your choice.\n'
-'3 - Press the Insert key to open the menu and select an\nupscaler of your choice.'
+'3 - Press the Insert key to open the menu and select an\nupscaler of your choice.\n\n'
+
+'Graphic Preset\n'
+'1 - Install the mod and the ReShade application\n'
+'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Outlaws2.ini (the path\nshould look something like Star Wars Outlaws\Outlaws2.ini)\nand select it, then click on \'Uncheck All\' and \'Next\'.\n'
+'3 - In the game, press the \'Insert\' key to open\nthe menu and check the options you want.\n\n'
 ),
 
 'Sackboy: A Big Adventure':(
@@ -996,6 +1001,11 @@ def text_guide():
 '1 - Select Uniscaler V3\n'
 '2 - Check the Nvngx box and select Default\n'
 '3 - Check the Enable Signature Over box\n\n'
+
+'0.10.4\n'
+'1 - Select 0.10.4 and install it.\n'
+'2- Inside the game, select FSR 2 and start the campaign.\n'
+'3 -If Frame Gen doesn\'t work, check the "Nvngx.dll" box and\nselect "Default," then check the "Enable Signature Override"\nbox. For Epic Games users: if the mod doesn\'t work or some\nbugs appear, check the "Disable Overlay" box.\n\n'
 
 'HUD Correction\n'
 'Select FSR2 and start the campaign, play for a few\nseconds, and return to the menu. In the menu, select\nTemporal and return to the campaign.\n\n'
@@ -1139,7 +1149,9 @@ def text_guide():
     elif select_game == 'Black Myth: Wukong':
         screen_guide.geometry('620x790')
     elif select_game == 'The Callisto Protocol':
-        screen_guide.geometry('530x550')
+        screen_guide.geometry('530x680')
+    elif select_game == 'Star Wars Outlaws':
+        screen_guide.geometry('520x330')
     else:
         screen_guide.geometry('520x260')
     
@@ -2918,7 +2930,17 @@ def clean_mod():
             messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
 
     try:
-        del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
+        if select_option == 'Star Wars Outlaws':
+            remove_anti_stutter_outlaws = ['regedit.exe', '/s', "mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg"]
+            
+            del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
+
+            if os.path.exists(os.path.join(select_folder,'Anti_Sttuter.txt')):
+                outlaws_anti_stutter = messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stutter?')
+
+                if outlaws_anti_stutter:
+                    os.remove(os.path.join(select_folder,'Anti_Sttuter.txt'))
+                    subprocess.run(remove_anti_stutter_outlaws,check=True)
     except Exception:   
         messagebox.showinfo('Error','It was not possible to remove the mod files from Star Wars Outlaws. Please close the game or any other folders related to the game and try again.')                             
                                               
@@ -5896,8 +5918,26 @@ def fsr3_ffvxi():
         global_dlss()
 
 def fsr3_outlaws():
+    outlaws_reg = ['regedit.exe', '/s', "mods\FSR3_Outlaws\Anti_Stutter\Install Star Wars Outlaws CPU Priority.reg"]
+    graphics_preset_outlaws = 'mods\\FSR3_Outlaws\\Preset\\Outlaws2.ini'
+    var_stutter_outlaws = 'mods\\FSR3_Outlaws\\Anti_Stutter\\Anti_Sttuter.txt'
+
     if select_mod == 'Outlaws DLSS RTX':
         dlss_to_fsr()
+    
+    anti_stutter_outlaws = messagebox.askyesno('Anti Stutter','Do you want to install the anti-stutter?')
+
+    if anti_stutter_outlaws:
+        shutil.copy(var_stutter_outlaws,select_folder) #File used to remove the Anti-Stutter in 'Cleanup Mod'
+        subprocess.run(outlaws_reg,check=True)
+    
+    preset_outlaws = messagebox.askyesno('Graphics Preset','Do you want to install he Graphics Preset?')
+
+    if preset_outlaws:
+        shutil.copy(graphics_preset_outlaws,select_folder)
+
+        messagebox.showinfo('FSR Guide','To apply the graphics preset, see the Star Wars Outlaws guide in the FSR Guide.')
+        
 
 def handle_prompt(window_title, window_message,action_func=None):
     user_choice = messagebox.askyesno(window_title, window_message)
@@ -6938,7 +6978,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'The Callisto Protocol':
         mod_text()
-        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3','Uniscaler V3')  
+        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3','0.10.4','Uniscaler V3')  
     
     elif select_option == 'Fallout 4':
         mod_text()
