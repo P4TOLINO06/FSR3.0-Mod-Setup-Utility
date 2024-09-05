@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.12v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.13v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -264,7 +264,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -654,6 +654,16 @@ def text_guide():
 '3 - Check the Nvngx.dll box and select Default, then check\nthe Enable Signature Override box.\n'
 '4 - In the game, select DLSS to enable Frame Generation.\n'  
 '5 - To fix the HUD glitch, switch between the upscalers (FSR,\nDLSS, etc.) until the HUD stops flickering.'
+),
+
+'God Of War 4':(
+'1 - Select "Gow 4 FSR 3.1".\n'
+'2 - Check the "Add-on Mods" box, select "Optiscaler," and\nchoose "Method Default."\n'
+'3 - In "Upscaler Optiscaler," select "fsr3.1 DX11" and install.\n'
+'4 - In the game, select DLSS (do not choose ultra quality,\nas it will not work).\n'
+'5 - Press the "Insert" key to open the menu and select the\ndesired upscaler (XESS is recommended).\n'
+'6 - If the menu does not appear, set the preferred upscaler in\n"Upscaler Optiscaler" in the Utility and install again. (Select\nonly the DX11 upscalers, such as fsr3.1 DX11, xess DX11,\netc.)\n'
+'7 - If you cannot see DLSS in the game, check the "Enable\nSignature Over" box.'
 ),
 
 'Hellblade: Senua\'s Sacrifice':(
@@ -2727,6 +2737,23 @@ def clean_mod():
 
             if del_tcp:
                 os.remove(select_folder + '\\TCP.ini')
+    
+    try:
+        if select_option == 'God Of War 4':
+            path_backup_dll = os.path.join(select_folder,'Backup Dll')
+            path_var_go4 = os.path.join(select_folder,'optiscaler.txt')
+            gow4_reg = ['regedit.exe', '/s', "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"]
+
+            del_all_mods(del_optiscaler,'God Of War 4')
+
+            if os.path.exists(path_backup_dll):
+                shutil.rmtree(path_backup_dll)
+            if os.path.exists(path_var_go4):
+                os.remove(path_var_go4)
+            
+            subprocess.run(gow4_reg,check=True)                    
+    except Exception:
+        messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
     
     if select_option == 'Ghost of Tsushima':
         reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
@@ -5917,6 +5944,13 @@ def fsr3_ffvxi():
     elif select_mod == 'FFXVI DLSS ALL GPU':
         global_dlss()
 
+def fsr3_gow4 ():
+    var_gow4_optiscaler = 'mods\\FSR3_GOW4\\optiscaler.txt'
+
+    shutil.copy(var_gow4_optiscaler,select_folder)
+
+    messagebox.showinfo('Guide','Check the God of War 4 guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
+
 def fsr3_outlaws():
     outlaws_reg = ['regedit.exe', '/s', "mods\FSR3_Outlaws\Anti_Stutter\Install Star Wars Outlaws CPU Priority.reg"]
     graphics_preset_outlaws = 'mods\\FSR3_Outlaws\\Preset\\Outlaws2.ini'
@@ -6255,9 +6289,6 @@ def optiscaler_fsr3():
     path_ini_optiscaler_custom = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
     shutil.copytree(path_optiscaler_custom,select_folder,dirs_exist_ok=True)
     shutil.copy2(path_ini_optiscaler_custom,select_folder)
-
-    optiscaler_reg = ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\EnableSignatureOverride.reg"]
-    optiscaler_reg2= ['regedit.exe', '/s', "mods\\Optiscaler FSR 3.1 Custom\\DisableNvidiaSignatureChecks.reg"]
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
@@ -6581,6 +6612,8 @@ def install(event=None):
             wukong_fsr3()
         if select_option == 'The Callisto Protocol':
             callisto_fsr()
+        if select_option == 'God Of War 4':
+            fsr3_gow4()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
@@ -6859,6 +6892,7 @@ fsr_game_version={
     'Ghost of Tsushima':'DLSS',
     'Ghostrunner 2':'2.0',
     'Ghostwire: Tokyo':'2.2',
+    'God Of War 4':'2.2',
     'GTA V':'PD',
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
@@ -7102,6 +7136,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
+    elif select_option == 'God Of War 4':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -7111,7 +7150,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
 for option in options:
     listbox.insert(tk.END,option)
