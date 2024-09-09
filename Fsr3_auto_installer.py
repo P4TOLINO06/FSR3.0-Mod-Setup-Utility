@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.13v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.14v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -1085,6 +1085,21 @@ def text_guide():
 '2 - In the game, select FSR.'    
 ),
 
+'Warhammer: Space Marine 2':(
+'FSR 3.1 Space Marine\n'
+'Check the "GPU" window during installation.\n'
+'In-game, press the "Insert" key to open the menu.\n'
+'In the menu, select the upscaler of your choice.\n\n'
+
+'Uniscaler FSr 3.1\n'
+'1 - Check the "Fake NVIDIA GPU" box if you want to use\nDLSS.'
+'2-  Check the \'Enable Signature Over\' box.\n'
+'2 - This mod does not have a HUD fix, as frame generation\nis activated along with the mod.\n\n'
+
+'Graphics preset'
+'See the Black Myth Wukong guide to learn\nhow to install the preset.'
+),
+
 'Uniscaler':(
 'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
 'Even if the game does not have support for one of the 3\nupscalers, it is possible to activate them by selecting the\nupscaler in "Mod Operates".\n\n'
@@ -1862,7 +1877,7 @@ def update_install_method():
 
     backup_dir = os.path.join(select_folder, "Backup Dll")
     files_optis = ['libxess.dll','amd_fidelityfx_vk.dll','nvngx.dll','amd_fidelityfx_dx12.dll']
-    optiscaler_reg = ['regedit.exe', '/s', "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"]
+    optiscaler_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
     os.makedirs(backup_dir, exist_ok=True) 
 
     if var_method == 'Method Default (For test)': #Default installation 
@@ -1897,7 +1912,7 @@ def update_install_method():
     for optis_bk_files in os.listdir(select_folder):
         for optis_bk_files in files_optis:
             shutil.copy2(os.path.join(select_folder,optis_bk_files),backup_dir)
-    subprocess.run(optiscaler_reg, check=True)
+    runReg(optiscaler_reg)
             
 #Changes the operation of the Optiscaler mod through the .ini file
 def update_ini(path_ini,key,value_ini): 
@@ -2398,16 +2413,21 @@ def clean_mod():
     'dxgi.dll', 'EnableSignatureOverride.reg', 'libxess.dll', 'licenses', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', 'unins000.exe', 'version.dll', '_nvngx.dll'
     ]
 
-    del_dlss_rtx =[ 
-    'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll',
-    'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat',
-    'version.dll','dlss_rtx.txt'
+    del_dlss_rtx = [ 
+        'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll',
+        'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat',
+        'version.dll', 'dlss_rtx.txt',
+        'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll',
+        'dlssg_to_fsr3.ini', 'dlssg_to_fsr3_amd_is_better-3.0.dll'
     ]
+
     del_dlss_amd = [
-    'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe',
-    'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll',
-    'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg',
-    'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll','dlss_amd.txt'
+        'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe',
+        'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll',
+        'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg',
+        'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll', 'dlss_amd.txt',
+        'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll',
+        'dlssg_to_fsr3.ini', 'dlssg_to_fsr3_amd_is_better-3.0.dll'
     ]
 
     del_dlss_to_fg = ['dlssg_to_fsr3_amd_is_better.dll','version.dll']
@@ -2500,14 +2520,14 @@ def clean_mod():
         if select_option == "Cyberpunk 2077":
             path_mods_cb2077 = os.path.join(select_folder,"archive\\pc\\mod")
             mods_files = ["#####-NovaLUT-2.archive","HD Reworked Project.archive"]
-            cb2077_reg = ['regedit.exe', '/s', "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"]
+            cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"
             reshade_path = '\\bin\\x64\\V2.0 Real Life Reshade.ini'
 
             if select_mod == "RTX DLSS FG":
                 for file_del in os.listdir(select_folder):
                     if file_del in del_cb2077:
                         os.remove(os.path.join(select_folder,file_del)) 
-                subprocess.run(cb2077_reg,check=True)
+                runReg(cb2077_reg)
             
             if os.path.exists(path_mods_cb2077 + "\\#####-NovaLUT-2.archive"):
                 
@@ -2585,9 +2605,9 @@ def clean_mod():
                     if optis_rdr2 in del_optiscaler_custom:
                         os.remove(os.path.join(select_folder,optis_rdr2))
             
-            optiscaler_rdr2_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+            optiscaler_rdr2_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
                 
-            subprocess.run(optiscaler_rdr2_reg,check=True)
+            runReg(optiscaler_rdr2_reg)
                             
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
@@ -2616,12 +2636,12 @@ def clean_mod():
         if select_option == 'Forza Horizon 5':
             
             if os.path.exists(os.path.join(select_folder,'RestoreNvidiaSignatureChecks.reg')):
-                return_rtx_reg = ['regedit.exe', '/s', 'mods\\FSR3_FH\\RTX\\RestoreNvidiaSignatureChecks.reg']
+                return_rtx_reg = 'mods\\FSR3_FH\\RTX\\RestoreNvidiaSignatureChecks.reg'
 
                 var_reg_rtx = messagebox.askyesno('Return reg','Do you want to restore NvidiaSignatureChecks values to default? When installing the mod, these values were changed')
                 
                 if var_reg_rtx:
-                    subprocess.run(return_rtx_reg,check=True)
+                    runReg(return_rtx_reg)
             
             for item_fh in os.listdir(select_folder):
                 if item_fh in del_fh_fsr3:
@@ -2631,7 +2651,37 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     try:
-        icr_en_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\RestoreNvidiaSignatureChecks.reg"]
+        restore_dxgi_marine = select_folder + '\\Backup DXGI'
+        path_del_txt_stutter_marine = os.path.join(select_folder,'Marine_Anti_Stutter.txt')
+
+        if select_mod == 'FSR 3.1 Space Marine':
+
+            gpu_marine = messagebox.askyesno('Gpu','Do you have an RTX GPU?')
+
+            if gpu_marine:
+                del_all_mods(del_dlss_rtx,'Warhammer: Space Marine 2')
+            else:
+                del_all_mods(del_dlss_amd,'Warhammer: Space Marine 2')
+
+            if os.path.exists(restore_dxgi_marine):
+                dxgi_marine = os.path.join(restore_dxgi_marine, 'dxgi.dll')
+                
+                shutil.copy(dxgi_marine, select_folder)
+            
+        if os.path.exists(path_del_txt_stutter_marine):
+            remove_anti_stutter_marine = messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?')
+
+            if remove_anti_stutter_marine:
+                runReg('mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg')
+
+                os.remove(select_folder + '\\Marine_Anti_Stutter.txt')
+
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
+        print(e)
+
+    try:
+        icr_en_rtx_reg =  "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\RestoreNvidiaSignatureChecks.reg"
         
         if select_mod == 'Icarus FSR3 AMD/GTX': 
             for i_icr in os.listdir(select_folder):
@@ -2640,7 +2690,7 @@ def clean_mod():
             
             en_rtx_reg = messagebox.askyesno('Enable SigOver','Do you want to re-enable NvidiaSignatureChecks? It was disabled during the mod installation.')
             if en_rtx_reg:
-                subprocess.run(icr_en_rtx_reg,check=True) 
+                runReg(icr_en_rtx_reg) 
                   
         elif select_mod == 'Icarus FSR3 RTX':
             for i_icr_rtx in os.listdir(select_folder):
@@ -2691,15 +2741,15 @@ def clean_mod():
     try:
         
         if select_mod == 'Horizon Forbidden West FSR3':
-            hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\RestoreNvidiaSignatureChecks.reg"]
-            hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"]
+            hfw_rtx_reg = "mods\\FSR3_HFW\\RTX FSR3\\RestoreNvidiaSignatureChecks.reg"
+            hfw_ot_gpu_reg = "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"
             rtx_files = os.path.exists(os.path.join(select_folder,'RestoreNvidiaSignatureChecks.reg'))
             original_exe = os.path.join(select_folder,"HorizonForbiddenWestOriginalEXE.txt")
             
             if rtx_files:
-                subprocess.run(hfw_rtx_reg,check=True)
+                runReg(hfw_rtx_reg)
             else:
-                subprocess.run(hfw_ot_gpu_reg,check=True)         
+                runReg(hfw_ot_gpu_reg)         
                         
             for i_hfw in os.listdir(select_folder):
                 if i_hfw in del_hfw_fsr:
@@ -2742,7 +2792,7 @@ def clean_mod():
         if select_option == 'God Of War 4':
             path_backup_dll = os.path.join(select_folder,'Backup Dll')
             path_var_go4 = os.path.join(select_folder,'optiscaler.txt')
-            gow4_reg = ['regedit.exe', '/s', "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"]
+            gow4_reg = "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"
 
             del_all_mods(del_optiscaler,'God Of War 4')
 
@@ -2751,13 +2801,13 @@ def clean_mod():
             if os.path.exists(path_var_go4):
                 os.remove(path_var_go4)
             
-            subprocess.run(gow4_reg,check=True)                    
+            runReg(gow4_reg)                    
     except Exception:
         messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
     
     if select_option == 'Ghost of Tsushima':
         reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
-        got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
+        got_reg = "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"
         
         try:
             if os.path.exists(os.path.join(select_folder,'no-filmgrain.reg')):
@@ -2772,25 +2822,25 @@ def clean_mod():
         except Exception as e:
             messagebox.showerror('Error','It was not possible to remove the post-processing effects. Please try again.')
              
-        subprocess.run(got_reg,check=True)
+        runReg(got_reg)
         del_all_mods(del_got,'Ghost of Tsushima')
              
     if select_option == 'Hellblade 2':
-        cpu_reg = ['regedit.exe', '/s', "mods\\FSR3_HB2\\Cpu_Hb2\\Uninstall Hellblade 2 CPU Priority.reg"]
+        cpu_reg = "mods\\FSR3_HB2\\Cpu_Hb2\\Uninstall Hellblade 2 CPU Priority.reg"
         
         if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
             
             del_all_mods(del_hb2,'Hellblade 2')
-            hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"]
+            hb2_reg = "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"
             
-            subprocess.run(hb2_reg,check=True)
+            runReg(hb2_reg)
         
         if os.path.exists(os.path.join(select_folder,"Install Hellblade 2 CPU Priority.reg")):
             cpu_message = messagebox.askyesno("Anti Stutter","Would you like to remove the Anti Stutter?")
             
             if cpu_message:
                 pass
-                subprocess.run(cpu_reg,check=True)
+                runReg(cpu_reg)
             
     if select_option == 'Assassin\'s Creed Valhalla':
         folder_ac = os.path.join(select_folder,'reshade-shaders')
@@ -2822,9 +2872,9 @@ def clean_mod():
             if os.path.exists(os.path.join(select_folder,'Backup Dll')):
                 shutil.copytree(os.path.join(select_folder,'Backup Dll'),select_folder,dirs_exist_ok=True)
                 shutil.rmtree(os.path.join(select_folder,'Backup Dll'))
-        optiscaler_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+        optiscaler_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
             
-        subprocess.run(optiscaler_reg,check=True)
+        runReg(optiscaler_reg)
     except Exception:
         messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
     
@@ -2835,9 +2885,9 @@ def clean_mod():
                     if optis_custom_files in del_optiscaler_custom:
                         os.remove(os.path.join(select_folder,optis_custom_files))
             
-        optiscaler_custom_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+        optiscaler_custom_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
             
-        subprocess.run(optiscaler_custom_reg,check=True)
+        runReg(optiscaler_custom_reg)
     except Exception:
         messagebox.showinfo("Optiscaler Custom","Error clearing Optiscaler Custom files, please try again or do it manually")
     
@@ -2852,9 +2902,9 @@ def clean_mod():
                 if cod_rtx in del_dlss_rtx:
                     os.remove(os.path.join(select_folder,cod_rtx))  
 
-        cod_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"]
+        cod_reg = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
             
-        subprocess.run(cod_reg,check=True)
+        runReg(cod_reg)
     except Exception:
         messagebox.showinfo("COD MW3 FSR3","Error clearing COD MW3 FSR3 files, please try again or do it manually")
 
@@ -2885,9 +2935,9 @@ def clean_mod():
                     if wukong_files_rtx in del_dlss_to_fg:
                         os.remove(os.path.join(select_folder,wukong_files_rtx))
 
-                wukong_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+                wukong_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
 
-                subprocess.run(wukong_reg,check=True)
+                runReg(wukong_reg)
 
             if select_mod == "FSR 3.1 Custom Wukong":
                 files_fsr31_wukong = ['amd_fidelityfx_dx12.dll','amd_fidelityfx_vk.dll','libxess.dll']
@@ -2918,9 +2968,9 @@ def clean_mod():
             path_anti_stutter = select_folder + '\\Anti-Stutter - Utility.txt'
             if os.path.exists( path_anti_stutter):
                 if messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stuttering?'):
-                    wukong_anti_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"]
+                    wukong_anti_stutter_reg = r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"
 
-                    subprocess.run(wukong_anti_stutter_reg,check=True)
+                    runReg(wukong_anti_stutter_reg)
 
                     os.remove(select_folder + '\\Anti-Stutter - Utility.txt')
                 
@@ -2934,9 +2984,9 @@ def clean_mod():
                     if ffxvi_rtx in del_dlss_to_fg:
                         os.remove(os.path.join(select_folder,ffxvi_rtx))
 
-                ffxvi_reg = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"]
+                ffxvi_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
 
-                subprocess.run(ffxvi_reg,check=True) 
+                runReg(ffxvi_reg) 
 
         if os.path.exists(os.path.join(select_folder,'dlss_amd.txt')):
             for ffxvi_amd in os.listdir(select_folder):
@@ -2948,17 +2998,17 @@ def clean_mod():
                 if ffxvi_rtx in del_dlss_rtx:
                     os.remove(os.path.join(select_folder,ffxvi_rtx))  
 
-        ffxvi_reg_global = ['regedit.exe', '/s', "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"]
+        ffxvi_reg_global = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
 
         if os.path.exists(os.path.join(select_folder,'dlss_amd.txt') or os.path.join(select_folder,'dlss_rtx.txt')):   
-            subprocess.run(ffxvi_reg_global ,check=True)
+            runReg(ffxvi_reg_global)
 
     except Exception as e:
             messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
 
     try:
         if select_option == 'Star Wars Outlaws':
-            remove_anti_stutter_outlaws = ['regedit.exe', '/s', "mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg"]
+            remove_anti_stutter_outlaws = "mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg"
             
             del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
 
@@ -2967,7 +3017,7 @@ def clean_mod():
 
                 if outlaws_anti_stutter:
                     os.remove(os.path.join(select_folder,'Anti_Sttuter.txt'))
-                    subprocess.run(remove_anti_stutter_outlaws,check=True)
+                    runReg(remove_anti_stutter_outlaws)
     except Exception:   
         messagebox.showinfo('Error','It was not possible to remove the mod files from Star Wars Outlaws. Please close the game or any other folders related to the game and try again.')                             
                                               
@@ -4732,6 +4782,11 @@ asi_global={
     }
 }
 
+def runReg(path_reg):
+    reg_path = ['regedit.exe', '/s', path_reg]
+
+    subprocess.run(reg_path,check=True)       
+
 origins_2_2 = None
     
 origins_2_2_folder = {
@@ -5162,7 +5217,7 @@ def dlss_fsr():
 def global_dlss():
     path_dlss_rtx = 'mods\\DLSS_Global\\AMD'
     path_dlss_amd = 'mods\\DLSS_Global\\RTX'
-    dlss_global_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+    dlss_global_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
     var_global_dlss = messagebox.askyesno('GPU','Do you have a GPU starting from GTX 1660?')
 
@@ -5172,15 +5227,15 @@ def global_dlss():
     else:
         shutil.copytree(path_dlss_amd,select_folder,dirs_exist_ok=True)
 
-    subprocess.run(dlss_global_reg,check=True)
+    runReg(dlss_global_reg,)
 
 def dlss_to_fsr():
     path_dlss_to_fsr = 'mods\DLSS_TO_FSR'
-    dlss_to_fsr_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+    dlss_to_fsr_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
     shutil.copytree(path_dlss_to_fsr,select_folder,dirs_exist_ok=True)
 
-    subprocess.run(dlss_to_fsr_reg,check=True)
+    runReg(dlss_to_fsr_reg)
 
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
@@ -5378,8 +5433,8 @@ dd2_fsr31_list = ['FSR 3.1/DLSS ALL GPU']
 def dd2_fsr():
     global dd2_folder,var_d_put
 
-    dd2_reg = ['regedit.exe', '/s', "mods\Temp\enable signature override\EnableSignatureOverride.reg"]
-    dd2_reg2 = ['regedit.exe', '/s', "mods\FSR2FSR3_DD2_FSR31\DD2_DLSS\DisableNvidiaSignatureChecks.reg"]
+    dd2_reg = "mods\Temp\enable signature override\EnableSignatureOverride.reg"
+    dd2_reg2 = "mods\FSR2FSR3_DD2_FSR31\DD2_DLSS\DisableNvidiaSignatureChecks.reg"
     
     var_d_put = False
     
@@ -5417,8 +5472,8 @@ def dd2_fsr():
         shutil.copytree('mods\FSR2FSR3_DD2_FSR31\DD2_DLSS',select_folder,dirs_exist_ok=True)
         shutil.copy2('mods\\Temp\\Optiscaler_DD2\\nvngx.ini',select_folder)
         shutil.copy2('mods\\FSR2FSR3_DD2_FSR31\\Optiscaler_DD2\\nvngx.ini','mods\\Temp\\Optiscaler_DD2\\nvngx.ini') #Replace the modified .ini file with a clean .ini file.
-        subprocess.run(dd2_reg,check=True)
-        subprocess.run(dd2_reg2,check=True)
+        runReg(dd2_reg)
+        runReg(dd2_reg2)
 
         if os.path.exists(os.path.join(select_folder,'shader.cache2')):
             os.remove(os.path.join(select_folder,'shader.cache2'))
@@ -5597,11 +5652,11 @@ def fh_fsr3():
     path_rtx = 'mods\\FSR3_FH\\RTX'
     path_ot_gpu = 'mods\\FSR3_FH\\Ot_Gpu'
     
-    en_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_FH\RTX\\DisableNvidiaSignatureChecks.reg"]
+    en_rtx_reg = "mods\\FSR3_FH\RTX\\DisableNvidiaSignatureChecks.reg"
     
     if var_gpu:
         shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
-        subprocess.run(en_rtx_reg,check=True)
+        runReg(en_rtx_reg)
     elif not var_gpu:
         shutil.copytree(path_ot_gpu,select_folder,dirs_exist_ok=True)
 
@@ -5673,14 +5728,14 @@ def auto_shortcut(path_exe,name_shortcut,dx_12,name_messagebox):
 def icarus_fsr3():
     icr_rtx = 'mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX'
     icr_ot_gpu = 'mods\\FSR3_ICR\\ICARUS_FSR_3_FOR_AMD_GTX'
-    icr_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\DisableNvidiaSignatureChecks.reg"]
+    icr_rtx_reg = "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\DisableNvidiaSignatureChecks.reg"
     
     if select_mod == 'Icarus FSR3 RTX':
         shutil.copytree(icr_rtx,select_folder,dirs_exist_ok=True)
         act_dlss = messagebox.askyesno('DLSS','Do you want to run DisableNvidiaSignatureChecks.reg? It\'s necessary for the mod to work')
         
         if act_dlss:
-            subprocess.run(icr_rtx_reg,check=True)
+            runReg(icr_rtx_reg)
     
     elif select_mod == 'Icarus FSR3 AMD/GTX':
         shutil.copytree(icr_ot_gpu,select_folder,dirs_exist_ok=True)
@@ -5793,7 +5848,7 @@ def gtav_fsr3():
 def lotf_fsr3():
     rtx_fsr3 = 'mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX'
     amd_gtx_fsr3 = 'mods\\FSR3_LOTF\\AMD_GTX'
-    lotf_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"]
+    lotf_rtx_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
     
     if select_mod == 'Lords of The Fallen FSR3':
         rtx_amd = messagebox.askyesno('RTX','Do you have an RTX GPU?"?')
@@ -5802,7 +5857,7 @@ def lotf_fsr3():
         else:
             shutil.copytree(amd_gtx_fsr3,select_folder,dirs_exist_ok=True)
     
-        subprocess.run(lotf_rtx_reg,check=True)
+        runReg(lotf_rtx_reg)
         
         shortcut_lotf_bat = messagebox.askyesno('Shortcut','Do you want to create a shortcut for the .bat file? To make the mod work, you need to run the game through the .bat file')
         bat_path = os.path.join(select_folder,'launch.bat')
@@ -5827,8 +5882,8 @@ def hfw_fsr3():
     hfw_rtx = 'mods\\FSR3_HFW\\RTX FSR3'
     xess_hfw ='mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
     hfw_ot_gpu = 'mods\\FSR3_Callisto\\FSR_Callisto'
-    hfw_rtx_reg = ['regedit.exe', '/s', "mods\\FSR3_HFW\\RTX FSR3\\DisableNvidiaSignatureChecks.reg"]
-    hfw_ot_gpu_reg = ['regedit.exe', '/s', "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"]
+    hfw_rtx_reg = "mods\\FSR3_HFW\\RTX FSR3\\DisableNvidiaSignatureChecks.reg"
+    hfw_ot_gpu_reg = "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"
     path_crash_fix= "mods\\FSR3_HFW\\Crash_Fix"
     path_exe = os.path.join(select_folder,"HorizonForbiddenWest.exe")
     
@@ -5838,12 +5893,12 @@ def hfw_fsr3():
         if var_gpu:
             shutil.copytree(hfw_rtx,select_folder,dirs_exist_ok=True)
             shutil.copy2(xess_hfw,select_folder)
-            subprocess.run(hfw_rtx_reg,check=True)
+            runReg(hfw_rtx_reg)
             
         else:
             shutil.copytree(hfw_ot_gpu,select_folder,dirs_exist_ok=True)
             shutil.copy2(xess_hfw,select_folder)
-            subprocess.run(hfw_ot_gpu_reg,check=True)
+            runReg(hfw_ot_gpu_reg)
     
     crash_fix_hfw = messagebox.askyesno("Crash Fix","Would you like to install the crash fix?")
     
@@ -5891,15 +5946,14 @@ def fsr3_motogp():
 def fsr3_got():
     path_dlss_got = 'mods\\FSR3_GOT\\DLSS FG'
     path_dx12 = 'mods\\FSR3_GOT\\Fix_DX12'
-    got_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
-    exe_got = os.path.join(select_folder,'GhostOfTsushima.exe')
+    got_reg = "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"
     post_processing_got_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing'
     path_var_post_processing_got = 'mods\\FSR3_GOT\\Remove_Post_Processing\\no-filmgrain.reg'
     
     if select_option == 'Ghost of Tsushima':
         shutil.copytree(path_dlss_got,select_folder,dirs_exist_ok=True)
         
-        subprocess.run(got_reg,check=True)
+        runReg(got_reg)
     
     dx12_got = messagebox.askyesno('DX12','Do you want to install the DX12 files? These files fix issues related to DX12. (Only confirm if you have encountered a DX12 related error)')
 
@@ -5951,8 +6005,45 @@ def fsr3_gow4 ():
 
     messagebox.showinfo('Guide','Check the God of War 4 guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
 
+def fsr3_space_marine():
+    anti_stutter_marine = 'mods\\FSR3_Outlaws\\Anti_Stutter\\Install Star Wars Outlaws CPU Priority.reg'
+    txt_marine_stutter = 'mods\\FSR3_SpaceMarine\\Anti_Stutter\\Marine_Anti_Stutter.txt'
+    preset_marine = 'mods\\FSR3_SpaceMarine\\Preset\\Warhammer 40000 Space Marine 2.ini'
+    path_dxgi = select_folder + '\\dxgi.dll'
+    path_fsr31_marine_rtx = 'mods\\FSR3_SpaceMarine\\FSR 3.1\\RTX'
+    path_fsr31_marine_amd = 'mods\\FSR3_SpaceMarine\\FSR 3.1\\AMD'
+
+
+    if os.path.exists(path_dxgi):
+        backup_folder_marine = os.path.join(select_folder, 'Backup DXGI')
+        os.makedirs(backup_folder_marine, exist_ok=True)
+
+        shutil.copy(path_dxgi, backup_folder_marine)  
+
+        os.rename(path_dxgi, os.path.join(select_folder, 'd3d12.dll'))
+
+    if select_mod == "FSR 3.1 Space Marine":
+
+        gpu_matrine = messagebox.askyesno('Gpu','Do you have an RTX GPU?')
+
+        if gpu_matrine:
+            shutil.copytree(path_fsr31_marine_rtx,select_folder,dirs_exist_ok=True)
+        else:
+            shutil.copytree(path_fsr31_marine_amd,select_folder,dirs_exist_ok=True)
+        
+    var_marine_stutter = messagebox.askyesno('Anti Stutter','Do you want to install the Anti Stutter?')
+
+    if var_marine_stutter:
+        runReg(anti_stutter_marine)
+        shutil.copy(txt_marine_stutter,select_folder)
+    
+    var_marine_preset = messagebox.askyesno('Graphic Preset','Do you have to install the Graphic Preset?, select the path similar to: client_pc\\root\\bin\\pc for the mod to work. (It is necessary to install ReShade for the preset to work. See the guide in the FSR Guide to learn how to install it.)')
+
+    if var_marine_preset:
+        shutil.copy(preset_marine,select_folder)
+
 def fsr3_outlaws():
-    outlaws_reg = ['regedit.exe', '/s', "mods\FSR3_Outlaws\Anti_Stutter\Install Star Wars Outlaws CPU Priority.reg"]
+    outlaws_reg = "mods\FSR3_Outlaws\Anti_Stutter\Install Star Wars Outlaws CPU Priority.reg"
     graphics_preset_outlaws = 'mods\\FSR3_Outlaws\\Preset\\Outlaws2.ini'
     var_stutter_outlaws = 'mods\\FSR3_Outlaws\\Anti_Stutter\\Anti_Sttuter.txt'
 
@@ -5963,7 +6054,7 @@ def fsr3_outlaws():
 
     if anti_stutter_outlaws:
         shutil.copy(var_stutter_outlaws,select_folder) #File used to remove the Anti-Stutter in 'Cleanup Mod'
-        subprocess.run(outlaws_reg,check=True)
+        runReg(outlaws_reg)
     
     preset_outlaws = messagebox.askyesno('Graphics Preset','Do you want to install he Graphics Preset?')
 
@@ -5992,7 +6083,7 @@ def copy_if_exists(folder_path, dest_path):
         print(e)
 
 def wukong_fsr3():
-    wukong_stutter_reg = ['regedit.exe', '/s', r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"]
+    wukong_stutter_reg =  r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"
     wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF'
     wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset'
     wukong_ue4_map = r"mods\FSR3_WUKONG\Map\WukongUE4SS"
@@ -6022,7 +6113,7 @@ def wukong_fsr3():
         'High CPU Priority',
         'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
         lambda _: (
-            subprocess.run(wukong_stutter_reg, check=True),
+            runReg(wukong_stutter_reg),
             shutil.copy(r'mods\FSR3_WUKONG\HIGH CPU Priority\Anti-Stutter - Utility.txt', select_folder)
             )
         )
@@ -6220,13 +6311,13 @@ def remove_post_processing_effects_hell2():
 def fsr3_hellblade_2():
     global select_folder
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
-    hb2_reg = ['regedit.exe', '/s', "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"]
+    hb2_reg = "mods\\FSR3_GOT\\DLSS FG\\DisableNvidiaSignatureChecks.reg"
     fix_dlss_hb2 = 'mods\\FSR3_HB2\\Fix_rtx_gtx'
-    cpu_reg = ['regedit.exe', '/s', "mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg"]
+    cpu_reg = "mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg"
     
     if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
-        subprocess.run(hb2_reg,check=True)
+        runReg(hb2_reg)
     
     if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
         remove_post_processing_effects_hell2()
@@ -6241,7 +6332,7 @@ def fsr3_hellblade_2():
         cpu_message = messagebox.askyesno("Anti Stutter","Would you like to apply the Anti Stutter? It can reduce game stuttering.")
         
         if cpu_message:
-            subprocess.run(cpu_reg,check=True)
+            runReg(cpu_reg)
             shutil.copy2("mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg",select_folder)
         
 def fsr3_miles():
@@ -6260,15 +6351,12 @@ async def fsr3_cyber():
     }
     path_reshade_2077 = "mods\\FSR3_CYBER2077\\mods\\V2.0 Real Life Reshade"
     path_rtx_dlss = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal"
-    cb2077_reg = [
-        'regedit.exe', '/s', 
-        "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"
-    ]
+    cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"
     
     try:
         if select_mod == "RTX DLSS FG":
             await asyncio.to_thread(shutil.copytree, path_rtx_dlss, select_folder, dirs_exist_ok=True)
-            await asyncio.to_thread(subprocess.run, cb2077_reg, check=True)
+            await asyncio.to_thread(runReg(cb2077_reg))
         
         mods_message = messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?")
         
@@ -6294,7 +6382,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -6610,6 +6698,8 @@ def install(event=None):
             asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
+        if select_option == 'Warhammer: Space Marine 2':
+            fsr3_space_marine()
         if select_option == 'The Callisto Protocol':
             callisto_fsr()
         if select_option == 'God Of War 4':
@@ -6948,7 +7038,8 @@ fsr_game_version={
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'The Witcher 3':'2.0',
     'Uncharted Legacy of Thieves Collection':'2.1',
-    'Wanted: Dead':'2.2'  
+    'Wanted: Dead':'2.2',
+    'Warhammer: Space Marine 2':'2.2'
 }
 
 select_option = None
@@ -7140,6 +7231,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Warhammer: Space Marine 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'FSR 3.1 Space Marine','Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -7151,7 +7247,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
