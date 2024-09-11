@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.14v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.15v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Callisto Protocol','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -1032,6 +1032,23 @@ def text_guide():
 '4 - Do the same for the Real Life mod.'
 ),
 
+'The Casting Of Frank Stone':(
+'Optiscaler Frank Stone FG\n'
+'1. Select \'Optiscaler Frank Stone FG\' install it, and check\nthe GPU window that appears.\n'
+'2. In the game, select DLSS and Frame Generation.\n'
+'3. If you want to use FSR 3.1, press the "Insert" key to open\nthe menu and select FSR 3.1.\n\n'
+
+'0.10.4\n'
+'1. Select 0.10.4 and install it.\n'
+'2. In the game, select DLSS and Frame Generation.\n'
+'3. If you can\'t see DLSS in the game, check the Nvngx.dll\nbox and select "Default."\n\n'
+
+'Optiscaler FSR 3.1/DLSS\n'
+'1. Select \'Optiscaler FSR 3.1/DLSS\' and install it.\n'
+'2. In the game, select DLSS and Frame Generation.\n'
+'3. If you want to use FSR 3.1, press the "Insert" key to open\nthe menu and select FSR 3.1.'
+),
+
 'The Chant':(
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - Enable Fake Nvidia Gpu, if Frame Generation is not\ndetected, enable Nvapi Results. (only Amd and Gtx)'  
@@ -1177,6 +1194,8 @@ def text_guide():
         screen_guide.geometry('530x680')
     elif select_game == 'Star Wars Outlaws':
         screen_guide.geometry('520x330')
+    elif select_game == 'The Casting Of Frank Stone':
+        screen_guide.geometry('520x350')
     else:
         screen_guide.geometry('520x260')
     
@@ -2344,7 +2363,7 @@ def clean_mod():
     global select_folder
     mod_clean_list = ['fsr2fsr3.config.toml','winmm.ini','winmm.dll',
                       'lfz.sl.dlss.dll','FSR2FSR3.asi','EnableSignatureOverride.reg',
-                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','dxgi.dll','fsr2fsr3.log',
+                      'DisableSignatureOverride.reg','nvngx.dll','_nvngx.dll','fsr2fsr3.log',
                       'd3d12.dll','nvngx.ini','fsr2fsr3.log','Uniscaler.asi','uniscaler.config.toml','uniscaler.log','dinput8.dll']
    
     del_uni = ['winmm.ini','winmm.dll','uniscaler.config.toml','Uniscaler.asi','nvngx.dll']
@@ -2409,25 +2428,21 @@ def clean_mod():
     del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
 
     del_optiscaler_custom = [
-    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'DisableSignatureOverride.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 
-    'dxgi.dll', 'EnableSignatureOverride.reg', 'libxess.dll', 'licenses', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg', 'unins000.dat', 'unins000.exe', 'version.dll', '_nvngx.dll'
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
+    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'nvngx_dlss.dll', 'nvngx_dlssg.dll', 'RestoreNvidiaSignatureChecks.reg', 
+    'unins000.dat', 'unins000.exe'
     ]
 
     del_dlss_rtx = [ 
-        'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll',
-        'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat',
-        'version.dll', 'dlss_rtx.txt',
-        'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll',
-        'dlssg_to_fsr3.ini', 'dlssg_to_fsr3_amd_is_better-3.0.dll'
+    'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
+    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 
+    'nvngx.dll', 'nvngx.ini', 'unins000.dat'
     ]
 
     del_dlss_amd = [
-        'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 'dlss-finder.exe',
-        'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll',
-        'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'RestoreNvidiaSignatureChecks.reg',
-        'unins000.dat', 'unins000.exe', 'winmm.dll', '_nvngx.dll', 'dlss_amd.txt',
-        'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll',
-        'dlssg_to_fsr3.ini', 'dlssg_to_fsr3_amd_is_better-3.0.dll'
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.log', 
+    'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 
+    'libxess.dll', 'nvngx-wrapper.dll', 'nvngx.ini', 'unins000.dat', 'version.dll'
     ]
 
     del_dlss_to_fg = ['dlssg_to_fsr3_amd_is_better.dll','version.dll']
@@ -2651,34 +2666,48 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     try:
-        restore_dxgi_marine = select_folder + '\\Backup DXGI'
-        path_del_txt_stutter_marine = os.path.join(select_folder,'Marine_Anti_Stutter.txt')
+        if select_option == 'Warhammer: Space Marine 2':
+            restore_dxgi_marine = os.path.join(select_folder, 'Backup_DXGI')
+            dxgi_marine = os.path.join(restore_dxgi_marine, 'dxgi.dll')
+            path_del_txt_stutter_marine = os.path.join(select_folder,'Marine_Anti_Stutter.txt')
 
-        if select_mod == 'FSR 3.1 Space Marine':
+            if select_mod == 'FSR 3.1 Space Marine':
 
-            gpu_marine = messagebox.askyesno('Gpu','Do you have an RTX GPU?')
+                gpu_marine = messagebox.askyesno('Gpu','Do you have an RTX GPU?')
 
-            if gpu_marine:
-                del_all_mods(del_dlss_rtx,'Warhammer: Space Marine 2')
-            else:
-                del_all_mods(del_dlss_amd,'Warhammer: Space Marine 2')
+                if gpu_marine:
+                    del_all_mods(del_dlss_rtx,'Warhammer: Space Marine 2')
+                else:
+                    del_all_mods(del_dlss_amd,'Warhammer: Space Marine 2')  
 
-            if os.path.exists(restore_dxgi_marine):
-                dxgi_marine = os.path.join(restore_dxgi_marine, 'dxgi.dll')
-                
-                shutil.copy(dxgi_marine, select_folder)
-            
-        if os.path.exists(path_del_txt_stutter_marine):
-            remove_anti_stutter_marine = messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?')
+                if os.path.isdir(restore_dxgi_marine):
+                    if os.path.isfile(dxgi_marine):
+                        shutil.copy(dxgi_marine, select_folder)  
+                        shutil.rmtree(restore_dxgi_marine)
+                        
+            if os.path.exists(path_del_txt_stutter_marine):
+                remove_anti_stutter_marine = messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?')
 
-            if remove_anti_stutter_marine:
-                runReg('mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg')
+                if remove_anti_stutter_marine:
+                    runReg('mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg')
 
-                os.remove(select_folder + '\\Marine_Anti_Stutter.txt')
+                    os.remove(select_folder + '\\Marine_Anti_Stutter.txt')
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        print(e)
+
+    try:
+        if select_option == 'The Casting Of Frank Stone':
+            if select_mod == 'Optiscaler Frank Stone FG':
+
+                if messagebox.askyesno('GPU','Do you have an RTX GPU?'):
+                    del_all_mods(del_dlss_rtx,'The Casting Of Frank Stone')
+                else:
+                    del_all_mods(del_dlss_amd,'The Casting Of Frank Stone')
 
     except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
-        print(e)
+         messagebox.showinfo('Error','Please close the game or any other folders related to The Casting Of Frank Stone.')    
+
 
     try:
         icr_en_rtx_reg =  "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\RestoreNvidiaSignatureChecks.reg"
@@ -3356,7 +3385,7 @@ nvngx_folders = {}
 for nvn_key in [
     '0.7.6', '0.8.0', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', 
     '0.10.2h1', '0.10.3', '0.10.4', 'RDR2 Build_2', 'RDR2 Build_4', 
-    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1'
+    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler'
 ]:
     nvngx_folders[nvn_key] = nvngx_path_global
 
@@ -5219,7 +5248,7 @@ def global_dlss():
     path_dlss_amd = 'mods\\DLSS_Global\\RTX'
     dlss_global_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
-    var_global_dlss = messagebox.askyesno('GPU','Do you have a GPU starting from GTX 1660?')
+    var_global_dlss = messagebox.askyesno('GPU','Do you have a RTX GPU ?')
 
     if var_global_dlss:
         shutil.copytree(path_dlss_rtx,select_folder,dirs_exist_ok=True)
@@ -6005,6 +6034,10 @@ def fsr3_gow4 ():
 
     messagebox.showinfo('Guide','Check the God of War 4 guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
 
+def fsr3_frank_stone():
+    if select_mod == 'Optiscaler Frank Stone FG':
+        global_dlss()
+
 def fsr3_space_marine():
     anti_stutter_marine = 'mods\\FSR3_Outlaws\\Anti_Stutter\\Install Star Wars Outlaws CPU Priority.reg'
     txt_marine_stutter = 'mods\\FSR3_SpaceMarine\\Anti_Stutter\\Marine_Anti_Stutter.txt'
@@ -6015,7 +6048,7 @@ def fsr3_space_marine():
 
 
     if os.path.exists(path_dxgi):
-        backup_folder_marine = os.path.join(select_folder, 'Backup DXGI')
+        backup_folder_marine = os.path.join(select_folder, 'Backup_DXGI')
         os.makedirs(backup_folder_marine, exist_ok=True)
 
         shutil.copy(path_dxgi, backup_folder_marine)  
@@ -6382,7 +6415,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -6700,6 +6733,8 @@ def install(event=None):
             wukong_fsr3()
         if select_option == 'Warhammer: Space Marine 2':
             fsr3_space_marine()
+        if select_option == 'The Casting Of Frank Stone':
+            fsr3_frank_stone()
         if select_option == 'The Callisto Protocol':
             callisto_fsr()
         if select_option == 'God Of War 4':
@@ -7030,6 +7065,7 @@ fsr_game_version={
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
     'The Callisto Protocol':'2.1',
+    'The Casting Of Frank Stone':'2.2',
     'The Chant':'2.2',
     'The Invincible':'2.2',
     'The Last of Us Part I':'US',
@@ -7236,6 +7272,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'FSR 3.1 Space Marine','Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'The Casting Of Frank Stone':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Optiscaler Frank Stone FG','0.10.4','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -7247,7 +7288,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
