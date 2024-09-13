@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.15v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.16v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -936,7 +936,26 @@ def text_guide():
 'For All GPUs\n'
 '1 - Select a mod of your preference (recommended 0.10.3\n/0.10.4 or Uniscaler)\n'
 '2 - Check the box Fake Nvidia GPU (GTX and AMD), Nvapi\nResults (GTX and AMD), and UE Compatibility (AMD)\n'
-'3 - In-game, select FSR and Frame Gen'
+'3 - In-game, select FSR and Frame Gen\n\n'
+'Others Mods\n'
+'Intro Skip\n'
+'Removes the initial intro when opening the game.\n\n'
+
+'Anti Stutter\n'
+'1. Faster Loading Times\n'
+'2. Enhanced Streaming and Level Loading\n'
+'3. Optimized CPU and GPU Utilization\n\n'
+
+'Fix RT\n'
+'Fixes any crashes you experience with ray tracing\nenabled and also fixes occlusion culling. When you turn the\ncamera and see white flashing at the corners of the screen,\nthis resolves it and any crashes.\n\n'
+
+'Graphic Preset\n'
+'1. Install ReShade\n'
+'2. In ReShade, select Star Wars Jedi: Survivor\n'
+'3. Select DirectX 10/11/12\n'
+'4. Click "Browse" and locate the file\nSTARWAR-ULTRA-REALISTA.ini that was installed in the\ndestination folder selected in the Utility'
+'5. Finish the installation and open the game\n'
+'6. In the game, press the "Home" key to open the\nmenu and select the graphic options you prefer.'
 ),
 
 'Star Wars Outlaws':(
@@ -1194,6 +1213,8 @@ def text_guide():
         screen_guide.geometry('530x680')
     elif select_game == 'Star Wars Outlaws':
         screen_guide.geometry('520x330')
+    elif select_game == 'Star Wars: Jedi Survivor':
+        screen_guide.geometry('520x650')
     elif select_game == 'The Casting Of Frank Stone':
         screen_guide.geometry('520x350')
     else:
@@ -2356,6 +2377,14 @@ def del_all_mods2(mod_list,mod_name,search_folder_name = None):
                 if os.path.exists(mods_path):
                     shutil.rmtree(mods_path)
     except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
+
+def del_others_mods(mod_path,message):
+    try:
+        if os.path.exists(mod_path):
+            if messagebox.askyesno('Fix RT', message):
+                os.remove(mod_path)
+    except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
         
 #Execution def 
@@ -2708,7 +2737,6 @@ def clean_mod():
     except Exception as e:
          messagebox.showinfo('Error','Please close the game or any other folders related to The Casting Of Frank Stone.')    
 
-
     try:
         icr_en_rtx_reg =  "mods\\FSR3_ICR\\ICARUS_DLSS_3_FOR_RTX\\RestoreNvidiaSignatureChecks.reg"
         
@@ -3034,6 +3062,17 @@ def clean_mod():
 
     except Exception as e:
             messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
+
+    try:
+        if select_option == 'STAR WARS Jedi: Survivor':
+            root_path_jedi = os.path.abspath(os.path.join(select_folder,'..\\..\\..\\SwGame'))
+
+            del_others_mods(root_path_jedi + '\\Content\\Paks\\pakchunk99-Mods_CustomMod_P.pak', 'Do you want to remove the Fix RT mod?')
+            del_others_mods(root_path_jedi + '\\Content\\Paks\\SWJSFAI.pak', 'Do you want to remove the Anti Stutter mod?')
+            del_others_mods(root_path_jedi + '\\Content\\Movies\\Default_Startup.mp4', 'Do you want to remove the Intro Skip?')
+                
+    except Exception as e:
+        messagebox.showinfo('Error','It was not possible to remove the mod files from Star Wars Jedi: Survivor. Please close the game or any other folders related to the game and try again.')                             
 
     try:
         if select_option == 'Star Wars Outlaws':
@@ -6374,8 +6413,30 @@ def fsr3_miles():
     shutil.copytree(path_uni_custom_miles,select_folder,dirs_exist_ok=True)
 
 def fsr3_jedi():
-    path_uni_jedi = "mods\\FSR2FSR3_Miles\\Uni_Custom_miles"
-    shutil.copytree(path_uni_jedi,select_folder,dirs_exist_ok=True)
+    path_uni_jedi = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
+    jedi_preset = 'mods\\FSR3_Jedi\\Mods\\Jedi Preset\\STARWAR-ULTRA-REALISTA.ini'
+    jedi_fix_rt = 'mods\\FSR3_Jedi\\Mods\\Jedi Fix RT\\pakchunk99-Mods_CustomMod_P.pak'
+    jedi_anti_stutter = 'mods\\FSR3_Jedi\\Mods\\Jedi Anti Stutter\\SWJS - FAI\\SWJSFAI.pak'
+    jedi_intro_skip = 'mods\\FSR3_Jedi\\Mods\\Jedi Intro Skip\\Content'
+    origin_folder_jedi = os.path.abspath(os.path.join(select_folder,'..\\..\\..\\SwGame'))
+
+    if select_mod == 'Dlss Jedi':
+        shutil.copytree(path_uni_jedi,select_folder,dirs_exist_ok=True)
+
+    if messagebox.askyesno('Graphics Preset','Do you want to install Graphics Preset?'):
+        shutil.copy(jedi_preset,select_folder)
+    
+    if os.path.exists(origin_folder_jedi + '\\Content\\Paks'):
+        if messagebox.askyesno('Fix RT','Do you want to install fix Ray Tracing?'):
+            shutil.copy(jedi_fix_rt,origin_folder_jedi + '\\Content\\Paks')
+        
+        if messagebox.askyesno('Anti Stutter','Do you want to install Anti Stutter?'):
+            shutil.copy(jedi_anti_stutter,origin_folder_jedi + '\\\Content\\Paks')
+    
+        if messagebox.askyesno('Intro Skip','Do you want to skip the game\'s initial intro?'):
+            shutil.copytree(jedi_intro_skip,origin_folder_jedi + '\\Content',dirs_exist_ok=True)
+    else:
+        messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutter, Fix Rt, and Intro Skip), select the path to the game\'s .exe file. The path should look like: Jedi Survivor\SwGame\Binaries\Win64')
 
 async def fsr3_cyber():
     path_mods = {
@@ -6712,8 +6773,6 @@ def install(event=None):
             dl2_fsr3()
         if select_mod == 'Uni Custom Miles':
             fsr3_miles()
-        if select_mod == 'Dlss Jedi':
-            fsr3_jedi()
         if select_mod == "FSR 3.1/DLSS Optiscaler":
             optiscaler_fsr3()
             
@@ -6731,6 +6790,8 @@ def install(event=None):
             asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
+        if select_option == 'STAR WARS Jedi: Survivor':
+            fsr3_jedi()
         if select_option == 'Warhammer: Space Marine 2':
             fsr3_space_marine()
         if select_option == 'The Casting Of Frank Stone':
