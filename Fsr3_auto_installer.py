@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.16v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.17v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -409,7 +409,8 @@ def text_guide():
 '2 - In the game, select DLSS and Frame Generation.\n\n'
 'AMD/GTX DLSS FG\n'
 '1 - Select Optiscaler FSR 3.1/DLSS and install it.\n'
-'2 - In the game, press the \'Insert\' key to open\nthe menu, and in the menu, select the upscaler you want to use.\n\n'
+'2 - In the game, press the \'Insert\' key to open the menu, and in the menu,\nselect the upscaler you want to use.\n'
+'3 - If an error occurs with the HUD, set the game to \'Windowed Mode\', then\nafter a few seconds switch back to \'Borderless Windowed\'.\n\n'
 
 'Graphic Preset\n'
 '1 - Install the mod and the ReShade application\n'
@@ -418,25 +419,20 @@ def text_guide():
 
 'Optimized Wukong\n'
 'Faster Loading Times - By tweaking async-related settings:\n' 
-'AsyncLoadingThread\n' 
 'the mod allows assets to load in the background, reducing loading times\n' 
-'and potentially eliminating loading pauses during gameplay.\n' 
+'and potentially eliminating loading pauses during gameplay.\n\n' 
 
 'Optimized CPU and GPU Utilization - by tweaking multi-core rendering:\n' 
-'MultiCoreRendering\nand multi-threaded shader compilation:\n' 
-'MultiThreadedShaderCompile*\n' 
 'allows the game to utilize the full potential of modern CPUs and GPUs.\n' 
 'This can result in improved performance, higher frame\n' 
-'rates, and more stable gameplay.\n' 
+'rates, and more stable gameplay.\n\n' 
 
 'Enhanced Streaming and Level Loading - By tweaking various streaming\nvariables:\n' 
-'r.Streaming.\n s.LevelStreamingComponents*\n' 
 'the mod improves the efficiency of streaming assets and\n' 
 'level loading. This can lead to faster streaming and reduced stuttering\n' 
-'when moving through different areas of the game world.\n' 
+'when moving through different areas of the game world.\n\n' 
 
 'Optimized Memory Management - By adjusting memory-related settings:\n' 
-'MinBulkDataSizeForAsyncLoading & ForceGCAfterLevelStreamedOut*\n' 
 'the mod optimizes memory allocation and garbage collection. This\n' 
 'can lead to more efficient memory usage, reduced memory-related\n' 
 'stutters, and improved overall performance.'
@@ -491,10 +487,13 @@ def text_guide():
 
 'ReShade\n'
 '1 - Download and install ReShade.\n'
-'2 - Select Cyberpunk 2077 and check all effects (you can also\nuse \'Uncheck all\' and \'Check all\' to select everything at once).\n' 
-'3 - Install the mod using the Utility.\n'
-'4 - In the game, press the Home key.\n'
-'5 - Skip the tutorial if needed, select the preset from the top\nbar of the interface, and click \'Select\'.'
+'2 - Select Cyberpunk2077.exe, DirectX 10/11/12, Update\nReShade and Effects and choose the V2.0 Real Life Reshade.ini\n'
+'2 - Select check all effects (you can also use \'Uncheck all\' and\n\'Check all\' to select everything at once).\n' 
+'3 - Install the mod using the Utility.\n\n'
+
+'1 - After completing the steps above, open the game for the first\ntime. If a "Menu" (Ultra+) appears, select a key to open this\n"Menu."\n'
+'2 - Select DLSS, Frame Gen, and restart the game.\n'
+'3 - After reopening the game, press the "Insert" key to open the\nFSR 3.1 mod menu, "Home" to open the ReShade menu\n(select the options you prefer), and the key you selected to open\nthe "Menu" (Ultra+).'
 ),
 
 'Dakar Desert Rally':(
@@ -1206,7 +1205,7 @@ def text_guide():
     elif select_game == "Ghost of Tsushima" or select_game == 'The Witcher 3':
         screen_guide.geometry('520x320')
     elif select_game == 'Cyberpunk 2077':
-        screen_guide.geometry('540x260')
+        screen_guide.geometry('550x420')
     elif select_game == 'Black Myth: Wukong':
         screen_guide.geometry('620x790')
     elif select_game == 'The Callisto Protocol':
@@ -2562,8 +2561,9 @@ def clean_mod():
     
     try:
         if select_option == "Cyberpunk 2077":
-            path_mods_cb2077 = os.path.join(select_folder,"archive\\pc\\mod")
+            root_path_cb2077 = os.path.abspath(os.path.join(select_folder,'..\\..'))
             mods_files = ["#####-NovaLUT-2.archive","HD Reworked Project.archive"]
+            exe_mods_files = ['V2.0 Real Life Reshade.ini','global.ini','version.dll']
             cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"
             reshade_path = '\\bin\\x64\\V2.0 Real Life Reshade.ini'
 
@@ -2573,21 +2573,25 @@ def clean_mod():
                         os.remove(os.path.join(select_folder,file_del)) 
                 runReg(cb2077_reg)
             
-            if os.path.exists(path_mods_cb2077 + "\\#####-NovaLUT-2.archive"):
-                
-                remove_mods_cb2077 = messagebox.askyesno("Mods","Would you like to remove the mods? Nova Lut and Cyberpunk 2077 HD Reworked")
-                
-                if remove_mods_cb2077:
-                    for files in mods_files:
-                        full_path_mods = os.path.join(path_mods_cb2077,files)
-                        os.remove(full_path_mods)
+            if os.path.exists(root_path_cb2077 + "\\archive\\pc\\mod\\#####-NovaLUT-2.archive"):
+
+                if messagebox.askyesno("Mods","Would you like to remove the mods? Nova Lut and Cyberpunk 2077 HD Reworked"):
             
-            if os.path.exists(os.path.join(select_folder + reshade_path)):
-                os.remove(select_folder + reshade_path)
+                    for files_mods_cb_2077 in mods_files:
+                        full_path_mods_cb2077 = os.path.join(root_path_cb2077 + '\\archive\\pc\\mod\\',files_mods_cb_2077)
+                        os.remove(full_path_mods_cb2077)
+            
+                    if os.path.exists(root_path_cb2077 + reshade_path):
+
+                        for files_exe_mods_cb2077 in exe_mods_files:
+                            full_path_exe_mods_cb2077 = os.path.join(root_path_cb2077 + '\\bin\\x64',files_exe_mods_cb2077)
+                            os.remove(full_path_exe_mods_cb2077)
+                    
+                    if os.path.exists(root_path_cb2077 + '\\bin\\x64\\plugins'):
+                        shutil.rmtree(root_path_cb2077 + '\\bin\\x64\\plugins')
 
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print(e)
             
     try:
         if select_mod == 'Uniscaler' or select_mod == 'Uniscaler V2' or select_mod == 'Uniscaler V3' or select_mod == 'Uniscaler FSR 3.1':
@@ -6163,16 +6167,22 @@ def wukong_fsr3():
     wukong_hdr = r"mods\FSR3_WUKONG\HDR"
     full_path_wukong = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     path_fsr31_wukong = 'mods\\FSR3_WUKONG\\WukongFSR31\\FSR31_Wukong'
+    cache_wukong = os.path.join(os.getenv('USERPROFILE'), 'AppData')
     
     if select_mod == 'RTX DLSS FG Wukong':
         dlss_to_fsr()
     if select_mod == 'FSR 3.1 Custom Wukong':
         shutil.copytree(path_fsr31_wukong,select_folder,dirs_exist_ok=True)
-    
-    wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
+
+    if select_mod  == 'FSR 3.1/DLSS Optiscaler':
+        if os.path.exists(cache_wukong + '\\Local\\b1\\Saved\\D3DDriverByteCodeBlob_V4098_D5686_S372641794_R220.ushaderprecache'):
+
+            if messagebox.askyesno('Cache','Do you want to clear the game cache? (it may prevent possible texture errors caused by the mod)'):
+                os.remove(cache_wukong + '\\Local\\b1\\Saved\\D3DDriverByteCodeBlob_V4098_D5686_S372641794_R220.ushaderprecache')
 
     if os.path.exists(os.path.join(full_path_wukong + "\\b1\\Binaries\\Win64")):
 
+        wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
         if wukong_optimized:
             full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
             if os.path.exists(full_path_optimized):
@@ -6214,7 +6224,7 @@ def wukong_fsr3():
         if view_message_wukong or wukong_optimized:
             messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
     else:
-        messagebox.showinfo('Not Founde','Path not found, please select the correct path: BlackMythWukong\\b1\\Binaries\\Win64')
+        messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\Binaries\Win64')
 
 # Modify the ini file of Hellblade 2 to remove post-processing effects
 def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
@@ -6441,27 +6451,30 @@ def fsr3_jedi():
 async def fsr3_cyber():
     path_mods = {
         "mods\\FSR3_CYBER2077\\mods\\Cyberpunk 2077 HD Reworked",
-        "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1"
+        "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1",
+        "mods\\FSR3_CYBER2077\\mods\\CET",
+        "mods\\FSR3_CYBER2077\\mods\\Cyberpunk UltraPlus",
     }
+
     path_reshade_2077 = "mods\\FSR3_CYBER2077\\mods\\V2.0 Real Life Reshade"
     path_rtx_dlss = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal"
     cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"
+    origin_path_cb2077 = os.path.abspath(os.path.join(select_folder, '..\\..'))
     
     try:
         if select_mod == "RTX DLSS FG":
             await asyncio.to_thread(shutil.copytree, path_rtx_dlss, select_folder, dirs_exist_ok=True)
             await asyncio.to_thread(runReg(cb2077_reg))
         
-        mods_message = messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?")
-        
-        if mods_message:
-            for path_cb2077 in path_mods:
-                await asyncio.to_thread(shutil.copytree, path_cb2077, select_folder, dirs_exist_ok=True)
-        
-        reshade_message = messagebox.askyesno('Reshade', 'Do you want to install Reshade Real Life 2.0? (It is necessary to install Reshade for this mod to work. Please refer to the FSR Guide for installation instructions.)')
-        
-        if reshade_message:
-            await asyncio.to_thread(shutil.copytree, path_reshade_2077, select_folder, dirs_exist_ok=True)
+        if os.path.exists(origin_path_cb2077 + '\\bin'):
+            if messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?"):
+                for path_cb2077 in path_mods:
+                    await asyncio.to_thread(shutil.copytree, path_cb2077, origin_path_cb2077, dirs_exist_ok=True)
+            
+            if messagebox.askyesno('Reshade', 'Do you want to install Reshade Real Life 2.0? (It is necessary to install Reshade for this mod to work. Please refer to the FSR Guide for installation instructions.)'):
+                await asyncio.to_thread(shutil.copytree, path_reshade_2077, origin_path_cb2077, dirs_exist_ok=True)
+        else:
+            messagebox.showinfo('Others Mods','If you want to install the other mods (Nova Lut, Real Life and Ultra Realistic Textures), select the path to the .exe, it should be something like: Cyberpunk 2077/bin/x64') 
     except Exception as e:
         messagebox.showinfo('Error','Failed to install the mod. Please try again.')
         return
