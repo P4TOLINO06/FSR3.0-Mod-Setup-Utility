@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.17v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.18v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -480,6 +480,12 @@ def text_guide():
 ),
 
 'Cyberpunk 2077':(
+'Uniscaler FSR 3.1\n'
+'1 - Select Uniscaler V3.\n'
+'2 - If you have an RTX GPU and want to use the real DLSS, select\nDLSS under "Mod Operates". If you don\'t have an RTX GPU and\ncan\'t see DLSS in the game, check the Nvngx.dll box and select\n"Default". You can also use XESS instead of FSR 3.1 by selecting\nXESS under "Mod Operates".\n'
+'3 - Check the box "Enable Signature Over"\n'
+'4 - In the game, choose an upscaler and frame generation option.\n\n'
+
 '1 - Select a mod of your choice (Uniscaler is recommended).\n'
 '2 - Select Default in Nvngx.dll.\n'
 '3 - Check the box Enable Signature Override.\n'
@@ -1205,7 +1211,7 @@ def text_guide():
     elif select_game == "Ghost of Tsushima" or select_game == 'The Witcher 3':
         screen_guide.geometry('520x320')
     elif select_game == 'Cyberpunk 2077':
-        screen_guide.geometry('550x420')
+        screen_guide.geometry('550x550')
     elif select_game == 'Black Myth: Wukong':
         screen_guide.geometry('620x790')
     elif select_game == 'The Callisto Protocol':
@@ -2706,9 +2712,7 @@ def clean_mod():
 
             if select_mod == 'FSR 3.1 Space Marine':
 
-                gpu_marine = messagebox.askyesno('Gpu','Do you have an RTX GPU?')
-
-                if gpu_marine:
+                if messagebox.askyesno('Gpu','Do you have an RTX GPU?'):
                     del_all_mods(del_dlss_rtx,'Warhammer: Space Marine 2')
                 else:
                     del_all_mods(del_dlss_amd,'Warhammer: Space Marine 2')  
@@ -2719,12 +2723,11 @@ def clean_mod():
                         shutil.rmtree(restore_dxgi_marine)
                         
             if os.path.exists(path_del_txt_stutter_marine):
-                remove_anti_stutter_marine = messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?')
+                if messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?'):
 
-                if remove_anti_stutter_marine:
                     runReg('mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg')
-
                     os.remove(select_folder + '\\Marine_Anti_Stutter.txt')
+
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         print(e)
@@ -2799,8 +2802,7 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         
-    try:
-        
+    try:       
         if select_mod == 'Horizon Forbidden West FSR3':
             hfw_rtx_reg = "mods\\FSR3_HFW\\RTX FSR3\\RestoreNvidiaSignatureChecks.reg"
             hfw_ot_gpu_reg = "mods\\Temp\\disable signature override\\DisableSignatureOverride.reg"
@@ -3083,6 +3085,12 @@ def clean_mod():
             remove_anti_stutter_outlaws = "mods\\FSR3_Outlaws\\Anti_Stutter\\Uninstall Star Wars Outlaws CPU Priority.reg"
             
             del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
+
+            if select_mod == 'Outlaws FG All GPU':
+                if messagebox.askyesno('GPU','Do you have an RTX GPU?'):
+                    del_all_mods(del_dlss_rtx,'Star Wars Outlaws')
+                else:
+                    del_all_mods(del_dlss_amd,'Star Wars Outlaws')
 
             if os.path.exists(os.path.join(select_folder,'Anti_Sttuter.txt')):
                 outlaws_anti_stutter = messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stutter?')
@@ -6126,6 +6134,9 @@ def fsr3_outlaws():
     if select_mod == 'Outlaws DLSS RTX':
         dlss_to_fsr()
     
+    if select_mod  == 'Outlaws FG All GPU':
+        global_dlss()
+    
     anti_stutter_outlaws = messagebox.askyesno('Anti Stutter','Do you want to install the anti-stutter?')
 
     if anti_stutter_outlaws:
@@ -7334,7 +7345,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Star Wars Outlaws':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','Outlaws FG All GPU','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'God Of War 4':
