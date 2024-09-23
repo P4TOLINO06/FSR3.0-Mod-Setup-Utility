@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.18v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.19v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -264,7 +264,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -669,6 +669,22 @@ def text_guide():
 '5 - Press the "Insert" key to open the menu and select the\ndesired upscaler (XESS is recommended).\n'
 '6 - If the menu does not appear, set the preferred upscaler in\n"Upscaler Optiscaler" in the Utility and install again. (Select\nonly the DX11 upscalers, such as fsr3.1 DX11, xess DX11,\netc.)\n'
 '7 - If you cannot see DLSS in the game, check the "Enable\nSignature Over" box.'
+),
+'God of War Ragnarök':(
+'DLSS FG ALL GPU\n'
+'1. Select Uniscaler FSR 3.1.\n'
+'2. Select FSR3 in "Mod Operates" (if you can\'t see DLSS in the\ngame, select FSR3 in "Frame Gen Method" as well)\n'
+'3. Check the "Enable Signature Over" box.\n'
+'4. If you still can\'t see DLSS in the game, check the Nvngx.dll\nbox, select "Default," and reinstall the mod.\n'
+'5. The game may freeze for a few seconds when selecting DLSS FG.\n\n'
+'Unlock VRAM\n'
+'Removes the error for GPUs with less than 6GB of VRAM\n\n'
+'Anti Stutter\n'
+'Prevents possible game stuttering and optimizes CPU/GPU\nusage\n\n'
+'ReShade\n'
+'1. Download and install ReShade.\n'
+'2. Select GoWR.exe, DirectX 10/11/12, Update ReShade and\nEffects and choose the God of War Ragnarök.ini.(The .ini is in\nthe selected folder in the Utility\n'
+'3. Select check all effects (you can also use \'Uncheck all\' and\n\'Check all\' to select everything at once).\n' 
 ),
 
 'Hellblade: Senua\'s Sacrifice':(
@@ -1222,6 +1238,8 @@ def text_guide():
         screen_guide.geometry('520x650')
     elif select_game == 'The Casting Of Frank Stone':
         screen_guide.geometry('520x350')
+    elif select_game == 'God of War Ragnarök':
+        screen_guide.geometry('540x420')
     else:
         screen_guide.geometry('520x260')
     
@@ -2867,6 +2885,33 @@ def clean_mod():
             runReg(gow4_reg)                    
     except Exception:
         messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
+    
+    try:
+        if select_option == 'God of War Ragnarök':
+            gow_rag_disable_anti_stutter = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Anti-Stutter GoW Ragnarok\\Uninstall GoWR High CPU Priority.reg'
+            gow_rag_intro_files = ['pss_studios.bk2','pss_studios_30.bk2','pss_studios_4k_30.bk2']
+            gow_rag_path_intro = select_folder + '\\exec\\cinematics'
+
+            if os.path.exists(os.path.join(select_folder,'exec')):
+                
+                if os.path.exists(os.path.join(select_folder,'Vram.txt')):
+                    if messagebox.askyesno('Vram','Do you want to remove the Unlock Vram?'):
+                        os.remove(select_folder + '\\Vram.txt')
+                        os.remove(select_folder + '\\dxgi.dll')
+
+                if os.path.exists(os.path.join(select_folder,'Anti_Stutter.txt')):
+                    if messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter'):
+                        runReg(gow_rag_disable_anti_stutter)
+                        os.remove(select_folder + '\\Anti_Stutter.txt')
+                
+                if os.path.exists(os.path.join(gow_rag_path_intro, 'pss_studios.bk2')):
+                    if messagebox.askyesno('Intro Skip', 'Do you want to remove the Intro Skip?'):
+                        for intro_file in gow_rag_intro_files:
+                            files_intro = os.path.join(gow_rag_path_intro, intro_file)
+                            if os.path.exists(files_intro):
+                                os.remove(files_intro)
+    except Exception:
+        messagebox.showinfo('Error','Could not remove the mod. Please close all folders related to the game and try again')
     
     if select_option == 'Ghost of Tsushima':
         reg_folder = 'mods\\FSR3_GOT\\Remove_Post_Processing\\restore'
@@ -6078,12 +6123,45 @@ def fsr3_ffvxi():
     elif select_mod == 'FFXVI DLSS ALL GPU':
         global_dlss()
 
-def fsr3_gow4 ():
+def fsr3_gow4():
     var_gow4_optiscaler = 'mods\\FSR3_GOW4\\optiscaler.txt'
 
     shutil.copy(var_gow4_optiscaler,select_folder)
 
     messagebox.showinfo('Guide','Check the God of War 4 guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
+
+def fsr3_gow_rag():
+    gow_rag_anti_stutter = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Anti-Stutter GoW Ragnarok\\Install GoWR High CPU Priority.reg'
+    gow_reg_anti_stutter_var = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Anti-Stutter GoW Ragnarok\\Anti_Stutter.txt'
+    gow_rag_preset = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\ReShade\\God of War Ragnarök.ini'
+    gow_rag_intro_skip = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Intro Skip'
+    gow_reg_1060_3050 = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Unlock Vram\\GTX 1060 3050 6GB\\dxgi.dll'
+    gow_reg_vram_6gb = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Unlock Vram\\6GB VRAM\\dxgi.dll'
+    gow_reg_var_vram = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Unlock Vram\\Vram.txt'
+
+    if select_mod == 'Others Mods Gow Rag':
+
+        if os.path.exists(os.path.join(select_folder,'exec')):
+            if messagebox.askyesno('Anti Stutter','Dou you want to install the Anti Stutter?'):
+                runReg(gow_rag_anti_stutter)
+                shutil.copy(gow_reg_anti_stutter_var,select_folder)
+        
+            if messagebox.askyesno('Reshade','Do you want to install the Graphics Preset?'):
+                shutil.copy(gow_rag_preset,select_folder)
+                messagebox.showinfo('FSR Guide','Check the God of War Ragnarök guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
+
+            if messagebox.askyesno('Intro Skip','Do you want to install the Intro Skip?'):
+                shutil.copytree(gow_rag_intro_skip,select_folder,dirs_exist_ok=True)
+            
+            if messagebox.askyesno('Unlock Vram','Do you want to install the Unlock Vram?'):
+                if messagebox.askyesno('VRAM','Do you have a 3050 or 1060 GPU?. If the game doesn\'t work, select the opposite option (if you selected \'yes\' the first time, select \'no\' so a different file will be installed)'):
+                    shutil.copy(gow_reg_1060_3050,select_folder)
+                else:
+                    shutil.copy(gow_reg_vram_6gb,select_folder)  
+
+                shutil.copy(gow_reg_var_vram,select_folder)  
+        else:
+            messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutterr, Graphic Preset, etc.), select the path to the .exe, something like: God of War Ragnarök\\GoWR.exe')
 
 def fsr3_frank_stone():
     if select_mod == 'Optiscaler Frank Stone FG':
@@ -6096,7 +6174,6 @@ def fsr3_space_marine():
     path_dxgi = select_folder + '\\dxgi.dll'
     path_fsr31_marine_rtx = 'mods\\FSR3_SpaceMarine\\FSR 3.1\\RTX'
     path_fsr31_marine_amd = 'mods\\FSR3_SpaceMarine\\FSR 3.1\\AMD'
-
 
     if os.path.exists(path_dxgi):
         backup_folder_marine = os.path.join(select_folder, 'Backup_DXGI')
@@ -6167,7 +6244,6 @@ def copy_if_exists(folder_path, dest_path):
             messagebox.showinfo('Not Found', f'{dest_path} not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to complete the installation, please restart the Utility and try again.')
-        print(e)
 
 def wukong_fsr3():
     wukong_stutter_reg =  r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"
@@ -6499,7 +6575,7 @@ def optiscaler_fsr3():
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
-               'Fort Solis','Ghostwire: Tokyo','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
+               'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
@@ -6824,6 +6900,8 @@ def install(event=None):
             callisto_fsr()
         if select_option == 'God Of War 4':
             fsr3_gow4()
+        if select_option == 'God of War Ragnarök':
+            fsr3_gow_rag()
         if select_option == 'Hellblade 2':
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
@@ -7103,6 +7181,7 @@ fsr_game_version={
     'Ghostrunner 2':'2.0',
     'Ghostwire: Tokyo':'2.2',
     'God Of War 4':'2.2',
+    'God of War Ragnarök':'2.2',
     'GTA V':'PD',
     'Martha Is Dead':'2.1',
     'Marvel\'s Guardians of the Galaxy':'2.0',
@@ -7353,6 +7432,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
+    elif select_option == 'God of War Ragnarök':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1','Others Mods Gow Rag')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
     elif select_option == 'Warhammer: Space Marine 2':
         mod_text() 
         mod_version_listbox.insert(tk.END,'FSR 3.1 Space Marine','Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler')
@@ -7372,7 +7456,7 @@ def update_canvas(event=None): #canvas_options text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
