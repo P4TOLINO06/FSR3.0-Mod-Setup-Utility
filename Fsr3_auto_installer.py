@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.19v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.20v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -585,6 +585,43 @@ def text_guide():
 '6 - Run the game launcher located in the root folder of the game, in the launcher set "depth of\nfield" to Low.\n'
 '7 - Run the game using the file f4se_loader.exe, also located in the root folder of the game.\n'
 '8 - In the game, press the "END" key to open the mod menu, select DLSS for RTX and FSR3 for\nnon-RTX.' 
+),
+
+'Final Fantasy XVI':(
+'FFXVI DLSS ALL GPU\n'
+
+'1. Select FFXVI ALL GPU\n'
+'2. Check the "GPU" box that will appear during installation\n'
+'3. In-game, press the "Insert" key to open the menu\n'
+'4. In the menu, select the upscaler you prefer\n\n'
+
+'Anti Stutter\n'
+'Prevents possible crashes during the game and optimizes CPU/GPU\nusage\n\n'
+
+'FFXVI FIX\n'
+'General\n'
+'Adjust gameplay FOV, camera distance and camera horizontal\nposition.\n'
+'JXL screenshot quality option and fixes hitching while taking\nscreenshots.\n'
+'Allow the use of motion blur + frame generation.\n'
+'Disable depth of field.\n'
+'Enable background audio.\n'
+'Lock cursor to game window.\n\n'
+
+'Performance\n'
+'Disable 30FPS cap in cutscenes/photo mode or set your own\nframerate limit.\n'
+'Allow frame generation in cutscenes.\n'
+'Disable graphics debugger checks.\n\n'
+
+'Ultrawide/narrower\n'
+'Remove pillarboxing/letterboxing.\n'
+'Fixed HUD scaling with configurable HUD size.\n'
+'Fixed FOV scaling at <16:9.\n\n'
+
+'ReShade\n'
+'1. Download and install ReShade.\n'
+'2. Select ffxvi.exe, DirectX 10/11/12, Update ReShade and\nEffects and choose the FINAL FANTASY XVI.ini.(The .ini is in\nthe selected folder in the Utility\n'
+'3. Select check all effects (you can also use \'Uncheck all\' and\n\'Check all\' to select everything at once).\n' 
+'4. In the game, press the \'Home\' key to open the ReShade menu.'
 ),
 
 'Fist Forged in Shadow Torch':(
@@ -1042,6 +1079,13 @@ def text_guide():
 '4 - Go to the selected folder in Select Folder and run\nTekkenOverlay.exe (with the game open).'
 ),
 
+'Test Drive Ultimate Solar Crown':(
+'1. Select Uniscaler FSR 3.1\n'
+'2. Check the box "Enable Signature Over"\n'
+'3. In-game, select DLSS FG\n'
+'4. If you can\'t see DLSS in the game, check the "Nvngx.dll"\nbox, select "Default," and install again.'
+),
+
 'The Callisto Protocol':(
 'The Callisto Protocol Fsr3\n'
 '1 - Select The Callisto Protocol Fsr3\n' 
@@ -1240,6 +1284,8 @@ def text_guide():
         screen_guide.geometry('520x350')
     elif select_game == 'God of War Ragnarök':
         screen_guide.geometry('540x420')
+    elif select_game == 'Final Fantasy XVI':
+        screen_guide.geometry('570x680')
     else:
         screen_guide.geometry('520x260')
     
@@ -1674,6 +1720,15 @@ def cbox_backup():
         else:
             messagebox.showinfo('Error','Please select the three initial options: Select Game, Game Folder, and Mod Version.')
             backup_cbox.deselect()
+
+def Backup_Dxgi(rename_file_name,path_dxgi): # Make a backup of the dxgi.dll file'
+    if os.path.exists(path_dxgi):
+        backup_folder_dxgi = os.path.join(select_folder, 'Backup_DXGI')
+        os.makedirs(backup_folder_dxgi, exist_ok=True)
+
+        shutil.copy(path_dxgi, backup_folder_dxgi)  
+
+        os.rename(path_dxgi, os.path.join(select_folder, rename_file_name))
                   
 backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
 backup_label.place(x=160,y=393)
@@ -2402,11 +2457,18 @@ def del_all_mods2(mod_list,mod_name,search_folder_name = None):
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
 
-def del_others_mods(mod_path,message):
+def del_others_mods(mod_path,message,path_reg = None):
     try:
         if os.path.exists(mod_path):
-            if messagebox.askyesno('Fix RT', message):
+            if messagebox.askyesno('Cleanup', message):
                 os.remove(mod_path)
+
+                if path_reg != None:
+                    runReg(path_reg)
+                
+                return True
+        return False
+
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
         
@@ -2748,7 +2810,6 @@ def clean_mod():
 
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-        print(e)
 
     try:
         if select_option == 'The Casting Of Frank Stone':
@@ -3087,29 +3148,44 @@ def clean_mod():
 
     try:
         if select_option == 'Final Fantasy XVI':
+            ffxvi_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+            ffxvi_fix_list = ['UltimateASILoader_LICENSE.md','FFXVIFix.ini','FFXVIFix.asi','EXTRACT_TO_GAME_FOLDER','dinput8.dll']
+
             if os.path.exists(os.path.join(select_folder,'dlssg_to_fsr3_amd_is_better.dll')):
                 for ffxvi_rtx in os.listdir(select_folder):
                     if ffxvi_rtx in del_dlss_to_fg:
                         os.remove(os.path.join(select_folder,ffxvi_rtx))
 
-                ffxvi_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+            if os.path.exists(os.path.join(select_folder,'dlss_amd.txt')):
+                for ffxvi_amd in os.listdir(select_folder):
+                    if ffxvi_amd in del_dlss_amd:
+                        os.remove(os.path.join(select_folder,ffxvi_amd))
+            
+            elif os.path.exists(os.path.join(select_folder,'dlss_rtx.txt')):
+                for ffxvi_rtx in os.listdir(select_folder):
+                    if ffxvi_rtx in del_dlss_rtx:
+                        os.remove(os.path.join(select_folder,ffxvi_rtx))  
 
-                runReg(ffxvi_reg) 
+            ffxvi_reg_global = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
 
-        if os.path.exists(os.path.join(select_folder,'dlss_amd.txt')):
-            for ffxvi_amd in os.listdir(select_folder):
-                if ffxvi_amd in del_dlss_amd:
-                    os.remove(os.path.join(select_folder,ffxvi_amd))
-        
-        elif os.path.exists(os.path.join(select_folder,'dlss_rtx.txt')):
-            for ffxvi_rtx in os.listdir(select_folder):
-                if ffxvi_rtx in del_dlss_rtx:
-                    os.remove(os.path.join(select_folder,ffxvi_rtx))  
+            if os.path.exists(os.path.join(select_folder,'dlss_amd.txt') or os.path.join(select_folder,'dlss_rtx.txt')):   
+                runReg(ffxvi_reg_global)
+            
+            del_others_mods(select_folder + '\\Anti_Stutter.txt','Do you want to remove the Anti Stutter?',ffxvi_reg)
 
-        ffxvi_reg_global = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
+            if os.path.exists(os.path.join(select_folder,'UltimateASILoader_LICENSE.md')):
+                if messagebox.askyesno('FFXVI FIX','Do you want to remove the FFVXVI FIX?'):
 
-        if os.path.exists(os.path.join(select_folder,'dlss_amd.txt') or os.path.join(select_folder,'dlss_rtx.txt')):   
-            runReg(ffxvi_reg_global)
+                    for ffxvi_fix_files in os.listdir(select_folder):
+                        if ffxvi_fix_files in ffxvi_fix_list:
+                            os.remove(os.path.join(select_folder,ffxvi_fix_files))
+            
+            if os.path.exists(os.path.join(select_folder,'Backup_DXGI\\dxgi.dll')):
+                shutil.copy(os.path.join(select_folder,'Backup_DXGI\\dxgi.dll'),select_folder)
+                shutil.rmtree(os.path.join(select_folder,'Backup_DXGI'))
+
+                if os.path.exists(os.path.join(select_folder,'d3d12.dll')):
+                    os.remove(os.path.join(select_folder,'d3d12.dll'))
 
     except Exception as e:
             messagebox.showinfo('Error','It was not possible to remove the mod files from Final Fantasy XVI. Please close the game or any other folders related to the game and try again.')
@@ -6118,10 +6194,34 @@ def fsr3_ac_valhalla():
         shutil.copytree(path_dlss2,select_folder,dirs_exist_ok=True)
 
 def fsr3_ffvxi():
+    ffvxi_fix = 'mods\\FSR3_FFVXI\\FFXVIFix'
+    ffvxi_anti_stutter = 'mods\\FSR3_FFVXI\\Anti Stutter\\Final Fantasy XVI High Priority Processes-7-2-1726663253\\Install Final Fantasy XVI High Priority Processes.reg'
+    ffvxi_var_anti_stutter = 'mods\\FSR3_FFVXI\\Anti Stutter\\Anti_Stutter.txt'
+    ffvxi_preset = 'mods\\FSR3_FFVXI\\ReShade'
+
     if select_mod == 'FFXVI DLSS RTX':
         dlss_to_fsr()
     elif select_mod == 'FFXVI DLSS ALL GPU':
         global_dlss()
+    
+    if not os.path.exists(os.path.join(select_folder,'d3d12.dll')):
+        Backup_Dxgi('d3d12.dll',select_folder + '\\dxgi.dll')
+
+    if select_mod == 'Others Mods FFXVI':
+        if os.path.exists(os.path.join(select_folder,'ffxvi.exe')):
+
+            if messagebox.askyesno('FFVI FIX','Do you want to install the fixes mod? (It unlocks FPS in cutscenes, adds ultrawide support, etc. See all fixes in the FSR Guide)'):
+                shutil.copytree(ffvxi_fix,select_folder,dirs_exist_ok=True)
+            
+            if messagebox.askyesno('Anti Stutter','Do you want to install the Anti Stutter?'):
+                runReg(ffvxi_anti_stutter)
+                shutil.copy(ffvxi_var_anti_stutter,select_folder)
+            
+            if messagebox.askyesno('Graphics Preset','Do you want to install the Graphics Preset?'):
+                shutil.copytree(ffvxi_preset,select_folder,dirs_exist_ok=True)
+                messagebox.showinfo('FSR Guide','Check the FINAL FANTASY XVI guide on FSR Guide to complete the installation. (If you do not follow the steps in the guide, the mod will not work).')
+        else:
+            messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutterr, Graphic Preset, etc.), select the path to the .exe, something like: FINAL FANTASY XVI\\ffxvi.exe')
 
 def fsr3_gow4():
     var_gow4_optiscaler = 'mods\\FSR3_GOW4\\optiscaler.txt'
@@ -6576,7 +6676,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -7228,6 +7328,7 @@ fsr_game_version={
     'Star Wars Outlaws':'2.2',
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
+    'Test Drive Ultimate Solar Crown':'2.2',
     'The Callisto Protocol':'2.1',
     'The Casting Of Frank Stone':'2.2',
     'The Chant':'2.2',
@@ -7419,7 +7520,7 @@ def update_canvas(event=None): #canvas_options text configuration
 
     elif select_option == 'Final Fantasy XVI':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FFXVI DLSS ALL GPU','FFXVI DLSS RTX','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FFXVI DLSS ALL GPU','FFXVI DLSS RTX','Others Mods FFXVI','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Star Wars Outlaws':
@@ -7457,7 +7558,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
