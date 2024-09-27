@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.6.20v")
+screen.title("FSR3.0 Mod Setup Utility - 2.6.21v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -264,7 +264,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
@@ -772,6 +772,15 @@ def text_guide():
 '4 - Select Xess or FSR.'
 ),
 
+'Hozizon Zero Dawn':(
+'Optiscaler Custom HZD & FSR 3.1/DLSS Optiscaler\n'
+'1. Select Optiscaler Custom HZD or FSR 3.1/DLSS Optiscaler\n'
+'2. Check the "Enable Signature Over" box\n'
+'3. In the game, press the "Insert" key to open the mod menu\n'
+'4. In the menu, select the Upscaler of your choice\n'
+'5. (For FSR 3.1/DLSS Optiscaler), if you cannot open the menu,\nselect the desired upscaler in "Upscaler Optiscaler" and\nreinstall the mod'
+),
+
 'Icarus':(
 '1 - Select Icarus FSR3 in mod version.\n'
 '2 - If the option selected is RTX, confirm the window that appears.\n'
@@ -989,12 +998,16 @@ def text_guide():
 'Star Wars: Jedi Survivor':(
 'DLSS Jedi (if you have RTX, use this mod if you want to use\nnative DLSS)\n'
 '1 - Check the box Fake Nvidia GPU (GTX and AMD), Nvapi\nResults (GTX and AMD), and UE Compatibility (AMD)\n'
-'2 - If you can\'t see DLSS in-game, select "DLSS" under\n"Mod Operates"'
+'2 - If you can\'t see DLSS in-game, select "DLSS" under\n"Mod Operates"\n'
 '3 - In-game, select DLSS 3 and Frame Gen\n\n'
-'For All GPUs\n'
-'1 - Select a mod of your preference (recommended 0.10.3\n/0.10.4 or Uniscaler)\n'
-'2 - Check the box Fake Nvidia GPU (GTX and AMD), Nvapi\nResults (GTX and AMD), and UE Compatibility (AMD)\n'
-'3 - In-game, select FSR and Frame Gen\n\n'
+
+'ALL GPUs\n'
+'1. Select Uniscaler FSR 3.1.\n'
+'2. Check the "Enable Signature Over" box.\n'
+'3. If you cannot see DLSS in the game, check the Nvngx.dll\nbox, select Default, and reinstall the mod.\n'
+'4. If you have an RTX GPU and want to use native DLSS,\nselect DLSS in "Mod Operates." Other GPUs can use\nFSR 3.1/XESS.\n'
+'5. In the game, select DLSS FG.\n\n'
+
 'Others Mods\n'
 'Intro Skip\n'
 'Removes the initial intro when opening the game.\n\n'
@@ -1011,9 +1024,9 @@ def text_guide():
 '1. Install ReShade\n'
 '2. In ReShade, select Star Wars Jedi: Survivor\n'
 '3. Select DirectX 10/11/12\n'
-'4. Click "Browse" and locate the file\nSTARWAR-ULTRA-REALISTA.ini that was installed in the\ndestination folder selected in the Utility'
+'4. Click "Browse" and locate the file\nSTARWAR-ULTRA-REALISTA.ini that was installed in the\ndestination folder selected in the Utility\n'
 '5. Finish the installation and open the game\n'
-'6. In the game, press the "Home" key to open the\nmenu and select the graphic options you prefer.'
+'6. In the game, press the "Home" key to open the menu and\nselect the graphic options you prefer.'
 ),
 
 'Star Wars Outlaws':(
@@ -1279,13 +1292,15 @@ def text_guide():
     elif select_game == 'Star Wars Outlaws':
         screen_guide.geometry('520x330')
     elif select_game == 'Star Wars: Jedi Survivor':
-        screen_guide.geometry('520x650')
+        screen_guide.geometry('520x720')
     elif select_game == 'The Casting Of Frank Stone':
         screen_guide.geometry('520x350')
     elif select_game == 'God of War Ragnarök':
         screen_guide.geometry('540x420')
     elif select_game == 'Final Fantasy XVI':
         screen_guide.geometry('570x680')
+    elif select_game == 'Hozizon Zero Dawn':
+        screen_guide.geometry('540x260')
     else:
         screen_guide.geometry('520x260')
     
@@ -2904,6 +2919,12 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
+    try:
+        if select_option == "Horizon Zero Dawn":
+            del_all_mods2(del_optiscaler,'Optiscaler Custom HZD')
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+
     if select_option == 'GTA V':
         path_dxgi = os.path.join(select_folder,'dxgi.dll')
         del_all_mods(del_gtav_fsr3,'GTA V','mods')
@@ -6085,8 +6106,6 @@ def hfw_fsr3():
     hfw_ot_gpu = 'mods\\FSR3_Callisto\\FSR_Callisto'
     hfw_rtx_reg = "mods\\FSR3_HFW\\RTX FSR3\\DisableNvidiaSignatureChecks.reg"
     hfw_ot_gpu_reg = "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"
-    path_crash_fix= "mods\\FSR3_HFW\\Crash_Fix"
-    path_exe = os.path.join(select_folder,"HorizonForbiddenWest.exe")
     
     if select_mod == 'Horizon Forbidden West FSR3':
         var_gpu = messagebox.askyesno('GPU','Do you have an RTX GPU?')
@@ -6101,12 +6120,11 @@ def hfw_fsr3():
             shutil.copy2(xess_hfw,select_folder)
             runReg(hfw_ot_gpu_reg)
     
-    crash_fix_hfw = messagebox.askyesno("Crash Fix","Would you like to install the crash fix?")
-    
-    if crash_fix_hfw:
-        if os.path.exists(path_exe):
-            os.rename(path_exe, os.path.join(select_folder,"HorizonForbiddenWestOriginalEXE.txt"))
-        shutil.copytree(path_crash_fix, select_folder, dirs_exist_ok=True)
+def fsr3_hzd():
+    path_optiscaler_custom_hzd = 'mods\\FSR3_HZD\\Optiscaler_Custom_HZD'
+
+    if select_mod == 'Optiscaler Custom HZD':
+        shutil.copytree(path_optiscaler_custom_hzd,select_folder,dirs_exist_ok=True)
 
 def fsr3_control():
     path_nvngx_control = 'mods\\FSR3_Control'
@@ -6964,7 +6982,6 @@ def install(event=None):
         elif select_option == 'Horizon Forbidden West':
             hfw_fsr3()
 
-
         if select_mod == 'Palworld Build03':
             pw_fsr3()
         if select_mod == 'Uniscaler Spider':
@@ -7022,6 +7039,8 @@ def install(event=None):
             chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
             fsr3_aw2_rtx()
+        if select_option == 'Horizon Zero Dawn':
+            fsr3_hzd()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3.1' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
@@ -7462,7 +7481,12 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'Horizon Forbidden West FSR3','Uniscaler FSR 3.1')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-        
+
+    elif select_option == 'Horizon Zero Dawn':
+        mod_text()
+        mod_version_listbox.insert(tk.END,'Optiscaler Custom HZD','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+           
     elif select_option == 'Alan Wake 2':
         mod_text() 
         mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
