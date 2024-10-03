@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.1v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -515,11 +515,12 @@ def text_guide():
 ),
 
 'Death Stranding Director\'s Cut':(
-'1 - Select a mod of your preference (0.10.3 or Uniscaler is\nrecommended).\n'
-'2 - Check the box for Fake Nvidia GPU (AMD/GTX).\n'
-'3 - Inside the game, select DLSS or FSR.\n'
-'4 - If you encounter problems related to DX12, select D3D12\nin Dxgi.dll.\n'
-'5 - The mod only works on the Director\'s Cut version.'    
+'Before installing the mod, open the game and disable\nFidelityFx Cas.\n'
+'1. Select Unicaler V4.\n'
+'2. Check the box for "Enable Signature Over", check the\n"Nvngx.dll" box, and select "Default".\n'
+'3. In the game, enable FidelityFx Cas if you want more\nFPS (the mod is activated automatically when installed, but\nFidelityFx Cas provides a slight FPS boost).\n'
+'4. If you want even more FPS, check the "Fake Nvidia GPU"\nbox and reinstall the mod (this option may not work for some\nGPUs, so test it).\n' 
+'This game does not support ReShade and the mod together,\nso you will need to uninstall ReShade if you use it for the\nmod to work.'
 ),
 
 'Chernobylite':(
@@ -1200,18 +1201,24 @@ def text_guide():
 ),
 
 'Warhammer: Space Marine 2':(
-'FSR 3.1/DLSS FG Custom\n'
-'Check the "GPU" window during installation.\n'
-'In-game, press the "Insert" key to open the menu.\n'
-'In the menu, select the upscaler of your choice.\n\n'
+'FSR 3.1/DLSS FG Custom / Optiscaler\n'
+'1. Select FSR 3.1/DLSS FG Custom and install it\n'
+'2. In the game, press the "Insert" key to open the menu\n'
+'3. In the menu, select Frame Generation and an upscaler\nof your choice\n'
+'4. To fix the HUD bug, select Hud Fix FG in the menu\n\n'
 
 'Uniscaler FSR 3.1\n'
-'1 - Check the "Fake NVIDIA GPU" box if you want to use\nDLSS.'
+'1 - Check the "Fake NVIDIA GPU" box if you want to use\nDLSS.\n'
 '2-  Check the \'Enable Signature Over\' box.\n'
-'2 - This mod does not have a HUD fix, as frame generation\nis activated along with the mod.\n\n'
+'3 - This mod does not have a HUD fix, as frame generation\nis activated along with the mod.\n\n'
 
-'Graphics preset'
-'See the Black Myth Wukong guide to learn\nhow to install the preset.'
+'Graphic Preset\n'
+'1. Install ReShade\n'
+'2. In ReShade, select Warhammer: Space Marine 2\n'
+'3. Select DirectX 10/11/12\n'
+'4. Click "Browse" and locate the file Warhammer 40000\nSpace Marine 2.ini that was installed in the destination\nfolder selected in the Utility\n'
+'5. Finish the installation and open the game\n'
+'6. In the game, press the "Home" key to open the menu and\nselect the graphic options you prefer.'
 ),
 
 'Uniscaler':(
@@ -1301,6 +1308,8 @@ def text_guide():
         screen_guide.geometry('570x680')
     elif select_game == 'Hozizon Zero Dawn':
         screen_guide.geometry('540x260')
+    elif select_game == 'Warhammer: Space Marine 2':
+        screen_guide.geometry('520x430')
     else:
         screen_guide.geometry('520x260')
     
@@ -1966,7 +1975,7 @@ def install_method(event=None):
         addon_mods_cbox.deselect()
         addon_mods_canvas.delete('text')
         addon_mods_listbox.place_forget()
-        var_method = 'Method Default (For test)'
+        var_method = 'Method Default'
         messagebox.showinfo('Optiscaler Installation Method', 'You did not select any installation method, so it has been set to: Method Default (For test). If you want to select another method, check the Add-on Mods box and select Optiscaler".')
     
     screen_method = tk.Toplevel(screen)
@@ -1983,8 +1992,8 @@ def install_method(event=None):
     def method_selected(method):
         global screen_method_open,var_method
         
-        if method == 'Method Default (For test)':
-            var_method = 'Method Default (For test)'
+        if method == 'Method Default':
+            var_method = 'Method Default'
         elif method == 'Method 1 (RTX/RX 6000-7000)':
             var_method = 'Method 1 (RTX/RX 6000-7000)'
         elif method == 'Method 2 (GTX/Old AMD)':
@@ -1995,7 +2004,7 @@ def install_method(event=None):
         screen_method_open = False
         screen_method.destroy()
     
-    method0 = ttk.Button(screen_method, text='Method Default (For test)', command=lambda: method_selected('Method Default (For test)'))
+    method0 = ttk.Button(screen_method, text='Method Default', command=lambda: method_selected('Method Default'))
     method0.pack(pady=5)
 
     method1 = ttk.Button(screen_method, text='Method 1 (RTX/RX 6000-7000)', command=lambda: method_selected('Method 1 (RTX/RX 6000-7000)'))
@@ -2016,7 +2025,7 @@ def update_install_method():
     optiscaler_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
     os.makedirs(backup_dir, exist_ok=True) 
 
-    if var_method == 'Method Default (For test)': #Default installation 
+    if var_method == 'Method Default': #Default installation 
         pass
 
     if var_method == 'Method 1 (RTX/RX 6000-7000)': #Default installation 
@@ -6321,7 +6330,7 @@ def fsr3_space_marine():
         shutil.copy(preset_marine,select_folder)
 
 def fsr3_outlaws():
-    outlaws_reg = "mods\FSR3_Outlaws\Anti_Stutter\Install Star Wars Outlaws CPU Priority.reg"
+    outlaws_reg = "mods\\FSR3_Outlaws\\Anti_Stutter\\Install Star Wars Outlaws CPU Priority.reg"
     graphics_preset_outlaws = 'mods\\FSR3_Outlaws\\Preset\\Outlaws2.ini'
     var_stutter_outlaws = 'mods\\FSR3_Outlaws\\Anti_Stutter\\Anti_Sttuter.txt'
 
@@ -6642,7 +6651,7 @@ def fsr3_jedi():
             shutil.copy(jedi_fix_rt,origin_folder_jedi + '\\Content\\Paks')
         
         if messagebox.askyesno('Anti Stutter','Do you want to install Anti Stutter?'):
-            shutil.copy(jedi_anti_stutter,origin_folder_jedi + '\\\Content\\Paks')
+            shutil.copy(jedi_anti_stutter,origin_folder_jedi + '\\Content\\Paks')
     
         if messagebox.askyesno('Intro Skip','Do you want to skip the game\'s initial intro?'):
             shutil.copytree(jedi_intro_skip,origin_folder_jedi + '\\Content',dirs_exist_ok=True)
