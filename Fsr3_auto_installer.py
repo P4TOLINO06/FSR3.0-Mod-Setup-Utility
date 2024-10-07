@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.2v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -980,6 +980,28 @@ def text_guide():
 '3 - Set Ambient Occlusion and Post Processing to Low.' 
 ),
 
+'Silent Hill 2':(
+'FSR 3.1/DLSS FG Custom / FSR 3.1/DLSS OptiScaler\n'
+'1. Select the FSR 3.1/DLSS mod. \n'
+'2. Check the "GPU" window that will appear.\n'
+'3. In-game, select DLSS before starting the campaign.\n'
+'4. During the campaign, press the "Insert" key to open the\nmenu.\n'
+'5. In the menu, select the desired upscaler, check the Frame\nGen and Hud Fix boxes.\n\n'
+
+'FSR3 Native \n'
+'1. Select FSR3 FG Native SH2 and install it.\n'
+'2. In-game, select FSR 3.0 before starting the campaign.\n\n'
+
+'Others Mods Sh2 \n'
+'Unlock FPS Cutscenes\n'
+'Removes the 30fps lock from cutscenes.\n\n'
+
+'Post-Processing\n'
+'Scene Color Fringe\n'
+'Motion blur\n'
+'Distortion'
+),
+
 'Smalland':(
 '1 - Select a mod of your choice. (0.10.3 is recommended)\n'
 '2 - Check the Fake Nvidia GPU box. (AMD/GTX)\n'
@@ -1310,6 +1332,8 @@ def text_guide():
         screen_guide.geometry('540x260')
     elif select_game == 'Warhammer: Space Marine 2':
         screen_guide.geometry('520x430')
+    elif select_game == 'Silent Hill 2':
+        screen_guide.geometry('520x370')
     else:
         screen_guide.geometry('520x260')
     
@@ -2577,7 +2601,7 @@ def clean_mod():
 
     del_dlss_rtx = [ 
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll','dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better-3.0.dll',
-    'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.log', 'libxess.dll','nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'unins000.dat', 'winmm.dll'
+    'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.log', 'libxess.dll','nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'unins000.dat', 'winmm.dll','dlss-enabler.dll'
     ]
 
     del_dlss_amd = [
@@ -2944,6 +2968,24 @@ def clean_mod():
             if del_tcp:
                 os.remove(select_folder + '\\TCP.ini')
     
+    try:
+        if select_option == 'Silent Hill 2':
+            folder_engine_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows')
+            default_engine_ini_sh2 = 'mods\\FSR3_SH2\\Engine_ini\\Default\\Engine.ini'
+
+            if del_others_mods(select_folder + '\\SilentHill2RemakeFPSRose.asi','Do you want to remove the Unlock Cutscene FPS'):
+                os.remove(os.path.join(select_folder,'dsound.dll'))
+            
+            if os.path.exists(os.path.join(folder_engine_sh2,'PostProcessing.txt')):
+                if del_others_mods(folder_engine_sh2 + '\\Engine.ini','Do you want to restore Post Processing Effetcs?'):
+                    os.remove(os.path.join(folder_engine_sh2,'PostProcessing.txt'))
+                    shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
+                
+            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3.txt')):
+                os.remove(os.path.join(folder_engine_sh2,'NativeFSR3.txt'))
+    except Exception as e:
+        messagebox.showinfo("Silent Hill 2","Error clearing Silent Hill 2 mods files, please try again or do it manually")
+
     try:
         if select_option == 'God Of War 4':
             path_backup_dll = os.path.join(select_folder,'Backup Dll')
@@ -6436,31 +6478,57 @@ def wukong_fsr3():
     else:
         messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\Binaries\Win64')
 
-# Modify the ini file of Hellblade 2 to remove post-processing effects
-def config_ini_hell2(key_ini,value_ini,path_ini,message_hb2):
+# Modify the ini file to remove post-processing effects
+def Remove_ini_effect(key_ini, value_ini, path_ini, message_hb2, message_path_not_found):
     global select_folder
     
-    if os.path.exists(path_ini):
-      
-        select_folder = os.path.dirname(path_ini)
-        
-        game_folder_canvas.delete('text')
-        game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
-      
-        with open(path_ini, 'a') as configfile:
-           
-            if configfile.tell() > 0:
-                configfile.write("\n")
-            
-            configfile.write(f"\n[{key_ini}]\n")
-
-            for key, value in value_ini.items():
-                configfile.write(f"{key}={value}\n")
-           
-        messagebox.showinfo('Sucess',message_hb2)
-    else:
-        messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide')
+    if not os.path.exists(path_ini):
+        messagebox.showinfo('Path Not Found', message_path_not_found)
         return
+
+    if select_option == 'Hellblade 2':
+        select_folder = os.path.dirname(path_ini)
+        game_folder_canvas.delete('text')
+        game_folder_canvas.create_text(2, 8, anchor='w', text=select_folder, fill='black', tags='text')
+
+    with open(path_ini, 'r') as configfile:
+        lines = configfile.readlines()
+
+    section_exists = False
+    section_start = None
+    section_end = None
+
+    for idx, line in enumerate(lines):
+        if line.strip() == f"[{key_ini}]":
+            section_exists = True
+            section_start = idx
+        elif line.startswith('[') and section_start is not None:
+            section_end = idx
+            break
+
+    if section_exists:
+        updated_section = lines[section_start:(section_end if section_end is not None else len(lines))]
+        updated = False
+        
+        for key, new_value in value_ini.items():
+            for idx, line in enumerate(updated_section):
+                if line.startswith(f"{key}="):
+                    updated_section[idx] = f"{key}={new_value}\n"
+                    updated = True
+                    break
+            else:
+                updated_section.append(f"{key}={new_value}\n")
+
+        lines[section_start:(section_end if section_end is not None else len(lines))] = updated_section
+    else:
+        lines.append("\n") 
+        lines.append(f"\n[{key_ini}]\n")
+        lines.extend(f"{key}={value}\n" for key, value in value_ini.items())
+
+    with open(path_ini, 'w') as configfile:
+        configfile.writelines(lines)
+    
+    messagebox.showinfo('Success', message_hb2)
 
 def config_json(path_json, values_json,path_not_found_message,ini_message=None):
 
@@ -6545,6 +6613,7 @@ def remove_post_processing_effects_hell2():
     key_remove_post_processing = 'SystemSettings'
     message_black_bars = 'The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.'
     message_post_processing = 'The main post processing effects were successfully removed.'
+    message_path_not_found_hb2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide'
     path_final = ""
 
     if os.path.exists(os.path.join(path_inihb2)):
@@ -6562,16 +6631,16 @@ def remove_post_processing_effects_hell2():
             path_final = manually_folder_ini
             
     if select_mod  == 'Remove Black Bars':
-        config_ini_hell2(key_remove_post_processing,value_remove_black_bars,path_final,message_black_bars) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars,path_final,message_black_bars,message_path_not_found_hb2) 
              
     elif select_mod == 'Remove Black Bars Alt':  
-        config_ini_hell2(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_black_bars) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_black_bars,message_path_not_found_hb2) 
             
     elif select_mod  == 'Remove Post Processing Effects':
-        config_ini_hell2(key_remove_post_processing,value_remove_pos_processing,path_final,message_post_processing) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_pos_processing,path_final,message_post_processing,message_path_not_found_hb2) 
     
     elif select_mod  == 'Remove All Post Processing Effects':
-        config_ini_hell2(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_post_processing) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_post_processing,message_path_not_found_hb2) 
     
     if select_mod == 'Restore Post Processing':
         path_replace_ini = 'mods\\FSR3_HB2\\Replace_ini\\Engine.ini'
@@ -6626,7 +6695,41 @@ def fsr3_hellblade_2():
         if cpu_message:
             runReg(cpu_reg)
             shutil.copy2("mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg",select_folder)
-        
+
+def fsr3_silent2():
+    unlock_cutscene_fps_sh2 = 'mods\\FSR3_SH2\\Unlock Cutscene Fps'
+    var_native_fsr3_sh2 = 'mods\\FSR3_SH2\\Var\\NativeFSR3.txt'
+    var_post_processing_sh2 = 'mods\\FSR3_SH2\\Var\\PostProcessing.txt'
+    not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this:  C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
+    path_folder_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows')
+    path_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows\\Engine.ini')
+    fsr3_sh2_value = {'r.FidelityFX.FI.Enabled':'1'}
+    remove_fsr3_sh2_value = {'r.FidelityFX.FI.Enabled':'0'}
+    post_processing_sh2 = {'r.SceneColorFringe.Max':'0',
+                           'r.SceneColorFringeQuality':'0',
+                           'r.motionblurquality':'0',
+                           'r.Distortion':'0',
+                           'r.DisableDistortion':'1'}
+
+    if os.path.exists(path_engine_ini_sh2):
+        if select_mod == 'FSR3 FG Native SH2':
+            Remove_ini_effect('SystemSettings',fsr3_sh2_value,path_engine_ini_sh2,'FSR3 Frame Generation successfully enabled',not_found_message_sh2)
+            shutil.copy(var_native_fsr3_sh2,path_folder_engine_ini_sh2)
+
+        if select_mod == 'Others Mods Sh2':
+            if messagebox.askyesno('Remove Post Processing','Do you want to remove Post Processing Effects, such as Motion Blur, Distortion, etc.? Check Silent 2 guide in the FSR Guide to see all the effects'):
+                Remove_ini_effect('SystemSettings',post_processing_sh2,path_engine_ini_sh2,'Post Processing Effects successfully removed',not_found_message_sh2)
+                shutil.copy(var_post_processing_sh2,path_folder_engine_ini_sh2)
+
+            if messagebox.askyesno('Unlock Cutscene FPS','Do you want to install the Unlock Cutscene FPS? Select the SHProto\Binaries\Win64 path for the mod to work correctly.'):
+                shutil.copytree(unlock_cutscene_fps_sh2,select_folder,dirs_exist_ok=True)
+
+        if select_mod == 'FSR 3.1/DLSS FG Custom' or select_mod == 'FSR 3.1/DLSS Optiscaler':
+            if os.path.exists(os.path.join(path_folder_engine_ini_sh2,'NativeFSR3.txt')):
+                Remove_ini_effect('SystemSettings',remove_fsr3_sh2_value,path_engine_ini_sh2,'The Native FSR3 has been removed; it is necessary for the FSR3.1/DLSS mod to work.',not_found_message_sh2)
+    else:
+        messagebox.showinfo('Not Found','Engine.ini file not found, please check the path C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
+    
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
     
@@ -7012,6 +7115,8 @@ def install(event=None):
             asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
+        if select_option == 'Silent Hill 2':
+            fsr3_silent2()
         if select_option == 'STAR WARS Jedi: Survivor':
             fsr3_jedi()
         if select_option == 'Warhammer: Space Marine 2':
@@ -7344,6 +7449,7 @@ fsr_game_version={
     'Sackboy: A Big Adventure':'2.2',
     'Shadow of the Tomb Raider':'2.0',
     'Shadow Warrior 3':'2.2',
+    'Silent Hill 2':'2.2',
     'Smalland':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
@@ -7579,6 +7685,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text()
         mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
+    
+    elif select_option == 'Silent Hill 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS FG Custom','FSR 3.1/DLSS Optiscaler','FSR3 FG Native SH2','Others Mods Sh2')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -7590,7 +7701,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
