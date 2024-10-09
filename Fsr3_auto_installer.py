@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.2v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.3v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -589,9 +589,9 @@ def text_guide():
 ),
 
 'Final Fantasy XVI':(
-'FSR 3.1/DLSS FG Custom\n'
+'FSR 3.1.1/DLSS FG Custom\n'
 
-'1. FSR 3.1/DLSS FG Custom\n'
+'1. FSR 3.1.1/DLSS FG Custom\n'
 '2. Check the "GPU" box that will appear during installation\n'
 '3. In-game, press the "Insert" key to open the menu\n'
 '4. In the menu, select the upscaler you prefer\n\n'
@@ -631,7 +631,7 @@ def text_guide():
 ),
 
 'Flintlock: The Siege of Dawn':(
-'1 - Select the FSR 3.1/DLSS Optiscaler mod and install it.\n'
+'1 - Select the FSR 3.1.1/DLSS Optiscaler mod and install it.\n'
 '2 - In the game, select DLSS, press the Insert key to open\nthe Optiscaler menu, in Upscalers select an upscaler of your\npreference. If you cannot see the menu, after installing the\nmod, select Optiscaler in the Utility and choose an upscaler\nin Upscaler Optiscaler and install.'
 ),
 
@@ -774,12 +774,12 @@ def text_guide():
 ),
 
 'Hozizon Zero Dawn':(
-'Optiscaler Custom HZD & FSR 3.1/DLSS Optiscaler\n'
-'1. Select Optiscaler Custom HZD or FSR 3.1/DLSS Optiscaler\n'
+'Optiscaler Custom HZD & FSR 3.1.1/DLSS Optiscaler\n'
+'1. Select Optiscaler Custom HZD or FSR 3.1.1/DLSS Optiscaler\n'
 '2. Check the "Enable Signature Over" box\n'
 '3. In the game, press the "Insert" key to open the mod menu\n'
 '4. In the menu, select the Upscaler of your choice\n'
-'5. (For FSR 3.1/DLSS Optiscaler), if you cannot open the menu,\nselect the desired upscaler in "Upscaler Optiscaler" and\nreinstall the mod'
+'5. (For FSR 3.1.1/DLSS Optiscaler), if you cannot open the menu,\nselect the desired upscaler in "Upscaler Optiscaler" and\nreinstall the mod'
 ),
 
 'Icarus':(
@@ -981,7 +981,7 @@ def text_guide():
 ),
 
 'Silent Hill 2':(
-'FSR 3.1/DLSS FG Custom / FSR 3.1/DLSS OptiScaler\n'
+'FSR 3.1.1/DLSS FG Custom / FSR 3.1.1/DLSS Optiscaler\n'
 '1. Select the FSR 3.1/DLSS mod. \n'
 '2. Check the "GPU" window that will appear.\n'
 '3. In-game, select DLSS before starting the campaign.\n'
@@ -993,6 +993,7 @@ def text_guide():
 '2. In-game, select FSR 3.0 before starting the campaign.\n\n'
 
 'Others Mods Sh2 \n'
+'Run the game in DirectX 12 for the mods to work\n'
 'Unlock FPS Cutscenes\n'
 'Removes the 30fps lock from cutscenes.\n\n'
 
@@ -1058,7 +1059,7 @@ def text_guide():
 '2 - Inside the game, select DLSS and Frame Gen\n\n'
 
 'All GPUs\n'
-'1 - Select FSR 3.1/DLSS Optiscaler\n'
+'1 - Select FSR 3.1.1/DLSS Optiscaler\n'
 '2 - Inside the game, select an upscaler of your choice.\n'
 '3 - Press the Insert key to open the menu and select an\nupscaler of your choice.\n\n'
 
@@ -1153,8 +1154,8 @@ def text_guide():
 ),
 
 'The Casting Of Frank Stone':(
-'FSR 3.1/DLSS FG Custom\n'
-'1. Select \'FSR 3.1/DLSS FG Custom\' install it, and check\nthe GPU window that appears.\n'
+'FSR 3.1.1/DLSS FG Custom\n'
+'1. Select \'FSR 3.1.1/DLSS FG Custom\' install it, and check\nthe GPU window that appears.\n'
 '2. In the game, select DLSS and Frame Generation.\n'
 '3. If you want to use FSR 3.1, press the "Insert" key to open\nthe menu and select FSR 3.1.\n\n'
 
@@ -1217,14 +1218,23 @@ def text_guide():
 '3 - Inside the game, select FSR.'
 ),
 
+'Until Dawn':(
+'FSR 3.1.1/DLSS FG Custom / Optiscaler\n'
+'1. Select FSR 3.1.1/DLSS FG Custom or Opsticaler and\ninstall it\n'
+'2. In the game, select DLSS and press the "Insert" key\nto open the menu\n'
+'3. In the menu, select Frame Generation and an upscaler\nof your choice\n'
+'4. To fix the HUD bug, select Hud Fix FG in the menu\n'
+'5. You can also use the game\'s Frame Generation after\nselecting an upscaler in the menu'
+),
+
 'Wanted Dead':(
 '1 - Select a mod of your choice. (0.10.3 is recommended)\n'
 '2 - In the game, select FSR.'    
 ),
 
 'Warhammer: Space Marine 2':(
-'FSR 3.1/DLSS FG Custom / Optiscaler\n'
-'1. Select FSR 3.1/DLSS FG Custom and install it\n'
+'FSR 3.1.1/DLSS FG Custom / Optiscaler\n'
+'1. Select FSR 3.1.1/DLSS FG Custom and install it\n'
 '2. In the game, press the "Insert" key to open the menu\n'
 '3. In the menu, select Frame Generation and an upscaler\nof your choice\n'
 '4. To fix the HUD bug, select Hud Fix FG in the menu\n\n'
@@ -1333,7 +1343,7 @@ def text_guide():
     elif select_game == 'Warhammer: Space Marine 2':
         screen_guide.geometry('520x430')
     elif select_game == 'Silent Hill 2':
-        screen_guide.geometry('520x370')
+        screen_guide.geometry('520x390')
     else:
         screen_guide.geometry('520x260')
     
@@ -1903,7 +1913,7 @@ def addon_mods():
         path_addon = addon_origins[select_addon_mods]
     
     try:
-        if select_addon_mods == 'OptiScaler' and select_mod != 'FSR 3.1/DLSS Optiscaler':
+        if select_addon_mods == 'OptiScaler' and select_mod != 'FSR 3.1.1/DLSS Optiscaler':
             shutil.copytree(path_addon,select_folder,dirs_exist_ok=True)
             shutil.copytree(path_ini_optiscaler,select_folder,dirs_exist_ok=True)
         elif select_addon_mods == 'Tweak':
@@ -2120,10 +2130,10 @@ addon_vulkan_origins = {
                     'dlss Vulkan':'dlss'}
 
 def update_optiscaler_dx11_dx12():
-    if select_mod == 'FSR 3.1/DLSS Optiscaler':
+    if select_mod == 'FSR 3.1.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
 
-    elif select_mod != 'FSR 3.1/DLSS Optiscaler':
+    elif select_mod != 'FSR 3.1.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
     if select_addon_dx12 in addon_dx12_origins:
@@ -2153,10 +2163,10 @@ def update_optiscaler_ini():
     path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     value_ini_true = 'true'
 
-    if select_mod == 'FSR 3.1/DLSS Optiscaler':
+    if select_mod == 'FSR 3.1.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
 
-    elif select_mod != 'FSR 3.1/DLSS Optiscaler':
+    elif select_mod != 'FSR 3.1.1/DLSS Optiscaler':
         path_ini_dx11 = 'mods\\Temp\\OptiScaler\\nvngx.ini'
     
     if select_options_optiscaler == 'Enable overlay menu':
@@ -2255,7 +2265,7 @@ def replace_ini():
     path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
     folder_ini = 'mods\\Temp\\OptiScaler'
 
-    if select_mod == 'FSR 3.1/DLSS Optiscaler':
+    if select_mod == 'FSR 3.1.1/DLSS Optiscaler':
         path_ini = 'mods\\Temp\\Optiscaler FG 3.1\\nvngx.ini'
         path_ini_origin = 'mods\\Optiscaler FSR 3.1 Custom\\nvngx.ini'
         folder_ini = 'mods\\Temp\\Optiscaler FG 3.1'
@@ -2265,7 +2275,7 @@ def replace_ini():
         path_ini_origin = 'mods\\Addons_mods\\OptiScaler\\nvngx.ini'
         folder_ini = 'mods\\Temp\\OptiScaler'
 
-    if select_addon_mods == 'OptiScaler' or select_mod == 'FSR 3.1/DLSS Optiscaler':
+    if select_addon_mods == 'OptiScaler' or select_mod == 'FSR 3.1.1/DLSS Optiscaler':
         os.remove(path_ini)
         shutil.copy2(path_ini_origin,folder_ini)
 
@@ -2511,8 +2521,7 @@ def del_all_mods2(mod_list,mod_name,search_folder_name = None):
 
 def del_others_mods(mod_path,message,path_reg = None):
     try:
-        if os.path.exists(mod_path):
-            if messagebox.askyesno('Cleanup', message):
+        if os.path.exists(mod_path) and messagebox.askyesno('Cleanup', message):
                 os.remove(mod_path)
 
                 if path_reg != None:
@@ -2522,7 +2531,27 @@ def del_others_mods(mod_path,message,path_reg = None):
         return False
 
     except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')    
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')  
+
+def del_others_mods2(mod_path, message, files_to_remove, path_reg=None):
+    try:
+        if os.path.exists(mod_path):
+            files_found = [file for file in files_to_remove if os.path.exists(os.path.join(mod_path, file))]
+            
+            if files_found and messagebox.askyesno('Cleanup', message):
+                for file in files_found:
+                    os.remove(os.path.join(mod_path, file))
+                
+                if path_reg is not None:
+                    runReg(path_reg)
+                
+                return True
+        
+        return False
+
+    except Exception as e:
+        messagebox.showinfo('Error', 'Please close the game or any other folders related to the game.')
+
         
 #Execution def 
 def clean_mod():
@@ -2596,7 +2625,7 @@ def clean_mod():
     del_optiscaler_custom = [
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
     'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'libxess.dll', 'nvapi64-proxy.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'nvngx_dlss.dll', 'nvngx_dlssg.dll', 'RestoreNvidiaSignatureChecks.reg', 
-    'unins000.dat', 'unins000.exe'
+    'unins000.dat','fakenvapi.ini','fakenvapi.log','nvapi64.dll'
     ]
 
     del_dlss_rtx = [ 
@@ -2609,6 +2638,8 @@ def clean_mod():
     'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll','fakenvapi.ini', 'fakenvapi.log', 'libxess.dll', 'nvapi64.dll', 'nvngx-wrapper.dll',
     'nvngx.dll', 'nvngx.ini', 'nvngx_dlss.dll', 'nvngx_dlssg.dll', 'unins000.dat'
     ]
+
+    del_dlss_rtx_custom = ['amd_fidelityfx_dx12.dll','amd_fidelityfx_vk.dll','dlss-enabler.dll','dxgi.dll','libxess.dll','nvngx.ini']
 
     del_dlss_to_fg = ['dlssg_to_fsr3_amd_is_better.dll','version.dll']
 
@@ -2840,7 +2871,7 @@ def clean_mod():
             dxgi_marine = os.path.join(restore_dxgi_marine, 'dxgi.dll')
             path_del_txt_stutter_marine = os.path.join(select_folder,'Marine_Anti_Stutter.txt')
 
-            if select_mod == 'FSR 3.1/DLSS FG Custom':
+            if select_mod == 'FSR 3.1.1/DLSS FG Custom':
                 if os.path.isdir(restore_dxgi_marine):
                     if os.path.isfile(dxgi_marine):
                         shutil.copy(dxgi_marine, select_folder)  
@@ -2972,17 +3003,36 @@ def clean_mod():
         if select_option == 'Silent Hill 2':
             folder_engine_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows')
             default_engine_ini_sh2 = 'mods\\FSR3_SH2\\Engine_ini\\Default\\Engine.ini'
+            remove_fsr3_sh2_value = {'r.FidelityFX.FI.Enabled': '0'}
+            remove_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\Uninstall Silent Hill 2 Remake High Priority Processes.reg'
+            path_sh2 = os.path.abspath(os.path.join(select_folder,'..\\..\\..'))
+
+            if select_mod == 'FSR 3.1.1/DLSS FG RTX Custom':
+                del_all_mods(del_dlss_rtx_custom,'Silent Hill 2')
+
+            del_others_mods(select_folder + '\\AntiStutter.txt','Do you want to remove the Anti Stutter?',remove_anti_stutter_sh2)
 
             if del_others_mods(select_folder + '\\SilentHill2RemakeFPSRose.asi','Do you want to remove the Unlock Cutscene FPS'):
                 os.remove(os.path.join(select_folder,'dsound.dll'))
+            
+            path_movies_sh2 = os.path.join(path_sh2,'SHProto\\Content\\Movies\\LoadingScreen.bk2')
+            del_others_mods(path_movies_sh2,'Do you want to remove the Intro Skip?')
+
+            path_dlss_dll_sh2 = os.path.join(path_sh2,'SHProto\\Plugins\\DLSS\\Binaries\\ThirdParty\\Win64\\nvngx_dlssd.dll')       
+            if del_others_mods(path_dlss_dll_sh2,'Do you want to remove the Ray Reconstruction?'):
+                if os.path.exists(os.path.join(folder_engine_sh2,'Engine.ini')):
+                    os.remove(os.path.join(folder_engine_sh2,'Engine.ini'))
+                    shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
             
             if os.path.exists(os.path.join(folder_engine_sh2,'PostProcessing.txt')):
                 if del_others_mods(folder_engine_sh2 + '\\Engine.ini','Do you want to restore Post Processing Effetcs?'):
                     os.remove(os.path.join(folder_engine_sh2,'PostProcessing.txt'))
                     shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
                 
-            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3.txt')):
+            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3.txt')) and messagebox.askyesno('Native FSR3 FG','Do you want to remove the Native FSR3 FG?'):
+                Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, folder_engine_sh2 + "\\Engine.ini",'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.')      
                 os.remove(os.path.join(folder_engine_sh2,'NativeFSR3.txt'))
+
     except Exception as e:
         messagebox.showinfo("Silent Hill 2","Error clearing Silent Hill 2 mods files, please try again or do it manually")
 
@@ -3104,19 +3154,19 @@ def clean_mod():
         messagebox.showinfo("Optiscaler","Error clearing Optiscaler files, please try again or do it manually")
     
     try:
-        if select_mod == 'FSR 3.1/DLSS FG Custom':
+        if select_mod == 'FSR 3.1.1/DLSS FG Custom':
             nvdia_checks_reg = 'mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg'
             if messagebox.askyesno('GPU','Do you have an RTX GPU?'):
-                del_all_mods2(del_dlss_rtx,'FSR 3.1/DLSS FG Custom')
+                del_all_mods2(del_dlss_rtx,'FSR 3.1.1/DLSS FG Custom')
             else:
-                del_all_mods2(del_dlss_amd,'FSR 3.1/DLSS FG Custom')
+                del_all_mods2(del_dlss_amd,'FSR 3.1.1/DLSS FG Custom')
             
             runReg(nvdia_checks_reg)
     except Exception:
-        messagebox.showinfo("Error","Error clearing FSR 3.1/DLSS FG Custom files, please try again or do it manually")
+        messagebox.showinfo("Error","Error clearing FSR 3.1.1/DLSS FG Custom files, please try again or do it manually")
 
     try: 
-        if select_mod == 'FSR 3.1/DLSS Optiscaler':
+        if select_mod == 'FSR 3.1.1/DLSS Optiscaler':
             if os.path.exists(os.path.join(select_folder,'amd_fidelityfx_vk.dll')):
                 for optis_custom_files in os.listdir(select_folder):
                     if optis_custom_files in del_optiscaler_custom:
@@ -3275,7 +3325,7 @@ def clean_mod():
             
             del_all_mods2(del_dlss_to_fg,'Outlaws DLSS RTX')
 
-            if select_mod == 'FSR 3.1/DLSS FG Custom':
+            if select_mod == 'FSR 3.1.1/DLSS FG Custom':
                 if messagebox.askyesno('GPU','Do you have an RTX GPU?'):
                     del_all_mods(del_dlss_rtx,'Star Wars Outlaws')
                 else:
@@ -3628,7 +3678,7 @@ nvngx_folders = {}
 for nvn_key in [
     '0.7.6', '0.8.0', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', 
     '0.10.2h1', '0.10.3', '0.10.4', 'RDR2 Build_2', 'RDR2 Build_4', 
-    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler'
+    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler'
 ]:
     nvngx_folders[nvn_key] = nvngx_path_global
 
@@ -6426,7 +6476,7 @@ def wukong_fsr3():
     if select_mod == 'FSR 3.1 Custom Wukong':
         shutil.copytree(path_fsr31_wukong,select_folder,dirs_exist_ok=True)
 
-    if select_mod  == 'FSR 3.1/DLSS Optiscaler':
+    if select_mod  == 'FSR 3.1.1/DLSS Optiscaler':
         if os.path.exists(cache_wukong + '\\Local\\b1\\Saved\\D3DDriverByteCodeBlob_V4098_D5686_S372641794_R220.ushaderprecache'):
 
             if messagebox.askyesno('Cache','Do you want to clear the game cache? (it may prevent possible texture errors caused by the mod)'):
@@ -6479,7 +6529,7 @@ def wukong_fsr3():
         messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\Binaries\Win64')
 
 # Modify the ini file to remove post-processing effects
-def Remove_ini_effect(key_ini, value_ini, path_ini, message_hb2, message_path_not_found):
+def Remove_ini_effect(key_ini, value_ini, path_ini, message_path_not_found, message_hb2 = None):
     global select_folder
     
     if not os.path.exists(path_ini):
@@ -6528,7 +6578,8 @@ def Remove_ini_effect(key_ini, value_ini, path_ini, message_hb2, message_path_no
     with open(path_ini, 'w') as configfile:
         configfile.writelines(lines)
     
-    messagebox.showinfo('Success', message_hb2)
+    if message_hb2 != None:
+        messagebox.showinfo('Success', message_hb2)
 
 def config_json(path_json, values_json,path_not_found_message,ini_message=None):
 
@@ -6631,16 +6682,16 @@ def remove_post_processing_effects_hell2():
             path_final = manually_folder_ini
             
     if select_mod  == 'Remove Black Bars':
-        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars,path_final,message_black_bars,message_path_not_found_hb2) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars,path_final,message_path_not_found_hb2,message_black_bars) 
              
     elif select_mod == 'Remove Black Bars Alt':  
-        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_black_bars,message_path_not_found_hb2) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_path_not_found_hb2,message_black_bars) 
             
     elif select_mod  == 'Remove Post Processing Effects':
-        Remove_ini_effect(key_remove_post_processing,value_remove_pos_processing,path_final,message_post_processing,message_path_not_found_hb2) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_pos_processing,path_final,message_path_not_found_hb2,message_post_processing) 
     
     elif select_mod  == 'Remove All Post Processing Effects':
-        Remove_ini_effect(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_post_processing,message_path_not_found_hb2) 
+        Remove_ini_effect(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_path_not_found_hb2,message_post_processing) 
     
     if select_mod == 'Restore Post Processing':
         path_replace_ini = 'mods\\FSR3_HB2\\Replace_ini\\Engine.ini'
@@ -6697,39 +6748,80 @@ def fsr3_hellblade_2():
             shutil.copy2("mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg",select_folder)
 
 def fsr3_silent2():
-    unlock_cutscene_fps_sh2 = 'mods\\FSR3_SH2\\Unlock Cutscene Fps'
-    var_native_fsr3_sh2 = 'mods\\FSR3_SH2\\Var\\NativeFSR3.txt'
-    var_post_processing_sh2 = 'mods\\FSR3_SH2\\Var\\PostProcessing.txt'
-    not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this:  C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
-    path_folder_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows')
-    path_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'),'SilentHill2\\Saved\\Config\\Windows\\Engine.ini')
-    fsr3_sh2_value = {'r.FidelityFX.FI.Enabled':'1'}
-    remove_fsr3_sh2_value = {'r.FidelityFX.FI.Enabled':'0'}
-    post_processing_sh2 = {'r.SceneColorFringe.Max':'0',
-                           'r.SceneColorFringeQuality':'0',
-                           'r.motionblurquality':'0',
-                           'r.Distortion':'0',
-                           'r.DisableDistortion':'1'}
-
-    if os.path.exists(path_engine_ini_sh2):
-        if select_mod == 'FSR3 FG Native SH2':
-            Remove_ini_effect('SystemSettings',fsr3_sh2_value,path_engine_ini_sh2,'FSR3 Frame Generation successfully enabled',not_found_message_sh2)
-            shutil.copy(var_native_fsr3_sh2,path_folder_engine_ini_sh2)
-
-        if select_mod == 'Others Mods Sh2':
-            if messagebox.askyesno('Remove Post Processing','Do you want to remove Post Processing Effects, such as Motion Blur, Distortion, etc.? Check Silent 2 guide in the FSR Guide to see all the effects'):
-                Remove_ini_effect('SystemSettings',post_processing_sh2,path_engine_ini_sh2,'Post Processing Effects successfully removed',not_found_message_sh2)
-                shutil.copy(var_post_processing_sh2,path_folder_engine_ini_sh2)
-
-            if messagebox.askyesno('Unlock Cutscene FPS','Do you want to install the Unlock Cutscene FPS? Select the SHProto\Binaries\Win64 path for the mod to work correctly.'):
-                shutil.copytree(unlock_cutscene_fps_sh2,select_folder,dirs_exist_ok=True)
-
-        if select_mod == 'FSR 3.1/DLSS FG Custom' or select_mod == 'FSR 3.1/DLSS Optiscaler':
-            if os.path.exists(os.path.join(path_folder_engine_ini_sh2,'NativeFSR3.txt')):
-                Remove_ini_effect('SystemSettings',remove_fsr3_sh2_value,path_engine_ini_sh2,'The Native FSR3 has been removed; it is necessary for the FSR3.1/DLSS mod to work.',not_found_message_sh2)
-    else:
-        messagebox.showinfo('Not Found','Engine.ini file not found, please check the path C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
+    root_path_sh2 = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+    mods_path = 'mods\\FSR3_SH2'
+    ray_reconstruction_dll_sh2 = f'{mods_path}\\RayReconstruction\\nvngx_dlssd.dll'
+    ray_reconstruction_ini_sh2 = f'{mods_path}\\RayReconstruction\\Engine.ini'
+    intro_skip_sh2 = f'{mods_path}\\Intro_Skip'
+    fsr31_custom_rtx_sh2 = 'mods\\DLSS_Global\\RTX_Custom'
+    anti_stutter_sh2 = f'{mods_path}\\Anti_Stutter\\Install Silent Hill 2 Remake High Priority Processes.reg'
+    var_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
+    unlock_cutscene_fps_sh2 = f'{mods_path}\\Unlock Cutscene Fps'
+    var_native_fsr3_sh2 = f'{mods_path}\\Var\\NativeFSR3.txt'
+    var_post_processing_sh2 = f'{mods_path}\\Var\\PostProcessing.txt'
+    not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
+    path_folder_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'), 'SilentHill2\\Saved\\Config\\Windows')
+    path_engine_ini_sh2 = os.path.join(path_folder_engine_ini_sh2, 'Engine.ini')
     
+    fsr3_sh2_value = {'r.FidelityFX.FI.Enabled': '1'}
+    remove_fsr3_sh2_value = {'r.FidelityFX.FI.Enabled': '0'}
+    post_processing_sh2 = {
+        'r.SceneColorFringe.Max': '0',
+        'r.SceneColorFringeQuality': '0',
+        'r.motionblurquality': '0',
+        'r.Distortion': '0',
+        'r.DisableDistortion': '1'
+    }
+
+    if select_mod == 'FSR 3.1.1/DLSS FG RTX Custom':
+        shutil.copytree(fsr31_custom_rtx_sh2, select_folder, dirs_exist_ok=True)
+    
+    if select_mod == 'Others Mods Sh2':
+        # Anti Stutter
+        if messagebox.askyesno('Anti Stutter', 'Do you want to install the Anti Stutter?'):
+            runReg(anti_stutter_sh2)
+        
+        # Intro Skip
+        if os.path.exists(os.path.join(root_path_sh2, 'SHProto.exe')):
+            if messagebox.askyesno('Intro Skip', 'Do you want to install the Intro Skip?'):
+                shutil.copytree(intro_skip_sh2, root_path_sh2,dirs_exist_ok=True)
+        else:
+            messagebox.showinfo('Not Found', 'Select the .exe path to install the Intro Skip mod, the .exe path is SHProto\\Binaries\\Win64.')
+
+        # Ray Reconstruction
+        dlss_path_sh2 = os.path.join(root_path_sh2, 'SHProto\\Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')
+        if os.path.exists(dlss_path_sh2) and os.path.exists(path_engine_ini_sh2):
+            if messagebox.askyesno('Ray Reconstruction', 'Do you want to install Ray Reconstruction? It improves the quality of Ray Tracing by removing all graphical glitches in RT. (recommended only for RTX)'):
+                shutil.copy(ray_reconstruction_dll_sh2, dlss_path_sh2)
+                shutil.copy(ray_reconstruction_ini_sh2, path_folder_engine_ini_sh2)
+        else:
+            messagebox.showinfo('Not Found', f'Exe and .ini not found. Select the .exe path SHProto\\Binaries\\Win64 and check if the Engine.ini file is located in {path_folder_engine_ini_sh2}. If it\'s not there, open the game for a few seconds and try installing again.')
+
+        # Post Processing Effects
+        if os.path.exists(path_engine_ini_sh2):
+            if messagebox.askyesno('Remove Post Processing', 'Do you want to remove Post Processing Effects, such as Motion Blur, Distortion, etc.?'):
+                Remove_ini_effect('SystemSettings', post_processing_sh2, path_engine_ini_sh2, not_found_message_sh2,'Post Processing Effects successfully removed')
+                shutil.copy(var_post_processing_sh2, path_folder_engine_ini_sh2)
+
+            # Unlock Cutscene FPS
+            if messagebox.askyesno('Unlock Cutscene FPS', 'Do you want to install the Unlock Cutscene FPS? Select the SHProto\\Binaries\\Win64 path for the mod to work correctly.'):
+                shutil.copytree(unlock_cutscene_fps_sh2, select_folder, dirs_exist_ok=True)
+
+            # FSR 3.1/DLSS Custom / Optiscaler
+            if select_mod in ['FSR 3.1.1/DLSS FG Custom', 'FSR 3.1.1/DLSS Optiscaler']:
+                if os.path.exists(os.path.join(path_folder_engine_ini_sh2, 'NativeFSR3.txt')):
+                    Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'The Native FSR3 has been removed; it is necessary for the FSR3.1/DLSS mod to work.')      
+        else:
+            messagebox.showinfo('Not Found', f'Engine.ini file not found. Please check the path {path_engine_ini_sh2} and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
+
+        # Native FSR3 FG
+    if select_mod == 'FSR3 FG Native SH2':
+        if os.path.exists(path_engine_ini_sh2):
+            Remove_ini_effect('SystemSettings', fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'FSR3 Frame Generation successfully enabled')
+            shutil.copy(var_native_fsr3_sh2, path_folder_engine_ini_sh2)
+        else:
+            messagebox.showinfo('Not Found', f'Engine.ini file not found. Please check the path {path_engine_ini_sh2} and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
+
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
     
@@ -6802,7 +6894,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Wanted: Dead','Warhammer: Space Marine 2']
+               'Palworld','Ready or Not','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -7096,9 +7188,9 @@ def install(event=None):
             spider_fsr()
         if select_mod == 'Uni Custom Miles':
             fsr3_miles()
-        if select_mod == "FSR 3.1/DLSS Optiscaler":
+        if select_mod == "FSR 3.1.1/DLSS Optiscaler":
             optiscaler_fsr3()
-        if select_mod == 'FSR 3.1/DLSS FG Custom':
+        if select_mod == 'FSR 3.1.1/DLSS FG Custom':
             global_dlss()
             
         if select_option == 'Cod Black Ops Cold War':
@@ -7161,7 +7253,7 @@ def install(event=None):
         if select_addon_mods == 'OptiScaler':
             update_optiscaler_dx11_dx12()
             update_optiscaler_ini()
-            if select_mod != 'FSR 3.1/DLSS Optiscaler':
+            if select_mod != 'FSR 3.1.1/DLSS Optiscaler':
                 if var_method is None:
                     messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
                     return
@@ -7467,6 +7559,7 @@ fsr_game_version={
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'The Witcher 3':'2.0',
     'Uncharted Legacy of Thieves Collection':'2.1',
+    'Until Dawn':'2.2',
     'Wanted: Dead':'2.2',
     'Warhammer: Space Marine 2':'2.2'
 }
@@ -7516,7 +7609,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -7593,12 +7686,12 @@ def update_canvas(event=None): #canvas_options text configuration
 
     elif select_option == 'Horizon Zero Dawn':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Optiscaler Custom HZD','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Optiscaler Custom HZD','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
            
     elif select_option == 'Alan Wake 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Ghost of Tsushima':
@@ -7614,7 +7707,7 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'The Witcher 3':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS Optiscaler','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS Optiscaler','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS FG Custom')
     
     elif select_option == 'Hellblade 2':
         mod_text() 
@@ -7623,17 +7716,17 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'STAR WARS Jedi: Survivor':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Dlss Jedi','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Dlss Jedi','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS FG Custom')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Cyberpunk 2077':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Flintlock: The Siege of Dawn':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
     elif select_option == 'COD MW3':
@@ -7643,27 +7736,27 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Dying Light 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Black Myth: Wukong':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     elif select_option == 'Final Fantasy XVI':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FFXVI DLSS RTX','Others Mods FFXVI','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FFXVI DLSS RTX','Others Mods FFXVI','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Star Wars Outlaws':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','FSR 3.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'God Of War 4':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1','FSR 3.1.1/DLSS FG Custom')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
     elif select_option == 'God of War Ragnarök':
@@ -7673,22 +7766,22 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Warhammer: Space Marine 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'The Casting Of Frank Stone':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'0.10.4','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'0.10.4','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     elif select_option == 'Control':
         mod_text()
-        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Silent Hill 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1/DLSS FG Custom','FSR 3.1/DLSS Optiscaler','FSR3 FG Native SH2','Others Mods Sh2')
+        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','FSR 3.1.1/DLSS Optiscaler','FSR3 FG Native SH2','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
@@ -7701,7 +7794,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Wanted: Dead','Warhammer: Space Marine 2']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
@@ -7748,7 +7841,7 @@ def update_mod_version(event=None):
            
     mod_version_canvas.update()
 
-mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','FSR 3.1/DLSS Optiscaler','FSR 3.1/DLSS FG Custom','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss']
+mod_options = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss']
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
   
