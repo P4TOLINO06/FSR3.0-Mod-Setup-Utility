@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.3v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.4v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -992,6 +992,11 @@ def text_guide():
 '1. Select FSR3 FG Native SH2 and install it.\n'
 '2. In-game, select FSR 3.0 before starting the campaign.\n\n'
 
+'RX 500/5000 Native FSR3 FG\n'
+'1. Select Native FSR3 FG and install it.\n'
+'2. Select "Yes" in the "GPU" window that will appear.\n'
+'3. This is required only for the Native FSR3 FG mod.\n\n'
+
 'Others Mods Sh2 \n'
 'Run the game in DirectX 12 for the mods to work\n'
 'Unlock FPS Cutscenes\n'
@@ -1343,7 +1348,7 @@ def text_guide():
     elif select_game == 'Warhammer: Space Marine 2':
         screen_guide.geometry('520x430')
     elif select_game == 'Silent Hill 2':
-        screen_guide.geometry('520x390')
+        screen_guide.geometry('520x470')
     else:
         screen_guide.geometry('520x260')
     
@@ -3012,6 +3017,8 @@ def clean_mod():
 
             del_others_mods(select_folder + '\\AntiStutter.txt','Do you want to remove the Anti Stutter?',remove_anti_stutter_sh2)
 
+            del_others_mods(os.path.join(select_folder,'D3D12.DLL'),'Do you want to remove the D3D12.dll file? It is necessary for the mod to work on RX 500/5000 series GPUs and GTX')
+
             if del_others_mods(select_folder + '\\SilentHill2RemakeFPSRose.asi','Do you want to remove the Unlock Cutscene FPS'):
                 os.remove(os.path.join(select_folder,'dsound.dll'))
             
@@ -3035,6 +3042,32 @@ def clean_mod():
 
     except Exception as e:
         messagebox.showinfo("Silent Hill 2","Error clearing Silent Hill 2 mods files, please try again or do it manually")
+
+    try:
+        if select_option == 'Until Dawn':
+            remove_anti_stutter_ud = 'mods\\FSR3_UD\\Anti Stutter\\Uninstall UD High CPU Priority.reg'
+            ud_not_found_message = 'Path not found. The path to the Engine.ini file is something like this: Documents\\My Games\\Bates\\Saved\\Config\\Windows.'
+            CSIDL_PERSONAL = 5
+            ud_path_buffer = ctypes.create_unicode_buffer(260)
+            ud_result = ctypes.windll.shell32.SHGetFolderPathW(0, CSIDL_PERSONAL, 0, 0, ud_path_buffer)
+            enable_depth_field_ud = {'r.DepthOfFieldQuality':'1'}
+
+            del_others_mods(os.path.join(select_folder + '\\AntiStutter.txt'),'Do you want to remove the Anti Stutter?',remove_anti_stutter_ud)
+
+            if os.path.exists(os.path.join(select_folder,'PostProcessing.txt')):
+                if ud_result == 0: 
+                    ud_path_documents = ud_path_buffer.value
+                    ud_path_folder_engine_ini = os.path.join(ud_path_documents, 'My Games', 'Bates', 'Saved', 'Config', 'Windows', 'Engine.ini')
+                    
+                    if os.path.exists(ud_path_folder_engine_ini):
+                        Remove_ini_effect('SystemSettings', enable_depth_field_ud, ud_path_folder_engine_ini, ud_not_found_message,'Depth of field activated successfully')
+                    else:
+                        messagebox.showinfo('Not Found',ud_not_found_message)
+            else:
+                messagebox('Documents','Documents folder not found, please check if there are permissions for the Utility to access the folder')
+
+    except Exception as e:
+            messagebox.showinfo("Until Dawn","Error clearing Until Dawn mods files, please try again or do it manually")
 
     try:
         if select_option == 'God Of War 4':
@@ -6451,14 +6484,18 @@ def handle_prompt(window_title, window_message,action_func=None):
 
     return user_choice
 
-def copy_if_exists(folder_path, dest_path):
+def copy_if_exists(folder_path, dest_path,message,dirs_exist = True):
     try:
-        if os.path.exists(folder_path):
-            shutil.copytree(folder_path, dest_path, dirs_exist_ok=True)
+        if os.path.exists(dest_path):
+            if dirs_exist:
+                shutil.copytree(folder_path, dest_path, dirs_exist_ok=True)
+            else:
+                shutil.copy(folder_path, dest_path)
         else:
-            messagebox.showinfo('Not Found', f'{dest_path} not found, please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64')
+             messagebox.showinfo('Not Found', message)
     except Exception as e:
         messagebox.showinfo('Error','It was not possible to complete the installation, please restart the Utility and try again.')
+        print(e)
 
 def wukong_fsr3():
     wukong_stutter_reg =  r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"
@@ -6470,6 +6507,7 @@ def wukong_fsr3():
     full_path_wukong = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     path_fsr31_wukong = 'mods\\FSR3_WUKONG\\WukongFSR31\\FSR31_Wukong'
     cache_wukong = os.path.join(os.getenv('USERPROFILE'), 'AppData')
+    message_not_found_wukong = 'Please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64'
     
     if select_mod == 'RTX DLSS FG Wukong':
         dlss_to_fsr()
@@ -6505,22 +6543,22 @@ def wukong_fsr3():
         handle_prompt(
             'Graphic Preset',
             'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
-            lambda _: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1")
+            lambda _: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1",message_not_found_wukong)
         )
 
         view_message_wukong = handle_prompt(
             'Mini Map',
             'Would you like to install the mini map?',
             lambda _:(
-                copy_if_exists(wukong_ue4_map,select_folder),
-                copy_if_exists(wukong_map,full_path_wukong + "\\b1"),
+                copy_if_exists(wukong_ue4_map,select_folder,message_not_found_wukong),
+                copy_if_exists(wukong_map,full_path_wukong + "\\b1",message_not_found_wukong),
             )
         )
 
         view_message_wukong = handle_prompt(
             'HDR',
             'Would you like to install the HDR correction?',
-            lambda _: copy_if_exists(wukong_hdr,full_path_wukong)
+            lambda _: copy_if_exists(wukong_hdr,full_path_wukong,message_not_found_wukong,message_not_found_wukong)
         )
 
         if view_message_wukong or wukong_optimized:
@@ -6754,15 +6792,17 @@ def fsr3_silent2():
     ray_reconstruction_ini_sh2 = f'{mods_path}\\RayReconstruction\\Engine.ini'
     intro_skip_sh2 = f'{mods_path}\\Intro_Skip'
     fsr31_custom_rtx_sh2 = 'mods\\DLSS_Global\\RTX_Custom'
+    dx12_dll_sh2 = 'mods\\FSR3_SH2\\DX12DLL\\D3D12.dll'
     anti_stutter_sh2 = f'{mods_path}\\Anti_Stutter\\Install Silent Hill 2 Remake High Priority Processes.reg'
     var_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
     unlock_cutscene_fps_sh2 = f'{mods_path}\\Unlock Cutscene Fps'
     var_native_fsr3_sh2 = f'{mods_path}\\Var\\NativeFSR3.txt'
     var_post_processing_sh2 = f'{mods_path}\\Var\\PostProcessing.txt'
     not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
+    message_not_found_exe_sh2 = 'Select the .exe path to install the Intro Skip mod, the .exe path is SHProto\\Binaries\\Win64.'
     path_folder_engine_ini_sh2 = os.path.join(os.getenv('LOCALAPPDATA'), 'SilentHill2\\Saved\\Config\\Windows')
     path_engine_ini_sh2 = os.path.join(path_folder_engine_ini_sh2, 'Engine.ini')
-    
+
     fsr3_sh2_value = {'r.FidelityFX.FI.Enabled': '1'}
     remove_fsr3_sh2_value = {'r.FidelityFX.FI.Enabled': '0'}
     post_processing_sh2 = {
@@ -6778,49 +6818,109 @@ def fsr3_silent2():
     
     if select_mod == 'Others Mods Sh2':
         # Anti Stutter
-        if messagebox.askyesno('Anti Stutter', 'Do you want to install the Anti Stutter?'):
-            runReg(anti_stutter_sh2)
+        handle_prompt(
+        'High CPU Priority',
+        'Do you want to install Anti Stutter? (prevents possible stuttering in the game)',
+        lambda _: (
+            runReg(anti_stutter_sh2),
+            shutil.copy(var_anti_stutter_sh2, select_folder)
+            )
+        )
         
         # Intro Skip
         if os.path.exists(os.path.join(root_path_sh2, 'SHProto.exe')):
-            if messagebox.askyesno('Intro Skip', 'Do you want to install the Intro Skip?'):
-                shutil.copytree(intro_skip_sh2, root_path_sh2,dirs_exist_ok=True)
+            handle_prompt(
+                'Intro Skip',
+                'Do you want to install the intro Skip?',
+                lambda _: copy_if_exists(intro_skip_sh2, root_path_sh2,message_not_found_exe_sh2)
+            )
         else:
             messagebox.showinfo('Not Found', 'Select the .exe path to install the Intro Skip mod, the .exe path is SHProto\\Binaries\\Win64.')
 
         # Ray Reconstruction
         dlss_path_sh2 = os.path.join(root_path_sh2, 'SHProto\\Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')
-        if os.path.exists(dlss_path_sh2) and os.path.exists(path_engine_ini_sh2):
-            if messagebox.askyesno('Ray Reconstruction', 'Do you want to install Ray Reconstruction? It improves the quality of Ray Tracing by removing all graphical glitches in RT. (recommended only for RTX)'):
-                shutil.copy(ray_reconstruction_dll_sh2, dlss_path_sh2)
-                shutil.copy(ray_reconstruction_ini_sh2, path_folder_engine_ini_sh2)
+        if os.path.exists(path_engine_ini_sh2):
+            handle_prompt(
+                'Ray Reconstruction',
+                'Do you want to install Ray Reconstruction? It improves the quality of Ray Tracing by removing all graphical glitches in RT. (recommended only for RTX)',
+                lambda _: (copy_if_exists(ray_reconstruction_dll_sh2, dlss_path_sh2,message_not_found_exe_sh2,False),
+                           copy_if_exists(ray_reconstruction_ini_sh2, path_folder_engine_ini_sh2,message_not_found_exe_sh2,False))
+            )
         else:
             messagebox.showinfo('Not Found', f'Exe and .ini not found. Select the .exe path SHProto\\Binaries\\Win64 and check if the Engine.ini file is located in {path_folder_engine_ini_sh2}. If it\'s not there, open the game for a few seconds and try installing again.')
 
         # Post Processing Effects
         if os.path.exists(path_engine_ini_sh2):
-            if messagebox.askyesno('Remove Post Processing', 'Do you want to remove Post Processing Effects, such as Motion Blur, Distortion, etc.?'):
-                Remove_ini_effect('SystemSettings', post_processing_sh2, path_engine_ini_sh2, not_found_message_sh2,'Post Processing Effects successfully removed')
-                shutil.copy(var_post_processing_sh2, path_folder_engine_ini_sh2)
+            handle_prompt(
+                'Remove Post Processing',
+                'Do you want to remove Post Processing Effects, such as Motion Blur, Distortion, etc.?',
+                lambda _: (Remove_ini_effect('SystemSettings', post_processing_sh2, path_engine_ini_sh2, not_found_message_sh2,'Post Processing Effects successfully removed'),
+                copy_if_exists(var_post_processing_sh2, path_folder_engine_ini_sh2,not_found_message_sh2,False))
+            )
 
             # Unlock Cutscene FPS
-            if messagebox.askyesno('Unlock Cutscene FPS', 'Do you want to install the Unlock Cutscene FPS? Select the SHProto\\Binaries\\Win64 path for the mod to work correctly.'):
-                shutil.copytree(unlock_cutscene_fps_sh2, select_folder, dirs_exist_ok=True)
-
-            # FSR 3.1/DLSS Custom / Optiscaler
-            if select_mod in ['FSR 3.1.1/DLSS FG Custom', 'FSR 3.1.1/DLSS Optiscaler']:
-                if os.path.exists(os.path.join(path_folder_engine_ini_sh2, 'NativeFSR3.txt')):
-                    Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'The Native FSR3 has been removed; it is necessary for the FSR3.1/DLSS mod to work.')      
+            handle_prompt(
+                'Unlock Cutscene FPS',
+                'Do you want to install the Unlock Cutscene FPS? Select the SHProto\\Binaries\\Win64 path for the mod to work correctly.',
+                lambda _: copy_if_exists(unlock_cutscene_fps_sh2,select_folder,message_not_found_exe_sh2)
+            )
         else:
             messagebox.showinfo('Not Found', f'Engine.ini file not found. Please check the path {path_engine_ini_sh2} and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
 
-        # Native FSR3 FG
+    # FSR 3.1/DLSS Custom / Optiscaler
+    if select_mod in ['FSR 3.1.1/DLSS FG Custom', 'FSR 3.1.1/DLSS Optiscaler']:
+        if os.path.exists(os.path.join(path_folder_engine_ini_sh2, 'NativeFSR3.txt')):
+            Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'The Native FSR3 has been removed, it is necessary for the FSR3.1/DLSS mod to work.')      
+
+    # Native FSR3 FG
     if select_mod == 'FSR3 FG Native SH2':
         if os.path.exists(path_engine_ini_sh2):
+            handle_prompt(
+                'GPU',
+                'Do you have an RX 500/5000 or GTX GPU?',
+                lambda _: copy_if_exists(dx12_dll_sh2, select_folder,message_not_found_exe_sh2,False) # The d3d12.dll file is required for the Native FSR3 mod to work on the RX 500/5000 and GTX series
+            )
             Remove_ini_effect('SystemSettings', fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'FSR3 Frame Generation successfully enabled')
             shutil.copy(var_native_fsr3_sh2, path_folder_engine_ini_sh2)
         else:
             messagebox.showinfo('Not Found', f'Engine.ini file not found. Please check the path {path_engine_ini_sh2} and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
+
+def fsr3_until():
+    CSIDL_PERSONAL = 5
+    path_buffer_ud = ctypes.create_unicode_buffer(260)
+    result_doc_ud = ctypes.windll.shell32.SHGetFolderPathW(0, CSIDL_PERSONAL, 0, 0, path_buffer_ud)
+    anti_sutter_ud = 'mods\\FSR3_UD\\Anti Stutter\\Install UD High CPU Priority.reg'
+    var_anti_stutter_ud = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
+    var_post_processing_ud = 'mods\\FSR3_SH2\\Var\\PostProcessing.txt'
+    not_found_message_ud = 'Path not found. The path to the Engine.ini file is something like this: Documents\\My Games\\Bates\\Saved\\Config\\Windows.'
+    remove_depth_field_ud = {'r.DepthOfFieldQuality':'0'}
+
+    if select_mod == 'Others Mods UD':
+
+        # Anti Stutter
+        handle_prompt(
+            'Anti Stutter',
+            'Do you want to install the Anti Stutter?',
+            lambda _: (runReg(anti_sutter_ud),
+            copy_if_exists(var_anti_stutter_ud, select_folder,not_found_message_ud,False))
+        )
+
+        #Post Processing Effects
+        if result_doc_ud == 0:
+            path_documents_ud = path_buffer_ud.value      
+            path_folder_engine_ini_ud = os.path.join(path_documents_ud, 'My Games', 'Bates', 'Saved', 'Config', 'Windows', 'Engine.ini')
+            
+            if os.path.exists(path_folder_engine_ini_ud):
+                handle_prompt(
+                        'Disable Depth of Field',
+                        'Do you want to disable Depth of Field?',
+                        lambda _: (Remove_ini_effect('SystemSettings', remove_depth_field_ud, path_folder_engine_ini_ud, not_found_message_ud,'Depth of field successfully removed'),
+                        copy_if_exists(var_post_processing_ud, select_folder, not_found_message_ud,False))
+                    )  
+            else:
+                messagebox.showinfo('Not Found',not_found_message_ud)
+        else:
+            messagebox('Documents','Documents folder not found, please check if there are permissions for the Utility to access the folder')
 
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
@@ -7209,6 +7309,8 @@ def install(event=None):
             wukong_fsr3()
         if select_option == 'Silent Hill 2':
             fsr3_silent2()
+        if select_option == 'Until Dawn':
+            fsr3_until()
         if select_option == 'STAR WARS Jedi: Survivor':
             fsr3_jedi()
         if select_option == 'Warhammer: Space Marine 2':
@@ -7578,6 +7680,10 @@ y=0
 def update_canvas(event=None): #canvas_options text configuration
     global mod_options,x,y,select_fsr,fsr_visible,fsr_game_version,color_rec_bool,select_option,fsr_view_listbox
     
+    default_mods = '0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4'
+    uniscaler_mods = 'Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss'
+    fsr_31_dlss_mods = 'FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom'
+
     def mod_text():
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -7609,7 +7715,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG', *fsr_31_dlss_mods,'0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -7641,12 +7747,12 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Palworld':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'TEKKEN 8':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Unlock Fps Tekken 8','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Unlock Fps Tekken 8',*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
      
     elif select_option == 'Icarus':
@@ -7661,12 +7767,12 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'Marvel\'s Spider-Man Remastered':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler Spider','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Uniscaler Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Marvel\'s Spider-Man Miles Morales':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uni Custom Miles','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Uni Custom Miles',*default_mods,*uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'GTA V':
@@ -7686,12 +7792,12 @@ def update_canvas(event=None): #canvas_options text configuration
 
     elif select_option == 'Horizon Zero Dawn':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Optiscaler Custom HZD','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Optiscaler Custom HZD', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
            
     elif select_option == 'Alan Wake 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Ghost of Tsushima':
@@ -7707,26 +7813,26 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'The Witcher 3':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS Optiscaler','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods,'0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
     
     elif select_option == 'Hellblade 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'STAR WARS Jedi: Survivor':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Dlss Jedi','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Dlss Jedi',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Cyberpunk 2077':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Flintlock: The Siege of Dawn':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
     elif select_option == 'COD MW3':
@@ -7736,27 +7842,27 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Dying Light 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, *default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Black Myth: Wukong':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     elif select_option == 'Final Fantasy XVI':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FFXVI DLSS RTX','Others Mods FFXVI','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'FFXVI DLSS RTX','Others Mods FFXVI',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Star Wars Outlaws':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX','FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'God Of War 4':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1', *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
     elif select_option == 'God of War Ragnarök':
@@ -7766,22 +7872,27 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Warhammer: Space Marine 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom')
+        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1', *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'The Casting Of Frank Stone':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'0.10.4','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END,'0.10.4', *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     elif select_option == 'Control':
         mod_text()
-        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss','FSR 3.1.1/DLSS Optiscaler')
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, *default_mods, *uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Silent Hill 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1.1/DLSS FG Custom','FSR 3.1.1/DLSS Optiscaler','FSR3 FG Native SH2','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
+        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods,'FSR3 FG Native SH2','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Until Dawn':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'Others Mods UD',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
