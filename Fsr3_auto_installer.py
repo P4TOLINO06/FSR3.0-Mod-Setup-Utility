@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.4v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.5v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -985,8 +985,8 @@ def text_guide():
 '1. Select the FSR 3.1/DLSS mod. \n'
 '2. Check the "GPU" window that will appear.\n'
 '3. In-game, select DLSS before starting the campaign.\n'
-'4. During the campaign, press the "Insert" key to open the\nmenu.\n'
-'5. In the menu, select the desired upscaler, check the Frame\nGen and Hud Fix boxes.\n\n'
+'4. During the campaign, press the "Insert" key to open the menu.\n'
+'5. In the menu, select the desired upscaler, check the Frame Gen and Hud Fix boxes.\n\n'
 
 'FSR3 Native \n'
 '1. Select FSR3 FG Native SH2 and install it.\n'
@@ -997,15 +997,31 @@ def text_guide():
 '2. Select "Yes" in the "GPU" window that will appear.\n'
 '3. This is required only for the Native FSR3 FG mod.\n\n'
 
+'Ultra Plus\n'
+'1. Install the mod and open the game\n'
+'2. In the game, select a graphic preset from the game itself: low/medium/high/epic\n'
+'3. Select FSR3 to use the native Frame Gen. If you don\'t see a change in FPS, go back to\nthe Utility and install "FSR3 FG Native SH2."\n'
+'4. To get the full performance from the mod, select Xess Ultra Quality. (This option is\nvery demanding, and you may experience a significant FPS drop.)\n'
+'5. Lock the game\'s FPS to half of your monitor\'s Hz minus 2, for example (60Hz, lock\nat 28), or lock it to the average FPS you get in the game.\n'
+'6. This mod works with FSR 3.1.1/DLSS (Optiscaler or Custom); just install and follow the\nFSR 3.1.1/DLSS guide above.\n\n'
+
+'Ultra Plus Optimized\n'
+'It is recommended for RX 500/5000 and GTX users\n'
+'Includes some graphical optimizations\n\n'
+
+'Ultra Plus Complete\n'
+'This is the standard version of the mod with all available modifications\n\n'
+
+'Some of the modifications\n'
+'Reduces black spots, Improves Ray Tracing quality, Enhances anisotropic filtering,\nReduces hair pixelation caused by MSAA\n\n'
+
 'Others Mods Sh2 \n'
 'Run the game in DirectX 12 for the mods to work\n'
 'Unlock FPS Cutscenes\n'
 'Removes the 30fps lock from cutscenes.\n\n'
 
 'Post-Processing\n'
-'Scene Color Fringe\n'
-'Motion blur\n'
-'Distortion'
+'Remove: Scene Color Fringe, Motion blur and Distortion'
 ),
 
 'Smalland':(
@@ -1348,7 +1364,7 @@ def text_guide():
     elif select_game == 'Warhammer: Space Marine 2':
         screen_guide.geometry('520x430')
     elif select_game == 'Silent Hill 2':
-        screen_guide.geometry('520x470')
+        screen_guide.geometry('700x780')
     else:
         screen_guide.geometry('520x260')
     
@@ -3012,34 +3028,52 @@ def clean_mod():
             remove_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\Uninstall Silent Hill 2 Remake High Priority Processes.reg'
             path_sh2 = os.path.abspath(os.path.join(select_folder,'..\\..\\..'))
 
+            # FSR 3.1.1/DLSS FG RTX Custom
             if select_mod == 'FSR 3.1.1/DLSS FG RTX Custom':
                 del_all_mods(del_dlss_rtx_custom,'Silent Hill 2')
 
-            del_others_mods(select_folder + '\\AntiStutter.txt','Do you want to remove the Anti Stutter?',remove_anti_stutter_sh2)
+            # Ultra Plus
+            if select_mod in ['Ultra Plus Complete','Ultra Plus Optimized']:
+                del_others_mods(os.path.join(path_sh2,'SHProto\\Content\\Paks\\~UltraPlus_v0.8.0_P.pak'),'Do you want to remove the Ultra Plus?')
+                del_others_mods(os.path.join(path_sh2,'SHProto\\Content\\Paks\\~UltraPlus_v1.0.4_P.pak'),'Do you want to remove the Ultra Plus?')
+                shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
 
+            # Anti Stutter
+            del_others_mods(select_folder + '\\AntiStutter.txt','Do you want to remove the Anti Stutter?',remove_anti_stutter_sh2)
+            
+            # Dll of RX 500/5000 and GTX gpus
             del_others_mods(os.path.join(select_folder,'D3D12.DLL'),'Do you want to remove the D3D12.dll file? It is necessary for the mod to work on RX 500/5000 series GPUs and GTX')
 
+            # Unlock Cutscene FPS
             if del_others_mods(select_folder + '\\SilentHill2RemakeFPSRose.asi','Do you want to remove the Unlock Cutscene FPS'):
                 os.remove(os.path.join(select_folder,'dsound.dll'))
             
+            # intro Skip
             path_movies_sh2 = os.path.join(path_sh2,'SHProto\\Content\\Movies\\LoadingScreen.bk2')
             del_others_mods(path_movies_sh2,'Do you want to remove the Intro Skip?')
-
+            
+            # Ray Reconstruction
             path_dlss_dll_sh2 = os.path.join(path_sh2,'SHProto\\Plugins\\DLSS\\Binaries\\ThirdParty\\Win64\\nvngx_dlssd.dll')       
             if del_others_mods(path_dlss_dll_sh2,'Do you want to remove the Ray Reconstruction?'):
                 if os.path.exists(os.path.join(folder_engine_sh2,'Engine.ini')):
                     os.remove(os.path.join(folder_engine_sh2,'Engine.ini'))
                     shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
+
+            # FSR3 FG Native SH2 and FSR3 FG Native SH2 + Optimization
+            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3Opt.txt')) and messagebox.askyesno('Native FSR3 FG','Do you want to remove the Native FSR3 FG + Optimization?'):
+                shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
+                os.remove(os.path.join(folder_engine_sh2,'NativeFSR3Opt.txt'))
+
+            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3.txt')) and messagebox.askyesno('Native FSR3 FG','Do you want to remove the Native FSR3 FG?'):
+                Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, folder_engine_sh2 + "\\Engine.ini",'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.')      
+                os.remove(os.path.join(folder_engine_sh2,'NativeFSR3.txt'))
             
+            # Post Processing
             if os.path.exists(os.path.join(folder_engine_sh2,'PostProcessing.txt')):
                 if del_others_mods(folder_engine_sh2 + '\\Engine.ini','Do you want to restore Post Processing Effetcs?'):
                     os.remove(os.path.join(folder_engine_sh2,'PostProcessing.txt'))
                     shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
-                
-            if os.path.exists(os.path.join(folder_engine_sh2,'NativeFSR3.txt')) and messagebox.askyesno('Native FSR3 FG','Do you want to remove the Native FSR3 FG?'):
-                Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, folder_engine_sh2 + "\\Engine.ini",'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.')      
-                os.remove(os.path.join(folder_engine_sh2,'NativeFSR3.txt'))
-
+            
     except Exception as e:
         messagebox.showinfo("Silent Hill 2","Error clearing Silent Hill 2 mods files, please try again or do it manually")
 
@@ -6788,6 +6822,10 @@ def fsr3_hellblade_2():
 def fsr3_silent2():
     root_path_sh2 = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     mods_path = 'mods\\FSR3_SH2'
+    path_ultra_plus_optimized = 'mods\\FSR3_SH2\\Ultra Plus\\Optimized'
+    path_ultra_plus_complete = 'mods\\FSR3_SH2\\Ultra Plus\\Normal'
+    path_engine_ultra_plus = 'mods\\FSR3_SH2\\Ultra Plus\\Engine.ini'
+    path_fsr3_fg_optimized = 'mods\\FSR3_SH2\\FSR3 Native Optimized\\Engine.ini'
     ray_reconstruction_dll_sh2 = f'{mods_path}\\RayReconstruction\\nvngx_dlssd.dll'
     ray_reconstruction_ini_sh2 = f'{mods_path}\\RayReconstruction\\Engine.ini'
     intro_skip_sh2 = f'{mods_path}\\Intro_Skip'
@@ -6797,6 +6835,7 @@ def fsr3_silent2():
     var_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
     unlock_cutscene_fps_sh2 = f'{mods_path}\\Unlock Cutscene Fps'
     var_native_fsr3_sh2 = f'{mods_path}\\Var\\NativeFSR3.txt'
+    var_native_fsr3_opt_sh2 = 'mods\\FSR3_SH2\\FSR3 Native Optimized\\NativeFSR3Opt.txt'
     var_post_processing_sh2 = f'{mods_path}\\Var\\PostProcessing.txt'
     not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
     message_not_found_exe_sh2 = 'Select the .exe path to install the Intro Skip mod, the .exe path is SHProto\\Binaries\\Win64.'
@@ -6872,16 +6911,36 @@ def fsr3_silent2():
         if os.path.exists(os.path.join(path_folder_engine_ini_sh2, 'NativeFSR3.txt')):
             Remove_ini_effect('SystemSettings', remove_fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'The Native FSR3 has been removed, it is necessary for the FSR3.1/DLSS mod to work.')      
 
-    # Native FSR3 FG
-    if select_mod == 'FSR3 FG Native SH2':
+    # Ultra Plus
+    if select_mod in ['Ultra Plus Optimized', 'Ultra Plus Complete']:
+        
         if os.path.exists(path_engine_ini_sh2):
+            if select_mod == 'Ultra Plus Optimized':
+                source_path_sh2 = path_ultra_plus_optimized
+            elif select_mod == 'Ultra Plus Complete':
+                source_path_sh2 = path_ultra_plus_complete
+   
+            shutil.copytree(source_path_sh2, root_path_sh2, dirs_exist_ok=True)
+            shutil.copy(path_engine_ultra_plus, path_folder_engine_ini_sh2)
+            
+            messagebox.showinfo('Guide', 'Check the Silent Hill 2 guide to see how to activate Ultra Plus')
+
+    # Native FSR3 FG and Optimized
+    if select_mod in ['FSR3 FG Native SH2','FSR3 FG Native SH2 + Optimization']:
+        
+        if os.path.exists(path_engine_ini_sh2):
+            if select_mod == 'FSR3 FG Native SH2':
+                Remove_ini_effect('SystemSettings', fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'FSR3 Frame Generation successfully enabled')
+                shutil.copy(var_native_fsr3_sh2, path_folder_engine_ini_sh2)
+            else:
+                shutil.copy(path_fsr3_fg_optimized,path_folder_engine_ini_sh2)
+                shutil.copy(var_native_fsr3_opt_sh2, path_folder_engine_ini_sh2)
+
             handle_prompt(
                 'GPU',
                 'Do you have an RX 500/5000 or GTX GPU?',
                 lambda _: copy_if_exists(dx12_dll_sh2, select_folder,message_not_found_exe_sh2,False) # The d3d12.dll file is required for the Native FSR3 mod to work on the RX 500/5000 and GTX series
             )
-            Remove_ini_effect('SystemSettings', fsr3_sh2_value, path_engine_ini_sh2, not_found_message_sh2,'FSR3 Frame Generation successfully enabled')
-            shutil.copy(var_native_fsr3_sh2, path_folder_engine_ini_sh2)
         else:
             messagebox.showinfo('Not Found', f'Engine.ini file not found. Please check the path {path_engine_ini_sh2} and see if the file exists. If it doesn\'t, open the game for a few seconds and try reinstalling the mod.')
 
@@ -7887,7 +7946,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Silent Hill 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods,'FSR3 FG Native SH2','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
+        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized','FSR3 FG Native SH2','FSR3 FG Native SH2 + Optimization','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Until Dawn':
