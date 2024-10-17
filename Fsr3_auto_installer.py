@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.5v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.6v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -42,7 +42,7 @@ screen.protocol('WM_DELETE_WINDOW',exit_screen)
 if not unlock_screen:
     sys.exit()
 
-icon_image = tk.PhotoImage(file="images\FSR-3-Supported-GPUs-Games.gif")
+icon_image = tk.PhotoImage(file="images\\FSR-3-Supported-GPUs-Games.gif")
 screen.iconphoto(True, icon_image)
 
 change_text = False
@@ -89,7 +89,7 @@ def epic_dis_over(event=None):
     txt_name = 'EOSOverlayRenderer-Win64.txt'
     
     for disk_name in user_disk_part:
-        default_path = os.path.join(disk_name, r'Program Files (x86)\Epic Games\Launcher\Portal\Extras\Overlay')
+        default_path = os.path.join(disk_name, r'Program Files (x86)\\Epic Games\\Launcher\\Portal\\Extras\\Overlay')
         if os.path.exists(default_path):
             for root, dirs, files in os.walk(default_path):
                 if exe_name in files or txt_name in files:
@@ -98,7 +98,7 @@ def epic_dis_over(event=None):
             if path_over:
                 break
         
-        alt_path = os.path.join(disk_name, r'Epic Games\Launcher\Portal\Extras\Overlay')
+        alt_path = os.path.join(disk_name, r'Epic Games\\Launcher\\Portal\\Extras\\Overlay')
         if os.path.exists(alt_path):
             for root, dirs, files in os.walk(alt_path):
                 if exe_name in files or txt_name in files:
@@ -302,7 +302,7 @@ def text_guide():
 
     list_game = {
 'Initial Information':(
-'1 - When selecting the game folder, look for the game\'s .exe file. Some games have the full name .exe or abbreviated,\n while others have the .exe file in the game folder but within subfolders with the ending\nBinaries\Win64, and the .exe usually ends with Win64-Shipping, for example: TheCallistoProtocol-Win64-Shipping.\n'
+'1 - When selecting the game folder, look for the game\'s .exe file. Some games have the full name .exe or abbreviated,\n while others have the .exe file in the game folder but within subfolders with the ending\nBinaries\\Win64, and the .exe usually ends with Win64-Shipping, for example: TheCallistoProtocol-Win64-Shipping.\n'
 '2 - It is recommended to read the guide before installing the mod. Some games do not have a guide because\nyou only need to install the mod, while others, like Fallout 4 for example, have extra steps for installation.\nIf something is done incorrectly, the mod will not work.\n'
 '3 - Some games may not work for certain users after installing the mod. It is recommended to select Default\nin NVGX and enable Signature Override if the mod does not work with the default files.\n'    
 '4 - Games that don\'t have numbers in \'Fsr\' you don\'t need to check any option, just install the mod.'
@@ -414,7 +414,7 @@ def text_guide():
 
 'Graphic Preset\n'
 '1 - Install the mod and the ReShade application\n'
-'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Black Myth Wukong.ini (the path should\nlook something like BlackMythWukong\Black Myth Wukong.ini) and select it, then click on \'Uncheck All\' and \'Next\'.\n'
+'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Black Myth Wukong.ini (the path should\nlook something like BlackMythWukong\\Black Myth Wukong.ini) and select it, then click on \'Uncheck All\' and \'Next\'.\n'
 '3 - In the game, press the \'Insert\' key to open\nthe menu and check the options you want.\n\n'
 
 'Optimized Wukong\n'
@@ -445,7 +445,7 @@ def text_guide():
 
 'Bright Memory: Infinite':(
   '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n '  
-  '2 -  To make the mod work, run it in DX12. To run it in DX12, right-click the game\'s\nexe and create a shortcut, then right-click the shortcut again,\ngo to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the\ngame, go to Settings > Properties > Startup options, and\nenter -dx12.'
+  '2 -  To make the mod work, run it in DX12. To run it in DX12, right-click the game\'s\nexe and create a shortcut, then right-click the shortcut again,\ngo to \\"Properties,\\" and at the end of \\"Target\\" (outside the\nquotes), add -dx12 or go to your Steam library, select the\ngame, go to Settings > Properties > Startup options, and\nenter -dx12.'
 ),
 
 'Brothers a Tale of Two Sons':(
@@ -461,7 +461,7 @@ def text_guide():
 ),
 
 'Cod MW3':(
-'1 - Select the game path: CallofDuty\Content\sp23\n'
+'1 - Select the game path: CallofDuty\\Content\\sp23\n'
 '2 - Select the COD MW3 FSR3 mod and install it\n'
 '3 - In the game, select DLSS Frame Generation\n'
 ),
@@ -578,7 +578,7 @@ def text_guide():
 
 'Fallout 4':(
   'Usage of the Sym Link:\n'
-'1 - In SymLink, click on add file and navigate to the root folder of the game. In the root folder, look\nfor Data\F4SE\Plugins, within this folder select Fallout4Upscaler.dll.\n'
+'1 - In SymLink, click on add file and navigate to the root folder of the game. In the root folder, look\nfor Data\\F4SE\\Plugins, within this folder select Fallout4Upscaler.dll.\n'
 '2 - In "Destination Path" in the Sym Link, paste the path of the "mods" folder. Simply navigate to\nthe mods folder and copy the path from the address bar of the file explorer, or you can navigate to\nthe folder through the Sym Link itself.\n'
 '3 - Click on Create symlinks.\n'
 '4 - Go back to the mods folder, go to View (w10) or Options (w11), and uncheck the box "File\nname extensions.\n'
@@ -685,7 +685,7 @@ def text_guide():
 
 'Ghostrunner 2': (
 '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended)\n' 
-'2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \"Properties,\" and at the end of \"Target\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
+'2 - To make the mod work, run it in DX12. To run it in DX12, right-click\nthe game exe and create a shortcut, then right-click the shortcut\nagain, go to \\"Properties,\\" and at the end of \\"Target\\" (outside the\nquotes), add -dx12 or go to your Steam library, select the game, go to\nSettings > Properties > Startup options, and enter -dx12.\n'
 '3 - Activate Fake Nvidia Gpu (AMD only)\n'
 '4 - Inside the game, set the frame limit to unlimited, activate DLSS first\n(disable other upscalers before) and then activate frame generation\n'
 '• To fix the flickering of the HUD, activate and deactivate frame\ngeneration again (no need to apply settings).'
@@ -740,7 +740,7 @@ def text_guide():
 '2 - Check the box for Fake Nvidia GPU (AMD) and check the\nbox for UE compatibility mode (AMD and Nvidia)\n'
 '3 - In-game, select Frame Generation\n'
 '• If you can\'t see the DLSS option in the game, select\n"YES" in the "DLSS Fix" window during installation. \n\n'
-'• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
+'• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
 '• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if\nthe Engine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.\n\n' 
 '• To remove only the main effects, such as Lens Distortion,\nBlack Bars, and Chromatic Aberration, select Remove Post\nProcessing.\n\n'
 '• To remove all effects, select Remove All Post Processing\n(includes film grain).\n\n'
@@ -757,7 +757,21 @@ def text_guide():
 "1 - Select a version of the mod of your choice (versions from 0.9.0\nonwards are recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the mod\ndoesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
-"4 - Select 'Default' in Nvngx.dll."
+"4 - Select 'Default' in Nvngx.dll.\n\n"
+
+'FSR 3.1.1/DLSS FG Custom / FSR 3.1.1/DLSS Optiscaler\n'
+'1. Select the FSR 3.1/DLSS mod. \n'
+'2. Check the "GPU" window that will appear.\n'
+'3. In-game, select DLSS before starting the campaign.\n'
+'4. During the campaign, press the "Insert" key to open the menu.\n'
+'5. In the menu, select the desired upscaler, check the Frame Gen\nand Hud Fix boxes.\n\n'
+
+'1. Install ReShade\n'
+'2. Inside ReShade, select the game’s .exe and click next\n'
+'3. Select DX 10/11/12 and click next\n'
+'4. Click "Browse" and locate the file Hogwarts Legacy Real Life\nDARKER HOGWARTS Reshade.txt that was installed in the folder\nselected in the Utility and click Next\n'
+'5. In the game, press the Home key to open the menu and select\nthe options you prefer\n'
+'6. Install the Preset first and then the FSR3 mod if you plan\nto use it'
 ),
 
 'Hitman 3':(
@@ -904,7 +918,7 @@ def text_guide():
 
 'Ready or Not': (
 '1 - Select a version of the mod of your choice (version\n0.10.3 is recommended).\n'
-'2 - Select the game folder that has the ending\n"\ReadyOrNot\Binaries\Win64".\n'
+'2 - Select the game folder that has the ending\n"\\ReadyOrNot\\Binaries\\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
 '4 - Set Anti-Aliasing to High or Epic + FSR2 Quality\n(DLSS won\'t work with UI flickering fix).\n'
 '5 - UI flickering fix: Change Anti-Aliasing from Epic or High\nto Medium.\n'
@@ -990,12 +1004,13 @@ def text_guide():
 
 'FSR3 Native \n'
 '1. Select FSR3 FG Native SH2 and install it.\n'
-'2. In-game, select FSR 3.0 before starting the campaign.\n\n'
+'2. In-game, select FSR 3.0 before starting the campaign.\n'
+'3. Select "Yes" in the "GPU" window that will appear. (Only RX 500/5000 and GTX\n\n'
 
-'RX 500/5000 Native FSR3 FG\n'
-'1. Select Native FSR3 FG and install it.\n'
-'2. Select "Yes" in the "GPU" window that will appear.\n'
-'3. This is required only for the Native FSR3 FG mod.\n\n'
+'DLSS FG RTX\n'
+'1. Select DLSS FG RTX and install\n'
+'2. In the game, select DLSS and press the Home key to open the menu\n'
+'3. Press "*" to enable FG or enable it through the menu\n\n'
 
 'Ultra Plus\n'
 '1. Install the mod and open the game\n'
@@ -1086,13 +1101,13 @@ def text_guide():
 
 'Graphic Preset\n'
 '1 - Install the mod and the ReShade application\n'
-'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Outlaws2.ini (the path\nshould look something like Star Wars Outlaws\Outlaws2.ini)\nand select it, then click on \'Uncheck All\' and \'Next\'.\n'
+'2 - In ReShade, select b1.exe, DirectX 10/11/12,\nclick on \'Browser\', and find the file Outlaws2.ini (the path\nshould look something like Star Wars Outlaws\\Outlaws2.ini)\nand select it, then click on \'Uncheck All\' and \'Next\'.\n'
 '3 - In the game, press the \'Insert\' key to open\nthe menu and check the options you want.\n\n'
 ),
 
 'Sackboy: A Big Adventure':(
 '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n'
-'2 - Select the game folder that has the ending\n"\GingerBread\Binaries\Win64".\n'
+'2 - Select the game folder that has the ending\n"\\GingerBread\\Binaries\\Win64".\n'
 '3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n'
 '4 - In "Mod Operates", select "Replace Dlss FG".\n'
 '5 - Select \'Default\' in Nvngx.dll\n'
@@ -1298,7 +1313,7 @@ def text_guide():
     elif select_game == 'Dead Space Remake':
         screen_guide.geometry('530x260')
     elif select_game == 'Hogwarts legacy':
-        screen_guide.geometry('550x260')
+        screen_guide.geometry('560x430')
     elif select_game == 'Uniscaler':
         screen_guide.geometry('538x260')
     elif select_game == 'Shadow of the Tomb Raider':
@@ -1364,7 +1379,7 @@ def text_guide():
     elif select_game == 'Warhammer: Space Marine 2':
         screen_guide.geometry('520x430')
     elif select_game == 'Silent Hill 2':
-        screen_guide.geometry('700x780')
+        screen_guide.geometry('700x800')
     else:
         screen_guide.geometry('520x260')
     
@@ -1922,14 +1937,14 @@ def uni_custom_preset():
         return
 
 #Additional mods to assist in the functioning of the frs3 mods
-addon_origins = {'OptiScaler':'mods\\Addons_mods\OptiScaler',
+addon_origins = {'OptiScaler':'mods\\Addons_mods\\OptiScaler',
                  'Tweak':'mods\\Addons_mods\\tweak'}
 select_addon_dx12 = 'auto'
 select_options_optiscaler = None
 select_addon_mods = None
 
 def addon_mods():
-    path_ini_optiscaler = 'mods\Temp\OptiScaler'
+    path_ini_optiscaler = 'mods\\Temp\\OptiScaler'
     if select_addon_mods in addon_origins:
         path_addon = addon_origins[select_addon_mods]
     
@@ -2087,7 +2102,7 @@ def update_install_method():
        pass
     
     elif var_method == 'Method 2 (GTX/Old AMD)':
-        shutil.copy2("mods\Addons_mods\Optiscaler dxgi\dxgi.dll", select_folder)
+        shutil.copy2("mods\\Addons_mods\\Optiscaler dxgi\\dxgi.dll", select_folder)
 
     elif var_method == 'Method 3 (If none of the others work)':
         rename_nvngx_dlss = "nvngx.dll"
@@ -2328,12 +2343,12 @@ addon_mods_listbox.place(x=548,y=480)
 addon_mods_listbox.place_forget()
 
 #Modifies the operation of Auto Exposure in the Uniscaler mods via the .toml file (true/false).
-us_origin = {'Uniscaler':r'mods\Temp\Uniscaler\enable_fake_gpu\uniscaler.config.toml',
-             'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
-             'Uniscaler V2':r'mods\Temp\Uniscaler_V2\enable_fake_gpu\uniscaler.config.toml',
-             'Uniscaler V3':r'mods\Temp\Uniscaler_V3\enable_fake_gpu\uniscaler.config.toml',
-             'Uniscaler V4':r'mods\Temp\Uniscaler_V4\enable_fake_gpu\uniscaler.config.toml',
-             'Uniscaler FSR 3.1':r'mods\Temp\Uniscaler_FSR31\enable_fake_gpu\uniscaler.config.toml'}
+us_origin = {'Uniscaler':r'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
+             'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
+             'Uniscaler V2':r'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
+             'Uniscaler V3':r'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
+             'Uniscaler V4':r'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
+             'Uniscaler FSR 3.1':r'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml'}
 def var_auto_expo_en():
     if select_mod in us_origin:
         folder_auto_expo = us_origin[select_mod]
@@ -2593,6 +2608,8 @@ def clean_mod():
     del_elden_fsr3_v3 = ['ERSS2.dll','dxgi.dll']
     
     del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
+
+    del_sh2_dlss = ['dxgi.dll','ReShade.ini','SH2UpscalerPreset.ini']
     
     del_fl4_fsr3 = ['f4se_whatsnew.txt','f4se_steam_loader.dll','f4se_readme.txt','f4se_loader.exe','f4se_1_10_163.dll',
                     'CustomControlMap.txt']
@@ -2841,7 +2858,7 @@ def clean_mod():
                     if optis_rdr2 in del_optiscaler_custom:
                         os.remove(os.path.join(select_folder,optis_rdr2))
             
-            optiscaler_rdr2_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+            optiscaler_rdr2_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
                 
             runReg(optiscaler_rdr2_reg)
                             
@@ -3031,6 +3048,12 @@ def clean_mod():
             # FSR 3.1.1/DLSS FG RTX Custom
             if select_mod == 'FSR 3.1.1/DLSS FG RTX Custom':
                 del_all_mods(del_dlss_rtx_custom,'Silent Hill 2')
+            
+            # DLSS FG RTX
+            if select_mod == 'DLSS FG RTX':
+                del_all_mods(del_sh2_dlss,'Silent Hill 2','reshade-shaders')
+                if os.path.exists(os.path.join(select_folder,'mods')):
+                    shutil.rmtree(os.path.join(select_folder,'mods'))
 
             # Ultra Plus
             if select_mod in ['Ultra Plus Complete','Ultra Plus Optimized']:
@@ -3102,6 +3125,16 @@ def clean_mod():
 
     except Exception as e:
             messagebox.showinfo("Until Dawn","Error clearing Until Dawn mods files, please try again or do it manually")
+
+    try:
+        if select_option == 'Hogwarts Legacy':
+            hl_remove_anti_stutter = 'mods\\FSR3_HL\\Anti Stutter\\Uninstall Hogwarts Legacy CPU Priority.reg'
+
+            # Anti Stutter
+            del_others_mods(os.path.join(select_folder,'AntiStutter.txt'), 'Do you want to remove the Anti Stutter?',hl_remove_anti_stutter)
+    
+    except Exception:
+        messagebox.showinfo("Hogwarts Legacy","Error clearing Hogwarts Legacy mods files, please try again or do it manually")
 
     try:
         if select_option == 'God Of War 4':
@@ -3192,7 +3225,7 @@ def clean_mod():
     try:
         if select_option == 'Alan Wake 2':
             path_old_iniaw2 = os.getenv("LOCALAPPDATA") + '\\Remedy\\AlanWake2\\renderer.ini'
-            path_new_iniaw2 = os.path.abspath(os.path.join(path_old_iniaw2,'..','..')) #Look for the backup file renderer.ini in the path C:\Users\YourName\AppData\Local\Remedy
+            path_new_iniaw2 = os.path.abspath(os.path.join(path_old_iniaw2,'..','..')) #Look for the backup file renderer.ini in the path C:\\Users\\YourName\\AppData\\Local\\Remedy
 
             if os.path.exists(path_new_iniaw2 + '\\renderer.ini'): 
                 restore_aw2_ini = messagebox.askyesno('Post-processing','Do you want to restore the post-processing effects?')
@@ -3214,7 +3247,7 @@ def clean_mod():
             if os.path.exists(os.path.join(select_folder,'Backup Dll')):
                 shutil.copytree(os.path.join(select_folder,'Backup Dll'),select_folder,dirs_exist_ok=True)
                 shutil.rmtree(os.path.join(select_folder,'Backup Dll'))
-        optiscaler_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+        optiscaler_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
             
         runReg(optiscaler_reg)
     except Exception:
@@ -3239,7 +3272,7 @@ def clean_mod():
                     if optis_custom_files in del_optiscaler_custom:
                         os.remove(os.path.join(select_folder,optis_custom_files))
             
-        optiscaler_custom_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+        optiscaler_custom_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
             
         runReg(optiscaler_custom_reg)
     except Exception:
@@ -3256,7 +3289,7 @@ def clean_mod():
                 if cod_rtx in del_dlss_rtx:
                     os.remove(os.path.join(select_folder,cod_rtx))  
 
-        cod_reg = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
+        cod_reg = "mods\\Addons_mods\\OptiScaler\\DisableSignatureOverride.reg"
             
         runReg(cod_reg)
     except Exception:
@@ -3289,7 +3322,7 @@ def clean_mod():
                     if wukong_files_rtx in del_dlss_to_fg:
                         os.remove(os.path.join(select_folder,wukong_files_rtx))
 
-                wukong_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+                wukong_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
 
                 runReg(wukong_reg)
 
@@ -3322,7 +3355,7 @@ def clean_mod():
             path_anti_stutter = select_folder + '\\Anti-Stutter - Utility.txt'
             if os.path.exists( path_anti_stutter):
                 if messagebox.askyesno('Remove Anti Stutter','Do you want to remove the Anti Stuttering?'):
-                    wukong_anti_stutter_reg = r"mods\FSR3_WUKONG\HIGH CPU Priority\Uninstall Black Myth Wukong High Priority Processes.reg"
+                    wukong_anti_stutter_reg = r"mods\\FSR3_WUKONG\\HIGH CPU Priority\\Uninstall Black Myth Wukong High Priority Processes.reg"
 
                     runReg(wukong_anti_stutter_reg)
 
@@ -3333,7 +3366,7 @@ def clean_mod():
 
     try:
         if select_option == 'Final Fantasy XVI':
-            ffxvi_reg = "mods\Addons_mods\OptiScaler\EnableSignatureOverride.reg"
+            ffxvi_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
             ffxvi_fix_list = ['UltimateASILoader_LICENSE.md','FFXVIFix.ini','FFXVIFix.asi','EXTRACT_TO_GAME_FOLDER','dinput8.dll']
 
             if os.path.exists(os.path.join(select_folder,'dlssg_to_fsr3_amd_is_better.dll')):
@@ -3351,7 +3384,7 @@ def clean_mod():
                     if ffxvi_rtx in del_dlss_rtx:
                         os.remove(os.path.join(select_folder,ffxvi_rtx))  
 
-            ffxvi_reg_global = "mods\Addons_mods\OptiScaler\DisableSignatureOverride.reg"
+            ffxvi_reg_global = "mods\\Addons_mods\\OptiScaler\\DisableSignatureOverride.reg"
 
             if os.path.exists(os.path.join(select_folder,'dlss_amd.txt') or os.path.join(select_folder,'dlss_rtx.txt')):   
                 runReg(ffxvi_reg_global)
@@ -3422,8 +3455,8 @@ def cbox_disable_console():
 
 def edit_disable_console():
     disable_console_list = {
-        '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-        '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+        '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+        '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
         'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
         'Uniscaler + Xess + Dlss':'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
         'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
@@ -3453,17 +3486,17 @@ disable_console_cbox.place(x=117,y=339)
 
 #Copies the lfz file, this file can make old mods work
 lfz_list = {
-'0.7.4':'mods\Temp\FSR2FSR3_0.7.4\lfz.sl.dlss',
-'0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\lfz.sl.dlss',
-'0.7.6':'mods\Temp\FSR2FSR3_0.7.6\lfz.sl.dlss',
-'0.8.0':'mods\Temp\FSR2FSR3_0.8.0\lfz.sl.dlssl',
-'0.9.0':'mods\Temp\FSR2FSR3_0.9.0\lfz.sl.dlss',
-'0.10.0':'mods\Temp\global _lfz',
-'0.10.1':'mods\Temp\global _lfz',
-'0.10.1h1':'mods\Temp\global _lfz',
-'0.10.2h1':'mods\Temp\global _lfz',
-'0.10.3':'mods\Temp\global _lfz',
-'0.10.4':'mods\Temp\global _lfz',
+'0.7.4':'mods\\Temp\\FSR2FSR3_0.7.4\\lfz.sl.dlss',
+'0.7.5':'mods\\Temp\\FSR2FSR3_0.7.5_hotfix\\lfz.sl.dlss',
+'0.7.6':'mods\\Temp\\FSR2FSR3_0.7.6\\lfz.sl.dlss',
+'0.8.0':'mods\\Temp\\FSR2FSR3_0.8.0\\lfz.sl.dlssl',
+'0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\lfz.sl.dlss',
+'0.10.0':'mods\\Temp\\global _lfz',
+'0.10.1':'mods\\Temp\\global _lfz',
+'0.10.1h1':'mods\\Temp\\global _lfz',
+'0.10.2h1':'mods\\Temp\\global _lfz',
+'0.10.3':'mods\\Temp\\global _lfz',
+'0.10.4':'mods\\Temp\\global _lfz',
 }
 
 def copy_lfz_sl ():
@@ -3509,15 +3542,15 @@ def cbox_debug_tear_lines():
 
 def edit_debug_tear_lines():
     debug_tear_lines_list = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -3552,15 +3585,15 @@ def cbox_debug_view():
 def edit_debug_view():
     global var_deb_view
     debug_view_mod_list = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -3589,7 +3622,7 @@ debug_view_cbox.place(x=290,y=309)
 #Helps the mod work in some specific games, for example, The Callisto Protocol, 2 values are added to the registry editor, the path is available in the .reg file in the Temp folder
 def enable_over():
     global list_over
-    folder_en_over = 'mods\Temp\enable signature override\EnableSignatureOverride.reg'
+    folder_en_over = 'mods\\Temp\\enable signature override\\EnableSignatureOverride.reg'
     list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1 Custom Wukong']
 
     if select_mod in list_over:
@@ -3597,7 +3630,7 @@ def enable_over():
 
 def disable_over():
     global list_over
-    folder_dis_over = 'mods\Temp\disable signature override\DisableSignatureOverride.reg'
+    folder_dis_over = 'mods\\Temp\\disable signature override\\DisableSignatureOverride.reg'
     if select_mod in list_over:
         subprocess.run(['regedit','/s',folder_dis_over],capture_output=True)
         
@@ -3657,7 +3690,7 @@ def copy_dxgi():
     global copy_all_dxgi
     
     dxgi_folders = {}
-    path_dxgi_global = 'mods\Temp\dxgi_global'
+    path_dxgi_global = 'mods\\Temp\\dxgi_global'
     for dxgi_key in  ['0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1',
                     '0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1']:
     
@@ -3739,7 +3772,7 @@ nvngx_listbox.place(x=520,y=420)
 nvngx_listbox.place_forget()
 uni_custom_listbox.lift(nvngx_canvas)
 
-nvngx_path_global = 'mods\Temp\\nvngx_global\\nvngx'
+nvngx_path_global = 'mods\\Temp\\nvngx_global\\nvngx'
 nvngx_folders = {}
 
 for nvn_key in [
@@ -3932,15 +3965,15 @@ native_res_label_down.place(x=548,y=325)
 
 def edit_fsr_custom(option_quality_fsr,fsr_ultraq_up_count_f):
     list_mod_custom_fsr = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4157,19 +4190,19 @@ def color_native_down(event=None):
 
 #Modifies the mod's operation through the .toml file, changing the GPU to RTX 4xxx to unlock Nvidia features
 folder_fake_gpu ={
-    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.4':'mods\\Temp\\FSR2FSR3_0.7.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'mods\\Temp\\FSR2FSR3_0.7.5_hotfix\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'mods\\Temp\\FSR2FSR3_0.7.6\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'mods\\Temp\\FSR2FSR3_0.8.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4284,15 +4317,15 @@ fakegpu_cbox.place(x=133,y=187)
 
 #Workaround graphical artifacts in Unreal Engine games when selecting DLSS
 list_ue = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4348,11 +4381,11 @@ ue_cbox.place(x=367,y=187)
 
 #Fixes issues with DLSS/FG not available on GTX GPUs
 list_nvapi = {
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4417,15 +4450,15 @@ nvapi_cbox.place(x=118,y=218)
 
 #Enable macOS-specific compatibility tweak
 list_macos = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4483,19 +4516,19 @@ macos_sup_cbox.place(x=387,y=217)
 
 #Deletes the .toml file modified by the user and replaces it with a new one
 default_path ={
-    '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.4':'mods\\Temp\\FSR2FSR3_0.7.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.5':'mods\\Temp\\FSR2FSR3_0.7.5_hotfix\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.7.6':'mods\\Temp\\FSR2FSR3_0.7.6\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.8.0':'mods\\Temp\\FSR2FSR3_0.8.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4515,19 +4548,19 @@ def replace_clean_file():
     clean_file_copy = ""
     if replace_flag:
         clean_file = {
-            '0.7.4':'mods\FSR2FSR3_0.7.4\enable_fake_gpu',
-            '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-            '0.7.6':'mods\FSR2FSR3_0.7.6\enable_fake_gpu',
-            '0.8.0':'mods\FSR2FSR3_0.8.0\enable_fake_gpu',
-            '0.9.0':'mods\FSR2FSR3_0.9.0\enable_fake_gpu',
-            '0.10.0':'mods\FSR2FSR3_0.10.0\enable_fake_gpu',
-            '0.10.1':'mods\FSR2FSR3_0.10.1\enable_fake_gpu',
-            '0.10.1h1':'mods\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-            '0.10.2h1':'mods\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'mods\FSR2FSR3_0.10.3\enable_fake_gpu',
-            '0.10.4':'mods\FSR2FSR3_0.10.4\enable_fake_gpu',
+            '0.7.4':'mods\\FSR2FSR3_0.7.4\\enable_fake_gpu',
+            '0.7.5':'mods\\FSR2FSR3_0.7.5_hotfix\\enable_fake_gpu',
+            '0.7.6':'mods\\FSR2FSR3_0.7.6\\enable_fake_gpu',
+            '0.8.0':'mods\\FSR2FSR3_0.8.0\\enable_fake_gpu',
+            '0.9.0':'mods\\FSR2FSR3_0.9.0\\enable_fake_gpu',
+            '0.10.0':'mods\\FSR2FSR3_0.10.0\\enable_fake_gpu',
+            '0.10.1':'mods\\FSR2FSR3_0.10.1\\enable_fake_gpu',
+            '0.10.1h1':'mods\\FSR2FSR3_0.10.1h1\\enable_fake_gpu',
+            '0.10.2h1':'mods\\FSR2FSR3_0.10.2h1\\enable_fake_gpu',
+            '0.10.3':'mods\\FSR2FSR3_0.10.3\\enable_fake_gpu',
+            '0.10.4':'mods\\FSR2FSR3_0.10.4\\enable_fake_gpu',
             'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\enable_fake_gpu',
-            'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
+            'Uniscaler + Xess + Dlss':r'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu',
             'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu',
             'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\enable_fake_gpu',
             'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\enable_fake_gpu',
@@ -4539,19 +4572,19 @@ def replace_clean_file():
         }
         
         clean_file_rep = {
-            '0.7.4':'mods\Temp\FSR2FSR3_0.7.4\enable_fake_gpu',
-            '0.7.5':'mods\Temp\FSR2FSR3_0.7.5_hotfix\enable_fake_gpu',
-            '0.7.6':'mods\Temp\FSR2FSR3_0.7.6\enable_fake_gpu',
-            '0.8.0':'mods\Temp\FSR2FSR3_0.8.0\enable_fake_gpu',
-            '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu',
-            '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu',
-            '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu',
-            '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu',
-            '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu',
-            '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu',
-            '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu',
+            '0.7.4':'mods\\Temp\\FSR2FSR3_0.7.4\\enable_fake_gpu',
+            '0.7.5':'mods\\Temp\\FSR2FSR3_0.7.5_hotfix\\enable_fake_gpu',
+            '0.7.6':'mods\\Temp\\FSR2FSR3_0.7.6\\enable_fake_gpu',
+            '0.8.0':'mods\\Temp\\FSR2FSR3_0.8.0\\enable_fake_gpu',
+            '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu',
+            '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu',
+            '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu',
+            '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu',
+            '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu',
+            '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu',
+            '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu',
             'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu',
-            'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu',
+            'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu',
             'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu',
             'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu',
             'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu',
@@ -4681,15 +4714,15 @@ def unlock_sharp():
 def edit_sharpeness_up():
     global unlock_cbox_sharp
     list_mod_sharpness={
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -4851,15 +4884,15 @@ def edit_mod_operates():
     global select_mod_op_options,options_mod_op
     mod_operates_folder = None
     mod_folder_list = {
-    '0.9.0':'mods\Temp\FSR2FSR3_0.9.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.0':'mods\Temp\FSR2FSR3_0.10.0\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1':'mods\Temp\FSR2FSR3_0.10.1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.1h1':'mods\Temp\FSR2FSR3_0.10.1h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.2h1':'mods\Temp\FSR2FSR3_0.10.2h1\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.3':'mods\Temp\FSR2FSR3_0.10.3\enable_fake_gpu\\fsr2fsr3.config.toml',
-    '0.10.4':'mods\Temp\FSR2FSR3_0.10.4\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.0':'mods\\Temp\\FSR2FSR3_0.10.0\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1':'mods\\Temp\\FSR2FSR3_0.10.1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.1h1':'mods\\Temp\\FSR2FSR3_0.10.1h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.2h1':'mods\\Temp\\FSR2FSR3_0.10.2h1\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.3':'mods\\Temp\\FSR2FSR3_0.10.3\\enable_fake_gpu\\fsr2fsr3.config.toml',
+    '0.10.4':'mods\\Temp\\FSR2FSR3_0.10.4\\enable_fake_gpu\\fsr2fsr3.config.toml',
     'Uniscaler':'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uniscaler + Xess + Dlss':r'mods\Temp\FSR2FSR3_Uniscaler_Xess_Dlss\enable_fake_gpu\uniscaler.config.toml',
+    'Uniscaler + Xess + Dlss':r'mods\\Temp\\FSR2FSR3_Uniscaler_Xess_Dlss\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
@@ -5020,10 +5053,10 @@ def search_game_exe(event=None):
         if select_option is not None:
             game_select = select_option.replace(":", "").replace(" ", "")
             
-        path_steam = 'Program Files (x86)\Steam\steamapps\common'
-        alt_path_steam = 'SteamLibrary\steamapps\common'
+        path_steam = 'Program Files (x86)\\Steam\\steamapps\\common'
+        alt_path_steam = 'SteamLibrary\\steamapps\\common'
         
-        path_epic = 'Program Files\Epic Games'
+        path_epic = 'Program Files\\Epic Games'
         alt_path_epic = 'Epic Games'
         
         game_select_tlou = select_option
@@ -5074,7 +5107,7 @@ def search_game_exe(event=None):
                 elif select_option == 'Hellblade: Senua\'s Sacrifice':
                     auto_search(path_steam, alt_path_steam,hellbalde_name,'Hellblade')
                 elif select_option == 'Hogwarts Legacy':
-                    auto_search(path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64', alt_path_steam+'\Hogwarts Legacy\Phoenix\Binaries\Win64',hogw_name,'Hogwarts Legacy')
+                    auto_search(path_steam+'\\Hogwarts Legacy\\Phoenix\\Binaries\\Win64', alt_path_steam+'\\Hogwarts Legacy\\Phoenix\\Binaries\\Win64',hogw_name,'Hogwarts Legacy')
                 elif select_option == 'Lies of P':
                     auto_search(path_steam, alt_path_steam,lop_name,'Lies of P')     
                 elif select_option == 'Everspace 2':     
@@ -5095,73 +5128,73 @@ def search_game_exe(event=None):
                
 asi_global={
     '0.7.4':{
-        '2.0':'mods\ASI\\ASI_0_7_4\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_7_4\\2.0',
         '2.1':'mods\\ASI\\ASI_0_7_4\\2.1',
         '2.2':'mods\\ASI\\ASI_0_7_4\\2.2',
         'SDK':'mods\\ASI\\ASI_0_7_4\\SDK',
     },
     '0.7.5':{
-        '2.0':'mods\ASI\\ASI_0_7_5\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_7_5\\2.0',
         '2.1':'mods\\ASI\\ASI_0_7_5\\2.1',
         '2.2':'mods\\ASI\\ASI_0_7_5\\2.2',
         'SDK':'mods\\ASI\\ASI_0_7_5\\SDK',
     },
     '0.7.6':{
-        '2.0':'mods\ASI\\ASI_0_7_6\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_7_6\\2.0',
         '2.1':'mods\\ASI\\ASI_0_7_6\\2.1',
         '2.2':'mods\\ASI\\ASI_0_7_6\\2.2',
         'SDK':'mods\\ASI\\ASI_0_7_6\\SDK',
     },
     '0.8.0':{
-        '2.0':'mods\ASI\\ASI_0_8_0\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_8_0\\2.0',
         '2.1':'mods\\ASI\\ASI_0_8_0\\2.1',
         '2.2':'mods\\ASI\\ASI_0_8_0\\2.2',
         'SDK':'mods\\ASI\\ASI_0_8_0\\SDK',
     },
     '0.9.0':{
-        '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_9_0\\2.0',
         '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
         '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
         'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2'
     },
     '0.10.0':{
-        '2.0':'mods\ASI\\ASI_0_10_0\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_0\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2',
     },
     '0.10.1':{
-        '2.0':'mods\ASI\\ASI_0_10_1\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2',
     },
     '0.10.1h1':{
-        '2.0':'mods\ASI\\ASI_0_10_1h1\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_1h1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1h1\\Red Dead Redemption 2',
     },
     '0.10.2h1':{
-        '2.0':'mods\ASI\\ASI_0_10_2h1\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_2h1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2',
     },
     '0.10.3':{
-        '2.0':'mods\ASI\\ASI_0_10_3\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_3\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
-        'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2',
     },
     '0.10.4':{
-        '2.0':'mods\ASI\\ASI_0_10_4\\2.0',
+        '2.0':'mods\\ASI\\ASI_0_10_4\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_4\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_4\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
@@ -5182,7 +5215,7 @@ asi_global={
         'Uniscaler FSR 3.1':'mods\\ASI\\ASI_uniscaler_v3'
     },
     'Uniscaler + Xess + Dlss':{
-        'Uniscaler + Xess + Dlss':r'mods\ASI\ASI_uniscaler_xess_dlss'
+        'Uniscaler + Xess + Dlss':r'mods\\ASI\\ASI_uniscaler_xess_dlss'
     }
 }
 
@@ -5194,37 +5227,37 @@ def runReg(path_reg):
 origins_2_2 = None
     
 origins_2_2_folder = {
-    '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_220',
+    '0.7.4':'mods\\FSR2FSR3_0.7.4\\FSR2FSR3_220',
     
-    '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_220',
+    '0.7.5':'mods\\FSR2FSR3_0.7.5_hotfix\\FSR2FSR3_220',
     
-    '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_220',
+    '0.7.6':'mods\\FSR2FSR3_0.7.6\\FSR2FSR3_220',
     
-    '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_220',
+    '0.8.0':'mods\\FSR2FSR3_0.8.0\\FSR2FSR3_220',
     
-    '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+    '0.9.0':['mods\\FSR2FSR3_0.9.0\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
     
-    '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+    '0.10.0':['mods\\FSR2FSR3_0.10.0\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON'],
     
-    '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+    '0.10.1':['mods\\FSR2FSR3_0.10.1\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON'],
     
     '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_220',
                 'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
     
-    '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+    '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON'],
     
-    '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+    '0.10.3':['mods\\FSR2FSR3_0.10.3\\Generic FSR\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON'],
     
-    '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_220',
-                'mods\FSR2FSR3_0.10.4\FSR2FSR3_220\FSR2FSR3_COMMON'],
+    '0.10.4':['mods\\FSR2FSR3_0.10.4\\FSR2FSR3_220\\FSR2FSR3_220',
+                'mods\\FSR2FSR3_0.10.4\\FSR2FSR3_220\\FSR2FSR3_COMMON'],
     
     'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-    'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod',
+    'Uniscaler + Xess + Dlss':r'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
     'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
     'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
     'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\Uni_V4\\Uni_Mod',
@@ -5290,37 +5323,37 @@ def fsr_2_2():
 def fsr_2_1():
     
     origins_2_1_folder = {
-        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_212',
+        '0.7.4':'mods\\FSR2FSR3_0.7.4\\FSR2FSR3_212',
         
-        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_212',
+        '0.7.5':'mods\\FSR2FSR3_0.7.5_hotfix\\FSR2FSR3_212',
         
-        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_212',
+        '0.7.6':'mods\\FSR2FSR3_0.7.6\\FSR2FSR3_212',
         
-        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_212',
+        '0.8.0':'mods\\FSR2FSR3_0.8.0\\FSR2FSR3_212',
         
-        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_210',
-                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\\FSR2FSR3_0.9.0\\Generic FSR\\FSR2FSR3_210',
+                 'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
         
-        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_210',
-                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\\FSR2FSR3_0.10.0\\Generic FSR\\FSR2FSR3_210',
+                  'mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON'],
         
-        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_210',
-                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\\FSR2FSR3_0.10.1\\Generic FSR\\FSR2FSR3_210',
+                    'mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON'],
         
         '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_210',
                     'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_210',
-                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\Generic FSR\\FSR2FSR3_210',
+                    'mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON'],
         
-        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_210',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        '0.10.3':['mods\\FSR2FSR3_0.10.3\\Generic FSR\\FSR2FSR3_210',
+                  'mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON'],
         
-        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_210',
-                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_210\FSR2FSR3_COMMON'],
+        '0.10.4':['mods\\FSR2FSR3_0.10.4\\FSR2FSR3_210\\FSR2FSR3_210',
+                  'mods\\FSR2FSR3_0.10.4\\FSR2FSR3_210\\FSR2FSR3_COMMON'],
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod',
+        'Uniscaler + Xess + Dlss':r'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
         'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
         'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
         'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\Uni_V4\\Uni_Mod',
@@ -5384,37 +5417,37 @@ def fsr_2_0():
     global select_option,asi_global
     
     origins_2_0_folder = {
-        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_201',
+        '0.7.4':'mods\\FSR2FSR3_0.7.4\\FSR2FSR3_201',
         
-        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_201',
+        '0.7.5':'mods\\FSR2FSR3_0.7.5_hotfix\\FSR2FSR3_201',
         
-        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_201',
+        '0.7.6':'mods\\FSR2FSR3_0.7.6\\FSR2FSR3_201',
         
-        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_201',
+        '0.8.0':'mods\\FSR2FSR3_0.8.0\\FSR2FSR3_201',
         
-        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_200',
-                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\\FSR2FSR3_0.9.0\\Generic FSR\\FSR2FSR3_200',
+                 'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
         
-        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_200',
-                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\\FSR2FSR3_0.10.0\\Generic FSR\\FSR2FSR3_200',
+                  'mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON'],
         
-        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_200',
-                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\\FSR2FSR3_0.10.1\\Generic FSR\\FSR2FSR3_200',
+                    'mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON'],
         
         '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_200',
                     'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_200',
-                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\Generic FSR\\FSR2FSR3_200',
+                    'mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON'],
         
-        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_200',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        '0.10.3':['mods\\FSR2FSR3_0.10.3\\Generic FSR\\FSR2FSR3_200',
+                  'mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON'],
         
-        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_200',
-                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_200\FSR2FSR3_COMMON'],
+        '0.10.4':['mods\\FSR2FSR3_0.10.4\\FSR2FSR3_200\\FSR2FSR3_200',
+                  'mods\\FSR2FSR3_0.10.4\\FSR2FSR3_200\\FSR2FSR3_COMMON'],
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod',
+        'Uniscaler + Xess + Dlss':r'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
         'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
         'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
         'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\Uni_V4\\Uni_Mod',
@@ -5476,37 +5509,37 @@ def fsr_sdk():
     global select_fsr,asi_global
     
     origins_sdk_folder = {
-        '0.7.4':'mods\FSR2FSR3_0.7.4\FSR2FSR3_SDK',
+        '0.7.4':'mods\\FSR2FSR3_0.7.4\\FSR2FSR3_SDK',
         
-        '0.7.5':'mods\FSR2FSR3_0.7.5_hotfix\FSR2FSR3_SDK',
+        '0.7.5':'mods\\FSR2FSR3_0.7.5_hotfix\\FSR2FSR3_SDK',
         
-        '0.7.6':'mods\FSR2FSR3_0.7.6\FSR2FSR3_SDK',
+        '0.7.6':'mods\\FSR2FSR3_0.7.6\\FSR2FSR3_SDK',
         
-        '0.8.0':'mods\FSR2FSR3_0.8.0\FSR2FSR3_SDK',
+        '0.8.0':'mods\\FSR2FSR3_0.8.0\\FSR2FSR3_SDK',
         
-        '0.9.0':['mods\FSR2FSR3_0.9.0\Generic FSR\FSR2FSR3_SDK',
-                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\\FSR2FSR3_0.9.0\\Generic FSR\\FSR2FSR3_SDK',
+                 'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
         
-        '0.10.0':['mods\FSR2FSR3_0.10.0\Generic FSR\FSR2FSR3_SDK',
-                  'mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON'],
+        '0.10.0':['mods\\FSR2FSR3_0.10.0\\Generic FSR\\FSR2FSR3_SDK',
+                  'mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON'],
         
-        '0.10.1':['mods\FSR2FSR3_0.10.1\Generic FSR\FSR2FSR3_SDK',
-                    'mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON'],
+        '0.10.1':['mods\\FSR2FSR3_0.10.1\\Generic FSR\\FSR2FSR3_SDK',
+                    'mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON'],
         
         '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Generic FSR\\FSR2FSR3_SDK',
                     'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON'],
         
-        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\Generic FSR\FSR2FSR3_SDK',
-                    'mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON'],
+        '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\Generic FSR\\FSR2FSR3_SDK',
+                    'mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON'],
         
-        '0.10.3':['mods\FSR2FSR3_0.10.3\Generic FSR\FSR2FSR3_SDK',
-                  'mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON'],
+        '0.10.3':['mods\\FSR2FSR3_0.10.3\\Generic FSR\\FSR2FSR3_SDK',
+                  'mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON'],
         
-        '0.10.4':['mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_SDK',
-                  'mods\FSR2FSR3_0.10.4\FSR2FSR3_SDK\FSR2FSR3_COMMON'],
+        '0.10.4':['mods\\FSR2FSR3_0.10.4\\FSR2FSR3_SDK\\FSR2FSR3_SDK',
+                  'mods\\FSR2FSR3_0.10.4\\FSR2FSR3_SDK\\FSR2FSR3_COMMON'],
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':r'mods\FSR2FSR3_Uniscaler_Xess_Dlss\Uniscaler_mod\Uniscaler_mod',
+        'Uniscaler + Xess + Dlss':r'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
         'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
         'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
         'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\Uni_V4\\Uni_Mod',
@@ -5564,26 +5597,26 @@ def fsr_sdk():
         print(e)
 
 origins_rdr2_folder = {
-        '0.9.0':['mods\FSR2FSR3_0.9.0\Red Dead Redemption 2',
-                 'mods\FSR2FSR3_0.9.0\FSR2FSR3_COMMON'],
+        '0.9.0':['mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2',
+                 'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
         
-        '0.10.0':['mods\FSR2FSR3_0.10.0\FSR2FSR3_COMMON',
-                  'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2'],
+        '0.10.0':['mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON',
+                  'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2'],
         
-        '0.10.1':['mods\FSR2FSR3_0.10.1\FSR2FSR3_COMMON',
-                    'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2'],
+        '0.10.1':['mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON',
+                    'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2'],
         
-        '0.10.1h1':['mods\FSR2FSR3_0.10.1h1\\0.10.1h1\FSR2FSR3_COMMON',
-                    'mods\FSR2FSR3_0.10.1h1\\0.10.1h1\Red Dead Redemption 2'],
+        '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON',
+                    'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Red Dead Redemption 2'],
         
-        '0.10.2h1':['mods\FSR2FSR3_0.10.2h1\FSR2FSR3_COMMON',
-                    'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2'],
+        '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON',
+                    'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2'],
         
-        '0.10.3':['mods\FSR2FSR3_0.10.3\FSR2FSR3_COMMON',
-                  'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2'],
+        '0.10.3':['mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON',
+                  'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2'],
         
-        '0.10.4':['mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\FSR2FSR3_COMMON',
-                  'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'],
+        '0.10.4':['mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\FSR2FSR3_COMMON',
+                  'mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\RDR2_FSR'],
         
         'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
         'Uniscaler + Xess + Dlss':'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
@@ -5608,7 +5641,7 @@ def xess_fsr():
         shutil.copytree(path_xess,select_folder,dirs_exist_ok=True)
 
 def dlss_fsr():
-    path_dlss = r'mods\FSR2FSR3_Uniscaler\nvngx_dlss_3.7.0'
+    path_dlss = r'mods\\FSR2FSR3_Uniscaler\nvngx_dlss_3.7.0'
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
     name_old_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
@@ -5636,7 +5669,7 @@ def global_dlss():
     runReg(dlss_global_reg)
 
 def dlss_to_fsr():
-    path_dlss_to_fsr = 'mods\DLSS_TO_FSR'
+    path_dlss_to_fsr = 'mods\\DLSS_TO_FSR'
     dlss_to_fsr_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
     shutil.copytree(path_dlss_to_fsr,select_folder,dirs_exist_ok=True)
@@ -5666,46 +5699,46 @@ def fsr_rdr2():
             
     asi_rdr2_0_9={
         '0.9.0':{
-            '2.0':'mods\ASI\\ASI_0_9_0\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_9_0\\2.0',
             '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
             '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
             'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.9.0\Red Dead Redemption 2'
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2'
         },
         '0.10.0':{
-            '2.0':'mods\ASI\\ASI_0_10_0\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_10_0\\2.0',
             '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.0\Red Dead Redemption 2',
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2',
         },
         '0.10.1':{
-            '2.0':'mods\ASI\\ASI_0_10_1\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_10_1\\2.0',
             '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1\Red Dead Redemption 2',
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2',
         },
         '0.10.1h1':{
-            '2.0':'mods\ASI\\ASI_0_10_1h1\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_10_1h1\\2.0',
             '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.1h1\Red Dead Redemption 2',
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1h1\\Red Dead Redemption 2',
         },
         '0.10.2h1':{
-            '2.0':'mods\ASI\\ASI_0_10_2h1\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_10_2h1\\2.0',
             '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.2h1\Red Dead Redemption 2',
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2',
         },
         '0.10.3':{
-            '2.0':'mods\ASI\\ASI_0_10_3\\2.0',
+            '2.0':'mods\\ASI\\ASI_0_10_3\\2.0',
             '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.3\Red Dead Redemption 2',
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2',
         },
         
         '0.10.4':{
@@ -5713,49 +5746,49 @@ def fsr_rdr2():
             '2.1':'mods\\ASI\\ASI_0_10_4\\2.1',
             '2.2':'mods\\ASI\\ASI_0_10_4\\2.2',
             'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
-            'ASI Loader for RDR2':'mods\FSR2FSR3_0.10.4\Red Dead Redemption 2\RDR2_FSR'
+            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\RDR2_FSR'
         },
        'Uniscaler':{
-            '2.0':'mods\\ASI\ASI_uniscaler',
-            '2.1':'mods\\ASI\ASI_uniscaler',
-            '2.2':'mods\\ASI\ASI_uniscaler',
-            'SDK':'mods\\ASI\ASI_uniscaler',
+            '2.0':'mods\\ASI\\ASI_uniscaler',
+            '2.1':'mods\\ASI\\ASI_uniscaler',
+            '2.2':'mods\\ASI\\ASI_uniscaler',
+            'SDK':'mods\\ASI\\ASI_uniscaler',
             'ASI Loader for RDR2':'mods\\ASI\\ASI_uniscaler'
         },
        'Uniscaler + Xess + Dlss':{
-            '2.0':r'mods\ASI\ASI_uniscaler_xess_dlss',
-            '2.1':r'mods\ASI\ASI_uniscaler_xess_dlss',
-            '2.2':r'mods\ASI\ASI_uniscaler_xess_dlss',
-            'SDK':r'mods\ASI\ASI_uniscaler_xess_dlss',
-            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_xess_dlss'
+            '2.0':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
+            '2.1':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
+            '2.2':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
+            'SDK':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
+            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_xess_dlss'
        },
        'Uniscaler V2':{
-            '2.0':r'mods\ASI\ASI_uniscaler_v2',
-            '2.1':r'mods\ASI\ASI_uniscaler_v2',
-            '2.2':r'mods\ASI\ASI_uniscaler_v2',
-            'SDK':r'mods\ASI\ASI_uniscaler_v2',
-            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_v2'
+            '2.0':r'mods\\ASI\\ASI_uniscaler_v2',
+            '2.1':r'mods\\ASI\\ASI_uniscaler_v2',
+            '2.2':r'mods\\ASI\\ASI_uniscaler_v2',
+            'SDK':r'mods\\ASI\\ASI_uniscaler_v2',
+            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v2'
        },
        'Uniscaler V3':{
-           '2.0':r'mods\ASI\ASI_uniscaler_v3',
-            '2.1':r'mods\ASI\ASI_uniscaler_v3',
-            '2.2':r'mods\ASI\ASI_uniscaler_v3',
-            'SDK':r'mods\ASI\ASI_uniscaler_v3',
-            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_v3'
+           '2.0':r'mods\\ASI\\ASI_uniscaler_v3',
+            '2.1':r'mods\\ASI\\ASI_uniscaler_v3',
+            '2.2':r'mods\\ASI\\ASI_uniscaler_v3',
+            'SDK':r'mods\\ASI\\ASI_uniscaler_v3',
+            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v3'
        },
         'Uniscaler V4':{
-           '2.0':r'mods\ASI\ASI_uniscaler_v4',
-            '2.1':r'mods\ASI\ASI_uniscaler_v4',
-            '2.2':r'mods\ASI\ASI_uniscaler_v4',
-            'SDK':r'mods\ASI\ASI_uniscaler_v4',
-            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_v4'
+           '2.0':r'mods\\ASI\\ASI_uniscaler_v4',
+            '2.1':r'mods\\ASI\\ASI_uniscaler_v4',
+            '2.2':r'mods\\ASI\\ASI_uniscaler_v4',
+            'SDK':r'mods\\ASI\\ASI_uniscaler_v4',
+            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v4'
        },
        'Uniscaler FSR 3.1':{
-           '2.0':r'mods\ASI\ASI_uniscaler_31',
-            '2.1':r'mods\ASI\ASI_uniscaler_31',
-            '2.2':r'mods\ASI\ASI_uniscaler_31',
-            'SDK':r'mods\ASI\ASI_uniscaler_31',
-            'ASI Loader for RDR2':r'mods\ASI\ASI_uniscaler_31'
+           '2.0':r'mods\\ASI\\ASI_uniscaler_31',
+            '2.1':r'mods\\ASI\\ASI_uniscaler_31',
+            '2.2':r'mods\\ASI\\ASI_uniscaler_31',
+            'SDK':r'mods\\ASI\\ASI_uniscaler_31',
+            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_31'
        }    
     }
 
@@ -5846,15 +5879,15 @@ dd2_fsr31_list = ['FSR 3.1/DLSS ALL GPU']
 def dd2_fsr():
     global dd2_folder,var_d_put
 
-    dd2_reg = "mods\Temp\enable signature override\EnableSignatureOverride.reg"
-    dd2_reg2 = "mods\FSR2FSR3_DD2_FSR31\DD2_DLSS\DisableNvidiaSignatureChecks.reg"
+    dd2_reg = "mods\\Temp\\enable signature override\\EnableSignatureOverride.reg"
+    dd2_reg2 = "mods\\FSR2FSR3_DD2_FSR31\\DD2_DLSS\\DisableNvidiaSignatureChecks.reg"
     
     var_d_put = False
     
     if select_mod in dd2_folder:
         origins_dd2 = dd2_folder[select_mod]
     
-    d_put_path = os.path.join(r'mods\FSR3_DD2\dinput\dinput8.dll')
+    d_put_path = os.path.join(r'mods\\FSR3_DD2\\dinput\\dinput8.dll')
       
     if select_mod == 'Dinput8':  
         shutil.copy2(d_put_path, select_folder)
@@ -5880,9 +5913,9 @@ def dd2_fsr():
         else:
             update_ini('mods\\Temp\\Optiscaler_DD2\\nvngx.ini','Dx12Upscaler','xess')
 
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Re_Framework',select_folder,dirs_exist_ok=True)
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\DD2_DLSS',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\Re_Framework',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\DD2_DLSS',select_folder,dirs_exist_ok=True)
         shutil.copy2('mods\\Temp\\Optiscaler_DD2\\nvngx.ini',select_folder)
         shutil.copy2('mods\\FSR2FSR3_DD2_FSR31\\Optiscaler_DD2\\nvngx.ini','mods\\Temp\\Optiscaler_DD2\\nvngx.ini') #Replace the modified .ini file with a clean .ini file.
         runReg(dd2_reg)
@@ -5894,9 +5927,9 @@ def dd2_fsr():
     elif select_mod == 'FSR 3.1/DLSS DD2 NVIDIA':
         var_d_put = True #Allows the installation of the mod for DD2
 
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\Re_Framework',select_folder,dirs_exist_ok=True)
-        shutil.copytree('mods\FSR2FSR3_DD2_FSR31\DD2_NVIDIA',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\Optiscaler_DD2',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\Re_Framework',select_folder,dirs_exist_ok=True)
+        shutil.copytree('mods\\FSR2FSR3_DD2_FSR31\\DD2_NVIDIA',select_folder,dirs_exist_ok=True)
         subprocess.run(dd2_reg,check=True)
         subprocess.run(dd2_reg2,check=True)
 
@@ -5913,8 +5946,8 @@ def us_dd2(var_d_put,origins_dd2):
     
     if os.path.exists(os.path.join(select_folder, '_storage_')):
         storage_path = os.path.join(select_folder,'_storage_')
-        us_path = os.path.join(r'mods\FSR2FSR3_Uniscaler\Uniscaler_4\Uniscaler mod\winmm.dll')
-        all_us_path = os.path.join(r'mods\FSR2FSR3_Uniscaler\Uniscaler_4\Uniscaler mod')
+        us_path = os.path.join(r'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod\\winmm.dll')
+        all_us_path = os.path.join(r'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod')
         
         shutil.copy(us_path, storage_path)
         shutil.copytree(all_us_path, select_folder, dirs_exist_ok=True)
@@ -5927,10 +5960,10 @@ def us_dd2(var_d_put,origins_dd2):
                 if shader_c2 in del_shader:
                     os.remove(os.path.join(select_folder,shader_c2))
 
-er_origins = {'Disable_Anti-Cheat':'mods\Elden_Ring_FSR3\ToggleAntiCheat',
-              'Elden_Ring_FSR3':'mods\Elden_Ring_FSR3\EldenRing_FSR3',
-              'Elden_Ring_FSR3 V2':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v2',
-              'Elden_Ring_FSR3_V3':'mods\Elden_Ring_FSR3\EldenRing_FSR3 v3',
+er_origins = {'Disable_Anti-Cheat':'mods\\Elden_Ring_FSR3\\ToggleAntiCheat',
+              'Elden_Ring_FSR3':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3',
+              'Elden_Ring_FSR3 V2':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3 v2',
+              'Elden_Ring_FSR3_V3':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3 v3',
               }
 
 def elden_fsr3():
@@ -5998,16 +6031,16 @@ def callisto_fsr():
         shutil.copy(path_real_life,select_folder)
 
 def fallout_fsr():
-    high_fps_path = 'mods\FSR3_Fallout4\High FPS Physics'
-    f4se_plugins = 'mods\FSR3_Fallout4\Addres Library'
-    fl4_ups_rtx = 'mods\FSR3_Fallout4\Fallout_Upscaler_RTX'
-    fl4_ot_gpus = 'mods\FSR3_Fallout4\Fallout_Upscaler_Others'
-    loader_fl4 = 'mods\FSR3_Fallout4\Loader_Fallout4'
+    high_fps_path = 'mods\\FSR3_Fallout4\\High FPS Physics'
+    f4se_plugins = 'mods\\FSR3_Fallout4\\Addres Library'
+    fl4_ups_rtx = 'mods\\FSR3_Fallout4\\Fallout_Upscaler_RTX'
+    fl4_ot_gpus = 'mods\\FSR3_Fallout4\\Fallout_Upscaler_Others'
+    loader_fl4 = 'mods\\FSR3_Fallout4\\Loader_Fallout4'
     path_data = os.path.join(select_folder,'Data')
-    not_loader_fl4 = 'mods\FSR3_Fallout4\Loader_Fallout4_TRUE3DSOUND_Compatible'
-    f4se_fl4 = 'mods\FSR3_Fallout4\\f4se_0_06_23\\f4se_0_06_23'
-    path_ini_fps = os.path.join(select_folder,r'Data\Data\\F4SE\\Plugins\\HighFPSPhysicsFix.ini')
-    path_sym_link = 'mods\FSR3_Fallout4\SymlinkCreator.exe'
+    not_loader_fl4 = 'mods\\FSR3_Fallout4\\Loader_Fallout4_TRUE3DSOUND_Compatible'
+    f4se_fl4 = 'mods\\FSR3_Fallout4\\f4se_0_06_23\\f4se_0_06_23'
+    path_ini_fps = os.path.join(select_folder,r'Data\\Data\\F4SE\\Plugins\\HighFPSPhysicsFix.ini')
+    path_sym_link = 'mods\\FSR3_Fallout4\\SymlinkCreator.exe'
     
     gpu_ups = messagebox.askyesno('Select GPU','Do you own an RTX 4xxx?')
     
@@ -6031,7 +6064,7 @@ def fallout_fsr():
                 shutil.copytree(fl4_ot_gpus,path_data, dirs_exist_ok=True)
 
             if not os.path.exists(path_ini_fps):
-                messagebox.showinfo('Error','File HighFPSPhysicsFix.ini not found, please check if the file is in the folder with the ending Data\Data\F4SE\Plugins, if necessary reinstall the mod.')
+                messagebox.showinfo('Error','File HighFPSPhysicsFix.ini not found, please check if the file is in the folder with the ending Data\\Data\\F4SE\\Plugins, if necessary reinstall the mod.')
             else:
                 config_fps = ConfigObj(path_ini_fps)
 
@@ -6065,7 +6098,7 @@ def fh_fsr3():
     path_rtx = 'mods\\FSR3_FH\\RTX'
     path_ot_gpu = 'mods\\FSR3_FH\\Ot_Gpu'
     
-    en_rtx_reg = "mods\\FSR3_FH\RTX\\DisableNvidiaSignatureChecks.reg"
+    en_rtx_reg = "mods\\FSR3_FH\\RTX\\DisableNvidiaSignatureChecks.reg"
     
     if var_gpu:
         shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
@@ -6532,12 +6565,12 @@ def copy_if_exists(folder_path, dest_path,message,dirs_exist = True):
         print(e)
 
 def wukong_fsr3():
-    wukong_stutter_reg =  r"mods\FSR3_WUKONG\HIGH CPU Priority\Install Black Myth Wukong High Priority Processes.reg"
-    wukong_file_optimized = r'mods\FSR3_WUKONG\BMWK\BMWK - SPF'
-    wukong_graphic_preset = r'mods\FSR3_WUKONG\Graphic Preset'
-    wukong_ue4_map = r"mods\FSR3_WUKONG\Map\WukongUE4SS"
-    wukong_map = r"mods\FSR3_WUKONG\Map\b1"
-    wukong_hdr = r"mods\FSR3_WUKONG\HDR"
+    wukong_stutter_reg =  r"mods\\FSR3_WUKONG\\HIGH CPU Priority\\Install Black Myth Wukong High Priority Processes.reg"
+    wukong_file_optimized = r'mods\\FSR3_WUKONG\\BMWK\\BMWK - SPF'
+    wukong_graphic_preset = r'mods\\FSR3_WUKONG\\Graphic Preset'
+    wukong_ue4_map = r"mods\\FSR3_WUKONG\\Map\\WukongUE4SS"
+    wukong_map = r"mods\\FSR3_WUKONG\\Map\\b1"
+    wukong_hdr = r"mods\\FSR3_WUKONG\\HDR"
     full_path_wukong = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     path_fsr31_wukong = 'mods\\FSR3_WUKONG\\WukongFSR31\\FSR31_Wukong'
     cache_wukong = os.path.join(os.getenv('USERPROFILE'), 'AppData')
@@ -6570,7 +6603,7 @@ def wukong_fsr3():
         'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
         lambda _: (
             runReg(wukong_stutter_reg),
-            shutil.copy(r'mods\FSR3_WUKONG\HIGH CPU Priority\Anti-Stutter - Utility.txt', select_folder)
+            shutil.copy(r'mods\\FSR3_WUKONG\\HIGH CPU Priority\\Anti-Stutter - Utility.txt', select_folder)
             )
         )
 
@@ -6598,7 +6631,7 @@ def wukong_fsr3():
         if view_message_wukong or wukong_optimized:
             messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
     else:
-        messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\Binaries\Win64')
+        messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\\Binaries\\Win64')
 
 # Modify the ini file to remove post-processing effects
 def Remove_ini_effect(key_ini, value_ini, path_ini, message_path_not_found, message_hb2 = None):
@@ -6822,8 +6855,9 @@ def fsr3_hellblade_2():
 def fsr3_silent2():
     root_path_sh2 = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     mods_path = 'mods\\FSR3_SH2'
+    rtx_fg_sh2 = 'mods\\FSR3_SH2\\RTX_FG'
     path_ultra_plus_optimized = 'mods\\FSR3_SH2\\Ultra Plus\\Optimized'
-    path_ultra_plus_complete = 'mods\\FSR3_SH2\\Ultra Plus\\Normal'
+    path_ultra_plus_complete = 'mods\\FSR3_SH2\\Ultra Plus\\normal'
     path_engine_ultra_plus = 'mods\\FSR3_SH2\\Ultra Plus\\Engine.ini'
     path_fsr3_fg_optimized = 'mods\\FSR3_SH2\\FSR3 Native Optimized\\Engine.ini'
     ray_reconstruction_dll_sh2 = f'{mods_path}\\RayReconstruction\\nvngx_dlssd.dll'
@@ -6834,8 +6868,8 @@ def fsr3_silent2():
     anti_stutter_sh2 = f'{mods_path}\\Anti_Stutter\\Install Silent Hill 2 Remake High Priority Processes.reg'
     var_anti_stutter_sh2 = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
     unlock_cutscene_fps_sh2 = f'{mods_path}\\Unlock Cutscene Fps'
-    var_native_fsr3_sh2 = f'{mods_path}\\Var\\NativeFSR3.txt'
-    var_native_fsr3_opt_sh2 = 'mods\\FSR3_SH2\\FSR3 Native Optimized\\NativeFSR3Opt.txt'
+    var_native_fsr3_sh2 = f'{mods_path}\\Var\\nativeFSR3.txt'
+    var_native_fsr3_opt_sh2 = 'mods\\FSR3_SH2\\FSR3 Native Optimized\\nativeFSR3Opt.txt'
     var_post_processing_sh2 = f'{mods_path}\\Var\\PostProcessing.txt'
     not_found_message_sh2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\SilentHill2\\Saved\\Config\\Windows.'
     message_not_found_exe_sh2 = 'Select the .exe path to install the Intro Skip mod, the .exe path is SHProto\\Binaries\\Win64.'
@@ -6854,6 +6888,9 @@ def fsr3_silent2():
 
     if select_mod == 'FSR 3.1.1/DLSS FG RTX Custom':
         shutil.copytree(fsr31_custom_rtx_sh2, select_folder, dirs_exist_ok=True)
+    
+    if select_mod == 'DLSS FG RTX':
+        shutil.copytree(rtx_fg_sh2,select_folder,dirs_exist_ok=True)
     
     if select_mod == 'Others Mods Sh2':
         # Anti Stutter
@@ -6981,6 +7018,32 @@ def fsr3_until():
         else:
             messagebox('Documents','Documents folder not found, please check if there are permissions for the Utility to access the folder')
 
+def fsr3_hog_legacy():
+    hl_preset = 'mods\\FSR3_HL\\Preset\\Hogwarts Legacy Real Life DARKER HOGWARTS Reshade.txt'
+    hl_anti_stutter = 'mods\\FSR3_HL\\Anti Stutter\\Install Hogwarts Legacy CPU Priority.reg'
+    hl_var_anti_stutter = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
+    hl_d3d12_dll = 'd3d12.dll'
+    hl_d3d12_dll_path = os.path.join(select_folder, hl_d3d12_dll)
+    hl_dxgi_dll_path = os.path.join(select_folder,'dxgi.dll')
+
+    if select_mod == 'Others Mods HL':
+
+        # Graphics Preset
+        if messagebox.askyesno('Graphics Preset',' Do you wanto to install the Graphics Preset? See the guide to learn how to complete the installation.'):
+            shutil.copy(hl_preset,select_folder)
+            
+            if os.path.exists(hl_dxgi_dll_path):
+                shutil.copyfile(hl_dxgi_dll_path, hl_d3d12_dll_path)
+                os.rename(hl_dxgi_dll_path, os.path.join(select_folder,'dxgi.txt'))
+        
+        # Anti Stutter
+        handle_prompt(
+            'Anti Stutter',
+            'Do you want to install the Anti Stutter?',
+            lambda _: (runReg(hl_anti_stutter),
+            shutil.copy(hl_var_anti_stutter,select_folder))
+        )
+
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
     
@@ -7010,12 +7073,12 @@ def fsr3_jedi():
         if messagebox.askyesno('Intro Skip','Do you want to skip the game\'s initial intro?'):
             shutil.copytree(jedi_intro_skip,origin_folder_jedi + '\\Content',dirs_exist_ok=True)
     else:
-        messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutter, Fix Rt, and Intro Skip), select the path to the game\'s .exe file. The path should look like: Jedi Survivor\SwGame\Binaries\Win64')
+        messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutter, Fix Rt, and Intro Skip), select the path to the game\'s .exe file. The path should look like: Jedi Survivor\\SwGame\\Binaries\\Win64')
 
 async def fsr3_cyber():
     path_mods = {
         "mods\\FSR3_CYBER2077\\mods\\Cyberpunk 2077 HD Reworked",
-        "mods\\FSR3_CYBER2077\\mods\\Nova_LUT_2-1",
+        "mods\\FSR3_CYBER2077\\mods\\nova_LUT_2-1",
         "mods\\FSR3_CYBER2077\\mods\\CET",
         "mods\\FSR3_CYBER2077\\mods\\Cyberpunk UltraPlus",
     }
@@ -7370,6 +7433,8 @@ def install(event=None):
             fsr3_silent2()
         if select_option == 'Until Dawn':
             fsr3_until()
+        if select_option == 'Hogwarts Legacy':
+            fsr3_hog_legacy()
         if select_option == 'STAR WARS Jedi: Survivor':
             fsr3_jedi()
         if select_option == 'Warhammer: Space Marine 2':
@@ -7550,9 +7615,9 @@ def cbox_change_font():
             try:
                 if var_copy_font:
                     shutil.copy(path_font,dest_font)
-                    messagebox.showinfo('Sucess','Original font file copied successfully, restart the application. If the font is still not applied even after the restart, try installing the font manually. Follow this path: FSR3\lib\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
+                    messagebox.showinfo('Sucess','Original font file copied successfully, restart the application. If the font is still not applied even after the restart, try installing the font manually. Follow this path: FSR3\\lib\\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
             except Exception:
-                messagebox.showinfo('Error','The original font file could not be copied, perhaps your system is not compatible with this font. If you want to install manually, follow this path: FSR3\lib\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
+                messagebox.showinfo('Error','The original font file could not be copied, perhaps your system is not compatible with this font. If you want to install manually, follow this path: FSR3\\lib\\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
                 return
             
 def change_labels():
@@ -7946,12 +8011,17 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Silent Hill 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized','FSR3 FG Native SH2','FSR3 FG Native SH2 + Optimization','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
+        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX','FSR3 FG Native SH2','FSR3 FG Native SH2 + Optimization','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Until Dawn':
         mod_text() 
         mod_version_listbox.insert(tk.END, 'Others Mods UD',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Hogwarts Legacy':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'Others Mods HL',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
