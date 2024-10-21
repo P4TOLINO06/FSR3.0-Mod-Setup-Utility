@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.6v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.7v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -263,7 +263,7 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
@@ -378,6 +378,15 @@ def text_guide():
 '1 - Select a mod of your choice (0.10.3 is recommended).\n'
 '2 - Check the box for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). (If the mod doesn\'t work for AMD, also\ncheck Nvapi Results)\n'
 '3 - To fix hub flickering, enable DLSS and Frame Generation\nand play for a few seconds, then disable DLSS and leave\nonly Frame Generation enabled.'  
+),
+
+'A Quiet Place: The Road Ahead':(
+'1. Select an FSR 3.1.1/DLSS mod and install it\n'
+'2. In the game, select DLSS\n'
+'3. Press the Insert key to open the menu\n'
+'4. Select an upscaler of your choice\n'
+'5. Check the Frame Gen and Hud Fix boxes\n'
+'6. If you can\'t see DLSS, enable Hardware Acceleration in\nGraphics Settings on Windows'
 ),
 
 'Assassin\'s Creed Valhalla':(
@@ -3097,6 +3106,10 @@ def clean_mod():
                     os.remove(os.path.join(folder_engine_sh2,'PostProcessing.txt'))
                     shutil.copy(default_engine_ini_sh2,folder_engine_sh2)
             
+            # Graphics Preset
+            if os.path.exists(os.path.join(select_folder, 'Silent hill dark.ini')):
+                del_others_mods(os.path.join(select_folder, 'Silent hill dark.ini'), "Do you want to remove the Graphics Preset?It is necessary to uninstall the mod through ReShade to completely remove it",)
+            
     except Exception as e:
         messagebox.showinfo("Silent Hill 2","Error clearing Silent Hill 2 mods files, please try again or do it manually")
 
@@ -3125,6 +3138,14 @@ def clean_mod():
 
     except Exception as e:
             messagebox.showinfo("Until Dawn","Error clearing Until Dawn mods files, please try again or do it manually")
+
+    try: 
+        if select_option == 'A Quiet Place: The Road Ahead':
+            if select_mod == 'FSR 3.1.1/DLSS Quiet Place':
+                del_all_mods2(del_optiscaler,'FSR 3.1.1/DLSS Quiet Place')
+                runReg('mods\\Temp\\disable signature override\\DisableSignatureOverride.reg')
+    except Exception:
+           messagebox.showinfo("A Quiet Place","Error clearing A Quiet Place mods files, please try again or do it manually")  
 
     try:
         if select_option == 'Hogwarts Legacy':
@@ -6856,6 +6877,7 @@ def fsr3_silent2():
     root_path_sh2 = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     mods_path = 'mods\\FSR3_SH2'
     rtx_fg_sh2 = 'mods\\FSR3_SH2\\RTX_FG'
+    preset_sh2 = 'mods\\FSR3_SH2\\Preset\\Silent hill dark.ini'
     path_ultra_plus_optimized = 'mods\\FSR3_SH2\\Ultra Plus\\Optimized'
     path_ultra_plus_complete = 'mods\\FSR3_SH2\\Ultra Plus\\normal'
     path_engine_ultra_plus = 'mods\\FSR3_SH2\\Ultra Plus\\Engine.ini'
@@ -6903,6 +6925,15 @@ def fsr3_silent2():
             )
         )
         
+        # Graphics Preset
+        handle_prompt(
+        'Graphics Preset',
+        'Do you want to install the Graphics Preset? Check the ReShade guide in the Hogwarts Legacy guide to complete the installation (look for the Silent hill dark.ini file after viewing the guide, it will be in the folder selected in the Utility)',
+        lambda _: (
+            shutil.copy(preset_sh2, select_folder)
+            )
+        )
+
         # Intro Skip
         if os.path.exists(os.path.join(root_path_sh2, 'SHProto.exe')):
             handle_prompt(
@@ -7043,6 +7074,13 @@ def fsr3_hog_legacy():
             lambda _: (runReg(hl_anti_stutter),
             shutil.copy(hl_var_anti_stutter,select_folder))
         )
+
+def fsr3_quiet_place():
+    optiscaler_quiet_place = 'mods\\Addons_mods\\OptiScaler'
+
+    if select_mod == 'FSR 3.1.1/DLSS Quiet Place':
+        shutil.copytree(optiscaler_quiet_place, select_folder, dirs_exist_ok=True)
+        runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
 
 def fsr3_miles():
     path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
@@ -7433,6 +7471,8 @@ def install(event=None):
             fsr3_silent2()
         if select_option == 'Until Dawn':
             fsr3_until()
+        if select_option == 'A Quiet Place: The Road Ahead':
+            fsr3_quiet_place()
         if select_option == 'Hogwarts Legacy':
             fsr3_hog_legacy()
         if select_option == 'STAR WARS Jedi: Survivor':
@@ -7685,8 +7725,9 @@ fsr_game_version={
     'Horizon Forbidden West':'2.2',
     'The Last of Us':'2.1',
     'Uncharted: Legacy of Thievs':'2.1',
-    'Achilles Legends Untold':'2.2',
     'A Plague Tale Requiem':'2.2',
+    'A Quiet Place: The Road Ahead':'2.2',
+    'Achilles Legends Untold':'2.2',
     'Alan Wake 2':'2.2',
     'Alone in the Dark':'2.0',
     'Assassin\'s Creed Mirage':'2.2',
@@ -8023,6 +8064,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END, 'Others Mods HL',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'A Quiet Place: The Road Ahead':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'FSR 3.1.1/DLSS Quiet Place',*fsr_31_dlss_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -8032,7 +8078,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
