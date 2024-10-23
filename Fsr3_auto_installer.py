@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.7v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.8v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -825,8 +825,16 @@ def text_guide():
 ),
 
 'Kena: Bridge of Spirits': (
-  '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
-  '2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD only).'
+'1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
+'2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD\\GTX\\\nIntel only).\n\n'
+
+'FSR 3.1.1/DLSS\n'
+'1. Select an FSR 3.1.1/DLSS mod and install it.\n' 
+'2. Check the "Disable Signature Over" box.\n' 
+'3. In the game, select DLSS.\n' 
+'4. Press the Insert key to open the menu.\n' 
+'5. Select an Upscaler of your choice, check the \'Frame Gen\'\nand "Hud Fix" boxes.\n' 
+'6. If you cannot see DLSS in the game, go back to the Utility\nand check the "Enable Signature Over" box.'
 ),
 
 'Layers of Fear':(
@@ -878,10 +886,26 @@ def text_guide():
 ),
 
 'Metro Exodus Enhanced':(
+'Uniscaler\n'
 '1 - Select Uniscaler.\n'
 '2 - Check the boxes for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). If the DLSS option is not available for\nAMD GPU, check the Nvapi Results box.\n'
 '3 - In Nvngx.dll, select Default and check the box Enable\nSignature Override.\n'
-'4 - In the game, select DLSS.'    
+'4 - In the game, select DLSS.\n\n'   
+
+'FSR 3.1.1/DLSS\n'
+'1. Select an FSR 3.1.1/DLSS mod and install it.\n' 
+'2. Check the "Enable Signature Over" box.\n' 
+'3. In the game, select DLSS.\n' 
+'4. Press the Insert key to open the menu.\n' 
+'5. Select an Upscaler of your choice, check the \'Frame Gen\'\nand "Hud Fix" boxes.\n' 
+'6. If you cannot see DLSS in the game, go back to the Utility\nand check the "Disable Signature Over" box.\n\n'
+
+'1. Install ReShade\n'
+'2. Inside ReShade, select the game’s .exe and click next\n'
+'3. Select DX 10/11/12 and click next\n'
+'4. Click "Browse" and locate the file DefinitiveEdition.ini\nthat was installed in the folder selected in the Utility and\nclick Next\n'
+'5. In the game, press the Home key to open the menu and\nselect the options you prefer\n'
+'6. Install the Preset first and then the FSR3 mod if you plan\nto use it'
 ),
 
 'Monster Hunter Rise':(
@@ -1173,6 +1197,13 @@ def text_guide():
 '1 - Select The Callisto Protocol Fsr3\n' 
 '2 - Check the Fake Nvidia GPU box and install.\n\n'
 
+'Optiscaler Callisto\n'
+'1. Select FSR 3.1.1/DLSS Callisto and install it.\n'
+'2. In the game, select FSR 2 (which will act as DLSS for the mod to work).\n'
+'3. Press the Insert key to open the menu.\n'
+'4. Select the Upscaler of your choice.\n'
+'5. Check the "Frame Gen" and "Hud Fix + Extended" boxes.\n\n'
+
 'Uniscaler V3\n'
 '1 - Select Uniscaler V3\n'
 '2 - Check the Nvngx box and select Default\n'
@@ -1181,19 +1212,19 @@ def text_guide():
 '0.10.4\n'
 '1 - Select 0.10.4 and install it.\n'
 '2- Inside the game, select FSR 2 and start the campaign.\n'
-'3 -If Frame Gen doesn\'t work, check the "Nvngx.dll" box and\nselect "Default," then check the "Enable Signature Override"\nbox. For Epic Games users: if the mod doesn\'t work or some\nbugs appear, check the "Disable Overlay" box.\n\n'
+'3 -If Frame Gen doesn\'t work, check the "Nvngx.dll" box and select "Default," then check the "Enable Signature\nOverride"\nbox. For Epic Games users: if the mod doesn\'t work or some\nbugs appear, check the "Disable Overlay" box.\n\n'
 
-'HUD Correction\n'
-'Select FSR2 and start the campaign, play for a few\nseconds, and return to the menu. In the menu, select\nTemporal and return to the campaign.\n\n'
+'HUD Correction (FSR 3.1.1/DLSS is not necessary.)\n'
+'Select FSR2 and start the campaign, play for a few seconds, and return to the menu. In the menu, select Temporal\nand return to the campaign.\n\n'
 
 'Real Life\n'
-'Adds more detail to the world making them wood effects\nstand out more as well as the ground, lighting, walls and dirt\nmarks, and skin.\n\n'
+'Adds more detail to the world making them wood effects stand out more as well as the ground, lighting, walls and\ndirt marks, and skin.\n\n'
 
 'TCP\n'
-'A ReShade config that implements duller colours,\nnearby sharpness and distant depth of field blur to give a\ngrittier and more cinematic style to emphasise the sci-fi horror\natmosphere.\n\n'
+'A ReShade config that implements duller colours, nearby sharpness and distant depth of field blur to give a grittier\nand more cinematic style to emphasise the sci-fi horror atmosphere.\n\n'
 
 '1 - Install the ReShade application\n'
-'2 - Select DirectX 10/11/12, click \'Browse\' and select the\nTCP.ini file that was installed in the destination folder chosen\nin the Utility.\n'
+'2 - Select DirectX 10/11/12, click \'Browse\' and select the TCP.ini file that was installed in the destination folder\nchosen in the Utility.\n'
 '3 - Click \'Uncheck All\' and then click \'Next\'.\n' 
 '4 - Do the same for the Real Life mod.'
 ),
@@ -1372,7 +1403,7 @@ def text_guide():
     elif select_game == 'Black Myth: Wukong':
         screen_guide.geometry('620x790')
     elif select_game == 'The Callisto Protocol':
-        screen_guide.geometry('530x680')
+        screen_guide.geometry('830x700')
     elif select_game == 'Star Wars Outlaws':
         screen_guide.geometry('520x330')
     elif select_game == 'Star Wars: Jedi Survivor':
@@ -1389,6 +1420,8 @@ def text_guide():
         screen_guide.geometry('520x430')
     elif select_game == 'Silent Hill 2':
         screen_guide.geometry('700x800')
+    elif select_game == 'Metro Exodus Enhanced':
+        screen_guide.geometry('520x520')
     else:
         screen_guide.geometry('520x260')
     
@@ -2667,6 +2700,11 @@ def clean_mod():
     'nvngx.ini', 'openvr_api.dll', 'openxr_loader.dll', 'reframework_revision.txt', 
     'unins000.dat', 'unins000.exe']
 
+    del_callisto_optiscaler_custom = [
+    "amd_fidelityfx_dx12.dll", "amd_fidelityfx_vk.dll", "dlsstweaks.ini", "DLSSTweaksConfig.exe", "dxgi.dll",
+    "FSRBridge.asi", "libxess.dll", "nvngx.dll", "nvngx.ini","winmm.dll", "winmm.ini"
+    ]
+
     del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
 
     del_optiscaler_custom = [
@@ -3019,6 +3057,22 @@ def clean_mod():
             del_all_mods2(del_optiscaler,'Optiscaler Custom HZD')
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+    
+    try:
+        if select_option == 'The Callisto Protocol':
+            del_all_mods2(del_callisto_optiscaler_custom, 'FSR 3.1.1/DLSS Callisto')
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Callisto mods files, please try again or do it manually')
+    
+    try:
+        if select_option == 'Metro Exodus Enhanced Edition':
+
+            if os.path.exists(os.path.join(select_folder, 'DefinitiveEdition.ini')):
+                if messagebox.askyesno('Preset','Do you want to remove the Graphics Preset? To completely remove, delete the ReShade files'):
+                    os.remove(os.path.join(select_folder, 'DefinitiveEdition.ini'))
+
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Metro mods files, please try again or do it manually')
 
     if select_option == 'GTA V':
         path_dxgi = os.path.join(select_folder,'dxgi.dll')
@@ -6034,6 +6088,11 @@ callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Calli
 def callisto_fsr():
     path_tcp = 'mods\\FSR3_Callisto\\Reshade\\TCP Cinematic\\TCP.ini'
     path_real_life = 'mods\\FSR3_Callisto\\Reshade\\The Real Life\\The Real Life The Callisto Protocol Reshade BETTER TEXTURES and Realism 2022.ini'
+    optiscaler_callisto = 'mods\\FSR3_Callisto\\Optiscaler'
+
+    if select_mod ==  'FSR 3.1.1/DLSS Callisto':
+        shutil.copytree(optiscaler_callisto, select_folder, dirs_exist_ok=True)
+        runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
 
     if select_mod in callisto_origins:
         callisto_origin  = callisto_origins[select_mod]
@@ -6041,14 +6100,10 @@ def callisto_fsr():
     if select_mod in callisto_origins:
         shutil.copytree(callisto_origin,select_folder,dirs_exist_ok=True)
     
-    callisto_tcp = messagebox.askyesno('TCP MOD','Do you want to install the TCP mod? (It is necessary to install ReShade for this mod to work, check the guide in FSR GUIDE for more information about the mod.)')
-
-    if callisto_tcp:
+    if messagebox.askyesno('TCP MOD','Do you want to install the TCP mod? (It is necessary to install ReShade for this mod to work, check the guide in FSR GUIDE for more information about the mod.)'):
         shutil.copy(path_tcp,select_folder)
     
-    callisto_real_life = messagebox.askyesno('Real Life','Do you want to install the Real Life mod? (It is necessary to install ReShade for the mod to work, check the guide in FSR GUIDE for more information about the mod and how to install it.)')
-
-    if callisto_real_life:
+    if messagebox.askyesno('Real Life','Do you want to install the Real Life mod? (It is necessary to install ReShade for the mod to work, check the guide in FSR GUIDE for more information about the mod and how to install it.)'):
         shutil.copy(path_real_life,select_folder)
 
 def fallout_fsr():
@@ -6341,6 +6396,19 @@ def cod_fsr():
 
 def cod_mw3_fsr3():
     global_dlss()
+
+def metro_fsr3():
+    preset_metro = 'mods\\FSR3_Metro\\Preset\\DefinitiveEdition.ini'
+    
+    if select_mod == 'Others Mods Metro':
+        # Graphics Preset
+        handle_prompt(
+        'Graphics Preset',
+        'Do you want to install the Graphics Preset? Check the ReShade guide in the Metro Exodus Enhanced guide to complete the installation.',
+        lambda _: (
+            shutil.copy(preset_metro, select_folder)
+            )
+        )
 
 def hfw_fsr3():
     hfw_rtx = 'mods\\FSR3_HFW\\RTX FSR3'
@@ -7475,6 +7543,8 @@ def install(event=None):
             fsr3_quiet_place()
         if select_option == 'Hogwarts Legacy':
             fsr3_hog_legacy()
+        if select_option == 'Metro Exodus Enhanced Edition':
+            metro_fsr3()
         if select_option == 'STAR WARS Jedi: Survivor':
             fsr3_jedi()
         if select_option == 'Warhammer: Space Marine 2':
@@ -7896,7 +7966,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'The Callisto Protocol':
         mod_text()
-        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3','0.10.4','Uniscaler V3','Uniscaler V4')  
+        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3', 'FSR 3.1.1/DLSS Callisto', '0.10.4', 'Uniscaler V3', 'Uniscaler V4')  
     
     elif select_option == 'Fallout 4':
         mod_text()
@@ -8069,6 +8139,16 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END, 'FSR 3.1.1/DLSS Quiet Place',*fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Kena: Bridge of Spirits':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Metro Exodus Enhanced Edition':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'Others Mods Metro',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
