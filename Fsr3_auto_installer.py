@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.8v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.9v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -363,7 +363,15 @@ def text_guide():
 '1 - Select Alan Wake 2 Uniscaler Custom and install it.\n'
 '2 - In the game, select DLSS and enable Frame Generation\nif it is not enabled by default.\n'
 '3 - Do not switch to FSR as the game will crash.\n'
-'4 - It is also possible to use other versions of the mod,\nexcept Alan Wake 2 FG RTX.\n'    
+'4 - It is also possible to use other versions of the mod,\nexcept Alan Wake 2 FG RTX.\n\n'
+
+'Preset\n'
+'1. Install ReShade\n'
+'2. Inside ReShade, select the game’s .exe and click next\n'
+'3. Select DX 10/11/12 and click next\n'
+'4. Click "Browse" and locate the file Realistic Reshade.ini\nthat was installed in the folder selected in the Utility and\nclick Next\n'
+'5. In the game, press the Home key to open the menu and\nselect the options you prefer\n'
+'6. Install the Preset first and then the FSR3 mod if you plan\nto use it'
 ),
 
 'Alone in the Dark':(
@@ -1422,6 +1430,8 @@ def text_guide():
         screen_guide.geometry('700x800')
     elif select_game == 'Metro Exodus Enhanced':
         screen_guide.geometry('520x520')
+    elif select_game == 'Alan Wake 2':
+        screen_guide.geometry('520x420')
     else:
         screen_guide.geometry('520x260')
     
@@ -3299,18 +3309,44 @@ def clean_mod():
 
     try:
         if select_option == 'Alan Wake 2':
-            path_old_iniaw2 = os.getenv("LOCALAPPDATA") + '\\Remedy\\AlanWake2\\renderer.ini'
-            path_new_iniaw2 = os.path.abspath(os.path.join(path_old_iniaw2,'..','..')) #Look for the backup file renderer.ini in the path C:\\Users\\YourName\\AppData\\Local\\Remedy
+            aw2_appdata = os.getenv("LOCALAPPDATA")
+            folder_ini_aw2 = aw2_appdata + '\\Remedy\\AlanWake2'
+            path_old_iniaw2 = folder_ini_aw2 + '\\renderer.ini'
+            path_new_iniaw2 = os.path.abspath(os.path.join(folder_ini_aw2,'..')) #Look for the backup file renderer.ini in the path C:\\Users\\YourName\\AppData\\Local\\Remedy
+            remove_anti_stutter_aw2 =  'mods\\FSR3_AW2\\Anti Stutter\\Uninstall Alan Wake 2 CPU Priority.reg' 
 
-            if os.path.exists(path_new_iniaw2 + '\\renderer.ini'): 
-                restore_aw2_ini = messagebox.askyesno('Post-processing','Do you want to restore the post-processing effects?')
-
-                if restore_aw2_ini:
-                    shutil.copy2(path_new_iniaw2 + '\\renderer.ini',os.path.abspath(os.path.join(path_old_iniaw2,'..')))
+            # Anti Stutter
+            if os.path.exists(os.path.join(select_folder, 'AntiStutter.txt')):      
+                if messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?'):
+                    runReg(remove_anti_stutter_aw2)
+                    os.remove(os.path.join(select_folder, 'AntiStutter.txt'))
+            
+            #Control RT
+            if os.path.exists(path_new_iniaw2 + '\\renderer.ini') and os.path.exists(os.path.join(select_folder, 'VarRT.txt')):
                 
-                os.remove(path_new_iniaw2 + '\\renderer.ini')
+                if messagebox.askyesno('RT','Do you want to remove the Control RT?'):
+                    shutil.copy(path_new_iniaw2 +'\\renderer.ini', folder_ini_aw2)
+                    os.remove(path_new_iniaw2 + '\\renderer.ini')
+                    os.remove(os.path.join(select_folder, 'VarRT.txt'))
+
+            # Realistic Preset
+            if os.path.exists(os.path.join(select_folder, 'Realistic Reshade.ini')):
+                if messagebox.askyesno('Preset', 'Do you want to remove the Realistic Preset?To completely uninstall, it is necessary to remove the ReShade files'):
+                    os.remove(os.path.join(select_folder, 'Realistic Reshade.ini'))
+
+                    if os.path.exists(os.path.join(select_folder,'D3D12.dll')):
+                        if os.path.exists(os.path.join(select_folder, 'dxgi.dll')):
+                            os.remove(os.path.join(select_folder, 'dxgi.dll'))
+                        os.rename(os.path.join(select_folder, 'D3D12.dll'), os.path.join(select_folder, 'dxgi.dll'))
+
+            # Post Processing
+            if os.path.exists(path_new_iniaw2 + '\\renderer.ini') and os.path.exists(os.path.join(select_folder, 'VarPost.txt')): 
+                if messagebox.askyesno('Post-processing','Do you want to restore the post-processing effects?'):
+                    shutil.copy(path_new_iniaw2 + '\\renderer.ini',folder_ini_aw2)
+                    os.remove(path_new_iniaw2 + '\\renderer.ini')
+
     except Exception as e:
-        messagebox.showinfo('Error','Unable to restore the post-processing effects')
+        messagebox.showinfo('Error','Error clearing Alan Wake 2 files, please try again or do it manually')
 
     try: 
         if select_addon_mods == "OptiScaler":
@@ -6441,29 +6477,80 @@ def fsr3_control():
     if select_option == 'Control':
         shutil.copytree(path_nvngx_control,select_folder,dirs_exist_ok=True)
         
-def fsr3_aw2_rtx():
+def fsr3_aw2():
     path_rtx = 'mods\\FSR3_AW2\\RTX'
     path_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
     path_amd = 'mods\\FSR3_AW2\\AMD'
-    path_iniaw2 = os.getenv("LOCALAPPDATA") + '\\Remedy\\AlanWake2\\renderer.ini'
-    
+    appdata_aw2 = os.getenv("LOCALAPPDATA")
+    path_folder_ini_aw2 = appdata_aw2 + '\\Remedy\\AlanWake2'
+    path_iniaw2 = path_folder_ini_aw2 + '\\renderer.ini'
+    path_backup_ini_aw2 = os.path.abspath(os.path.join(path_folder_ini_aw2,'..'))
+    preset_aw2 = 'mods\\FSR3_AW2\\Preset\\Realistic Reshade.ini'
+    anti_stutter_aw2 = 'mods\\FSR3_AW2\\Anti Stutter\\Install Alan Wake 2 CPU Priority.reg'
+    var_anti_sttuter_aw2 = 'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
+    rt_normal_aw2 = 'mods\\FSR3_AW2\\RT\\Normal\\renderer.ini'
+    rt_ultra_aw2 = 'mods\\FSR3_AW2\\RT\\Ultra\\renderer.ini'
+    var_rt_aw2 = 'mods\\FSR3_AW2\\RT\\Var\\VarRT.txt'
+    var_post_processing_aw2 = 'mods\\FSR3_AW2\\Var Post Processing\\VarPost.txt'
+
+    value_remove_pos_processing_aw2 = {   
+            "m_bLensDistortion": False,
+            "m_bFilmGrain": False,
+            "m_bVignette": False
+        } 
+
+    if select_mod == 'Others Mods Aw2':
+
+        # Anti Stutter
+        handle_prompt(
+            'Anti Stutter',
+            'Do you want to install the Anti Stutter?',
+            lambda _: (runReg(anti_stutter_aw2),
+            copy_if_exists(var_anti_sttuter_aw2, select_folder,r'Path not found. The path to the Renderer.ini file is something like this: C:\\Users\\USER_NAME\\AppData\Local\\Remedy\\AlanWake2',False))
+        )
+
+        # Realistic AW2
+        handle_prompt(
+            'Preset',
+            'Do you want to install the Realistic preset? ReShade is required for the mod to work. See the guide for installation instructions.\nif you are going to use the FSR3 FG mod, it is recommended to install the preset first.',
+            lambda _: (shutil.copy(preset_aw2, select_folder),
+            os.rename(os.path.join(select_folder, 'dxgi.dll'), os.path.join(select_folder, 'D3D12.dll')) if os.path.exists(os.path.join(select_folder, 'dxgi.dll')) and not os.path.exists(os.path.join(select_folder, 'D3D12.dll')) else None) # Rename the dxgi file so that the FG mods work
+
+        )
+
+        os.rename
+        # Control RT
+        if os.path.exists(path_iniaw2):  
+            handle_prompt(
+                'RT',
+                'Do you want to unlock Ray Tracing from the game Control in Alan Wake 2? If you want to install Ultra Ray Tracing, just select "No" and then select "Yes" in the next window (This is the Standard version)',
+                lambda _: (shutil.copy(path_iniaw2, path_backup_ini_aw2),
+                           shutil.copy(var_rt_aw2,select_folder),
+                           shutil.copy(rt_normal_aw2,path_folder_ini_aw2))
+            )
+            handle_prompt(
+                'RT',
+                'Do you want to install Ultra Ray Tracing from the game Control in Alan Wake 2?',
+                lambda _: (shutil.copy(rt_ultra_aw2,path_folder_ini_aw2),
+                           shutil.copy(var_rt_aw2,select_folder),
+                           shutil.copy(path_iniaw2, path_backup_ini_aw2) if not os.path.exists(os.path.join(path_backup_ini_aw2, 'renderer.ini')) else None)
+            )
+        else:
+            messagebox.showinfo('Not found','If you want to install Ray Tracing from the game Control for Alan Wake 2, please check if the path C:\\Users\\USER_NAME\\AppData\\Local\\Remedy\\AlanWake2 exists and try again.')
+
     if select_mod == 'Alan Wake 2 FG RTX':
         shutil.copytree(path_rtx,select_folder,dirs_exist_ok=True)
         shutil.copy2(path_dlss,select_folder)
     
     elif select_mod  == 'Alan Wake 2 Uniscaler Custom':
         shutil.copytree(path_amd,select_folder,dirs_exist_ok=True)
-    
-    var_aw2 = messagebox.askyesno('Fix Ghosting Aw2','Do you want to fix possible ghosting issues caused by the FSR3 mod?')
 
-    value_remove_pos_processing = {   
-                "m_bLensDistortion": False,
-                "m_bFilmGrain": False,
-                "m_bVignette": False
-            } 
-
-    if var_aw2:
-        config_json(path_iniaw2,value_remove_pos_processing,"'Path not found, the path to the renderer.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Remedy\\AlanWake2. Would you like to select the path manually?'",'Post-processing effects successfully removed')
+    if messagebox.askyesno('Fix Ghosting Aw2','Do you want to fix possible ghosting issues caused by the FSR3 mod?'):       
+        config_json(path_iniaw2,value_remove_pos_processing_aw2,"'Path not found, the path to the renderer.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Remedy\\AlanWake2. Would you like to select the path manually?'",'Post-processing effects successfully removed')
+        shutil.copy(var_post_processing_aw2, select_folder)
+        
+        if not os.path.exists(os.path.join(path_backup_ini_aw2, 'renderer.ini')):
+            shutil.copy(path_iniaw2, path_backup_ini_aw2)
 
 def fsr3_motogp():
     if select_option == 'MOTO GP 24':
@@ -6779,48 +6866,32 @@ def config_json(path_json, values_json,path_not_found_message,ini_message=None):
 
     var_config_json = False
 
-    try:
-        while not var_config_json:
+    if os.path.exists(path_json):
+        try:
+            while not var_config_json:
 
-            if os.path.exists(path_json):
-                var_config_json = True
-            else:
-                var_config_json = False
-
-                var_folder_ini = messagebox.askyesno('Path Not Found',path_not_found_message)
-
-                if var_folder_ini:
-                    folder_ini = filedialog.askdirectory()
+                if os.path.exists(path_json):
+                    var_config_json = True
                 else:
-                    messagebox.showinfo("Empty path","No path was selected, post-processing effects were not removed")
-                    return
-                
-                if folder_ini:
-                    if os.path.exists(os.path.join(folder_ini,"renderer.ini")):
-                        var_config_json = True
-                else:
-                    var_config_json = False
-                    messagebox.showinfo("Empty path","No path was selected, post-processing effects were not removed")
-                    return
-        
-        if var_config_json:
+                    var_config_json = False        
+            
+            if var_config_json:
 
-            shutil.copy2(path_json,os.path.join(path_json,'..','..')) #.ini file backup
+                with open(path_json, 'r', encoding='utf8') as file:
+                    data = json.load(file)
 
-            with open(path_json, 'r', encoding='utf8') as file:
-                data = json.load(file)
+                for key, new_value in values_json.items():
+                    if key in data:
+                        data[key] = new_value
 
-            for key, new_value in values_json.items():
-                if key in data:
-                    data[key] = new_value
+                with open(path_json, 'w', encoding='utf8') as file:
+                    json.dump(data, file, indent=4)
 
-            with open(path_json, 'w', encoding='utf8') as file:
-                json.dump(data, file, indent=4)
-
-            messagebox.showinfo('Sucess',ini_message)
-
-    except Exception as e:
-        messagebox.showinfo("Error","An error occurred in the Utility. Try closing and reopening it")
+                messagebox.showinfo('Sucess',ini_message)
+        except Exception as e:
+            messagebox.showinfo("Error","An error occurred in the Utility. Try closing and reopening it")
+    else:
+        messagebox.showinfo('Not Found', 'File not found, the installation could not be completed')
     
 def remove_post_processing_effects_hell2():
     path_inihb2 = os.getenv("LOCALAPPDATA") + '\\Hellblade2\\Saved\\Config\\Windows\\Engine.ini'
@@ -7574,7 +7645,7 @@ def install(event=None):
         if select_option == 'Chernobylite':
             chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
-            fsr3_aw2_rtx()
+            fsr3_aw2()
         if select_option == 'Horizon Zero Dawn':
             fsr3_hzd()
         if select_mod == 'Unlock Fps Tekken 8':
@@ -7629,7 +7700,6 @@ def install(event=None):
         screen.after(100,install_false)
         
     except Exception as e: 
-        print(e)
         messagebox.showwarning('Error',f'Installation error')
         return
         
@@ -8032,7 +8102,7 @@ def update_canvas(event=None): #canvas_options text configuration
            
     elif select_option == 'Alan Wake 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods, *fsr_31_dlss_mods)
+        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom', *fsr_31_dlss_mods, 'Others Mods Aw2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Ghost of Tsushima':
