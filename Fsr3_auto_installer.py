@@ -32,7 +32,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.9v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.10v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -263,10 +263,10 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City','Cyberpunk 2077',
+    s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
     
@@ -494,6 +494,13 @@ def text_guide():
 '1 - Select a mod of your choice (0.10.4 is recommended).\n'
 '2 - Check the Fake Nvidia GPU box for AMD/GTX users.\nIf you can\'t see DLSS in the game, check the Nvapi Results\nand UE Compatibility Mode boxes.\n'
 '3 - In the game, turn off Anti-Aliasing and select DLSS as\nthe upscaler.'  
+),
+
+'Crysis 3 Remastered':(
+'1. Select an FSR 3.1.1/DLSS mod\n'
+'2. Check the "GPU" box that will appear during installation\n(Only FSR 3.1.1/DLSS Custom)\n'
+'3. In-game, press the "Insert" key to open the menu\n'
+'4. In the menu, select the upscaler you prefer\n\n'
 ),
 
 'Cyberpunk 2077':(
@@ -853,9 +860,18 @@ def text_guide():
 ),
 
 'Lies of P':(
+'Default Mod\n'
 '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'
 '2 - Activate Fake Nvidia Gpu and UE Compatibility Mode\n(AMD only).\n'
-'3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.'
+'3 - To fix the flickering of the Hud, first select DLSS Quality,\nthen select FSR Quality (without disabling DLSS), then\nselect DLSS again.\n\n'
+
+'FSR 3.1.1/DLSS LOP\n'
+'1. Select an FSR 3.1.1/DLSS LOP mod and install it.\n' 
+'2. Check the "Enable Signature Over" box.\n' 
+'3. In the game, select DLSS.\n' 
+'4. Press the Insert key to open the menu.\n' 
+'5. Select an Upscaler of your choice, check the \'Frame Gen\'\nand "Hud Fix" boxes.\n' 
+'6. If you cannot see DLSS in the game, go back to the Utility\nand check the "Disable Signature Over" box.'
 ),
 
 'Loopmancer':(
@@ -1296,6 +1312,14 @@ def text_guide():
 '4 - In the game, select DLSS; do not change to FSR as the\ngame will crash.'    
 ),
 
+'Unknown 9: Awakening':(
+'1. Select Uniscaler V4 and install it.\n'
+'2. In the game, select an option under Upscaling Quality.\n'
+'3. Check the box Enable Signature Override\n'
+'4. You can also select XESS in "Mod Operates", it has\nbetter quality, but it\'s optional.\n'
+'5. This game does not yet have a fix for the HUD.\n'
+),
+
 'Uncharted':(
 '1 - Select a mod of your preference (0.10.3 is recommended).\n' 
 '2 - Run the game using the u4-l.exe executable. The game\nmay crash the first time, so just run it again.\n'
@@ -1432,6 +1456,8 @@ def text_guide():
         screen_guide.geometry('520x520')
     elif select_game == 'Alan Wake 2':
         screen_guide.geometry('520x420')
+    elif select_game == 'Lies of P':
+        screen_guide.geometry('520x350')
     else:
         screen_guide.geometry('520x260')
     
@@ -2607,6 +2633,29 @@ def del_all_mods2(mod_list,mod_name,search_folder_name = None):
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
 
+def del_all_mods_optiscaler(mod_list,mod_name, remove_dxgi = False,search_folder_name = None):
+    global select_folder
+    try:
+        if select_mod == mod_name:
+
+            if os.path.exists(os.path.join(select_folder, 'nvngx.dll')):
+                os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'nvngx_dlss.dll')) # Reverts the original nvngx_dlss.dll file
+            
+            if remove_dxgi:
+                if os.path.exists(os.path.join(select_folder, 'dxgi.dll')):
+                    os.remove(os.path.join(select_folder, 'dxgi.dll'))
+
+            for item in os.listdir(select_folder):
+                if item in mod_list:
+                    os.remove(os.path.join(select_folder,item))
+            
+            if search_folder_name != None:
+                mods_path = os.path.join(select_folder, search_folder_name)        
+                if os.path.exists(mods_path):
+                    shutil.rmtree(mods_path)
+    except Exception as e:
+        messagebox.showinfo('Error','Please close the game or any other folders related to the game.') 
+
 def del_others_mods(mod_path,message,path_reg = None):
     try:
         if os.path.exists(mod_path) and messagebox.askyesno('Cleanup', message):
@@ -3064,13 +3113,19 @@ def clean_mod():
     
     try:
         if select_option == "Horizon Zero Dawn":
-            del_all_mods2(del_optiscaler,'Optiscaler Custom HZD')
+            del_all_mods_optiscaler(del_optiscaler,'Optiscaler Custom HZD', False)
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     try:
+        if select_option == 'Lies of P':
+            del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.1/DLSS LOP', True,)
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Lies of P mods files, please try again or do it manually')
+
+    try:
         if select_option == 'The Callisto Protocol':
-            del_all_mods2(del_callisto_optiscaler_custom, 'FSR 3.1.1/DLSS Callisto')
+            del_all_mods_optiscaler(del_callisto_optiscaler_custom,'FSR 3.1.1/DLSS Callisto', True,)
     except Exception as e:
         messagebox.showinfo('Error','Error clearing Callisto mods files, please try again or do it manually')
     
@@ -5787,6 +5842,18 @@ def dlss_to_fsr():
 
     runReg(dlss_to_fsr_reg)
 
+def optiscaler_fsr_dlss(): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
+    path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
+    path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
+
+    if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')):
+        shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
+        os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'dxgi.dll'))
+        os.replace(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
+    else:
+        shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
+
+
 def fsr_rdr2():
     global select_fsr,select_mod,origins_rdr2_folder
     
@@ -6124,10 +6191,9 @@ callisto_origins = {'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\FSR_Calli
 def callisto_fsr():
     path_tcp = 'mods\\FSR3_Callisto\\Reshade\\TCP Cinematic\\TCP.ini'
     path_real_life = 'mods\\FSR3_Callisto\\Reshade\\The Real Life\\The Real Life The Callisto Protocol Reshade BETTER TEXTURES and Realism 2022.ini'
-    optiscaler_callisto = 'mods\\FSR3_Callisto\\Optiscaler'
 
     if select_mod ==  'FSR 3.1.1/DLSS Callisto':
-        shutil.copytree(optiscaler_callisto, select_folder, dirs_exist_ok=True)
+        optiscaler_fsr_dlss()
         runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
 
     if select_mod in callisto_origins:
@@ -6467,15 +6533,17 @@ def hfw_fsr3():
             runReg(hfw_ot_gpu_reg)
     
 def fsr3_hzd():
-    path_optiscaler_custom_hzd = 'mods\\FSR3_HZD\\Optiscaler_Custom_HZD'
-
     if select_mod == 'Optiscaler Custom HZD':
-        shutil.copytree(path_optiscaler_custom_hzd,select_folder,dirs_exist_ok=True)
+        optiscaler_fsr_dlss()
 
 def fsr3_control():
     path_nvngx_control = 'mods\\FSR3_Control'
     if select_option == 'Control':
         shutil.copytree(path_nvngx_control,select_folder,dirs_exist_ok=True)
+
+def fsr3_lop():
+    if select_mod == 'FSR 3.1.1/DLSS LOP':
+        optiscaler_fsr_dlss()
         
 def fsr3_aw2():
     path_rtx = 'mods\\FSR3_AW2\\RTX'
@@ -6517,8 +6585,7 @@ def fsr3_aw2():
             os.rename(os.path.join(select_folder, 'dxgi.dll'), os.path.join(select_folder, 'D3D12.dll')) if os.path.exists(os.path.join(select_folder, 'dxgi.dll')) and not os.path.exists(os.path.join(select_folder, 'D3D12.dll')) else None) # Rename the dxgi file so that the FG mods work
 
         )
-
-        os.rename
+        
         # Control RT
         if os.path.exists(path_iniaw2):  
             handle_prompt(
@@ -7630,6 +7697,8 @@ def install(event=None):
             fsr3_hellblade_2()
         if select_option == 'Assassin\'s Creed Valhalla':
             fsr3_ac_valhalla()
+        if select_option == 'Lies of P':
+            fsr3_lop()
         if select_option == 'Control':
             fsr3_control()
         if select_option == 'MOTO GP 24':
@@ -7884,6 +7953,7 @@ fsr_game_version={
     'Cod MW3':'3.0',
     'Control':'2.2',
     'Crime Boss Rockay City':'2.0',
+    'Crysis 3 Remastered':'2.2',
     'Cyberpunk 2077':'2.2',
     'Dakar Desert Rally':'2.2',
     'Deathloop':'2.0',
@@ -7966,6 +8036,7 @@ fsr_game_version={
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'The Witcher 3':'2.0',
     'Uncharted Legacy of Thieves Collection':'2.1',
+    'Unknown 9: Awakening':'2.2',
     'Until Dawn':'2.2',
     'Wanted: Dead':'2.2',
     'Warhammer: Space Marine 2':'2.2'
@@ -8220,6 +8291,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END, 'Others Mods Metro',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
+    elif select_option == 'Lies of P':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'FSR 3.1.1/DLSS LOP',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -8228,9 +8304,9 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
+        'Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
     listbox.insert(tk.END,option)
 
