@@ -13,6 +13,7 @@ from configobj import ConfigObj
 import json
 import win32com.client
 import psutil
+import subprocess
 
 def uac():
     try:
@@ -32,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.12v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.13v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -264,7 +265,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
                 'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
     
@@ -564,6 +565,12 @@ def text_guide():
 'Deathloop':(
   '1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n' 
   '2 - Activate Fake Nvidia Gpu and Nvapi Results (Only for\nAMD and GTX) ' 
+),
+
+'Dragon Age: Veilguard':(
+'1. Select FSR 3.1.1/DLSS FG DG Veil and install it.\n'
+'2. In the game, press the "Insert" key to open the menu.\n'
+'3. In the menu, select "FSR 3x" under "Upscalers," then\nselect "FSR 3.1.2" right below.'
 ),
 
 'Dragons Dogma 2':(
@@ -2719,6 +2726,18 @@ def del_others_mods2(mod_path, message, files_to_remove, path_reg=None):
     except Exception as e:
         messagebox.showinfo('Error', 'Please close the game or any other folders related to the game.')
 
+def del_fsr_dlss_mods(list_amd, list_rtx, mod_name,path_reg=None):
+    gpu_name = get_active_gpu()
+
+    if 'nvidia' in gpu_name:
+        del_all_mods2(list_rtx, mod_name)
+    elif 'amd' in gpu_name or 'intel' in gpu_name:
+        del_all_mods2(list_amd,mod_name)
+    elif gpu_name is None:
+        del_all_mods2(list_rtx, mod_name) if messagebox.askyesno('GPU', 'Do you have an Nvidia GPU?') else del_all_mods2(list_amd,mod_name)
+    
+    if path_reg != None:
+        runReg(path_reg)
         
 #Execution def 
 def clean_mod():
@@ -2773,6 +2792,8 @@ def clean_mod():
     
     del_hb2 = ['version.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll']
     
+    del_aw2_rtx = ['nvngx.dll','RestoreNvidiaSignatureChecks.reg','DisableNvidiaSignatureChecks.reg','dlssg_to_fsr3_amd_is_better.dll','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
+
     del_dd2_all_gpu = [
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DELETE_OPENVR_API_DLL_IF_YOU_WANT_TO_USE_OPENXR', 
     'dinput8.dll', 'DisableNvidiaSignatureChecks.reg', 'DisableSignatureOverride.reg', 'dlss-enabler-upscaler.dll',
@@ -2803,14 +2824,15 @@ def clean_mod():
     ]
 
     del_dlss_rtx = [ 
-    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll','dlss-enabler.log', 'dlssg_to_fsr3.log', 'dlssg_to_fsr3_amd_is_better-3.0.dll',
-    'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.log', 'libxess.dll','nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'unins000.dat', 'winmm.dll','dlss-enabler.dll'
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
+    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.log', 'nvngx-wrapper.dll',
+    'nvngx.ini', 'unins000.dat'
     ]
 
     del_dlss_amd = [
-    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll','dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log',
-    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll','fakenvapi.ini', 'fakenvapi.log', 'libxess.dll', 'nvapi64.dll', 'nvngx-wrapper.dll',
-    'nvngx.dll', 'nvngx.ini', 'nvngx_dlss.dll', 'nvngx_dlssg.dll', 'unins000.dat'
+    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
+    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.ini', 'fakenvapi.log', 'libxess.dll',
+    'nvapi64.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'unins000.dat'
     ]
 
     del_dlss_rtx_custom = ['amd_fidelityfx_dx12.dll','amd_fidelityfx_vk.dll','dlss-enabler.dll','dxgi.dll','libxess.dll','nvngx.ini']
@@ -3039,6 +3061,21 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
+    try:
+        if select_option == 'Dragon Age: Veilguard':
+            remove_anti_stutter_dg_veil = 'mods\\FSR3_Dg_Veil\\Anti Stutter\\Uninstall DATV High CPU Priority.reg'
+            restore_purple_filter_dg_veil = ['ReShade.ini','Dark_Fantasy_LUT.ini','dxgi.dll']
+
+            if select_mod == 'FSR 3.1.2/DLSS DG Veil':
+                del_fsr_dlss_mods(del_dlss_amd, del_dlss_rtx,'FSR 3.1.2/DLSS DG Veil','mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg')
+
+            del_others_mods(os.path.join(select_folder, 'AntiStutter.txt'), 'Do you want to remove the Anti Sttuter?', remove_anti_stutter_dg_veil)
+
+            if os.path.exists(os.path.join(select_folder, 'Dark_Fantasy_LUT.ini')) and messagebox.askyesno('Restore Purple Filter', 'Do you want to restore the Purple Filter?'):
+                del_all_mods2(restore_purple_filter_dg_veil, 'Others Mods DG Veil', 'reshade-shaders')
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Dragon Age: Veilguard mods files, please try again or do it manually')
+
     try:
         if select_option == 'Warhammer: Space Marine 2':
             restore_dxgi_marine = os.path.join(select_folder, 'Backup_DXGI')
@@ -3412,6 +3449,9 @@ def clean_mod():
             path_new_iniaw2 = os.path.abspath(os.path.join(folder_ini_aw2,'..')) #Look for the backup file renderer.ini in the path C:\\Users\\YourName\\AppData\\Local\\Remedy
             remove_anti_stutter_aw2 =  'mods\\FSR3_AW2\\Anti Stutter\\Uninstall Alan Wake 2 CPU Priority.reg' 
 
+            if select_mod == 'Alan Wake 2 FG RTX':
+                del_all_mods2(del_aw2_rtx, 'Alan Wake 2 FG RTX')
+
             # Anti Stutter
             if os.path.exists(os.path.join(select_folder, 'AntiStutter.txt')):      
                 if messagebox.askyesno('Anti Stutter','Do you want to remove the Anti Stutter?'):
@@ -3463,13 +3503,9 @@ def clean_mod():
     
     try:
         if select_mod == 'FSR 3.1.1/DLSS FG Custom':
-            nvdia_checks_reg = 'mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg'
-            if messagebox.askyesno('GPU','Do you have an RTX GPU?'):
-                del_all_mods2(del_dlss_rtx,'FSR 3.1.1/DLSS FG Custom')
-            else:
-                del_all_mods2(del_dlss_amd,'FSR 3.1.1/DLSS FG Custom')
+            nvidia_checks_reg = 'mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg'
             
-            runReg(nvdia_checks_reg)
+            del_fsr_dlss_mods(del_dlss_amd, del_dlss_rtx,'FSR 3.1.1/DLSS FG Custom',nvidia_checks_reg)
     except Exception:
         messagebox.showinfo("Error","Error clearing FSR 3.1.1/DLSS FG Custom files, please try again or do it manually")
 
@@ -5880,16 +5916,48 @@ def dlss_fsr():
     if put_dlss and select_nvngx != 'DLSS 3.7.0' or put_dlss and not nvngx_contr :
         shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
+def get_active_gpu():
+    try:
+        if sys.platform == "win32":
+            result = subprocess.check_output([
+                "nvidia-smi", 
+                "--query-gpu=name,utilization.gpu", 
+                "--format=csv,noheader,nounits"
+            ], creationflags=subprocess.CREATE_NO_WINDOW)
+        else:
+            result = subprocess.check_output([
+                "nvidia-smi", 
+                "--query-gpu=name,utilization.gpu", 
+                "--format=csv,noheader,nounits"
+            ])
+        
+        user_gpus = result.decode('utf-8').strip().split("\n")
+        
+        # Sorts the GPUs by highest utilization
+        user_gpus = sorted(user_gpus, key=lambda gpu: int(gpu.split(',')[1]), reverse=True)
+        
+        # Returns the name of the GPU with the highest utilization
+        return user_gpus[0].split(',')[0].lower()
+    
+    except subprocess.CalledProcessError:
+        return None
+
+def var_gpu_copy(path_amd, path_rtx):
+    gpu_name = get_active_gpu()
+
+    if 'nvidia' in gpu_name:
+        shutil.copytree(path_rtx, select_folder, dirs_exist_ok=True)
+    elif 'amd' in gpu_name or 'intel' in gpu_name:
+        shutil.copytree(path_amd, select_folder, dirs_exist_ok=True)
+    elif gpu_name is None:
+        shutil.copytree(path_rtx, select_folder, dirs_exist_ok=True if messagebox.askyesno('GPU', 'Do you have an Nvidia GPU?') else path_amd)
+
 def global_dlss():
     path_dlss_rtx = 'mods\\DLSS_Global\\RTX'
     path_dlss_amd = 'mods\\DLSS_Global\\AMD'
     dlss_global_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
-    if messagebox.askyesno('GPU','Do you have a RTX GPU ?'):
-        shutil.copytree(path_dlss_rtx,select_folder,dirs_exist_ok=True)  
-    else:
-        shutil.copytree(path_dlss_amd,select_folder,dirs_exist_ok=True)
-
+    var_gpu_copy(path_dlss_amd, path_dlss_rtx)
     runReg(dlss_global_reg)
 
 def dlss_to_fsr():
@@ -6375,7 +6443,6 @@ def pw_fsr3():
             
             shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
      
-    
     shortcut_pw_path = os.path.join(select_folder,'Palworld-Win64-Shipping.exe')
     new_target_path = ('Palworld') 
     dx_12 = "-dx12"
@@ -6613,6 +6680,35 @@ def fsr3_hzd_rematered():
                        shutil.copy(dlss_hzd_rem, select_folder))
         )
 
+def fsr3_dg_veil():
+    amd_dg_veil = 'mods\\DLSS_Global\\For games that have native FG\\AMD'
+    rtx_dg_veil = 'mods\\DLSS_Global\\For games that have native FG\\RTX'
+    anti_stutter_dg_veil = 'mods\\FSR3_Dg_Veil\\Anti Stutter\\Install DATV High CPU Priority.reg'
+    var_anti_stutter_dg_veil =  'mods\\FSR3_SH2\\Anti_Stutter\\AntiStutter.txt'
+    remove_filter_purple_dg_veil = 'mods\\FSR3_Dg_Veil\\Remove_Purple_Tones'
+
+    if select_mod == 'FSR 3.1.2/DLSS DG Veil':
+        var_gpu_copy(amd_dg_veil, rtx_dg_veil)
+
+    if select_mod == 'Others Mods DG Veil':
+        # Anti Stutter
+        handle_prompt(
+            'Anti Stutter',
+            'Do you want to enable Anti-Stutter? (prevents possible stuttering in the game)',
+            lambda _: (
+                runReg(anti_stutter_dg_veil),
+                shutil.copy(var_anti_stutter_dg_veil, select_folder)
+                )
+            )
+
+        # Remove Purple Tones
+        handle_prompt(
+            'Filter Purple Color',
+            'Do you want to remove the purple color filter from the game?',
+            lambda _: (
+                shutil.copytree(remove_filter_purple_dg_veil, select_folder, dirs_exist_ok=True)
+                )
+            )
 
 def fsr3_control():
     path_nvngx_control = 'mods\\FSR3_Control'
@@ -7493,7 +7589,7 @@ def optiscaler_fsr3():
     
 install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
-               'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
+               'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dragon Age: Veilguard','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Horizon Zero Dawn Remastered','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
                'Palworld','Ready or Not','Red Dead Redemption','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']
 
@@ -7812,6 +7908,8 @@ def install(event=None):
             fsr3_silent2()
         if select_option == 'Until Dawn':
             fsr3_until()
+        if select_option == 'Dragon Age: Veilguard':
+            fsr3_dg_veil()
         if select_option == 'A Quiet Place: The Road Ahead':
             fsr3_quiet_place()
         if select_option == 'Red Dead Redemption':
@@ -8097,6 +8195,7 @@ fsr_game_version={
     'Dead Island 2':'2.2',
     'Death Stranding Director\'s Cut':'2.2',
     'Dead Space (2023)':'2.1',
+    'Dragon Age: Veilguard':'2.2',
     'Dragons Dogma 2':'US',
     'Dying Light 2':'2.0',
     'Elden Ring':'PD',
@@ -8446,6 +8545,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END,'FSR 3.1.2 HZD Rem','Others Mods HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Dragon Age: Veilguard':
+        mod_text() 
+        mod_version_listbox.insert(tk.END,'Others Mods DG Veil','FSR 3.1.2/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -8455,7 +8559,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
          'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
 for option in options:
