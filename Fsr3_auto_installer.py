@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.13v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.14v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -267,7 +267,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Uniscaler','XESS/DLSS']
+                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -385,9 +385,15 @@ def text_guide():
 ),
 
 'A Plague Tale Requiem':(
+'Default Mods\n'
 '1 - Select a mod of your choice (0.10.3 is recommended).\n'
 '2 - Check the box for Fake Nvidia GPU (AMD/GTX) and\nNvapi Results (GTX). (If the mod doesn\'t work for AMD, also\ncheck Nvapi Results)\n'
-'3 - To fix hub flickering, enable DLSS and Frame Generation\nand play for a few seconds, then disable DLSS and leave\nonly Frame Generation enabled.'  
+'3 - To fix hub flickering, enable DLSS and Frame Generation\nand play for a few seconds, then disable DLSS and leave\nonly Frame Generation enabled.\n\n'
+
+'FSR 3.1.1 Custom Requiem\n'
+'1. Select FSR 3.1.1 Requiem and install\n'
+'2. In the game, press the "Insert" key to open the menu\n'
+'3. In the menu, select an Upscaler, check Frame Gen and\nHud Fix boxes.'
 ),
 
 'A Quiet Place: The Road Ahead':(
@@ -582,11 +588,18 @@ def text_guide():
 '•To fix the Hud, select Dynamic Resolution and turn off FSR3\n(after turning it on for the first time), this will slightly decrease the fps.'
 ),
 
-'Dying Light 2': (      
+'Dying Light 2': (   
+'Default Mods\n'   
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - Enable Fake Nvidia GPU (only for AMD and GTX).\n'
 '3 - In the game, select any upscaler and activate Frame\nGeneration.\n'
-'4 - If you experience any flickering or ghosting, go to Video >\nAdvanced Settings and decrease the Lod Range Multiplier.'
+'4 - If you experience any flickering or ghosting, go to Video >\nAdvanced Settings and decrease the Lod Range Multiplier.\n\n'
+
+'FSR 3.1.2\n'
+'1.Select the FSR 3.1.2 DL2 Custom and install.\n'
+'2.In the game, select FSR 2 and press the "Insert" key to\nopen the menu.\n'
+'3.In the menu, select FSR 3.x and select FSR 2.3.2 right\nbelow.\n'
+'4.Check the Hud Fix box to remove glitches.'
 ),
 
 'Elden Ring': (
@@ -1394,6 +1407,13 @@ def text_guide():
 '6. In the game, press the "Home" key to open the menu and\nselect the graphic options you prefer.'
 ),
 
+'Watch Dogs Legion':(
+'1. Select the FSR 3.1.1/DLSS Optiscaler Custom and install.\n'
+'2. In the game, select DLSS and press the "Insert" key to\nopen the Menu.\n'
+'3. In the Menu, select an Upscaler, check Frame Gen and\nFix HUD boxes.\n'
+'4. To install DLSS 3.7.20, check the Nvngx.dll box and\nselect "DLSS 3.7.20"'
+),
+
 'Uniscaler':(
 'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
 'Even if the game does not have support for one of the 3\nupscalers, it is possible to activate them by selecting the\nupscaler in "Mod Operates".\n\n'
@@ -1493,6 +1513,10 @@ def text_guide():
         screen_guide.geometry('520x350')
     elif select_game == 'Red Dead Redemption':
         screen_guide.geometry('520x400')
+    elif select_game == 'Dying Light 2':
+        screen_guide.geometry('520x290')
+    elif select_game == 'A Plague Tale Requiem':
+        screen_guide.geometry('520x300')
     else:
         screen_guide.geometry('520x260')
     
@@ -2736,6 +2760,9 @@ def del_fsr_dlss_mods(list_amd, list_rtx, mod_name,path_reg=None):
     elif gpu_name is None:
         del_all_mods2(list_rtx, mod_name) if messagebox.askyesno('GPU', 'Do you have an Nvidia GPU?') else del_all_mods2(list_amd,mod_name)
     
+    if os.path.exists(os.path.join(select_folder, 'reshade-shaders')) and os.path.exists(os.path.join(select_folder, 'd3d12.dll')):
+        os.remove(os.path.join(select_folder, 'd3d12.dll'))
+
     if path_reg != None:
         runReg(path_reg)
         
@@ -3506,8 +3533,9 @@ def clean_mod():
             nvidia_checks_reg = 'mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg'
             
             del_fsr_dlss_mods(del_dlss_amd, del_dlss_rtx,'FSR 3.1.1/DLSS FG Custom',nvidia_checks_reg)
-    except Exception:
+    except Exception as e:
         messagebox.showinfo("Error","Error clearing FSR 3.1.1/DLSS FG Custom files, please try again or do it manually")
+        print(e)
 
     try: 
         if select_mod == 'FSR 3.1.1/DLSS Optiscaler':
@@ -4038,12 +4066,12 @@ nvngx_folders = {}
 for nvn_key in [
     '0.7.6', '0.8.0', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', 
     '0.10.2h1', '0.10.3', '0.10.4', 'RDR2 Build_2', 'RDR2 Build_4', 
-    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler'
+    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom'
 ]:
     nvngx_folders[nvn_key] = nvngx_path_global
 
 def copy_nvngx():
-    global nvngx_folders
+    global nvngx_folders, nvngx_contr
     nvngx_folder = nvngx_folders.get(select_mod)
     path_nvngx_uni_v2 =  'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\stub_nvngx\\nvngx.dll'
     path_nvngx_uni_fsr31 = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_uni_fsr3\\nvngx.dll'
@@ -4127,6 +4155,12 @@ def copy_nvngx():
                 rename_dlssd_371 = 'nvngx_dlssd.txt'
                 
                 copy_dlss(name_dlssd_371,name_old_dlssd_371,path_dlssd_371,rename_dlssd_371)
+            
+            if install_contr:
+                nvngx_cbox.deselect()
+                nvngx_contr = False
+                nvngx_canvas.configure(bg='#C0C0C0')
+                nvngx_listbox.place_forget()
                                                       
         except Exception as e:
             messagebox.showinfo("Error","Please select the destination folder and the mod version")
@@ -5918,32 +5952,51 @@ def dlss_fsr():
 
 def get_active_gpu():
     try:
-        if sys.platform == "win32":
-            result = subprocess.check_output([
-                "nvidia-smi", 
-                "--query-gpu=name,utilization.gpu", 
-                "--format=csv,noheader,nounits"
-            ], creationflags=subprocess.CREATE_NO_WINDOW)
-        else:
-            result = subprocess.check_output([
-                "nvidia-smi", 
-                "--query-gpu=name,utilization.gpu", 
-                "--format=csv,noheader,nounits"
-            ])
+        # Use PowerShell to identify GPUs in Windows with details about the driver and memory
+        result = subprocess.check_output(
+            ['powershell', '-Command', 
+             'Get-CimInstance -ClassName Win32_VideoController | Select-Object Caption, DriverDate, DriverVersion, AdapterRAM'],
+            stderr=subprocess.STDOUT, 
+            creationflags=subprocess.CREATE_NO_WINDOW
+        )
         
-        user_gpus = result.decode('utf-8').strip().split("\n")
-        
-        # Sorts the GPUs by highest utilization
-        user_gpus = sorted(user_gpus, key=lambda gpu: int(gpu.split(',')[1]), reverse=True)
-        
-        # Returns the name of the GPU with the highest utilization
-        return user_gpus[0].split(',')[0].lower()
-    
+        gpu_info = result.decode('utf-8').strip().split("\n")
+
+        # Filter out empty results and split GPU data
+        user_gpus = [gpu.strip() for gpu in gpu_info[2:] if gpu.strip()]  # Ignore header lines
+
+        if not user_gpus:
+            return None
+
+        # If there's only one GPU, it's automatically the primary one
+        if len(user_gpus) == 1:
+            return user_gpus[0].lower()  # Return the GPU name in lowercase
+
+        # If there are more than one GPU, try to identify which one is currently in use
+        utilization_result = subprocess.check_output(
+            ['powershell', '-Command', 
+             'Get-CimInstance -ClassName Win32_PerfFormattedData_Counters_GPUUsage | Select-Object GPUTime'],
+            stderr=subprocess.STDOUT,
+            creationflags=subprocess.CREATE_NO_WINDOW
+        )
+        utilization_info = utilization_result.decode('utf-8').strip().split("\n")
+
+        # Filter the usage data (considering the first line is a header)
+        gpu_usages = [int(usage.strip()) for usage in utilization_info[2:] if usage.strip()]
+
+        # If there are more than one GPU, select the one with the highest usage
+        if len(user_gpus) == len(gpu_usages):
+            primary_gpu = user_gpus[gpu_usages.index(max(gpu_usages))]  # GPU with the highest usage will be considered the primary one
+
+        return primary_gpu.lower()  # Return the primary GPU in lowercase
+
     except subprocess.CalledProcessError:
         return None
 
 def var_gpu_copy(path_amd, path_rtx):
     gpu_name = get_active_gpu()
+
+    print(gpu_name)
 
     if 'nvidia' in gpu_name:
         shutil.copytree(path_rtx, select_folder, dirs_exist_ok=True)
@@ -5954,10 +6007,16 @@ def var_gpu_copy(path_amd, path_rtx):
 
 def global_dlss():
     path_dlss_rtx = 'mods\\DLSS_Global\\RTX'
+    path_dlss_rtx_reshade = 'mods\\DLSS_Global\\RTX_Reshade'
     path_dlss_amd = 'mods\\DLSS_Global\\AMD'
+    path_dlss_amd_reshade = 'mods\\DLSS_Global\\AMD_Reshade'
     dlss_global_reg = "mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX\\DisableNvidiaSignatureChecks.reg"
 
-    var_gpu_copy(path_dlss_amd, path_dlss_rtx)
+    if os.path.exists(os.path.join(select_folder, 'reshade-shaders')):
+        var_gpu_copy(path_dlss_amd_reshade, path_dlss_rtx_reshade)
+    else:
+        var_gpu_copy(path_dlss_amd, path_dlss_rtx)
+    
     runReg(dlss_global_reg)
 
 def dlss_to_fsr():
@@ -7512,6 +7571,15 @@ def fsr3_rdr1():
         else:
             messagebox.showinfo('Not Found', 'To install the other mods (Intro Skip and DS4 Buttons), select the correct path to the .exe file, and look for the .exe in the path "Red Dead Redemption\\RDR.exe".')
 
+def fsr3_dl2():
+    custom_dl2 = 'mods\\FSR3_DL2\\Custom_FSR'
+    if select_mod == 'FSR 3.1.2 Custom DL2':
+        shutil.copytree(custom_dl2, select_folder, dirs_exist_ok=True)
+
+def fsr3_requiem():
+    if select_mod == 'FSR 3.1.1 Custom Requiem':
+        optiscaler_fsr_dlss()
+
 def fsr3_quiet_place():
     optiscaler_quiet_place = 'mods\\Addons_mods\\OptiScaler'
 
@@ -7591,7 +7659,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dragon Age: Veilguard','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Horizon Zero Dawn Remastered','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Red Dead Redemption','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']
+               'Palworld','Ready or Not','Red Dead Redemption','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -7908,6 +7976,10 @@ def install(event=None):
             fsr3_silent2()
         if select_option == 'Until Dawn':
             fsr3_until()
+        if select_option == 'Dying Light 2':
+            fsr3_dl2()
+        if select_option == 'A Plague Tale Requiem':
+            fsr3_requiem()
         if select_option == 'Dragon Age: Veilguard':
             fsr3_dg_veil()
         if select_option == 'A Quiet Place: The Road Ahead':
@@ -8279,7 +8351,8 @@ fsr_game_version={
     'Unknown 9: Awakening':'2.2',
     'Until Dawn':'2.2',
     'Wanted: Dead':'2.2',
-    'Warhammer: Space Marine 2':'2.2'
+    'Warhammer: Space Marine 2':'2.2',
+    'Watch Dogs Legion':'2.2',
 }
 
 select_option = None
@@ -8458,7 +8531,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Dying Light 2':
         mod_text() 
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, *default_mods,*uniscaler_mods)
+        mod_version_listbox.insert(tk.END,'FSR 3.1.2 Custom DL2' ,*fsr_31_dlss_mods, *default_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
     
     elif select_option == 'Black Myth: Wukong':
@@ -8561,7 +8634,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2']#add options
+         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     listbox.insert(tk.END,option)
 
