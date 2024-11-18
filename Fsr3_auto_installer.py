@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.16v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.17v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -376,6 +376,15 @@ def text_guide():
 '6. Install the Preset first and then the FSR3 mod if you plan\nto use it'
 ),
 
+'Alan Wake Remastered' :(
+'FSR 3.1.2/DLSS Custom AW Remaster\n'
+'1. Select FSR 3.1.2/DLSS Custom AW Remaster and install\n',
+'2. Check the Enable Signature Over box\n',
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n',
+'4. In the menu, select FSR 3x and FSR 3.1.2 right below,\nif you have Nvidia GPU, select DLSS\n',
+'5. Check the Frame gen and Hud Fix boxes, in Hud Fix\nselect 2.\n'
+),
+
 'Alone in the Dark':(
 "1 - Select a version of the mod of your choice (version 0.10.3\nis recommended).\n"
 "2 - Enable the 'Enable Signature Override' checkbox.\n"
@@ -403,6 +412,16 @@ def text_guide():
 '4. Select an upscaler of your choice\n'
 '5. Check the Frame Gen and Hud Fix boxes\n'
 '6. If you can\'t see DLSS, enable Hardware Acceleration in\nGraphics Settings on Windows'
+),
+
+'Assassin\'s Creed Mirage':(
+'FSR 3.1.2/DLSS Mirage\n'
+'1. Select FSR 3.1.2/DLSS Mirage and install\n',
+'2. Check the Enable Signature Over box\n',
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n',
+'4. In the menu, select FSR 3x and FSR 3.1.2 right below,\nif you have Nvidia GPU, select DLSS to use DLSS 3.8.10\n',
+'5. Check the Frame gen and Hud Fix boxes, in Hud Fix\nselect 2.\n'
+'6. If you are using ReShade, select FSR 3.1.1/DLSS FG\nCustom and follow the steps above'
 ),
 
 'Assassin\'s Creed Valhalla':(
@@ -611,11 +630,18 @@ def text_guide():
 ),
 
 'Elden Ring': (
-'1 - Select "Disable AntiCheat" in the Select Mod and choose "Yes" in the anticheat deactivation\nconfirmation window. Select the folder where the game exe is located, otherwise, it will not be\npossible to deactivate the anticheat. (Steam Only)\n'
-'2 - Select "Elden Ring FSR3" in Select Mod and install it.\n'
-'3 - Inside the game, press the "Home" key to open the mod menu. In "Upscale Type," select the\nUpscaler according to your GPU (DLSS Rtx or FSR3 non-Rtx), then check the box "Enable\nFrame Generation" below.\n'
+'Default Mods\n'
+'1. Select "Disable AntiCheat" in the Select Mod and choose "Yes" in the anticheat deactivation\nconfirmation window. Select the folder where the game exe is located, otherwise, it will not be\npossible to deactivate the anticheat. (Steam Only)\n'
+'2. Select "Elden Ring FSR3" in Select Mod and install it.\n'
+'3. Inside the game, press the "Home" key to open the mod menu. In "Upscale Type," select the\nUpscaler according to your GPU (DLSS Rtx or FSR3 non-Rtx), then check the box "Enable\nFrame Generation" below.\n'
 '• To remove Full Screen borders, select "Full Screen" in the game before installing the mod. If\nthere is screen overflow after mod installation, select full screen -> window -> full screen.\n'
-'• Enable AntiAliasing and Motion Blur; this mod will skip the actual rendering of motion blur, so\ndon\'t worry if you don\'t like motion blur. The game only needs it to render motion vectors.'
+'• Enable AntiAliasing and Motion Blur; this mod will skip the actual rendering of motion blur, so\ndon\'t worry if you don\'t like motion blur. The game only needs it to render motion vectors.\n\n'
+
+'FSR 3.1.2/DLSS FG Custom Elden\n'
+'1. Select FSR 3.1.2/DLSS FG Custom Elden and install\n'
+'2. For Steam users, add the following command in "Launch Options" before starting the game:\ncmd /c start eldenring.exe & rem %command%\n'
+'3. In the game, press the "Home" key to open the menu\n'
+'4. In the menu, select Frame Gen and an Upscaler'
 ),
 
 'Everspace 2':(
@@ -1497,7 +1523,7 @@ def text_guide():
     elif select_game == 'Martha Is Dead':
         screen_guide.geometry('600x260')
     elif select_game == 'Elden Ring':
-        screen_guide.geometry('730x260')
+        screen_guide.geometry('730x360')
     elif select_game == 'F1 2022' or select_game == 'F1 2023':
         screen_guide.geometry('540x260')
     elif select_game == 'XESS/DLSS':
@@ -2838,7 +2864,7 @@ def clean_mod():
                      'start_game_in_offline_mode.exe','toggle_anti_cheat.exe','ReShade.ini','EldenRingUpscalerPreset.ini',
                      'dxgi.dll','d3dcompiler_47.dll','']
     
-    del_elden_fsr3_v3 = ['ERSS2.dll','dxgi.dll']
+    del_elden_fsr3_v3 = ['ERSS2.dll','dxgi.dll','ERSS-FG.dll']
     
     del_bdg_fsr3 = ['nvngx.dll','version.dll','version.org']
 
@@ -2969,7 +2995,7 @@ def clean_mod():
         messagebox.showinfo('Error','Unable to delete the Uniscaler folder, please close the game or any other folders related to the game.')
      
     try:
-        if select_option == 'Elden Ring' and select_mod != 'Elden_Ring_FSR3_V3' and select_mod != 'Unlock FPS Elden':
+        if select_option == 'Elden Ring' and select_mod != 'FSR 3.1.2/DLSS FG Custom Elden' and select_mod != 'Unlock FPS Elden':
             for item in os.listdir(select_folder):
                 if item in mod_clean_list or item in del_elden_fsr3:
                     os.remove(os.path.join(select_folder,item))
@@ -2986,13 +3012,10 @@ def clean_mod():
                     shutil.rmtree(os.path.join(select_folder,'mods\\UnlockTheFps'))
 
 
-        elif select_option == 'Elden Ring' and select_mod == 'Elden_Ring_FSR3_V3':
+        elif select_option == 'Elden Ring' and select_mod == 'FSR 3.1.2/DLSS FG Custom Elden':
             for itemv3 in os.listdir(select_folder):
                 if itemv3 in del_elden_fsr3_v3:
-                    os.remove(os.path.join(select_folder,itemv3))  
-            if os.path.exists(os.path.join(select_folder,'ERSS2')):
-                shutil.rmtree(os.path.join(select_folder,'ERSS2'))  
-        
+                    os.remove(os.path.join(select_folder,itemv3))      
             if os.path.exists(os.path.join(select_folder,'mods')):
                 if os.path.exists(os.path.join(select_folder,'UnlockFps.txt')):
                     os.remove(os.path.join(select_folder,'mods\\UnlockTheFps.dll'))
@@ -3288,6 +3311,23 @@ def clean_mod():
             del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.1/DLSS LOP', True,)
     except Exception as e:
         messagebox.showinfo('Error','Error clearing Lies of P mods files, please try again or do it manually')
+    
+    try:
+        if select_option == 'Assassin\'s Creed Mirage':
+            del_all_mods_optiscaler(del_optiscaler, 'Assassin\'s Creed Custom Mirage', True,)
+
+            if os.path.exists(os.path.join(select_folder,'Backup Ac Mirage')):
+                if messagebox.askyesno('Intro Skip','Do you want to remove the Intro Skip?'):
+                    shutil.copytree(os.path.join(select_folder,'Backup Ac Mirage'), os.path.join(select_folder, 'videos'), dirs_exist_ok=True)
+                    shutil.rmtree(os.path.join(select_folder,'Backup Ac Mirage'))
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Assassin\'s Creed Mirage mods files, please try again or do it manually')
+    
+    try:
+        if select_option == 'Alan Wake Remastered':
+            del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.2/DLSS Custom AW Remaster', True,)
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Alan Wake Rematered mods files, please try again or do it manually')
 
     try:
         if select_option == 'The Callisto Protocol':
@@ -6420,15 +6460,17 @@ def us_dd2(var_d_put,origins_dd2):
 er_origins = {'Disable_Anti-Cheat':'mods\\Elden_Ring_FSR3\\ToggleAntiCheat',
               'Elden_Ring_FSR3':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3',
               'Elden_Ring_FSR3 V2':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3 v2',
-              'Elden_Ring_FSR3_V3':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3 v3',
+              'FSR 3.1.2/DLSS FG Custom Elden':'mods\\Elden_Ring_FSR3\\EldenRing_FSR3 v3',
               }
 
 def elden_fsr3():
     global er_origins
-    
+    update_fsr_elden = 'mods\\Temp\\FSR_Update\\amd_fidelityfx_dx12.dll'
+    update_dlss_elden = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
+
     if select_mod in er_origins:
         elden_folder = er_origins[select_mod]
-    
+
     if select_mod in er_origins:
         shutil.copytree(elden_folder,select_folder, dirs_exist_ok=True)
 
@@ -6437,6 +6479,10 @@ def elden_fsr3():
 
     if os.path.exists(os.path.join(select_folder, 'toggle_anti_cheat.exe')):
         run_dis_anti_c()
+    
+    if select_mod == 'FSR 3.1.2/DLSS FG Custom Elden' and os.path.exists(os.path.join(select_folder,'ERSS2\\bin')):
+        shutil.copy(update_fsr_elden,os.path.join(select_folder,'ERSS2\\bin'))
+        shutil.copy(update_dlss_elden, os.path.join(select_folder,'ERSS2\\bin'))
 
 def run_dis_anti_c():
     var_anti_c = messagebox.askyesno('Disable Anti Cheat','Do you want to disable the anticheat? (only for Steam users)')
@@ -7695,6 +7741,35 @@ def fsr3_drr():
             return False
     return True
 
+def fsr3_ac_mirage():
+    intro_skip_ac_mirage = 'mods\\FSR3_Ac_Mirage\\Intro_skip'
+
+    if select_mod == 'FSR 3.1.2/DLSS Custom Mirage':
+        optiscaler_fsr_dlss()
+    
+    if select_mod == 'Others Mods Mirage':
+        if os.path.exists(os.path.join(select_folder,'videos')):
+            # Intro Skip
+            try:
+                handle_prompt(
+                    'Intro Skip',
+                    'Do you want to install the Intro Skip?',
+                    lambda _: (
+                        os.makedirs(os.path.join(select_folder, "Backup Ac Mirage"), exist_ok=True),
+                        shutil.copytree(os.path.join(select_folder, "videos"), os.path.join(select_folder, "Backup Ac Mirage"), dirs_exist_ok=True),
+                        shutil.copytree(intro_skip_ac_mirage, select_folder, dirs_exist_ok=True)
+                    )
+                )
+            except Exception as e:
+                print(e)
+        else:
+            messagebox.showinfo('Not Found','If you want to install the Intro Skip, select the game\'s .exe folder')
+
+
+def fsr3_aw_remaster():
+    if select_mod == 'FSR 3.1.2/DLSS Custom AW Remaster':
+        optiscaler_fsr_dlss()
+
 def fsr3_sr():
     tcp_sr = 'mods\\FSR3_SR\\TCP'
     optiscaler_sr = 'mods\\Addons_mods\\Optiscaler DLSS'
@@ -8132,6 +8207,10 @@ def install(event=None):
             fsr3_dl2()
         if select_option == 'Saints Row':
             fsr3_sr()
+        if select_option == 'Assassin\'s Creed Mirage':
+            fsr3_ac_mirage()
+        if select_option == 'Alan Wake Remastered':
+            fsr3_aw_remaster()
         if select_option == 'A Plague Tale Requiem':
             fsr3_requiem()
         if select_option == 'Dragon Age: Veilguard':
@@ -8398,6 +8477,7 @@ fsr_game_version={
     'A Plague Tale Requiem':'2.2',
     'A Quiet Place: The Road Ahead':'2.2',
     'Achilles Legends Untold':'2.2',
+    'Alan Wake Remastered':'2.2',
     'Alan Wake 2':'2.2',
     'Alone in the Dark':'2.0',
     'Assassin\'s Creed Mirage':'2.2',
@@ -8568,7 +8648,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
     elif select_option == 'Elden Ring':
         mod_text()
-        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','Elden_Ring_FSR3_V3','Unlock FPS Elden')
+        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','FSR 3.1.2/DLSS FG Custom Elden','Unlock FPS Elden')
     
     elif select_option == 'Baldur\'s Gate 3':
         mod_text()
@@ -8796,6 +8876,16 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_version_listbox.insert(tk.END, 'FSR 3.1 FG DRR', 'Dinput8 DRR')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
+    elif select_option == 'Assassin\'s Creed Mirage':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'FSR 3.1.2/DLSS Custom Mirage', 'Others Mods Mirage',*fsr_31_dlss_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Alan Wake Remastered':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'FSR 3.1.2/DLSS Custom AW Remaster', *fsr_31_dlss_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
     elif select_option == 'GTA Trilogy':
         mod_text() 
         mod_version_listbox.insert(tk.END, 'FSR 3.1.2/DLSS Custom GTA', *fsr_31_dlss_mods)
@@ -8809,7 +8899,7 @@ def update_canvas(event=None): #canvas_options text configuration
             mod_version_listbox.insert(tk.END,mod_op)    
     fsr_listbox_view()
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
          'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
