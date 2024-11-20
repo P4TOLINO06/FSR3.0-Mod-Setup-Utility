@@ -7639,7 +7639,6 @@ def fsr3_drr():
     dlss_to_fg_drr = 'mods\\FSR3_DRR\\FSR3FG\\Dlss_to_Fsr'
     dinput_drr = 'mods\\FSR3_DRR\\FSR3FG\\Dinput'
     dlss_drr = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
-    path_plugins_drr = os.path.join(select_folder,'reframework\\plugins')
 
     if select_mod == 'Dinput8 DRR':
         shutil.copytree(dinput_drr, select_folder, dirs_exist_ok=True)
