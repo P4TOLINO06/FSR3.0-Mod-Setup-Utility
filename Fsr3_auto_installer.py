@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.18v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.19v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,8 +266,8 @@ def select_guide():
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
-                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Red Dead Redemption 2 MIX','Red Dead Redemption Mix 2','Red Dead Redemption V2','RDR2 Non Steam',
-                'Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Smalland','Spider Man/Miles','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
+                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2',
+                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -1093,38 +1093,21 @@ def text_guide():
 ),
 
 'Red Dead Redemption 2':(
-"● RDR2_Build_2\n"
-"1 - Launch the game, go to settings turn off Triple buffering + V-sync, unlock\nadvanced settings, and change API to DX12 Then restart the game, turn\n on dlss (RTX) or fsr2 (non-RTX) (Required settings before playing the game)\n\n"
-"•Attention,don't install another version of the Reshade app after using this mod\n\n"
-"If your game is still not open after turning Off Afterburner and Rivatuner, try\nsetting Run this program as administrator and Run this program in compatibility\nmode for Windows 7 of the Compatibility tab of the Properties in the right\nmouse menu.\n\n"
-"2 -'While playing press the hotkey 'End' to go to the mod menu \n(don't set anything in the lobby (main game menu before playing),\nif you turn frame generation On or Off may cause an ERR_GFX_STATE error),\nset dlss (RTX) or fsr3 (non-RTX), and toggle frame generation Off and On again.\nIf you have a black screen check Upscale Type in the menu mod again,\nchange from dlss to fsr3\n\n"
-"3 - Check again with the toggle enable UI Hud Fix On or Off. If you see UI\nflickering when turning Enable UI Hud Fix Off, that means the mod work\n\n"  
-"Other versions of the mod install normally, but may experience flickering on the HUD"
-),
 
-'Red Dead Redemption 2 MIX':(
- '1 - Set the game to DX12 in advanced options.\n'
+'FSR 3.1.2/DLSS FG Custom RDR2\n'
+'1. Disable Vsync, Triple Buffering, select Borderless Windowed, and run in DirectX 12.\n'
+'2. Select FSR 3.1.2/DLSS FG Custom RDR2 and install.\n'
+'3. Check the Enable Signature Over box.\n'
+'4. In the game, select DLSS and press the "Insert" key to open the menu.\n'
+'5. In the menu, check the Frame Gen and HUD Fix boxes.\n'
+'6. If you want to use FSR 3.1.2, select FSR 3x in "Upscalers."\n'
+'7. Close MSI Afterburner, or the game may crash\n\n'
+
+'Red Dead Redemption 2 MIX\n'
+'1 - Set the game to DX12 in advanced options.\n'
 '2 - Turn off Triple Buffering and Vsync, and set the game to Full Screen.\n'
 '3 - Select the RDR2 Mix mod and install it.\n'
 '4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
-),
-
-'Red Dead Redemption Mix 2':(
-'1 - Set the game to DX12.\n'
-'2 - Turn off Buffer Triple, Vsync, and disable any upscaler,\nleave it on TAA.\n'
-'3 - It\'s not necessary to activate any upscaler for the mod\nto work, but if you want to use one, refer to the RDR2 Mix\nguide.'   
-),
-
-'Red Dead Redemption V2':(
-'1 - Turn off Vsync, Triple Buffering, and set the game to DX12.\n'
-'2 - Install the mod.\n'
-'3 - In-game, press the "END" key and select an upscaler.\nIf you want to use native resolution, check the Native\nResolution box below the upscaler, and restart the game.\n(FSR3 Upscaling or FSR 2 is recommended; you can also\ntry others, but they may not work).'  
-),
-
-'RDR2 Non Steam':(
-'1- Leave the game in DX12 and turn off Vsync/Triple Buffering.\n'
-'2- In-game, if you have an RTX card, enable DLSS, if you\ndon\'t have an RTX card, disable any upscaler and turn on\nTAA. Press the "END" key, select FSR3 in Upscaler Type,\nand check the box "Enable Frame Generation.\n'    
-'3- If a DLL error occurs, reinstall the mod and click "YES" in\nthe DLL file installation message box'
 ),
 
 'Returnal':(
@@ -1227,6 +1210,15 @@ def text_guide():
 '1 -Check the Fake Nvidia GPU box (if you can\'t see DLSS in\nthe game, check the Nvapi Results box as well).\n'
 '2 - On the initial configuration screen, select DLSS or XESS\nand check the Frame Generation box.\n'
 '3 - If you have an RTX, you can improve image quality by\nselecting \'DLSS\' in Mode Settings'   
+),
+
+'S.T.A.L.K.E.R. 2':(
+'Preset\n'
+'1. Install ReShade\n'
+'2. Inside ReShade, select the game’s .exe and click next\n'
+'3. Select DX 10/11/12 and click next\n'
+'4. Click "Browse" and locate the file Stalker2 REAL LIFE.ini\nthat was installed in the folder selected in the Utility and\nclick Next\n'
+'5. In the game, press the Home key to open the menu and\nselect the options you prefer\n'
 ),
 
 'Star Wars: Jedi Survivor':(
@@ -1512,7 +1504,7 @@ def text_guide():
     else:
         guide_text = ""
     if select_game == 'Red Dead Redemption 2':
-        screen_guide.geometry('655x410')
+        screen_guide.geometry('685x310')
     elif select_game == 'Dead Space Remake':
         screen_guide.geometry('530x260')
     elif select_game == 'Hogwarts legacy':
@@ -1551,8 +1543,6 @@ def text_guide():
         screen_guide.geometry('520x305')
     elif select_game == 'Icarus':
         screen_guide.geometry('690x260')
-    elif select_game == 'Red Dead Redemption 2 MIX':
-        screen_guide.geometry('672x260')
     elif select_game == 'Hellblade 2':
         screen_guide.geometry('535x595')
     elif select_game == 'Add-on Mods':
@@ -1817,25 +1807,7 @@ def backup_files():
         unlock_view_message = False
     else:
         unlock_view_message = True
-        
-    if select_option == 'Red Dead Redemption 2' and select_mod in rdr2_folder:
-        comp_files(rdr2_folder)  
-        
-        dll_rdr2 = ['ffx_fsr2_api_dx12_x64.dll','ffx_fsr2_api_vk_x64.dll','ffx_fsr2_api_x64.dll']
-        backup_folder_rdr2 = os.path.join(select_folder,'Backup')
-        
-        if select_mod == 'RDR2 Non Steam FSR3':
-            for i_dll in os.listdir(select_folder):
-                if i_dll in dll_rdr2:
-                    dll_path = os.path.join(select_folder, i_dll)
-                    shutil.copy(dll_path,backup_folder_rdr2)
-
-        unlock_view_message = False
-        
-    elif select_option == 'Red Dead Redemption 2' and select_mod in origins_rdr2_folder:
-        comp_files(origins_rdr2_folder)
-        unlock_view_message = False
-    
+  
     if select_option == 'Baldurs Gate 3':
         comp_files(bdg_origins)
         unlock_view_message = False  
@@ -3086,7 +3058,7 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     try: #clear the mods for rdr2 and palworld
-        if select_mod in rdr2_folder or select_option == 'Palworld':
+        if select_mod == 'RDR2 Mix' or select_option == 'Palworld':
             for item_rdr2 in os.listdir(select_folder):
                 if item_rdr2 in del_rdr2_fsr3:
                     os.remove(os.path.join(select_folder,item_rdr2))
@@ -3098,15 +3070,6 @@ def clean_mod():
                 shutil.rmtree(path_rdr2_shader)  
                 if os.path.exists(os.path.join(select_folder,'PalworldUpscalerPreset.ini')):
                     os.remove(os.path.join(select_folder,'PalworldUpscalerPreset.ini')) 
-
-        if select_mod == "RDR2 FSR 3.1 FG":
-            for optis_rdr2 in os.listdir(select_folder):
-                    if optis_rdr2 in del_optiscaler_custom:
-                        os.remove(os.path.join(select_folder,optis_rdr2))
-            
-            optiscaler_rdr2_reg = "mods\\Addons_mods\\OptiScaler\\EnableSignatureOverride.reg"
-                
-            runReg(optiscaler_rdr2_reg)
                             
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
@@ -3284,6 +3247,20 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
+    try:
+        if select_option == 'Red Dead Redemption 2':
+            del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.2/DLSS FG Custom RDR2', True)
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Red Dead Redemption 2 files, please try again or do it manually')
+
+    try:
+        if select_option == 'S.T.A.L.K.E.R. 2':
+            root_stalker = os.path.abspath(os.path.join(select_folder, '..\\..'))
+
+            del_others_mods(os.path.join(root_stalker, 'Content\\Paks\\~mods\\~S2optimizedTweaksBASE_v1.31_P.pak'), 'Do you want to remove the Anti Stutter?')
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Stalker 2 mods files, please try again or do it manually')
+
     try:
         if select_option == 'Lies of P':
             del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.1/DLSS LOP', True,)
@@ -4192,8 +4169,7 @@ nvngx_folders = {}
 
 for nvn_key in [
     '0.7.6', '0.8.0', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', 
-    '0.10.2h1', '0.10.3', '0.10.4', 'RDR2 Build_2', 'RDR2 Build_4', 
-    'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom'
+    '0.10.2h1', '0.10.3', '0.10.4' 'Uniscaler', 'Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.1/DLSS FG Custom'
 ]:
     nvngx_folders[nvn_key] = nvngx_path_global
 
@@ -5577,42 +5553,36 @@ asi_global={
         '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
         '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
         'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2'
     },
     '0.10.0':{
         '2.0':'mods\\ASI\\ASI_0_10_0\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2',
     },
     '0.10.1':{
         '2.0':'mods\\ASI\\ASI_0_10_1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2',
     },
     '0.10.1h1':{
         '2.0':'mods\\ASI\\ASI_0_10_1h1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1h1\\Red Dead Redemption 2',
     },
     '0.10.2h1':{
         '2.0':'mods\\ASI\\ASI_0_10_2h1\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2',
     },
     '0.10.3':{
         '2.0':'mods\\ASI\\ASI_0_10_3\\2.0',
         '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
         '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
         'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
-        'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2',
     },
     '0.10.4':{
         '2.0':'mods\\ASI\\ASI_0_10_4\\2.0',
@@ -5726,9 +5696,7 @@ def fsr_2_2():
             
     try:
         if select_mod in asi_global:
-            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_global[select_mod]:
-                origins_2_2_f = asi_global[select_mod][option_asi]
-            elif select_asi in asi_global[select_mod]:
+            if select_asi in asi_global[select_mod]:
                 origins_2_2_f = asi_global[select_mod][select_asi]
             else:
                 origins_2_2_f = None
@@ -5818,9 +5786,7 @@ def fsr_2_1():
             
     try:
         if select_mod in asi_global:
-            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_global[select_mod]:
-                origins_2_1_f = asi_global[select_mod][option_asi]
-            elif select_asi in asi_global[select_mod]:
+            if select_asi in asi_global[select_mod]:
                 origins_2_1_f = asi_global[select_mod][select_asi]
             else:
                 origins_2_1_f = None
@@ -5911,9 +5877,7 @@ def fsr_2_0():
             
     try:
         if select_mod in asi_global:
-            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_global[select_mod]:
-                origins_2_0_f = asi_global[select_mod][option_asi]
-            elif select_asi in asi_global[select_mod]:
+            if select_asi in asi_global[select_mod]:
                 origins_2_0_f = asi_global[select_mod][select_asi]
             else:
                 origins_2_0_f = None
@@ -6001,9 +5965,7 @@ def fsr_sdk():
     
     try:
         if select_mod in asi_global:
-            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_global[select_mod]:
-                origins_sdk_f = asi_global[select_mod][option_asi]
-            elif select_asi in asi_global[select_mod]:
+            if select_asi in asi_global[select_mod]:
                 origins_sdk_f = asi_global[select_mod][select_asi]
             else:
                 origins_sdk_f = None
@@ -6016,36 +5978,6 @@ def fsr_sdk():
                     print("Files from directory", origins_sdk_f, "were copied.")
     except Exception as e:
         print(e)
-
-origins_rdr2_folder = {
-        '0.9.0':['mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2',
-                 'mods\\FSR2FSR3_0.9.0\\FSR2FSR3_COMMON'],
-        
-        '0.10.0':['mods\\FSR2FSR3_0.10.0\\FSR2FSR3_COMMON',
-                  'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2'],
-        
-        '0.10.1':['mods\\FSR2FSR3_0.10.1\\FSR2FSR3_COMMON',
-                    'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2'],
-        
-        '0.10.1h1':['mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\FSR2FSR3_COMMON',
-                    'mods\\FSR2FSR3_0.10.1h1\\0.10.1h1\\Red Dead Redemption 2'],
-        
-        '0.10.2h1':['mods\\FSR2FSR3_0.10.2h1\\FSR2FSR3_COMMON',
-                    'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2'],
-        
-        '0.10.3':['mods\\FSR2FSR3_0.10.3\\FSR2FSR3_COMMON',
-                  'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2'],
-        
-        '0.10.4':['mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\FSR2FSR3_COMMON',
-                  'mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\RDR2_FSR'],
-        
-        'Uniscaler':'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod',
-        'Uniscaler + Xess + Dlss':'mods\\FSR2FSR3_Uniscaler_Xess_Dlss\\Uniscaler_mod\\Uniscaler_mod',
-        'Uniscaler V2':'mods\\FSR2FSR3_Uniscaler_V2\\Uni_V2\\Uni_Mod',
-        'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\Uni_V3\\Uni_Mod',
-        'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\Uni_V4\\Uni_Mod',
-        'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\Uniscaler_FSR31'
-    }
 
 def xess_fsr():
     path_xess = 'mods\\FSR2FSR3_Uniscaler\\CyberXeSS'
@@ -6154,208 +6086,34 @@ def dlss_to_fsr():
 
     runReg(dlss_to_fsr_reg)
 
-def optiscaler_fsr_dlss(): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
+def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
 
-    if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')):
+    if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
         shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
         os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'dxgi.dll'))
         os.replace(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
     else:
         shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
 
+def fsr3_rdr2():
+    global select_fsr,select_mod
 
-def fsr_rdr2():
-    global select_fsr,select_mod,origins_rdr2_folder
+    ini_optiscaler_rdr2 = 'mods\\FSR3_RDR2\\Optiscaler'
+    rdr2_mix = 'mods\\RDR2_FSR3_mix'
     
-    if select_mod in origins_rdr2_folder:
-        origins_rdr2 = origins_rdr2_folder[select_mod]
-    
-    if select_mod not in list_uni:
-        try:
-            for origin_folder in origins_rdr2:
-                for item in os.listdir(origin_folder):
-                    item_path = os.path.join(origin_folder,item)
-                    if os.path.isfile(item_path):
-                        shutil.copy2(item_path,select_folder)
-        except Exception as e:
-            print(e)
-    else:
-        try:
-            shutil.copytree(origins_rdr2, select_folder, dirs_exist_ok=True)
-        except shutil.Error as e:
-            print(e)
-            
-    asi_rdr2_0_9={
-        '0.9.0':{
-            '2.0':'mods\\ASI\\ASI_0_9_0\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_9_0\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_9_0\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_9_0\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.9.0\\Red Dead Redemption 2'
-        },
-        '0.10.0':{
-            '2.0':'mods\\ASI\\ASI_0_10_0\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_0\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_0\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_0\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.0\\Red Dead Redemption 2',
-        },
-        '0.10.1':{
-            '2.0':'mods\\ASI\\ASI_0_10_1\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_1\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_1\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_1\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1\\Red Dead Redemption 2',
-        },
-        '0.10.1h1':{
-            '2.0':'mods\\ASI\\ASI_0_10_1h1\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_1h1\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_1h1\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_1h1\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.1h1\\Red Dead Redemption 2',
-        },
-        '0.10.2h1':{
-            '2.0':'mods\\ASI\\ASI_0_10_2h1\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_2h1\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_2h1\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_2h1\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.2h1\\Red Dead Redemption 2',
-        },
-        '0.10.3':{
-            '2.0':'mods\\ASI\\ASI_0_10_3\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_3\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_3\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_3\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.3\\Red Dead Redemption 2',
-        },
-        
-        '0.10.4':{
-            '2.0':'mods\\ASI\\ASI_0_10_4\\2.0',
-            '2.1':'mods\\ASI\\ASI_0_10_4\\2.1',
-            '2.2':'mods\\ASI\\ASI_0_10_4\\2.2',
-            'SDK':'mods\\ASI\\ASI_0_10_4\\SDK',
-            'ASI Loader for RDR2':'mods\\FSR2FSR3_0.10.4\\Red Dead Redemption 2\\RDR2_FSR'
-        },
-       'Uniscaler':{
-            '2.0':'mods\\ASI\\ASI_uniscaler',
-            '2.1':'mods\\ASI\\ASI_uniscaler',
-            '2.2':'mods\\ASI\\ASI_uniscaler',
-            'SDK':'mods\\ASI\\ASI_uniscaler',
-            'ASI Loader for RDR2':'mods\\ASI\\ASI_uniscaler'
-        },
-       'Uniscaler + Xess + Dlss':{
-            '2.0':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
-            '2.1':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
-            '2.2':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
-            'SDK':r'mods\\ASI\\ASI_uniscaler_xess_dlss',
-            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_xess_dlss'
-       },
-       'Uniscaler V2':{
-            '2.0':r'mods\\ASI\\ASI_uniscaler_v2',
-            '2.1':r'mods\\ASI\\ASI_uniscaler_v2',
-            '2.2':r'mods\\ASI\\ASI_uniscaler_v2',
-            'SDK':r'mods\\ASI\\ASI_uniscaler_v2',
-            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v2'
-       },
-       'Uniscaler V3':{
-           '2.0':r'mods\\ASI\\ASI_uniscaler_v3',
-            '2.1':r'mods\\ASI\\ASI_uniscaler_v3',
-            '2.2':r'mods\\ASI\\ASI_uniscaler_v3',
-            'SDK':r'mods\\ASI\\ASI_uniscaler_v3',
-            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v3'
-       },
-        'Uniscaler V4':{
-           '2.0':r'mods\\ASI\\ASI_uniscaler_v4',
-            '2.1':r'mods\\ASI\\ASI_uniscaler_v4',
-            '2.2':r'mods\\ASI\\ASI_uniscaler_v4',
-            'SDK':r'mods\\ASI\\ASI_uniscaler_v4',
-            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_v4'
-       },
-       'Uniscaler FSR 3.1':{
-           '2.0':r'mods\\ASI\\ASI_uniscaler_31',
-            '2.1':r'mods\\ASI\\ASI_uniscaler_31',
-            '2.2':r'mods\\ASI\\ASI_uniscaler_31',
-            'SDK':r'mods\\ASI\\ASI_uniscaler_31',
-            'ASI Loader for RDR2':r'mods\\ASI\\ASI_uniscaler_31'
-       }    
-    }
+    if select_mod == 'FSR 3.1.2/DLSS FG Custom RDR2':
+        optiscaler_fsr_dlss(False)
 
-    if select_mod in asi_rdr2_0_9 and (select_asi in asi_rdr2_0_9[select_mod] or option_asi in asi_rdr2_0_9[select_mod]):
-        if select_mod in asi_rdr2_0_9[select_mod]:
-            asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][select_asi]
-        elif select_mod in asi_rdr2_0_9 [select_mod]:
-            asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][option_asi]
+        gpu_name = get_active_gpu()
 
-    try:
-        if select_mod in asi_rdr2_0_9:
-            if option_asi == 'ASI Loader for RDR2' and option_asi in asi_rdr2_0_9[select_mod]:
-                asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][option_asi]
-            elif select_asi in asi_rdr2_0_9[select_mod]:
-                asi_origin_rdr2_0_9 = asi_rdr2_0_9[select_mod][select_asi]
-            else:
-                asi_origin_rdr2_0_9 = None
-                
-            if asi_origin_rdr2_0_9 and os.path.isdir(asi_origin_rdr2_0_9):
-                for i_rdr2 in os.listdir(asi_origin_rdr2_0_9):
-                    path_rdr_0_9 = os.path.join(asi_origin_rdr2_0_9, i_rdr2)
-                    if os.path.isfile(path_rdr_0_9):
-                        shutil.copy2(path_rdr_0_9, select_folder)
-                    print("Files from directory", asi_origin_rdr2_0_9, "were copied.")
-    except Exception as e:
-        print(e)  
+        if 'amd' in gpu_name:
+            shutil.copytree(ini_optiscaler_rdr2, select_folder, dirs_exist_ok=True)
 
-rdr2_folder = {"RDR2 Build_2":'mods\\Red_Dead_Redemption_2_Build02',
-               "RDR2 Build_4":'mods\\RDR2Upscaler-FSR3Build04',
-               "RDR2 Mix":'mods\\RDR2_FSR3_mix',
-               "RDR2 Mix 2":'mods\\RDR2_FSR3_mix',
-               "Red Dead Redemption V2":'mods\\RDR2_FSR3_V2',
-               "RDR2 Non Steam FSR3":'mods\\FSR3_RDR2_Non_Steam\\RDR2_FSR3',
-               "RDR2 FSR 3.1 FG":"mods\\RDR2_FSR3_1"}
-def rdr2_build2():
-    global rdr2_folder
-    
-    if select_mod in rdr2_folder:
-        origins_rdr2 = rdr2_folder[select_mod]
 
-        shutil.copytree(origins_rdr2,select_folder,dirs_exist_ok=True)
-
-    if select_mod == 'RDR2 Mix 2':
-        ignore_files = ('reshade-shaders','ReShade.ini')
-    elif select_mod == 'RDR2 Non Steam FSR3':
-        dll_copy = messagebox.askyesno('DLL','Do you want to copy the DLL files? Some users may receive a DLL error when running the game with the mod. (Only select \'Yes\' if you have received the error)')
-        
-        if dll_copy:
-            shutil.copytree("mods\\FSR3_RDR2_Non_Steam\\RDR2_DLL",select_folder,dirs_exist_ok=True)
-    
-    if select_mod == 'RDR2 Mix 2':
-        path_rdr2_ini = 'mods\\Temp\\RDR2_FSR3\\rdr2_mix2_ini\\RDR2Upscaler.ini'
-        dest_folder_mods = os.path.join(select_folder,'mods')
-    
-        for i_rdr2_mx2 in os.listdir(origins_rdr2):
-            src_item = os.path.join(origins_rdr2, i_rdr2_mx2)
-            dst_item = os.path.join(select_folder, i_rdr2_mx2)
-            if os.path.isdir(src_item):
-                if not any(pattern in i_rdr2_mx2 for pattern in ignore_files):
-                    shutil.copytree(src_item, dst_item, ignore=shutil.ignore_patterns(*ignore_files),dirs_exist_ok=True)
-            else:
-                if not any(pattern in i_rdr2_mx2 for pattern in ignore_files):
-                    shutil.copy2(src_item, dst_item)
-        
-        config_rdr2_ini = ConfigObj(path_rdr2_ini)
-
-        if 'Settings' not in config_rdr2_ini:
-            config_rdr2_ini['Settings'] = {}
-
-        config_rdr2_ini['Settings']['mUpscaleType'] = 1
-
-        config_rdr2_ini.write()
-        shutil.copy2(path_rdr2_ini,dest_folder_mods)
-    
-    if select_mod == "RDR2 FSR 3.1 FG":
-        shutil.copytree("mods\\Optiscaler FSR 3.1 Custom",select_folder,dirs_exist_ok=True)
-
+    if select_mod == 'RDR2 Mix':
+        shutil.copytree(rdr2_mix, select_folder, dirs_exist_ok=True)
 
 def fsr3_dd2():
     dinput_dd2 = 'mods\\FSR3_DD2\\dinput'
@@ -7635,6 +7393,43 @@ def fsr3_rdr1():
         else:
             messagebox.showinfo('Not Found', 'To install the other mods (Intro Skip and DS4 Buttons), select the correct path to the .exe file, and look for the .exe in the path "Red Dead Redemption\\RDR.exe".')
 
+def fsr3_stalker():
+    root_folder_stalker = os.path.abspath(os.path.join(select_folder, '..\\..'))
+    anti_stutter_stalker = 'mods\\FSR3_Stalker2\\Anti Stutter'
+    preset_stalker = 'mods\\FSR3_Stalker2\\Preset'
+    update_upscalers_stalker = 'mods\\FSR3_Stalker2\\Update_Upscalers'
+
+    if select_mod == 'Others Mods Stalker 2':
+        if os.path.exists(os.path.join(root_folder_stalker, 'Content\\Paks')):
+            # Anti Stutter
+            try:
+                handle_prompt(
+                    'Anti Stutter',
+                    'Do you want to install the Anti Stutter?',
+                    lambda _: (
+                        os.makedirs(os.path.join(root_folder_stalker, 'Content\\Paks\\~mods'), exist_ok=True),
+                        shutil.copytree(anti_stutter_stalker, os.path.join(root_folder_stalker, 'Content\\Paks\\~mods'), dirs_exist_ok=True)
+                    )
+                )
+            except Exception as e:
+                print(e)
+        else:
+            messagebox.showinfo('Not Found', 'To install the Anti Stutter, select the path to the .exe file. The path looks like Stalker2\\Binaries\\Win64".')
+
+        # Preset
+        handle_prompt(
+            'Preset',
+            'Do you want to install the Graphics Preset? Check the guide in FSR Guide to see how to perform the complete installation',
+            lambda _: (shutil.copytree(preset_stalker, select_folder,dirs_exist_ok=True))
+        )
+
+        # Update Upscalers
+        handle_prompt(
+            'Update',
+            'Do you want to update the upscalers? The latest version of all upscalers will be installed',
+            lambda _: (shutil.copytree(update_upscalers_stalker, select_folder,dirs_exist_ok=True))
+        )
+
 def fsr3_drr():
     dlss_to_fg_drr = 'mods\\FSR3_DRR\\FSR3FG\\Dlss_to_Fsr'
     dinput_drr = 'mods\\FSR3_DRR\\FSR3FG\\Dinput'
@@ -7834,7 +7629,6 @@ fsr_sct_2_2 = ['2.2']
 fsr_sct_2_1 = ['2.1']
 fsr_sct_2_0 = ['2.0']
 fsr_sct_SDK = ['SDK']
-fsr_sct_rdr2 = ['RDR2','Red Dead Redemption 2']
 
 nvngx_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 nvngx_label_guide.place_forget()
@@ -7864,7 +7658,6 @@ asi_label_guide.place_forget()
 def guide_asi(event=None):
     asi_label_guide.config(text="Default: Copies the ASI file from the selected mod/FSR.\n\n"
     "Select ASI Loader: Copies the ASI file from the FSR version of the selected mod, FSR: 2.0, 2.1, 2.2, SDK.\n\n"
-    "ASI Loader for RDR2: Copies the Red Dead Redemption ASI file from the selected mod.\n\n"
     "Only select an option in the case of tests, choosing the wrong option may cause the mod not to work. If you have selected by mistake, choose Default.")
     asi_label_guide.place(x=0,y=173)
 
@@ -8084,10 +7877,6 @@ def install(event=None):
             fsr_2_0()
         elif select_option in fsr_sdk_opt or select_fsr in fsr_sct_SDK and install_contr:
             fsr_sdk()
-        elif select_fsr in fsr_sct_rdr2 and select_mod in origins_rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in origins_rdr2_folder and install_contr:
-            fsr_rdr2()
-        elif select_fsr in fsr_sct_rdr2 and select_mod in rdr2_folder or select_option in fsr_sct_rdr2 and select_mod in rdr2_folder and install_contr:
-            rdr2_build2()
         elif select_mod in er_origins or select_mod == 'Unlock FPS Elden':
             elden_fsr3()
         elif select_mod in bdg_origins:
@@ -8144,6 +7933,10 @@ def install(event=None):
             fsr3_dl2()
         if select_option == 'Saints Row':
             fsr3_sr()
+        if select_option == 'S.T.A.L.K.E.R. 2':
+            fsr3_stalker()
+        if select_option == 'Red Dead Redemption 2':
+            fsr3_rdr2()
         if select_option == 'Lego Horizon Adventures':
             fsr3_lego_horizon()
         if select_option == 'Dragons Dogma 2':
@@ -8496,7 +8289,7 @@ fsr_game_version={
     'Palworld':'2.2',
     'Ratchet & Clank - Rift Apart':'SDK',
     'Red Dead Redemption':'2.2',
-    'Red Dead Redemption 2':'RDR2',
+    'Red Dead Redemption 2':'2.2',
     'Ready or Not':'2.2',
     'Remnant II':'2.2',
     'Returnal':'2.1',
@@ -8510,6 +8303,7 @@ fsr_game_version={
     'Shadow Warrior 3':'2.2',
     'Silent Hill 2':'2.2',
     'Smalland':'2.2',
+    'S.T.A.L.K.E.R. 2':'2.2',
     'Starfield':'2.2',
     'STAR WARS Jedi: Survivor':'2.2',
     'Star Wars Outlaws':'2.2',
@@ -8582,7 +8376,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'RDR2 Build_2','RDR2 Build_4','RDR2 Mix','RDR2 Mix 2','Red Dead Redemption V2','RDR2 Non Steam FSR3','RDR2 FSR 3.1 FG', *fsr_31_dlss_mods,'0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
+        mod_version_listbox.insert(tk.END,'FSR 3.1.2/DLSS FG Custom RDR2','RDR2 Mix',*fsr_31_dlss_mods)
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -8837,6 +8631,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END, 'FSR 3.1.2/DLSS Custom GTA', *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'S.T.A.L.K.E.R. 2':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'Others Mods Stalker 2')
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
 
     else:
         mod_version_canvas.delete('text')
@@ -8848,7 +8647,7 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
+         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     listbox.insert(tk.END,option)
 
@@ -8864,7 +8663,7 @@ def update_fsr_v(event=None):
         fsr_canvas.create_text(2,8,anchor='w',text=select_fsr,fill='black',tag='text')
     fsr_canvas.update()
     
-fsr_options = ['SDK','2.0','2.1','2.2','RDR2']
+fsr_options = ['SDK','2.0','2.1','2.2']
 for fsr_op in fsr_options:
     fsr_listbox.insert(tk.END,fsr_op)
     
@@ -8906,7 +8705,7 @@ def update_asi(event=None):
         option_asi = asi_listbox.get(index_asi)
         asi_canvas.delete('text')
         asi_canvas.create_text(2,8,anchor='w',text=option_asi,fill='black',tags='text')
-    if option_asi == 'ASI Loader for RDR2' or option_asi == 'Default':
+    if option_asi == 'Default':
         select_asi_notvisible = False
         select_asi_notvisible = False
         select_asi_canvas.delete('text')
@@ -8917,7 +8716,7 @@ def update_asi(event=None):
     update_asi_color()
     asi_canvas.update()
     
-asi_options = ['Default','Select ASI Loader','ASI Loader for RDR2']
+asi_options = ['Default','Select ASI Loader']
 for asi_op in asi_options:
     asi_listbox.insert(tk.END,asi_op)
 
