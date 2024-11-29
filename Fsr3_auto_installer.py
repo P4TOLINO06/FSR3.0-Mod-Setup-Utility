@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.20v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.21v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -568,9 +568,15 @@ def text_guide():
 ),
 
 'Dead Island 2':(
+'Default Mod\n'
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - If it doesn\'t work with the default files, enable\nEnable Signature Override. If it still doesn\'t work, check the\nbox lfz.sl.dlss.\n'
-'3 - It\'s not necessary to activate an upscaler for this game\nfor the mod to work, so enable it if you want.'
+'3 - It\'s not necessary to activate an upscaler for this game\nfor the mod to work, so enable it if you want.\n\n'
+
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'
+'2. In the game, select FSR 2 and press the "Insert" key to\nopen the menu\n'
+'3. In the menu, select FSR 3x, check the Frame Gen and\nHud fix boxes.'
 ),
 
 'Death Stranding Director\'s Cut':(
@@ -1122,13 +1128,26 @@ def text_guide():
 '1 - Set the game to DX12 in advanced options.\n'
 '2 - Turn off Triple Buffering and Vsync, and set the game to Full Screen.\n'
 '3 - Select the RDR2 Mix mod and install it.\n'
-'4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.'   
+'4 - You don\'t need to use any upscaler, as Frame Generation is automatically activated.\nHowever, if you want to use an upscaler, when installing, check the Addon Mods box,\nselect Optiscaler, and below in DX11 select FSR 2.1 DX11, and in DX12 select FSR 2.1\nDX12.\n\n'
+
+'RDR2 FG Custom\n'
+'1. Select an upscaler, disable Triple Buffering, Vsync, and set the game to DX12 before\ninstalling the mod\n'
+'2. Select RDR2 Custom FG and install\n'
+'3. In the game, press the "END" key to open the menu.\n'
+'4. In the menu, select Frame Gen'
 ),
 
 'Returnal':(
-"1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n"
-"2 - Enable the 'Enable Signature Override' checkbox if the\nmod doesn't work.\n"
-"3 - Select 'Default' in Nvngx.dll."
+'Default Mod\n'
+'1 - Choose a version of the mod you prefer (version 0.10.3\nis recommended).\n'
+'2 - Enable the \'Enable Signature Override\' checkbox if the\nmod doesn\'t work.\n'
+'3 - Select \'Default\' in Nvngx.dll.\n\n'
+
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press "Insert" key\nto open the menu\n'
+'4. In the menu, check the Frame Gen and Hud Fix boxes.'
 ),
 
 'Rise of The Tomb Raider':(
@@ -1519,7 +1538,7 @@ def text_guide():
     else:
         guide_text = ""
     if select_game == 'Red Dead Redemption 2':
-        screen_guide.geometry('685x310')
+        screen_guide.geometry('685x430')
     elif select_game == 'Dead Space Remake':
         screen_guide.geometry('530x260')
     elif select_game == 'Hogwarts legacy':
@@ -2874,7 +2893,7 @@ def clean_mod():
                        
     del_tekken_fsr3 = ['TekkenOverlay.exe','Tekken8OverlaySettings.yaml','Tekken8Overlay.dll','Tekken7Overlay.dll']
 
-    del_tlou_fsr3 = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll','uniscaler.asi','uniscaler.config.toml','uniscaler.log']
+    del_fsr3_tlou3 = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll','uniscaler.asi','uniscaler.config.toml','uniscaler.log']
     
     del_gtav_fsr3 = ['GTAVUpscaler.org.asi','GTAVUpscaler.asi','d3d12.dll','GTAVUpscaler.dll','GTAVUpscaler.org.dll','dinput8.dll']
     
@@ -2916,7 +2935,7 @@ def clean_mod():
 
     del_drr_dlss_to_fg_custom = ['dlssg_to_fsr3_amd_is_better.dll', 'version.dll']
 
-    del_tcp_sr = ['dlsstweaks.ini','DLSSTweaksConfig.exe','FSRBridge.asi','winmm.dll','winmm.ini','nvngx.dll']
+    del_tcp_sr = ['dlsstweaks.ini','DLSSTweaksConfig.exe','FSRBridge.asi','winmm.dll','winmm.ini','nvngx.dll','EnableNvidiaSigOverride.reg','DisableNvidiaSigOverride.reg','winmm.ini','winmm.dll']
 
     del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
 
@@ -3073,7 +3092,7 @@ def clean_mod():
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
     try: #clear the mods for rdr2 and palworld
-        if select_mod == 'RDR2 Mix' or select_option == 'Palworld':
+        if select_mod == 'RDR2 Mix' or select_mod == 'RDR2 FG Custom' or select_option == 'Palworld':
             for item_rdr2 in os.listdir(select_folder):
                 if item_rdr2 in del_rdr2_fsr3:
                     os.remove(os.path.join(select_folder,item_rdr2))
@@ -3212,7 +3231,7 @@ def clean_mod():
         
         if select_mod == 'Uniscaler Tlou':
             for i_tlou in os.listdir(select_folder):
-                if i_tlou in del_tlou_fsr3:
+                if i_tlou in del_fsr3_tlou3:
                     os.remove(os.path.join(select_folder,i_tlou))
                     
             if os.path.exists(path_uni_tlou):
@@ -3321,6 +3340,13 @@ def clean_mod():
         if select_option == 'Saints Row':
             del_all_mods2(del_tcp_sr, 'FSR 3.1.2/DLSS Custom SR')
             del_all_mods2(del_optiscaler, 'FSR 3.1.2/DLSS Custom SR')
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Saints Row mods files, please try again or do it manually')
+    
+    try:
+        if select_option == 'Dead Island 2':
+            del_all_mods2(del_tcp_sr, 'FSR 3.1.2/DLSS FG (Only Optiscaler)')
+            runReg('mods\\FSR3_DI2\\TCP\\DisableNvidiaSigOverride.reg')
     except Exception as e:
         messagebox.showinfo('Error','Error clearing Saints Row mods files, please try again or do it manually')
 
@@ -6106,6 +6132,8 @@ def fsr3_rdr2():
 
     ini_optiscaler_rdr2 = 'mods\\FSR3_RDR2\\Optiscaler'
     rdr2_mix = 'mods\\RDR2_FSR3_mix'
+    rdr2_fg_custom = 'mods\\FSR3_RDR2\\RDR2 FG Custom'
+    rdr2_amd_ini  = 'mods\\FSR3_RDR2\\RDR2 FG Custom\\Amd Ini\\RDR2Upscaler.ini'
     
     if select_mod == 'FSR 3.1.2/DLSS FG Custom RDR2':
         optiscaler_fsr_dlss(False)
@@ -6118,6 +6146,12 @@ def fsr3_rdr2():
 
     if select_mod == 'RDR2 Mix':
         shutil.copytree(rdr2_mix, select_folder, dirs_exist_ok=True)
+    
+    if select_mod == 'RDR2 FG Custom':
+        shutil.copytree(rdr2_fg_custom, select_folder)
+
+        if 'amd' in gpu_name and os.path.exists(os.path.join(select_folder, 'mods')):
+            shutil.copy(rdr2_amd_ini,os.path.join(select_folder, 'mods'))
 
 def fsr3_dd2():
     dinput_dd2 = 'mods\\FSR3_DD2\\dinput'
@@ -6382,17 +6416,27 @@ def chernobylite_short_cut():
     if select_option == 'Chernobylite':
         auto_shortcut(shortcut_cbl_path,new_target_path,dx_12,game_name)
 
-def tlou_fsr():
+def fsr3_tlou():
     path_uni_tlou_1080p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1080p Monitors'
     path_uni_tlou_1440p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1440p Monitors'
+    dlss_update_tlou = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
     
     if select_mod == 'Uniscaler Tlou':
-        var_gpu_tlou = messagebox.askyesno('Resolution','Is your resolution above 1080p?')
+        if messagebox.askyesno('Resolution','Is your resolution above 1080p?'):
+            shutil.copytree(path_uni_tlou_1440p,select_folder,dirs_exist_ok=True)
+        else:
+            shutil.copytree(path_uni_tlou_1080p,select_folder,dirs_exist_ok=True)
     
-    if var_gpu_tlou:
-        shutil.copytree(path_uni_tlou_1440p,select_folder,dirs_exist_ok=True)
-    else:
-        shutil.copytree(path_uni_tlou_1080p,select_folder,dirs_exist_ok=True)
+    if select_mod == 'Others Mods Tlou':
+        
+        # Update DLSS
+        handle_prompt(
+        'Update DLSS',
+        'Do you want to update DLSS? DLSS 3.8.10 will be installed.',
+        lambda _: (
+            shutil.copy(dlss_update_tlou, select_folder)
+            )
+        )
 
 def spider_fsr():
     path_xess_spider = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
@@ -7460,6 +7504,14 @@ def fsr3_flight_simulator24():
     if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)' and 'amd' in gpu_name:
         shutil.copytree(nvapi_amd_flight24, select_folder)
 
+def fsr3_di2():
+    path_tcp_di2 = 'mods\\FSR3_DI2\\TCP'
+
+    if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)':
+        shutil.copytree(path_tcp_di2, select_folder, dirs_exist_ok=True)
+
+        runReg('mods\\FSR3_DI2\\TCP\\EnableNvidiaSigOverride.reg')
+
 def fsr3_ac_mirage():
     intro_skip_ac_mirage = 'mods\\FSR3_Ac_Mirage\\Intro_skip'
     preset_ac_mirage = 'mods\\FSR3_Ac_Mirage\\ReShade\\ACMirage lighting and package.ini'
@@ -7519,6 +7571,36 @@ def fsr3_sr():
         shutil.copytree(tcp_sr, select_folder, dirs_exist_ok=True)
         shutil.copytree(optiscaler_sr, select_folder, dirs_exist_ok=True)
         runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
+
+def fsr3_returnal():
+    root_path_returnal = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+    path_default_folder_dlss_returnal = os.path.join(root_path_returnal, 'Engine\\Binaries\\ThirdParty\\NVIDIA\\NGX\\Win64')
+    path_default_dlss_returnal = os.path.join(path_default_folder_dlss_returnal, 'nvngx_dlss.dll')
+    path_dlss_returnal = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
+    path_nvapi_returnal = 'mods\\FSR3_Flight_Simulator24\\Amd'
+
+    try:
+        if os.path.exists(path_default_folder_dlss_returnal):
+            
+            if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)':
+                shutil.copy(os.path.join(path_default_folder_dlss_returnal, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
+
+            if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)' and messagebox.askyesno('Nvapi', 'Do you want to install nvapi.dll? Select "Yes" only if you are an AMD user and DLSS does not appear in the game after installing the mod.'):
+                shutil.copytree(path_nvapi_returnal, select_folder, dirs_exist_ok=True)
+
+        if select_mod == 'Others Mods Returnal':
+            if os.path.exists(path_default_folder_dlss_returnal):
+                handle_prompt(
+                'Update DLSS',
+                'Do you want to update DLSS? DLSS 3.8.10 will be installed',
+                lambda _: (
+                    shutil.copy(path_dlss_returnal, path_default_folder_dlss_returnal)
+                    )
+                )
+            else:
+                messagebox.showinfo('Exe', 'If you want to install the other Returnal mods, select the .exe folder; it should be something like "Returnal\\Binaries\\Win64".')
+    except Exception as e:
+        print(e)
 
 def fsr3_gta_trilogy():
     optiscaler_gta = 'mods\\FSR3_Gta_Trilogy\\Optiscaler_GTA'
@@ -7861,7 +7943,7 @@ def get_mod_version_canvas():
         continue_install = False
   
 def install(event=None):
-    global install_contr,var_d_put,continue_install,replace_flag,var_method
+    global install_contr,continue_install,replace_flag,var_method
     try:
         install_contr = True       
         get_mod_version_canvas()
@@ -7885,8 +7967,6 @@ def install(event=None):
             fallout_fsr()
         elif select_mod  == 'Forza Horizon 5 FSR3':
             fh_fsr3()
-        elif select_mod == 'Uniscaler Tlou':
-            tlou_fsr()
         elif select_option == 'Icarus':
             icarus_fsr3()
         elif select_option == 'Lords of the Fallen':
@@ -7933,8 +8013,14 @@ def install(event=None):
             fsr3_gta_trilogy()
         if select_option == 'Dying Light 2':
             fsr3_dl2()
+        if select_option == 'Dead Island 2':
+            fsr3_di2()
         if select_option == 'Saints Row':
             fsr3_sr()
+        if select_option == 'Returnal':
+            fsr3_returnal()
+        if select_option == 'The Last of Us Part I':
+            fsr3_tlou()
         if select_option == 'S.T.A.L.K.E.R. 2':
             fsr3_stalker()
         if select_option == 'Red Dead Redemption 2':
@@ -8376,7 +8462,7 @@ def update_canvas(event=None): #canvas_options text configuration
     if select_option == 'Red Dead Redemption 2':
         mod_text()
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'FSR 3.1.2/DLSS FG Custom RDR2','RDR2 Mix',*fsr_31_dlss_mods)
+        mod_version_listbox.insert(tk.END,'FSR 3.1.2/DLSS FG Custom RDR2','RDR2 Mix','RDR2 FG Custom',*fsr_31_dlss_mods)
     
     elif select_option == 'Dragons Dogma 2':
         mod_text()
@@ -8424,7 +8510,7 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'The Last of Us Part I':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler Tlou','Uniscaler FSR 3.1')
+        mod_version_listbox.insert(tk.END,'Others Mods Tlou','Uniscaler Tlou','Uniscaler FSR 3.1')
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
         
     elif select_option == 'Marvel\'s Spider-Man Remastered':
@@ -8641,6 +8727,11 @@ def update_canvas(event=None): #canvas_options text configuration
         mod_text() 
         mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
+    
+    elif select_option == 'Returnal':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, 'Others Mods Returnal',*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
         mod_version_canvas.delete('text')
