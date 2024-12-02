@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.21v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.22v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -580,12 +580,20 @@ def text_guide():
 ),
 
 'Death Stranding Director\'s Cut':(
+'Default Mod\n'
 'Before installing the mod, open the game and disable\nFidelityFx Cas.\n'
 '1. Select Unicaler V4.\n'
 '2. Check the box for "Enable Signature Over", check the\n"Nvngx.dll" box, and select "Default".\n'
-'3. In the game, enable FidelityFx Cas if you want more\nFPS (the mod is activated automatically when installed, but\nFidelityFx Cas provides a slight FPS boost).\n'
+'3. In the game, enable FidelityFx Cas if you want more FPS\n(the mod is activated automatically when installed, but\nFidelityFx Cas provides a slight FPS boost).\n'
 '4. If you want even more FPS, check the "Fake Nvidia GPU"\nbox and reinstall the mod (this option may not work for some\nGPUs, so test it).\n' 
-'This game does not support ReShade and the mod together,\nso you will need to uninstall ReShade if you use it for the\nmod to work.'
+'This game does not support ReShade and the mod together,\nso you will need to uninstall ReShade if you use it for the\nmod to work.\n\n'
+
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install.\n'  
+'2. Check the Enable Signature Over box.\n'  
+'3. In the game, disable Depth of Field, Motion Blur, and TAA.\n'  
+'4. Select DLSS and press the Insert key to open the menu.\n'  
+'5. In the menu, enable Frame Gen, HUD Fix, and FG Extended.'  
 ),
 
 'Chernobylite':(
@@ -1315,12 +1323,11 @@ def text_guide():
 ),
 
 'Shadow of the Tomb Raider':(
-'1 - Select the \'Uniscaler\' option under \'Mod Version\'\n'
-'2 - AMD GPU users: Select \'XESS\' under \'Mod Operates\' | Nvidia GPU users: Select any of the 3\noptions under \'Mod Operates\' (DLSS is recommended).\n'
-'3 - In the configuration window, disable \'AMD FidelityFX CAS\' and select an option in XESS/DLSS.\n'
-'4 - Within the game, adjust the options as desired (you can reactivate AMD FidelityFX CAS)\n'
-'5 - To activate Frame Generation, select an option in XESS/DLSS, select an Anti-aliasing option if\ndesired (Frame Generation will remain active).\n'
-'● Select \'Nvngx: Default\' and enable \'Enable Signature Override\' if the mod doesn\'t work\n(AMD GPU users only).\n\n'
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install.\n'
+'2. Check the Enable Signature Over box.\n'
+'3. In the game, Select DLSS and press the Insert key to open the menu.\n'
+'4. In the menu, enable Frame Gen, HUD Fix, and FG Extended.\n\n'
 
 'Uniscaler V3\n'
 '1 - Select Uniscaler V3\n'
@@ -1546,7 +1553,7 @@ def text_guide():
     elif select_game == 'Uniscaler':
         screen_guide.geometry('538x260')
     elif select_game == 'Shadow of the Tomb Raider':
-        screen_guide.geometry('740x320')
+        screen_guide.geometry('740x270')
     elif select_game == 'Horizon Forbidden West':
         screen_guide.geometry('573x260')
     elif select_game == 'Rise of The Tomb Raider':
@@ -1623,6 +1630,8 @@ def text_guide():
         screen_guide.geometry('520x360')
     elif select_game == 'Assassin\'s Creed Mirage':
         screen_guide.geometry('520x400')
+    elif select_game == 'Death Stranding Director\'s Cut':
+        screen_guide.geometry('540x420')
     else:
         screen_guide.geometry('520x260')
     
@@ -2937,7 +2946,7 @@ def clean_mod():
 
     del_tcp_sr = ['dlsstweaks.ini','DLSSTweaksConfig.exe','FSRBridge.asi','winmm.dll','winmm.ini','nvngx.dll','EnableNvidiaSigOverride.reg','DisableNvidiaSigOverride.reg','winmm.ini','winmm.dll']
 
-    del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg','amd_fidelityfx_vk.dll','amd_fidelityfx_dx12.dll']
+    del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg']
 
     del_optiscaler_custom = [
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
@@ -6116,9 +6125,25 @@ def dlss_to_fsr():
 
     runReg(dlss_to_fsr_reg)
 
+def update_upscalers(dest_path):
+    update_fsr = 'mods\\Temp\\FSR_Update\\amd_fidelityfx_dx12.dll'
+    update_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
+    update_dlssg = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
+
+    handle_prompt(
+        'Update',
+        'Do you want to update the upscalers? The latest version of all upscalers will be installed',
+        lambda _: (shutil.copy(update_fsr, dest_path),
+        (shutil.copy(update_dlss,dest_path)),
+        shutil.copy(update_dlssg,dest_path))
+    )
+
 def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider']
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
+    nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
+    gpu_name = get_active_gpu()
 
     if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
         shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
@@ -6126,6 +6151,9 @@ def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for game
         shutil.copy(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
     else:
         shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
+
+    if 'amd' in gpu_name and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
+        shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
 
 def fsr3_rdr2():
     global select_fsr,select_mod
@@ -7496,14 +7524,6 @@ def fsr3_drr():
             return False
     return True
 
-def fsr3_flight_simulator24():
-    nvapi_amd_flight24 = 'mods\\FSR3_Flight_Simulator24\\Amd'
-
-    gpu_name = get_active_gpu()
-
-    if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)' and 'amd' in gpu_name:
-        shutil.copytree(nvapi_amd_flight24, select_folder)
-
 def fsr3_di2():
     path_tcp_di2 = 'mods\\FSR3_DI2\\TCP'
 
@@ -7511,6 +7531,10 @@ def fsr3_di2():
         shutil.copytree(path_tcp_di2, select_folder, dirs_exist_ok=True)
 
         runReg('mods\\FSR3_DI2\\TCP\\EnableNvidiaSigOverride.reg')
+
+def fsr3_spider_man():
+    if select_mod == 'Others Mods Spider':
+        update_upscalers(select_folder)
 
 def fsr3_ac_mirage():
     intro_skip_ac_mirage = 'mods\\FSR3_Ac_Mirage\\Intro_skip'
@@ -7614,6 +7638,10 @@ def fsr3_gta_trilogy():
             shutil.copy(path_default_dlss_gta, os.path.join(select_folder, 'nvngx.dll'))
         else:
             shutil.copy(dlss_gta, select_folder)
+
+def fsr3_shadow_tomb():
+    if select_mod == 'Others Mods Shadow Tomb':
+        update_upscalers(select_folder)
 
 def fsr3_dl2():
     custom_dl2 = 'mods\\FSR3_DL2\\Custom_FSR'
@@ -8011,6 +8039,8 @@ def install(event=None):
             fsr3_until()
         if select_option == 'GTA Trilogy':
             fsr3_gta_trilogy()
+        if select_option  in ['Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales']:
+            fsr3_spider_man()
         if select_option == 'Dying Light 2':
             fsr3_dl2()
         if select_option == 'Dead Island 2':
@@ -8019,6 +8049,8 @@ def install(event=None):
             fsr3_sr()
         if select_option == 'Returnal':
             fsr3_returnal()
+        if select_option == 'Shadow of the Tomb Raider':
+            fsr3_shadow_tomb()
         if select_option == 'The Last of Us Part I':
             fsr3_tlou()
         if select_option == 'S.T.A.L.K.E.R. 2':
@@ -8029,8 +8061,6 @@ def install(event=None):
             fsr3_lego_horizon()
         if select_option == 'Dragons Dogma 2':
             fsr3_dd2()
-        if select_option == 'Microsoft Flight Simulator 2024':
-            fsr3_flight_simulator24()
         if select_option == 'Assassin\'s Creed Mirage':
             fsr3_ac_mirage()
         if select_option == 'Dragon Age: Veilguard':
@@ -8515,12 +8545,12 @@ def update_canvas(event=None): #canvas_options text configuration
         
     elif select_option == 'Marvel\'s Spider-Man Remastered':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
+        mod_version_listbox.insert(tk.END,'Others Mods Spider','Uniscaler Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
     
     elif select_option == 'Marvel\'s Spider-Man Miles Morales':
         mod_text() 
-        mod_version_listbox.insert(tk.END,'Uni Custom Miles',*default_mods,*uniscaler_mods, *fsr_31_dlss_mods)
+        mod_version_listbox.insert(tk.END,'Others Mods Spider','Uni Custom Miles',*default_mods,*uniscaler_mods, *fsr_31_dlss_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
         
     elif select_option == 'GTA V':
@@ -8731,6 +8761,11 @@ def update_canvas(event=None): #canvas_options text configuration
     elif select_option == 'Returnal':
         mod_text() 
         mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, 'Others Mods Returnal',*uniscaler_mods)
+        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
+    
+    elif select_option == 'Shadow of the Tomb Raider':
+        mod_text() 
+        mod_version_listbox.insert(tk.END, 'Others Mods Shadow Tomb',*fsr_31_dlss_mods,*uniscaler_mods)
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
 
     else:
