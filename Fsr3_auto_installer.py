@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.23v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.24v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -63,8 +63,8 @@ select_label.place(x=0,y=33)
 
 fsr_label = tk.Label(screen,text='FSR:',font=font_select,bg='black',fg='#C0C0C0')
 fsr_label.place(x=313,y=33)
-canvas_options = Canvas(screen,width=200,height=15,bg='white')
-canvas_options.place(x=101,y=37)
+game_options_canvas = Canvas(screen,width=200,height=15,bg='white')
+game_options_canvas.place(x=101,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
 exit_label.place(x=355,y=515)
@@ -267,7 +267,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2',
-                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
+                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -949,16 +949,16 @@ def text_guide():
 ),
 
 'Kena: Bridge of Spirits': (
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Open the game and select DX12 in the Settings\n'  
+'2. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'3. Check the Enable Signature Over box\n'  
+'4. In the game, select DLSS and press the "Insert" key to open the menu\n'  
+'5. In the menu, check the Frame Gen and Hud Fix boxes\n\n'  
+
+'Others\n'
 '1 - Select a version of the mod of your choice (version 0.10.4\nis recommended).\n'  
 '2 - Activate Fake Nvidia Gpu and Nvapi Results (AMD\\GTX\\\nIntel only).\n\n'
-
-'FSR 3.1.1/DLSS\n'
-'1. Select an FSR 3.1.1/DLSS mod and install it.\n' 
-'2. Check the "Disable Signature Over" box.\n' 
-'3. In the game, select DLSS.\n' 
-'4. Press the Insert key to open the menu.\n' 
-'5. Select an Upscaler of your choice, check the \'Frame Gen\'\nand "Hud Fix" boxes.\n' 
-'6. If you cannot see DLSS in the game, go back to the Utility\nand check the "Enable Signature Over" box.'
 ),
 
 'Layers of Fear':(
@@ -1206,6 +1206,15 @@ def text_guide():
 ),
 
 'Shadow Warrior 3':(
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the insert key to open\nthe menu\n'  
+'4. In the menu, check the Frame Gen, Hud Fix and FG\nExtended boxes\n'
+'Steam: Library > Game > Gear icon to the right of Achievements\n> Properties > Launch Options, add -dx12.\n'  
+'Others: Go to the game\'s .exe > Properties and add -dx12 after\nthe .exe.\n\n'  
+
+'Others Mods\n'
 '1 - Select a mod of your preference (0.10.3 is recommended)\n'
 '2 - Inside the game, select FSR. (You can use it with DLSS\nbut there might be flickering).\n'
 '3 - Set Ambient Occlusion and Post Processing to Low.' 
@@ -1382,6 +1391,13 @@ def text_guide():
 '2. Check the box "Enable Signature Over"\n'
 '3. In-game, select DLSS FG\n'
 '4. If you can\'t see DLSS in the game, check the "Nvngx.dll"\nbox, select "Default," and install again.'
+),
+
+'The Ascent':(
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the insert key to\nopen the menu\n'  
+'4. In the menu, check the Frame Gen and Hud Fix boxes, if\nthe HUD is not fully corrected, also check the FG Extended\nbox'  
 ),
 
 'The Callisto Protocol':(
@@ -1561,99 +1577,50 @@ def text_guide():
 '3 - If the game has a default Xess/Dlss file, this file is modified to serve as a\nbackup. If you want to remove the installed Xess/Dlss and revert to the old\nversion, just check the \'Cleanup Mod\' checkbox and confirm the deletion window\nthat appears.'  
 )
 }   
-    
-    if select_game in list_game:
-        guide_text = list_game[select_game]
-    else:
-        guide_text = ""
-    if select_game == 'Red Dead Redemption 2':
-        screen_guide.geometry('685x430')
-    elif select_game == 'Dead Space Remake':
-        screen_guide.geometry('530x260')
-    elif select_game == 'Hogwarts legacy':
-        screen_guide.geometry('560x430')
-    elif select_game == 'Uniscaler':
-        screen_guide.geometry('538x260')
-    elif select_game == 'Shadow of the Tomb Raider':
-        screen_guide.geometry('740x270')
-    elif select_game == 'Horizon Forbidden West':
-        screen_guide.geometry('573x260')
-    elif select_game == 'Rise of The Tomb Raider':
-        screen_guide.geometry('650x420')
-    elif select_game == 'The Thaumaturge':
-        screen_guide.geometry('590x260')
-    elif select_game == 'Marvel\'s Guardians of the Galaxy':
-        screen_guide.geometry('590x260')
-    elif select_game == 'Dragons Dogma 2':
-        screen_guide.geometry('600x260')
-    elif select_game == 'Ghostrunner 2':
-        screen_guide.geometry('580x260')
-    elif select_game == 'Martha Is Dead':
-        screen_guide.geometry('600x260')
-    elif select_game == 'Elden Ring':
-        screen_guide.geometry('730x360')
-    elif select_game == 'F1 2022' or select_game == 'F1 2023':
-        screen_guide.geometry('540x260')
-    elif select_game == 'XESS/DLSS':
-        screen_guide.geometry('635x260')
-    elif select_game == 'Fallout 4':
-        screen_guide.geometry('730x280')
-    elif select_game == 'Initial Information':
-        screen_guide.geometry('850x260')
-    elif select_game == 'Palworld':
-        screen_guide.geometry('533x325')
-    elif select_game == 'TEKKEN 8':
-        screen_guide.geometry('520x305')
-    elif select_game == 'Icarus':
-        screen_guide.geometry('690x260')
-    elif select_game == 'Hellblade 2':
-        screen_guide.geometry('535x595')
-    elif select_game == 'Add-on Mods':
-        screen_guide.geometry('620x790')
-    elif select_game == 'Spider Man/Miles':
-        screen_guide.geometry('520x280')
-    elif select_game == "Ghost of Tsushima" or select_game == 'The Witcher 3':
-        screen_guide.geometry('520x320')
-    elif select_game == 'Cyberpunk 2077':
-        screen_guide.geometry('550x550')
-    elif select_game == 'Black Myth: Wukong':
-        screen_guide.geometry('620x790')
-    elif select_game == 'The Callisto Protocol':
-        screen_guide.geometry('830x800')
-    elif select_game == 'Star Wars Outlaws':
-        screen_guide.geometry('520x330')
-    elif select_game == 'Star Wars: Jedi Survivor':
-        screen_guide.geometry('520x720')
-    elif select_game == 'The Casting Of Frank Stone':
-        screen_guide.geometry('520x350')
-    elif select_game == 'God of War Ragnarök':
-        screen_guide.geometry('540x420')
-    elif select_game == 'Final Fantasy XVI':
-        screen_guide.geometry('570x680')
-    elif select_game == 'Hozizon Zero Dawn':
-        screen_guide.geometry('540x260')
-    elif select_game == 'Warhammer: Space Marine 2':
-        screen_guide.geometry('520x430')
-    elif select_game == 'Silent Hill 2':
-        screen_guide.geometry('700x800')
-    elif select_game == 'Metro Exodus Enhanced':
-        screen_guide.geometry('520x520')
-    elif select_game == 'Alan Wake 2':
-        screen_guide.geometry('520x420')
-    elif select_game == 'Lies of P':
-        screen_guide.geometry('520x350')
-    elif select_game == 'Red Dead Redemption':
-        screen_guide.geometry('520x400')
-    elif select_game == 'Dying Light 2':
-        screen_guide.geometry('520x290')
-    elif select_game == 'A Plague Tale Requiem':
-        screen_guide.geometry('520x300')
-    elif select_game == 'Ghostwire: Tokyo':
-        screen_guide.geometry('520x360')
-    elif select_game == 'Assassin\'s Creed Mirage':
-        screen_guide.geometry('520x400')
-    elif select_game == 'Death Stranding Director\'s Cut':
-        screen_guide.geometry('540x420')
+    game_dimensions = {
+    '685x430': ['Red Dead Redemption 2'],
+    '530x260': ['Dead Space Remake', 'Uniscaler', 'F1 2022', 'F1 2023'],
+    '550x260': ['Hozizon Zero Dawn'],
+    '560x430': ['Hogwarts legacy'],
+    '740x270': ['Shadow of the Tomb Raider'],
+    '573x260': ['Horizon Forbidden West'],
+    '650x420': ['Rise of The Tomb Raider'],
+    '590x260': ['The Thaumaturge', 'Marvel\'s Guardians of the Galaxy'],
+    '600x260': ['Dragons Dogma 2', 'Ghostrunner 2', 'Martha Is Dead'],
+    '730x360': ['Elden Ring'],
+    '730x280': ['Fallout 4'],
+    '850x260': ['Initial Information'],
+    '533x325': ['Palworld'],
+    '520x305': ['TEKKEN 8'],
+    '690x260': ['Icarus'],
+    '535x595': ['Hellblade 2'],
+    '620x790': ['Add-on Mods', 'Black Myth: Wukong'],
+    '520x280': ['Spider Man/Miles'],
+    '520x320': ['Ghost of Tsushima', 'The Witcher 3'],
+    '550x550': ['Cyberpunk 2077'],
+    '830x800': ['The Callisto Protocol'],
+    '520x330': ['Star Wars Outlaws'],
+    '520x720': ['Star Wars: Jedi Survivor'],
+    '520x350': ['The Casting Of Frank Stone', 'Lies of P'],
+    '540x420': ['God of War Ragnarök', 'Death Stranding Director\'s Cut'],
+    '520x400': ['Red Dead Redemption', 'Assassin\'s Creed Mirage'],
+    '520x290': ['Dying Light 2'],
+    '520x300': ['A Plague Tale Requiem'],
+    '520x360': ['Ghostwire: Tokyo'],
+    '540x320': ['Shadow Warrior 3'],
+    '700x800': ['Silent Hill 2'],
+    '520x520': ['Metro Exodus Enhanced'],
+    '520x420': ['Alan Wake 2'],
+    '570x680': ['Final Fantasy XVI'],
+    '600x300': ['Kena: Bridge of Spirits'],
+    '650x260': ['XESS/DLSS']
+    }
+
+    guide_text = list_game.get(select_game, "")
+    for dimension, games in game_dimensions.items():
+        if select_game in games:
+            screen_guide.geometry(dimension)
+            break
     else:
         screen_guide.geometry('520x260')
     
@@ -7759,7 +7726,7 @@ install_contr = None
 fsr_2_2_opt = ['Achilles Legends Untold','Alan Wake 2','A Plague Tale Requiem','Assassin\'s Creed Mirage',
                'Atomic Heart','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Cod Black Ops Cold War','Control','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Death Stranding Director\'s Cut','Dragon Age: Veilguard','Dying Light 2','Everspace 2','Evil West','F1 2022','F1 2023','Final Fantsy XVI','FIST: Forged In Shadow Torch',
                'Fort Solis','Ghostwire: Tokyo','God of War Ragnarök','Hellblade 2','Hogwarts Legacy','Horizon Zero Dawn Remastered','Kena: Bridge of Spirits','Lies of P','Loopmancer','Manor Lords','Marvel\'s Avengers','Metro Exodus Enhanced Edition','Monster Hunter Rise','Nobody Wants To Die','Outpost: Infinity Siege',
-               'Palworld','Ready or Not','Red Dead Redemption','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']
+               'Palworld','Ready or Not','Red Dead Redemption','Remnant II','RoboCop: Rogue City','Satisfactory','Sackboy: A Big Adventure','Smalland','Shadow Warrior 3','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Casting Of Frank Stone','The Chant','The Invincible','The Medium','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']
 
 fsr_2_1_opt=['Chernobylite','Dead Space (2023)','Hellblade: Senua\'s Sacrifice','Hitman 3','Horizon Zero Dawn','Judgment','Martha Is Dead','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Returnal','Ripout','Saints Row','The Callisto Protocol','Uncharted Legacy of Thieves Collection']
 
@@ -8231,22 +8198,22 @@ def mod_listbox_view(event):
         mod_listbox_visible = True
 
 def select_game_listbox_view(event):
-    global listbox_visible
-    if listbox_visible:
-        listbox.place_forget()
-        listbox_visible = False
+    global game_options_listbox_visible
+    if game_options_listbox_visible:
+        game_options_listbox.place_forget()
+        game_options_listbox_visible = False
     else:
-        listbox.place(x=101,y=58)
-        listbox_visible = True
+        game_options_listbox.place(x=101,y=58)
+        game_options_listbox_visible = True
         
-listbox_visible = False
-listbox = tk.Listbox(screen,bg='white',selectbackground='white',width=30,height=0)
-listbox.pack(side=tk.RIGHT,expand=True,padx=(0,115),pady=(0,500))
-listbox.pack_forget()
-scroll_listbox = tk.Scrollbar(listbox,orient=tk.VERTICAL,command=listbox.yview)
+game_options_listbox_visible = False
+game_options_listbox = tk.Listbox(screen,bg='white',selectbackground='white',width=30,height=0)
+game_options_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,115),pady=(0,500))
+game_options_listbox.pack_forget()
+scroll_listbox = tk.Scrollbar(game_options_listbox,orient=tk.VERTICAL,command=game_options_listbox.yview)
 scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(13,50))
-listbox.config(yscrollcommand=scroll_listbox.set)
-scroll_listbox.config(command=listbox.yview)
+game_options_listbox.config(yscrollcommand=scroll_listbox.set)
+scroll_listbox.config(command=game_options_listbox.yview)
 
 select_asi_color = 'white'
 select_asi_bool = True
@@ -8292,56 +8259,6 @@ def cbox_change_font():
             except Exception:
                 messagebox.showinfo('Error','The original font file could not be copied, perhaps your system is not compatible with this font. If you want to install manually, follow this path: FSR3\\lib\\customtkinter\\assets\\fonts, open the CustomTkinter_shapes_font file, and click on \'Install\'.')
                 return
-            
-def change_labels():
-    global change_text
-    if change_text:
-        
-        change_font_label = tk.Label(screen,text="Change font", font=font_select,bg='black',fg='#C0C0C0')
-        change_font_label.place(x=0,y=565)
-        change_font_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=change_font_var,command=cbox_change_font)
-        change_font_cbox.place(x=80,y=565)
-    
-        debug_tear_lines_label.place(x=120,y=338)
-        debug_tear_lines_cbox.place(x=239,y=338)
-        
-        lfz_sl_label.place(x=267,y=338)
-        lfz_sl_label_cbox.place(x=376,y=338)
-        
-        fakegpu_cbox.place(x=126,y=185)
-        nvapi_cbox.place(x=113,y=215)
-        ue_cbox.place(x=364,y=185)
-        macos_sup_cbox.place(x=374,y=215)
-        var_expo_cbox.place(x=310,y=245)
-        open_editor_cbox.place(x=332,y=276)
-        disable_sigover_cbox.place(x=365,y=306)
-        enable_sigover_cbox.place(x=159,y=306)
-        fps_user_entry.place(x=80,y=248)
-        var_frame_gen_cbox.place(x=110,y=276)
-        debug_view_cbox.place(x=90,y=335)
-        disable_console_cbox.place(x=117,y=367)
-        backup_cbox.place(x=214,y=367)
-        fsr_guide_cbox.place(x=348,y=366)
-        cleanup_cbox.place(x=100,y=425)
-        del_dxgi_cbox.place(x=118,y=459)
-        mod_operates_label.place(x=420,y=36)
-        sharpness_cbox.place(x=560,y=73)
-        nvngx_label.place(x=420,y=395)
-        dxgi_label.place(x=420,y=425)
-        addon_mods_label.place(x=420,y=457)
-        addon_ups_dx12_label.place(x=420,y=517)
-        
-        uni_custom_canvas.place(x=602,y=365)
-        uni_custom_cbox.place(x=575,y=363)
-        
-        custom_fsr_cbox.place(x=658,y=144)
-        fsr_balanced_label.place(x=420,y=245)
-        fsr_ultraq_label.place(x=420,y=185)
-        fsr_quality_label.place(x=420,y=216)
-        fsr_ultrap_label.place(x=420,y=305)
-        fsr_performance_label.place(x=420,y=275)
-        native_res_label.place(x=420,y=335)
-change_labels()
     
 def fsr_listbox_visible(event):
     global fsr_visible
@@ -8461,6 +8378,7 @@ fsr_game_version={
     'Steelrising':'2.2',
     'TEKKEN 8':'2.2',
     'Test Drive Ultimate Solar Crown':'2.2',
+    'The Ascent':'2.2',
     'The Callisto Protocol':'2.1',
     'The Casting Of Frank Stone':'2.2',
     'The Chant':'2.2',
@@ -8489,12 +8407,73 @@ select_dxgi = None
 
 x=0
 y=0
-def update_canvas(event=None): #canvas_options text configuration
+def update_canvas(event=None): #game_options_canvas text configuration
     global mod_options,x,y,select_fsr,fsr_visible,fsr_game_version,color_rec_bool,select_option,fsr_view_listbox
     
     default_mods = '0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4'
     uniscaler_mods = 'Uniscaler','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uniscaler + Xess + Dlss'
     fsr_31_dlss_mods = 'FSR 3.1.1/DLSS Optiscaler','FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)'
+
+    game_mods_config = {
+        'A Plague Tale Requiem': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'A Quiet Place: The Road Ahead': ['FSR 3.1.1/DLSS Quiet Place', *fsr_31_dlss_mods],
+        'Alan Wake 2': ['Alan Wake 2 FG RTX', 'Alan Wake 2 Uniscaler Custom', *fsr_31_dlss_mods, 'Others Mods Aw2', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Alan Wake Remastered': [*fsr_31_dlss_mods],
+        'Assassin\'s Creed Mirage': ['Others Mods Mirage', *fsr_31_dlss_mods],
+        'Assassin\'s Creed Valhalla': ['Ac Valhalla DLSS3 (Only RTX)', 'Ac Valhalla FSR3 All GPU'],
+        'Baldur\'s Gate 3': ['Baldur\'s Gate 3 FSR3', 'Baldur\'s Gate 3 FSR3 V2', 'Baldur\'s Gate 3 FSR3 V3'],
+        'Black Myth: Wukong': ['RTX DLSS FG Wukong', 'FSR 3.1 Custom Wukong', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'COD MW3': ['COD MW3 FSR3'],
+        'Control': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Cyberpunk 2077': ['RTX DLSS FG', 'FSR 3.1.1/DLSS Optiscaler', 'FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Dead Rising Remaster': ['FSR 3.1 FG DRR', 'Dinput8 DRR'],
+        'Dragon Age: Veilguard' : ['Others Mods DG Veil','FSR 3.1.2/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
+        'Dragons Dogma 2': ['Dinput8 DD2', *fsr_31_dlss_mods],
+        'Dying Light 2': ['FSR 3.1.2 Custom DL2', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Elden Ring': ['Disable_Anti-Cheat', 'Elden_Ring_FSR3', 'Elden_Ring_FSR3 V2', 'FSR 3.1.2/DLSS FG Custom Elden', 'Unlock FPS Elden'],
+        'Fallout 4': ['Fallout 4 FSR3'],
+        'Final Fantasy XVI': ['FFXVI DLSS RTX', 'Others Mods FFXVI', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Flintlock: The Siege of Dawn': [*fsr_31_dlss_mods],
+        'Forza Horizon 5': ['Forza Horizon 5 FSR3'],
+        'Ghost of Tsushima': ['Ghost of Tsushima FG DLSS', 'Uniscaler FSR 3.1'],
+        'Gotham Knights': ['Others Mods GK', *fsr_31_dlss_mods],
+        'GTA Trilogy' : ['FSR 3.1.2/DLSS Custom GTA', *fsr_31_dlss_mods],
+        'GTA V': ['Dinput 8', 'GTA V FSR3', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
+        'God Of War 4': ['Gow 4 FSR 3.1', *fsr_31_dlss_mods],
+        'God of War Ragnarök': ['Uniscaler FSR 3.1', 'Others Mods Gow Rag'],
+        'Hellblade 2': ['Hellblade 2 FSR3 (Only RTX)', 'Remove Black Bars', 'Remove Black Bars Alt', 'Remove Post Processing Effects', 'Remove All Post Processing Effects', 'Restore Post Processing', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Hogwarts Legacy': ['Others Mods HL', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Horizon Forbidden West': ['Horizon Forbidden West FSR3', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
+        'Horizon Zero Dawn': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Horizon Zero Dawn Remastered' : ['Others Mods HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
+        'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
+        'Kena: Bridge of Spirits': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Lego Horizon Adventures': [*fsr_31_dlss_mods, 'Others Mods Lego HZD'],
+        'Lies of P': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Lords of the Fallen': ['Lords of The Fallen FSR3'],
+        'Marvel\'s Spider-Man Miles Morales': ['Others Mods Spider', 'Uni Custom Miles', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Marvel\'s Spider-Man Remastered': ['Others Mods Spider', 'Uniscaler Spider', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
+        'Palworld': ['Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Red Dead Redemption' : ['Others Mods RDR1',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
+        'Red Dead Redemption 2': ['FSR 3.1.2/DLSS FG Custom RDR2', 'RDR2 Mix', 'RDR2 FG Custom', *fsr_31_dlss_mods],
+        'Returnal': [*fsr_31_dlss_mods, 'Others Mods Returnal', *uniscaler_mods],
+        'Saints Row': ['FSR 3.1.2/DLSS Custom SR', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'S.T.A.L.K.E.R. 2': ['DLSS FG (Only Nvidia)', 'Others Mods Stalker 2'],
+        'Shadow of the Tomb Raider' : ['Others Mods Shadow Tomb',*fsr_31_dlss_mods,*uniscaler_mods],
+        'Silent Hill 2': [*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX', 'FSR3 FG Native SH2', 'FSR3 FG Native SH2 + Optimization', 'FSR 3.1.1/DLSS FG RTX Custom', 'Others Mods Sh2'],
+        'STAR WARS Jedi: Survivor': ['Dlss Jedi', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Star Wars Outlaws': ['Outlaws DLSS RTX', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'TEKKEN 8': ['Unlock Fps Tekken 8', *default_mods, *uniscaler_mods],
+        'The Callisto Protocol': ['The Callisto Protocol FSR3', 'FSR 3.1/DLSS Callisto', 'FSR 3.1.2/DLSS Custom Callisto', '0.10.4', 'Uniscaler V3', 'Uniscaler V4'],
+        'The Casting Of Frank Stone': ['0.10.4', *fsr_31_dlss_mods],
+        'The Last of Us Part I': ['Others Mods Tlou', 'Uniscaler Tlou', 'Uniscaler FSR 3.1'],
+        'The Witcher 3': [*fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Until Dawn': ['Others Mods UD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Warhammer: Space Marine 2': ['Uniscaler FSR 3.1', *fsr_31_dlss_mods],
+        'Watch Dogs Legion': ['Watch Dogs Legion Custom', *fsr_31_dlss_mods],
+    }
 
     def mod_text():
         mod_version_canvas.delete('text')
@@ -8502,312 +8481,32 @@ def update_canvas(event=None): #canvas_options text configuration
         scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
     
     if fsr_view_listbox == True:
-        canvas_options.delete('text')
+        game_options_canvas.delete('text')
         
-    index = listbox.curselection()
+    index = game_options_listbox.curselection()
     if index:
-        select_option = listbox.get(index)
+        select_option = game_options_listbox.get(index)
         x = 2
         y = 8
         fsr_canvas.delete('text')
         if select_option != 'Select FSR version': 
             color_rec_bool = False
             fsr_view_listbox = False
-            canvas_options.delete('text')  
-            canvas_options.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
+            game_options_canvas.delete('text')  
+            game_options_canvas.create_text(x, y, anchor='w', text=select_option, fill='black', tag='text')
             fsr_canvas.create_text(2, 8, anchor='w', text=fsr_game_version.get(select_option, ''), fill='black', tag='text')
             fsr_listbox.place_forget()
     
     if select_option == 'Select FSR version':
         fsr_view_listbox = True
         color_rec_bool = True
-        canvas_options.delete('text')
-        canvas_options.create_text(x, y, anchor='w', text='Select FSR version', fill='black', tag='text')
+        game_options_canvas.delete('text')
+        game_options_canvas.create_text(x, y, anchor='w', text='Select FSR version', fill='black', tag='text')
     
-    if select_option == 'Red Dead Redemption 2':
+    if select_option in game_mods_config:
         mod_text()
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END,'FSR 3.1.2/DLSS FG Custom RDR2','RDR2 Mix','RDR2 FG Custom',*fsr_31_dlss_mods)
-    
-    elif select_option == 'Dragons Dogma 2':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Dinput8 DD2',*fsr_31_dlss_mods)
-    
-    elif select_option == 'Elden Ring':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Disable_Anti-Cheat','Elden_Ring_FSR3','Elden_Ring_FSR3 V2','FSR 3.1.2/DLSS FG Custom Elden','Unlock FPS Elden')
-    
-    elif select_option == 'Baldur\'s Gate 3':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Baldur\'s Gate 3 FSR3','Baldur\'s Gate 3 FSR3 V2','Baldur\'s Gate 3 FSR3 V3')
-    
-    elif select_option == 'The Callisto Protocol':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'The Callisto Protocol FSR3', 'FSR 3.1.1/DLSS Callisto', 'FSR 3.1.2/DLSS Custom Callisto','0.10.4', 'Uniscaler V3', 'Uniscaler V4')  
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-
-    elif select_option == 'Fallout 4':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Fallout 4 FSR3') 
-    
-    elif select_option == 'Forza Horizon 5':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Forza Horizon 5 FSR3') 
-    
-    elif select_option == 'Forza Horizon 5':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Forza Horizon 5 FSR3') 
-    
-    elif select_option == 'Palworld':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Palworld Build03','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        
-    elif select_option == 'TEKKEN 8':
-        mod_text()
-        mod_version_listbox.insert(tk.END,'Unlock Fps Tekken 8',*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-     
-    elif select_option == 'Icarus':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Icarus FSR3 AMD/GTX','Icarus FSR3 RTX')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-        
-    elif select_option == 'The Last of Us Part I':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods Tlou','Uniscaler Tlou','Uniscaler FSR 3.1')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-        
-    elif select_option == 'Marvel\'s Spider-Man Remastered':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods Spider','Uniscaler Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-    
-    elif select_option == 'Marvel\'s Spider-Man Miles Morales':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods Spider','Uni Custom Miles',*default_mods,*uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        
-    elif select_option == 'GTA V':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Dinput 8','GTA V FSR3','GTA V FiveM','GTA Online','GTA V Epic','GTA V Epic V2')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        
-    elif select_option == 'Lords of the Fallen':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Lords of The Fallen FSR3')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Horizon Forbidden West':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Horizon Forbidden West FSR3','Uniscaler FSR 3.1', *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-
-    elif select_option == 'Horizon Zero Dawn':
-        mod_text()
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods ,*default_mods, *uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-           
-    elif select_option == 'Alan Wake 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Alan Wake 2 FG RTX','Alan Wake 2 Uniscaler Custom', *fsr_31_dlss_mods, 'Others Mods Aw2','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-    
-    elif select_option == 'Ghost of Tsushima':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Ghost of Tsushima FG DLSS','Uniscaler FSR 3.1')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Assassin\'s Creed Valhalla':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Ac Valhalla DLSS3 (Only RTX)','Ac Valhalla FSR3 All GPU')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'The Witcher 3':
-        mod_text()
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods,'0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4', *uniscaler_mods)
-    
-    elif select_option == 'Hellblade 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Hellblade 2 FSR3 (Only RTX)','Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'STAR WARS Jedi: Survivor':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Dlss Jedi',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Cyberpunk 2077':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG','FSR 3.1.1/DLSS Optiscaler','FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Flintlock: The Siege of Dawn':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'COD MW3':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'COD MW3 FSR3')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Dying Light 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1.2 Custom DL2' ,*fsr_31_dlss_mods, *default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Black Myth: Wukong':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'RTX DLSS FG Wukong','FSR 3.1 Custom Wukong',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-
-    elif select_option == 'Final Fantasy XVI':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'FFXVI DLSS RTX','Others Mods FFXVI',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Star Wars Outlaws':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Outlaws DLSS RTX', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'God Of War 4':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Gow 4 FSR 3.1', *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'God of War Ragnarök':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1','Others Mods Gow Rag')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Warhammer: Space Marine 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Uniscaler FSR 3.1', *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'The Casting Of Frank Stone':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'0.10.4', *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-
-    elif select_option == 'Control':
-        mod_text()
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, *default_mods, *uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(30,0))
-    
-    elif select_option == 'Silent Hill 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX','FSR3 FG Native SH2','FSR3 FG Native SH2 + Optimization','FSR 3.1.1/DLSS FG RTX Custom','Others Mods Sh2')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Until Dawn':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods UD',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Hogwarts Legacy':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods HL',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'A Quiet Place: The Road Ahead':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'FSR 3.1.1/DLSS Quiet Place',*fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Kena: Bridge of Spirits':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Metro Exodus Enhanced Edition':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods Metro',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-
-    elif select_option == 'Lies of P':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Red Dead Redemption':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods RDR1',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Horizon Zero Dawn Remastered':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Dragon Age: Veilguard':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods DG Veil','FSR 3.1.2/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'A Plague Tale Requiem':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Saints Row':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'FSR 3.1.2/DLSS Custom SR',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Dead Rising Remaster':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'FSR 3.1 FG DRR', 'Dinput8 DRR')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Assassin\'s Creed Mirage':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'Others Mods Mirage',*fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Alan Wake Remastered':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Lego Horizon Adventures':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,*fsr_31_dlss_mods, 'Others Mods Lego HZD')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'GTA Trilogy':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'FSR 3.1.2/DLSS Custom GTA', *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'S.T.A.L.K.E.R. 2':
-        mod_text() 
-        mod_version_listbox.insert(tk.END,'DLSS FG (Only Nvidia)','Others Mods Stalker 2')
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Microsoft Flight Simulator 2024':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(0,0))
-    
-    elif select_option == 'Returnal':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, *fsr_31_dlss_mods, 'Others Mods Returnal',*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Shadow of the Tomb Raider':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods Shadow Tomb',*fsr_31_dlss_mods,*uniscaler_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-    
-    elif select_option == 'Gotham Knights':
-        mod_text() 
-        mod_version_listbox.insert(tk.END, 'Others Mods GK',*fsr_31_dlss_mods)
-        scroll_mod_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(45,0))
-
+        mod_version_listbox.insert(tk.END, *game_mods_config[select_option])
+        scroll_mod_listbox.pack(side=tk.RIGHT, fill=tk.Y, padx=(184, 0), pady=(30, 0))
     else:
         mod_version_canvas.delete('text')
         mod_version_listbox.delete(0,END)
@@ -8818,9 +8517,9 @@ def update_canvas(event=None): #canvas_options text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
+         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
-    listbox.insert(tk.END,option)
+    game_options_listbox.insert(tk.END,option)
 
 def fsr_canvas_emp():
     return not fsr_canvas.find_all()
@@ -9096,9 +8795,9 @@ uni_custom_options = ['1080p' ,'1440p','2160p']
 for uni_custom_op in uni_custom_options:
     uni_custom_listbox.insert(tk.END,uni_custom_op)
 
-canvas_options.bind('<Button-1>',select_game_listbox_view)
+game_options_canvas.bind('<Button-1>',select_game_listbox_view)
+game_options_listbox.bind("<<ListboxSelect>>",update_canvas)
 fsr_canvas.bind('<Button-1>',fsr_listbox_visible)
-listbox.bind("<<ListboxSelect>>",update_canvas)
 fsr_listbox.bind("<<ListboxSelect>>",update_fsr_v)
 fakegpu_label.bind('<Enter>',guide_fk_gpu)
 fakegpu_label.bind('<Leave>',close_fk_gpu_guide)
