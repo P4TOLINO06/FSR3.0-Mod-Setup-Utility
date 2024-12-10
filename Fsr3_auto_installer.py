@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.24v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.25v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1088,11 +1088,19 @@ def text_guide():
 ),
 
 'Palworld':(
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the "Insert" key to open\nthe menu\n'  
+'4. In the menu, check the Frame Gen, Hud Fix and Fg\nExtended boxes\n'  
+'5. Not recommended to utilize the mod in online mode.\n\n'
+
+'Others Mods\n'
 'For standard mods (0.10+ and Uniscaler), simply enable \nthe fake Nvidia GPU (for AMD and GTX) and UE Compatibility\nmode (for AMD) and set the game to DX12. Throughout the\nguide, it will be explained how to do this.\n\n'
 '1. Select Palworld Build03 and locate the game folder with the\nending binaries/win64 and see if the executable with the ending\nWin64-shipping.exe is present.\n'
 '2. Install, confirm the GPU selection window that will appear.\n'
 '3. To run the game in DX12, simply confirm the window that\nappears after confirming the GPU selection. Make sure the\nmentioned exe is in the selected folder. Alternatively, you can\nignore the window and do it manually, by creating a shortcut\nand adding \'-dx12\' after the quotes in the \'Target\' field.\n'
-'4. Run the game through the shortcut.\n\n'
+'4. Run the game through the shortcut.\n'
 '• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
 ),
 
@@ -1272,13 +1280,12 @@ def text_guide():
 ),
 
 'Spider Man/Miles':(
-'1 - Select a mod of your preference\n'
-'2 - The Uniscaler Spider does not require any additional\nconfiguration initially, just install it. If you choose another\nmod or the Dlss Frame Generation option is not available,\ncheck the Fake Nvidia Gpu box. (only Amd)\n'
-'3 - In-game, select an upscaler and enable Dlss Frame\nGeneration.\n\n'
-'Uni Custom Miles\n'
-'1 -Check the Fake Nvidia GPU box (if you can\'t see DLSS in\nthe game, check the Nvapi Results box as well).\n'
-'2 - On the initial configuration screen, select DLSS or XESS\nand check the Frame Generation box.\n'
-'3 - If you have an RTX, you can improve image quality by\nselecting \'DLSS\' in Mode Settings'   
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. When launching the game, select DLSS in the initial\nsettings menu. If that\'s not possible, select it in-game.\n'  
+'4. In the game, press the "Insert" key to open the menu\n' 
+'5. In the menu, check the Frame Gen and Hud Fix boxes\n'  
 ),
 
 'S.T.A.L.K.E.R. 2':(
@@ -1590,7 +1597,7 @@ def text_guide():
     '730x360': ['Elden Ring'],
     '730x280': ['Fallout 4'],
     '850x260': ['Initial Information'],
-    '533x325': ['Palworld'],
+    '533x465': ['Palworld'],
     '520x305': ['TEKKEN 8'],
     '690x260': ['Icarus'],
     '535x595': ['Hellblade 2'],
@@ -4271,7 +4278,7 @@ def copy_nvngx():
                 
                 copy_dlss(name_dlss_371,name_old_dlss_371,path_dlss_371,rename_dlss_371)
             
-            elif select_nvngx == 'DLSSG 3.7.1 FG':
+            elif select_nvngx == 'DLSSG 3.8.1':
                 path_dlssg_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
                 name_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.dll')
                 name_old_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.txt')
@@ -4279,7 +4286,7 @@ def copy_nvngx():
                 
                 copy_dlss(name_dlssg_371,name_old_dlssg_371,path_dlssg_371,rename_dlssg_371)
             
-            elif select_nvngx == 'DLSSD 3.7.1':
+            elif select_nvngx == 'DLSSD 3.7.20':
                 path_dlssd_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
                 name_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.dll')
                 name_old_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.txt')
@@ -6114,11 +6121,12 @@ def dlss_to_fsr():
 
     runReg(dlss_to_fsr_reg)
 
-def update_upscalers(dest_path, only_dlss = False):
+def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False):
     update_fsr = 'mods\\Temp\\FSR_Update\\amd_fidelityfx_dx12.dll'
     update_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
     update_dlssg = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
     update_xess = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
+    update_dlssd = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
 
     if only_dlss:
         if messagebox.askyesno('DLSS', 'Do you want to update DLSS? DLSS 3.8.10 will be installed'):
@@ -6130,7 +6138,8 @@ def update_upscalers(dest_path, only_dlss = False):
             lambda _: (shutil.copy(update_fsr, dest_path),
             (shutil.copy(update_dlss,dest_path)),
             shutil.copy(update_dlssg,dest_path),
-            shutil.copy(update_xess,dest_path))
+            shutil.copy(update_xess,dest_path),
+            shutil.copy(update_dlssd,dest_path) if copy_dlssd else None)
         )
 
 def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
@@ -6140,15 +6149,18 @@ def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for game
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
     gpu_name = get_active_gpu()
 
-    if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
-        shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
-        os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'dxgi.dll'))
-        shutil.copy(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
-    else:
-        shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
+    try:
+        if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
+            shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
+            os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'dxgi.dll'))
+            shutil.copy(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
+        else:
+            shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
 
-    if 'amd' in gpu_name and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
-        shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
+        if 'amd' in gpu_name and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
+            shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
+    except Exception as e:
+        print(e)
 
 def fsr3_rdr2():
     global select_fsr,select_mod
@@ -7523,7 +7535,7 @@ def fsr3_di2():
 
 def fsr3_spider_man():
     if select_mod == 'Others Mods Spider':
-        update_upscalers(select_folder)
+        update_upscalers(select_folder, False, True)
 
 def fsr3_gk():
     root_path_gk = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
@@ -8676,7 +8688,7 @@ def update_nvngx(event=None):
     if select_mod == 'Uniscaler + Xess + Dlss':
         nvngx_op = ['Default', 'NVNGX Version 1']
     else:
-        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSS 3.7.0 FG','DLSS 3.8.10','DLSSG 3.7.1 FG','DLSSD 3.7.1']
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSS 3.7.0 FG','DLSS 3.8.10','DLSSG 3.8.1','DLSSD 3.7.20']
 
     nvngx_listbox.delete(0, tk.END) 
     for nvngx_options in nvngx_op:
@@ -8695,7 +8707,7 @@ def update_nvngx(event=None):
     
     nvngx_canvas.update()
 
-nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.8.10','DLSSG 3.7.1 FG','DLSSD 3.7.1']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.8.10','DLSSG 3.8.1','DLSSD 3.7.20']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END, nvngx_options)
     
