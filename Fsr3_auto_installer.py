@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.25v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.26v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -265,7 +265,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2',
                 'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
@@ -539,6 +539,11 @@ def text_guide():
 ),
 
 'Cyberpunk 2077':(
+'FSR 3.1.2/XESS FG\n'
+'1. Select FSR 3.1.2/XESS FG and install\n'
+'2. In the game, select DLSS and DLSS Frame Gen\n'
+'3. It is recommended to install the "FG Ghost Fix" along with the\nmod, select "Others Mods 2077" to install\n\n'
+
 'Uniscaler FSR 3.1\n'
 '1 - Select Uniscaler V3.\n'
 '2 - If you have an RTX GPU and want to use the real DLSS, select\nDLSS under "Mod Operates". If you don\'t have an RTX GPU and\ncan\'t see DLSS in the game, check the Nvngx.dll box and select\n"Default". You can also use XESS instead of FSR 3.1 by selecting\nXESS under "Mod Operates".\n'
@@ -935,6 +940,14 @@ def text_guide():
 '3 - If the option is AMD/GTX and you notice that the mod is not generating FPS, open\nthe file fsr2fsr3.config and replace "mode = default" on the first line with "replace_dlss_fg",\nkeep it inside the quotation marks, it will look like this: mode = "replace_dlss_fg".\n'
 '4 - Start the game in DX12, if the game exe is in the destination folder where the mod was\ninstalled, a DX12 shortcut will be created on your Desktop. If the exe is not found, you\nneed to create a shortcut and in the properties, at the end of Target, add -dx12 outside the\nquotes if there are any, don\'t forget to put a space between -dx12 and the path.\n'  
 '5 - Run the game through the executable.'
+),
+
+'Indiana Jones and the Great Circle':(  
+'1. Install ReShade.\n'
+'2. In the ReShade, select the game’s .exe and click next.\n'
+'3. Select DX 10/11/12 and click next.\n'
+'4. Click "Browse" and locate the file TheGreatCircle.ini that\nwas installed in the folder selected in the Utility and click\nNext.\n'
+'5. In the game, press the Home key to open the menu and\nselect the options you prefer.\n'
 ),
 
 'Judgment':(
@@ -1523,6 +1536,14 @@ def text_guide():
 ),
 
 'Uncharted':(
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'  
+'4. In the menu, check the Frame Gen and Hud Fix boxes\n'  
+'5. Close Afterburner, or the game will crash\n\n'
+
+'Others Mods\n'
 '1 - Select a mod of your preference (0.10.3 is recommended).\n' 
 '2 - Run the game using the u4-l.exe executable. The game\nmay crash the first time, so just run it again.\n'
 '3 - Inside the game, select FSR.'
@@ -1604,7 +1625,7 @@ def text_guide():
     '620x790': ['Add-on Mods', 'Black Myth: Wukong'],
     '520x280': ['Spider Man/Miles'],
     '520x320': ['Ghost of Tsushima', 'The Witcher 3'],
-    '550x550': ['Cyberpunk 2077'],
+    '550x650': ['Cyberpunk 2077'],
     '830x800': ['The Callisto Protocol'],
     '520x330': ['Star Wars Outlaws'],
     '520x720': ['Star Wars: Jedi Survivor'],
@@ -2951,14 +2972,14 @@ def clean_mod():
     ]
 
     del_dlss_rtx = [ 
-    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
+    'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
     'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.log', 'nvngx-wrapper.dll',
-    'nvngx.ini', 'unins000.dat'
+    'nvngx.ini', 'unins000.dat','nvapi64-proxy.dll'
     ]
 
     del_dlss_amd = [
-    'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
-    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.ini', 'fakenvapi.log', 'libxess.dll',
+    'nvapi64-proxy.dll','dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlssg_to_fsr3.log',
+    'dlssg_to_fsr3_amd_is_better-3.0.dll', 'dlssg_to_fsr3_amd_is_better.dll', 'dxgi.dll', 'fakenvapi.ini', 'fakenvapi.log',
     'nvapi64.dll', 'nvngx-wrapper.dll', 'nvngx.dll', 'nvngx.ini', 'unins000.dat'
     ]
 
@@ -3028,12 +3049,29 @@ def clean_mod():
             exe_mods_files = ['V2.0 Real Life Reshade.ini','global.ini','version.dll']
             cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\RestoreNvidiaSignatureChecks.reg"
             reshade_path = '\\bin\\x64\\V2.0 Real Life Reshade.ini'
+            gpu_name = get_active_gpu()
 
             if select_mod == "RTX DLSS FG":
                 for file_del in os.listdir(select_folder):
                     if file_del in del_cb2077:
                         os.remove(os.path.join(select_folder,file_del)) 
                 runReg(cb2077_reg)
+            
+            if select_mod == 'FSR 3.1.2/XESS FG 2077':
+                if 'amd' in gpu_name or 'intel' in gpu_name:
+                    del_all_mods(del_dlss_amd, 'Cyberpunk 2077')
+                else:
+                    del_all_mods(del_dlss_rtx,'Cyberpunk 2077')
+            
+            # Enable Vignette
+            if os.path.exists(root_path_cb2077 + "\\archive\\pc\\mod\\DisableVignetteAndSharpening.archive"):
+                if messagebox.askyesno('Enable Vignette', 'Do you want to enable vignette?'):
+                    os.remove(root_path_cb2077 + "\\archive\\pc\\mod\\DisableVignetteAndSharpening.archive")
+            
+            # FG Ghost Fix
+            if os.path.exists(root_path_cb2077 + "\\archive\\pc\\mod\\framegenghostingfix_16_9.archive"):
+                if messagebox.askyesno('Disable Vignette', 'Do you want to remove the FG Ghost Fix?'):
+                    os.remove(root_path_cb2077 + "\\archive\\pc\\mod\\framegenghostingfix_16_9.archive")
             
             if os.path.exists(root_path_cb2077 + "\\archive\\pc\\mod\\#####-NovaLUT-2.archive"):
 
@@ -3286,6 +3324,13 @@ def clean_mod():
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
     
+    try:
+        if select_option == 'Indiana Jones and the Great Circle':
+            if os.path.exists(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2') and messagebox.askyesno('Intro Skip', 'Do you want to remove the Intro Skip?')):
+                os.remove(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2'))
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Indiana Jones and the Great Circle files, please try again or do it manually')          
+
     try:
         if select_option == 'Red Dead Redemption 2':
             del_all_mods_optiscaler(del_optiscaler, 'FSR 3.1.2/DLSS FG Custom RDR2', True)
@@ -6143,7 +6188,7 @@ def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False):
         )
 
 def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection']
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
@@ -6157,7 +6202,7 @@ def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for game
         else:
             shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
 
-        if 'amd' in gpu_name and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
+        if any(gpus in gpu_name for gpus in ['amd', 'intel', 'gtx']) and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
             shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
     except Exception as e:
         print(e)
@@ -7659,6 +7704,38 @@ def fsr3_dl2():
     if select_mod == 'FSR 3.1.2 Custom DL2':
         shutil.copytree(custom_dl2, select_folder, dirs_exist_ok=True)
 
+def fsr3_indy():
+    smooth_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Smooth\\TheGreatCircle .ini'
+    normal_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Normal\\TheGreatCircle smooth.ini'
+    intro_skip_indy = 'mods\\FSR3_Indy\\Others Mods\\Intro Skip'
+
+    if select_mod == 'Others Mods Indy':
+        # Intro Skip
+        handle_prompt(
+        'intro Skip',
+        'Do you want to install the Intro Skip? Select the root folder of the game, Indiana Jones and the Great Circle.',
+        lambda _: (
+            shutil.copytree(intro_skip_indy, select_folder, dirs_exist_ok=True)
+            )
+        )
+
+        # Reshade
+        handle_prompt(
+        'Smooth',
+        'Do you want to install Reshade (this is the smooth version; to install the full version, select "No" and choose "Yes" in the next window)? Check the FSR Guide for the full installation instructions.',
+        lambda _: (
+            shutil.copy(smooth_reshade_indy, select_folder)
+            )
+        )
+
+        handle_prompt(
+        'Full',
+        'Do you want to install the full version Reshade?',
+        lambda _: (
+            shutil.copy(normal_reshade_indy, select_folder)
+            )
+        )
+
 def fsr3_quiet_place():
     optiscaler_quiet_place = 'mods\\Addons_mods\\OptiScaler'
 
@@ -7706,24 +7783,62 @@ async def fsr3_cyber():
     }
 
     path_reshade_2077 = "mods\\FSR3_CYBER2077\\mods\\V2.0 Real Life Reshade"
+    path_ghost_fix_2077 = "mods\\FSR3_CYBER2077\\mods\\FrameGen Ghosting Fix"
+    path_disable_vignette = "mods\\FSR3_CYBER2077\\mods\\Disable Vignette and Sharpening"
+    path_xess_nvngx = "mods\\FSR3_CYBER2077\\Xess_FSR_FG\\XESS Upscaler\\nvngx.ini"
+    path_fg_amd = "mods\\FSR3_CYBER2077\\Xess_FSR_FG\\AMD"
+    path_fg_nvidia = "mods\\FSR3_CYBER2077\\Xess_FSR_FG\\Nvidia"
     path_rtx_dlss = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal"
     cb2077_reg = "mods\\FSR3_CYBER2077\\dlssg-to-fsr3-0.90_universal\\DisableNvidiaSignatureChecks.reg"
     origin_path_cb2077 = os.path.abspath(os.path.join(select_folder, '..\\..'))
+    gpu_name = get_active_gpu()
     
     try:
         if select_mod == "RTX DLSS FG":
             await asyncio.to_thread(shutil.copytree, path_rtx_dlss, select_folder, dirs_exist_ok=True)
             await asyncio.to_thread(runReg(cb2077_reg))
         
-        if os.path.exists(origin_path_cb2077 + '\\bin'):
-            if messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?"):
-                for path_cb2077 in path_mods:
-                    await asyncio.to_thread(shutil.copytree, path_cb2077, origin_path_cb2077, dirs_exist_ok=True)
+        if select_mod == "FSR 3.1.2/XESS FG 2077":
+            if 'amd' in gpu_name or 'intel' in gpu_name:
+                shutil.copytree(path_fg_amd, select_folder, dirs_exist_ok=True)
+            else:
+                shutil.copytree(path_fg_nvidia, select_folder, dirs_exist_ok=True)
             
-            if messagebox.askyesno('Reshade', 'Do you want to install Reshade Real Life 2.0? (It is necessary to install Reshade for this mod to work. Please refer to the FSR Guide for installation instructions.)'):
-                await asyncio.to_thread(shutil.copytree, path_reshade_2077, origin_path_cb2077, dirs_exist_ok=True)
-        else:
-            messagebox.showinfo('Others Mods','If you want to install the other mods (Nova Lut, Real Life and Ultra Realistic Textures), select the path to the .exe, it should be something like: Cyberpunk 2077/bin/x64') 
+            if messagebox.askyesno('FSR/XESS', 'Do you want to use XESS as the upscaler? The default is FSR 3.1.2.'):
+                shutil.copy(path_xess_nvngx, select_folder)
+
+        if select_mod == 'Others Mods 2077':
+
+            update_upscalers(select_folder, False, True)
+
+            if os.path.exists(origin_path_cb2077 + '\\bin'):
+                if messagebox.askyesno("Mods", "Would you like to install the Nova Lut and Cyberpunk 2077 HD Reworked mods?"):
+                    for path_cb2077 in path_mods:
+                        await asyncio.to_thread(shutil.copytree, path_cb2077, origin_path_cb2077, dirs_exist_ok=True)
+                
+                if messagebox.askyesno('Reshade', 'Do you want to install Reshade Real Life 2.0? (It is necessary to install Reshade for this mod to work. Please refer to the FSR Guide for installation instructions.)'):
+                    await asyncio.to_thread(shutil.copytree, path_reshade_2077, origin_path_cb2077, dirs_exist_ok=True)
+                
+                # FG Ghost Fix
+                handle_prompt(
+                'FG Ghost Fix',
+                'Do you want to install the FG Ghost Fix? Only if you are using the FSR 3.1.2/XESS FG 2077 mod.',
+                lambda _: (
+                    shutil.copytree(path_ghost_fix_2077, origin_path_cb2077, dirs_exist_ok=True)
+                    )
+                )
+
+                # Disable Vignette
+                handle_prompt(
+                'Disable Vignette',
+                'Do you want to remove the vignette from the game? This mod removes the black vignette that appears in the corners of the screen.',
+                lambda _: (
+                    shutil.copytree(path_disable_vignette, origin_path_cb2077, dirs_exist_ok=True)
+                    )
+                )
+
+            else:
+                messagebox.showinfo('Others Mods','If you want to install the other mods (Nova Lut, Real Life and Ultra Realistic Textures), select the path to the .exe, it should be something like: Cyberpunk 2077/bin/x64') 
     except Exception as e:
         messagebox.showinfo('Error','Failed to install the mod. Please try again.')
         return
@@ -8080,6 +8195,8 @@ def install(event=None):
             fsr3_dg_veil()
         if select_option == 'A Quiet Place: The Road Ahead':
             fsr3_quiet_place()
+        if select_option == 'Indiana Jones and the Great Circle':
+            fsr3_indy()
         if select_option == 'Red Dead Redemption':
             fsr3_rdr1()
         if select_option == 'Horizon Zero Dawn Remastered':
@@ -8347,6 +8464,7 @@ fsr_game_version={
     'Horizon Zero Dawn Remastered':'2.2',
     'Horizon Forbidden West':'2.2',
     'Icarus':'ICR',
+    'Indiana Jones and the Great Circle':'2.2',
     'Judgment':'2.1',
     'Jusant':'2.0',
     'Kena: Bridge of Spirits':'2.2',
@@ -8437,7 +8555,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Black Myth: Wukong': ['RTX DLSS FG Wukong', 'FSR 3.1 Custom Wukong', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'COD MW3': ['COD MW3 FSR3'],
         'Control': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
-        'Cyberpunk 2077': ['RTX DLSS FG', 'FSR 3.1.1/DLSS Optiscaler', 'FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Cyberpunk 2077': ['Others Mods 2077','RTX DLSS FG', 'FSR 3.1.2/XESS FG 2077', 'FSR 3.1.1/DLSS Optiscaler', 'FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Dead Rising Remaster': ['FSR 3.1 FG DRR', 'Dinput8 DRR'],
         'Dragon Age: Veilguard' : ['Others Mods DG Veil','FSR 3.1.2/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Dragons Dogma 2': ['Dinput8 DD2', *fsr_31_dlss_mods],
@@ -8459,6 +8577,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Horizon Zero Dawn': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Horizon Zero Dawn Remastered' : ['Others Mods HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
+        'Indiana Jones and the Great Circle' : ['Others Mods Indy'],
         'Kena: Bridge of Spirits': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Lego Horizon Adventures': [*fsr_31_dlss_mods, 'Others Mods Lego HZD'],
         'Lies of P': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
@@ -8528,7 +8647,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
          'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
