@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.7.26v")
+screen.title("FSR3.0 Mod Setup Utility - 2.7.27v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -267,7 +267,7 @@ def select_guide():
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2',
-                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
+                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -457,8 +457,10 @@ def text_guide():
 
 'Black Myth: Wukong':(
 'RTX\n'
-'1 - Select \'RTX DLSS FG Wukong\' and install.\n'
-'2 - In the game, select DLSS and Frame Generation.\n\n'
+'1. Select \'DLSS FG (ALL GPUs) Wukong\' and install.\n'
+'2. In the game, select DLSS and Frame Generation.\n'
+'3. This mod fixes issues related to using the Somersault Cloud.\n\n'
+
 'AMD/GTX DLSS FG\n'
 '1 - Select Optiscaler FSR 3.1/DLSS and install it.\n'
 '2 - In the game, press the \'Insert\' key to open the menu, and in the menu,\nselect the upscaler you want to use.\n'
@@ -1391,6 +1393,15 @@ def text_guide():
 '3 - Enable NVAPI Results (only for GTX).\n'
 '4 - In Mod Operates, select Enable Upscaling Only.\n\n'
 '● To fix the Hub Flickering, do not select any option in Mod\nOperates, open the game, and choose FSR 1.0.'
+),
+
+'Suicide Squad: Kill the Justice League':(
+'FSR 3.1.2/DLSS FG (Only Optiscaler)\n'
+'1. Select the .exe path. (Stones\\Binaries\\Win64)\n'
+'1. Select FSR 3.1.2/DLSS FG (Only Optiscaler) and install\n'
+'2. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'3. In the menu, check the Frame Gen, Hud Fix, and FG\nExtended boxes\n'
+'4. The game may crash the first time the mod is installed.'
 ),
 
 'TEKKEN 8':(
@@ -2963,7 +2974,7 @@ def clean_mod():
 
     del_tcp_sr = ['dlsstweaks.ini','DLSSTweaksConfig.exe','FSRBridge.asi','winmm.dll','winmm.ini','nvngx.dll','EnableNvidiaSigOverride.reg','DisableNvidiaSigOverride.reg','winmm.ini','winmm.dll']
 
-    del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg']
+    del_optiscaler = ['nvngx.ini','nvngx.dll','libxess.dll','EnableSignatureOverride.reg','DisableSignatureOverride.reg', 'winmm.dll']
 
     del_optiscaler_custom = [
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
@@ -3209,6 +3220,9 @@ def clean_mod():
             restore_dxgi_marine = os.path.join(select_folder, 'Backup_DXGI')
             dxgi_marine = os.path.join(restore_dxgi_marine, 'dxgi.dll')
             path_del_txt_stutter_marine = os.path.join(select_folder,'Marine_Anti_Stutter.txt')
+            disable_sig_over_fsr31 = 'mods\\Temp\\disable signature override\\DisableSignatureOverride.reg'
+
+            del_fsr_dlss_mods(del_dlss_amd, del_dlss_rtx,'FSR 3.1.3/DLSS FG Marine', disable_sig_over_fsr31)
 
             if select_mod == 'FSR 3.1.2/DLSS FG Custom':
                 if os.path.isdir(restore_dxgi_marine):
@@ -3539,6 +3553,19 @@ def clean_mod():
                 runReg('mods\\Temp\\disable signature override\\DisableSignatureOverride.reg')
     except Exception:
            messagebox.showinfo("A Quiet Place","Error clearing A Quiet Place mods files, please try again or do it manually")  
+
+    try:
+        if select_option == 'Suicide Squad: Kill the Justice League':
+            sskjl_root_path = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+
+            if os.path.exists(os.path.join(sskjl_root_path, 'Backup EAC')):
+                if messagebox.askyesno('EAC', 'Do you want to enable EAC (Easy Anti-Cheat)?'):
+                    shutil.rmtree(os.path.join(sskjl_root_path, 'EasyAntiCheat'))
+                    shutil.copytree(os.path.join(sskjl_root_path, 'Backup EAC'), sskjl_root_path, dirs_exist_ok=True)
+                shutil.rmtree(os.path.join(sskjl_root_path, 'Backup EAC'))
+
+    except Exception:
+           messagebox.showinfo("SSKJL","Error clearing Suicide Squad: Kill the Justice League mods files, please try again or do it manually")  
 
     try:
         if select_option == 'Hogwarts Legacy':
@@ -6166,21 +6193,32 @@ def dlss_to_fsr():
 
     runReg(dlss_to_fsr_reg)
 
-def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False):
-    update_fsr = 'mods\\Temp\\FSR_Update\\amd_fidelityfx_dx12.dll'
+def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False, copy_dlss_dlssd = False, copy_dlss_fsr = False):
+    update_fsr = 'mods\\Temp\\FSR_Update'
     update_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
     update_dlssg = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
     update_xess = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
     update_dlssd = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
 
     if only_dlss:
-        if messagebox.askyesno('DLSS', 'Do you want to update DLSS? DLSS 3.8.10 will be installed'):
+        if messagebox.askyesno('DLSS', 'Do you want to update DLSS? DLSS 3.8.1 will be installed'):
             shutil.copy(update_dlss, dest_path)
+
+    elif copy_dlss_dlssd:
+        if messagebox.askyesno('DLSS/DLSSD', 'Do you want to update DLSS/DLSSD? DLSS 3.8.1 and DLSSD 3.7.20 will be installed.'):
+            shutil.copy(update_dlss, dest_path)
+            shutil.copy(update_dlssd, dest_path)
+    
+    elif copy_dlss_fsr:
+        if messagebox.askyesno('DLSS/DLSSD', 'Do you want to update DLSS/FSR? DLSS 3.8.1 and FSR 3.1.3 will be installed.'):
+            shutil.copy(update_dlss, dest_path)
+            shutil.copytree(update_fsr, dest_path, dirs_exist_ok=True)
+
     else:
         handle_prompt(
             'Update',
             'Do you want to update the upscalers? The latest version of all upscalers will be installed',
-            lambda _: (shutil.copy(update_fsr, dest_path),
+            lambda _: (shutil.copytree(update_fsr, dest_path, dirs_exist_ok=True),
             (shutil.copy(update_dlss,dest_path)),
             shutil.copy(update_dlssg,dest_path),
             shutil.copy(update_xess,dest_path),
@@ -6188,7 +6226,7 @@ def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False):
         )
 
 def optiscaler_fsr_dlss(copy_dlss = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League']
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
@@ -6253,7 +6291,7 @@ er_origins = {'Disable_Anti-Cheat':'mods\\Elden_Ring_FSR3\\ToggleAntiCheat',
 
 def elden_fsr3():
     global er_origins
-    update_fsr_elden = 'mods\\Temp\\FSR_Update\\amd_fidelityfx_dx12.dll'
+    update_fsr_elden = 'mods\\Temp\\FSR_Update'
     update_dlss_elden = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
 
     if select_mod in er_origins:
@@ -6269,7 +6307,7 @@ def elden_fsr3():
         run_dis_anti_c()
     
     if select_mod == 'FSR 3.1.2/DLSS FG Custom Elden' and os.path.exists(os.path.join(select_folder,'ERSS2\\bin')):
-        shutil.copy(update_fsr_elden,os.path.join(select_folder,'ERSS2\\bin'))
+        shutil.copytree(update_fsr_elden,os.path.join(select_folder,'ERSS2\\bin'), dirs_exist_ok=True)
         shutil.copy(update_dlss_elden, os.path.join(select_folder,'ERSS2\\bin'))
 
 def run_dis_anti_c():
@@ -6914,6 +6952,9 @@ def fsr3_space_marine():
     preset_marine = 'mods\\FSR3_SpaceMarine\\Preset\\Warhammer 40000 Space Marine 2.ini'
     path_dxgi = select_folder + '\\dxgi.dll'
 
+    if select_mod == 'FSR 3.1.3/DLSS FG Marine':
+        global_dlss()
+
     if os.path.exists(path_dxgi):
         backup_folder_marine = os.path.join(select_folder, 'Backup_DXGI')
         os.makedirs(backup_folder_marine, exist_ok=True)
@@ -6921,13 +6962,16 @@ def fsr3_space_marine():
         shutil.copy(path_dxgi, backup_folder_marine)  
 
         os.rename(path_dxgi, os.path.join(select_folder, 'd3d12.dll'))
+
+    if select_mod == 'Others Mods Space Marine':
+        update_upscalers(select_folder, False, False, False, True)
+
+        if messagebox.askyesno('Anti Stutter','Do you want to install the Anti Stutter?'):
+            runReg(anti_stutter_marine)
+            shutil.copy(txt_marine_stutter,select_folder)
         
-    if messagebox.askyesno('Anti Stutter','Do you want to install the Anti Stutter?'):
-        runReg(anti_stutter_marine)
-        shutil.copy(txt_marine_stutter,select_folder)
-    
-    if messagebox.askyesno('Graphic Preset','Do you have to install the Graphic Preset?, select the path similar to: client_pc\\root\\bin\\pc for the mod to work. (It is necessary to install ReShade for the preset to work. See the guide in the FSR Guide to learn how to install it.)'):
-        shutil.copy(preset_marine,select_folder)
+        if messagebox.askyesno('Graphic Preset','Do you have to install the Graphic Preset?, select the path similar to: client_pc\\root\\bin\\pc for the mod to work. (It is necessary to install ReShade for the preset to work. See the guide in the FSR Guide to learn how to install it.)'):
+            shutil.copy(preset_marine,select_folder)
 
 def fsr3_outlaws():
     outlaws_reg = "mods\\FSR3_Outlaws\\Anti_Stutter\\Install Star Wars Outlaws CPU Priority.reg"
@@ -6984,8 +7028,9 @@ def wukong_fsr3():
     cache_wukong = os.path.join(os.getenv('USERPROFILE'), 'AppData')
     message_not_found_wukong = 'Please select the .exe path in "Select Folder". The path should look something like this: BlackMythWukong\\b1\\Binaries\\Win64'
     
-    if select_mod == 'RTX DLSS FG Wukong':
+    if select_mod == 'DLSS FG (ALL GPUs) Wukong':
         dlss_to_fsr()
+
     if select_mod == 'FSR 3.1 Custom Wukong':
         shutil.copytree(path_fsr31_wukong,select_folder,dirs_exist_ok=True)
 
@@ -6995,51 +7040,57 @@ def wukong_fsr3():
             if messagebox.askyesno('Cache','Do you want to clear the game cache? (it may prevent possible texture errors caused by the mod)'):
                 os.remove(cache_wukong + '\\Local\\b1\\Saved\\D3DDriverByteCodeBlob_V4098_D5686_S372641794_R220.ushaderprecache')
 
-    if os.path.exists(os.path.join(full_path_wukong + "\\b1\\Binaries\\Win64")):
+    if select_mod == 'Others Mods Wukong':
+        if os.path.exists(os.path.join(full_path_wukong, 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')):
+            update_upscalers(os.path.join(full_path_wukong, 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'), False, False, True)
+        else:
+            messagebox.showinfo('DLSS','To update DLSS, select the path to the .exe (BlackMythWukong\\b1\\Binaries\\Win64).')
 
-        wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
-        if wukong_optimized:
-            full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
-            if os.path.exists(full_path_optimized):
-                if not os.path.exists(full_path_optimized + "\\~mods"):
-                    os.makedirs(full_path_optimized + "\\~mods")
+        if os.path.exists(os.path.join(full_path_wukong + "\\b1\\Binaries\\Win64")):
 
-                shutil.copytree(wukong_file_optimized,full_path_optimized + "\\~mods",dirs_exist_ok=True)
-    
-        handle_prompt(
-        'High CPU Priority',
-        'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
-        lambda _: (
-            runReg(wukong_stutter_reg),
-            shutil.copy(r'mods\\FSR3_WUKONG\\HIGH CPU Priority\\Anti-Stutter - Utility.txt', select_folder)
+            wukong_optimized = messagebox.askyesno('Optimized Wukong','Do you want to install the optimization mod? (Faster Loading Times, Optimized CPU and GPU Utilization, etc. To check the other optimizations, see the guide in FSR Guide).')
+            if wukong_optimized:
+                full_path_optimized = os.path.abspath(os.path.join(select_folder,'..\\..\\Content\\Paks'))
+                if os.path.exists(full_path_optimized):
+                    if not os.path.exists(full_path_optimized + "\\~mods"):
+                        os.makedirs(full_path_optimized + "\\~mods")
+
+                    shutil.copytree(wukong_file_optimized,full_path_optimized + "\\~mods",dirs_exist_ok=True)
+        
+            handle_prompt(
+            'High CPU Priority',
+            'Do you want to enable Anti-Stutter - High CPU Priority? (prevents possible stuttering in the game)',
+            lambda _: (
+                runReg(wukong_stutter_reg),
+                shutil.copy(r'mods\\FSR3_WUKONG\\HIGH CPU Priority\\Anti-Stutter - Utility.txt', select_folder)
+                )
             )
-        )
 
-        handle_prompt(
-            'Graphic Preset',
-            'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
-            lambda _: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1",message_not_found_wukong)
-        )
-
-        view_message_wukong = handle_prompt(
-            'Mini Map',
-            'Would you like to install the mini map?',
-            lambda _:(
-                copy_if_exists(wukong_ue4_map,select_folder,message_not_found_wukong),
-                copy_if_exists(wukong_map,full_path_wukong + "\\b1",message_not_found_wukong),
+            handle_prompt(
+                'Graphic Preset',
+                'Do you want to apply the Graphics Preset? (ReShade must be installed for the preset to work, check the guide in FSR Guide for more information)',
+                lambda _: copy_if_exists(wukong_graphic_preset, full_path_wukong + "\\b1",message_not_found_wukong)
             )
-        )
 
-        view_message_wukong = handle_prompt(
-            'HDR',
-            'Would you like to install the HDR correction?',
-            lambda _: copy_if_exists(wukong_hdr,full_path_wukong,message_not_found_wukong,message_not_found_wukong)
-        )
+            view_message_wukong = handle_prompt(
+                'Mini Map',
+                'Would you like to install the mini map?',
+                lambda _:(
+                    copy_if_exists(wukong_ue4_map,select_folder,message_not_found_wukong),
+                    copy_if_exists(wukong_map,full_path_wukong + "\\b1",message_not_found_wukong),
+                )
+            )
 
-        if view_message_wukong or wukong_optimized:
-            messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
-    else:
-        messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\\Binaries\\Win64')
+            view_message_wukong = handle_prompt(
+                'HDR',
+                'Would you like to install the HDR correction?',
+                lambda _: copy_if_exists(wukong_hdr,full_path_wukong,message_not_found_wukong,message_not_found_wukong)
+            )
+
+            if view_message_wukong or wukong_optimized:
+                messagebox.showinfo('Success', 'Preset applied successfully. To complete the installation, go to the game\'s page in your Steam library, click the gear icon \'Manage\' to the right of \'Achievements\', select \'Properties\', and in \'Launch Options\', enter -fileopenlog.')
+        else:
+            messagebox.showinfo('Not Found','If you want to install the other mods (Mini Map, Graphic Preset, etc.), select the path to the .exe, something like: BlackMythWukong\\b1\\Binaries\\Win64')
 
 # Modify the ini file to remove post-processing effects
 def Remove_ini_effect(key_ini, value_ini, path_ini, message_path_not_found, message_hb2 = None):
@@ -7581,6 +7632,38 @@ def fsr3_di2():
 def fsr3_spider_man():
     if select_mod == 'Others Mods Spider':
         update_upscalers(select_folder, False, True)
+
+def fsr3_sskjl():
+    root_path_sskjl = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
+    path_dxgi_sskjl = os.path.join(select_folder, 'dxgi.dll')
+    path_nvngx_sskjl = os.path.join(select_folder, 'nvngx.dll')
+    path_folder_dlss_sskjl = os.path.join(root_path_sskjl, 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')
+    path_disable_eac = 'mods\\FSR3_SSKJL\\Disable_EAC\\EAC Bypass'
+    gpu_name = get_active_gpu()
+
+    try:
+        if select_mod == 'Others Mods SSKJL':
+            if os.path.exists(path_folder_dlss_sskjl):
+                update_upscalers(path_folder_dlss_sskjl, True)
+            else:
+                messagebox.showinfo('DLSS', 'To update DLSS, select the path to the .exe (Stones\\Binaries\\Win64).')
+        
+        if select_mod == 'FSR 3.1.2/DLSS FG (Only Optiscaler)':
+            if os.path.exists(path_dxgi_sskjl):
+                os.replace(path_dxgi_sskjl, os.path.join(select_folder, 'winmm.dll')) ## Necessary to rename the file so it won't be replaced by the Disable EAC files.
+
+            if os.path.exists(path_nvngx_sskjl) and 'rtx' in gpu_name:
+                os.remove(path_nvngx_sskjl)
+
+                ## Backup EAC
+                if os.path.exists(os.path.join(root_path_sskjl,'EasyAntiCheat')):
+                    shutil.copytree(os.path.join(root_path_sskjl,'EasyAntiCheat'), os.path.join(root_path_sskjl, 'Backup EAC\\EasyAntiCheat'), dirs_exist_ok=True)
+                    shutil.copy(os.path.join(root_path_sskjl, 'start_protected_game.exe'), os.path.join(root_path_sskjl, 'Backup EAC'))
+
+            ## Disable EAC
+            shutil.copytree(path_disable_eac, root_path_sskjl, dirs_exist_ok=True)
+    except Exception as e:
+        print(e)
 
 def fsr3_gk():
     root_path_gk = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
@@ -8169,6 +8252,8 @@ def install(event=None):
             fsr3_spider_man()
         if select_option == 'Gotham Knights':
             fsr3_gk()
+        if select_option == 'Suicide Squad: Kill the Justice League':
+            fsr3_sskjl()
         if select_option == 'Dying Light 2':
             fsr3_dl2()
         if select_option == 'Dead Island 2':
@@ -8506,6 +8591,7 @@ fsr_game_version={
     'STAR WARS Jedi: Survivor':'2.2',
     'Star Wars Outlaws':'2.2',
     'Steelrising':'2.2',
+    'Suicide Squad: Kill the Justice League':'2.2',
     'TEKKEN 8':'2.2',
     'Test Drive Ultimate Solar Crown':'2.2',
     'The Ascent':'2.2',
@@ -8552,7 +8638,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Assassin\'s Creed Mirage': ['Others Mods Mirage', *fsr_31_dlss_mods],
         'Assassin\'s Creed Valhalla': ['Ac Valhalla DLSS3 (Only RTX)', 'Ac Valhalla FSR3 All GPU'],
         'Baldur\'s Gate 3': ['Baldur\'s Gate 3 FSR3', 'Baldur\'s Gate 3 FSR3 V2', 'Baldur\'s Gate 3 FSR3 V3'],
-        'Black Myth: Wukong': ['RTX DLSS FG Wukong', 'FSR 3.1 Custom Wukong', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Black Myth: Wukong': ['Others Mods Wukong','DLSS FG (ALL GPUs) Wukong', 'FSR 3.1 Custom Wukong', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'COD MW3': ['COD MW3 FSR3'],
         'Control': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Cyberpunk 2077': ['Others Mods 2077','RTX DLSS FG', 'FSR 3.1.2/XESS FG 2077', 'FSR 3.1.1/DLSS Optiscaler', 'FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.2/DLSS FG (Only Optiscaler)', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
@@ -8596,13 +8682,14 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Silent Hill 2': [*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX', 'FSR3 FG Native SH2', 'FSR3 FG Native SH2 + Optimization', 'FSR 3.1.1/DLSS FG RTX Custom', 'Others Mods Sh2'],
         'STAR WARS Jedi: Survivor': ['Dlss Jedi', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Star Wars Outlaws': ['Outlaws DLSS RTX', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Suicide Squad: Kill the Justice League' : ['Others Mods SSKJL', *fsr_31_dlss_mods],
         'TEKKEN 8': ['Unlock Fps Tekken 8', *default_mods, *uniscaler_mods],
         'The Callisto Protocol': ['The Callisto Protocol FSR3', 'FSR 3.1/DLSS Callisto', 'FSR 3.1.2/DLSS Custom Callisto', '0.10.4', 'Uniscaler V3', 'Uniscaler V4'],
         'The Casting Of Frank Stone': ['0.10.4', *fsr_31_dlss_mods],
         'The Last of Us Part I': ['Others Mods Tlou', 'Uniscaler Tlou', 'Uniscaler FSR 3.1'],
         'The Witcher 3': [*fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Until Dawn': ['Others Mods UD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
-        'Warhammer: Space Marine 2': ['Uniscaler FSR 3.1', *fsr_31_dlss_mods],
+        'Warhammer: Space Marine 2': ['Others Mods Space Marine','FSR 3.1.3/DLSS FG Marine','Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Watch Dogs Legion': ['Watch Dogs Legion Custom', *fsr_31_dlss_mods],
     }
 
@@ -8648,7 +8735,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
-         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
+         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
 
