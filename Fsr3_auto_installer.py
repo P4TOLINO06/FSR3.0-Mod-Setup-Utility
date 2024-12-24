@@ -33,7 +33,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.8.1v")
+screen.title("FSR3.0 Mod Setup Utility - 2.8.2v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -266,7 +266,7 @@ def select_guide():
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
-                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
+                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
                 'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
@@ -855,7 +855,7 @@ def text_guide():
 '5. The game may freeze for a few seconds when selecting DLSS FG.\n\n'
 
 'FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR\n'
-'1. Select FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR and install.\n'
+'1. Select FSR 3.1.3/DLSS FG (only Optiscaler) and install.\n'
 '2. Check the Enable Signature Over box.\n'
 '3. If you want to update the game\'s upscalers, it is recommended to do so\nbefore installing the mod. Simply select "Others Mods Gow Rag" to update.\n'
 '4. Check the "AMD Anti Lag 2" option that appears during installation.\n'
@@ -959,7 +959,13 @@ def text_guide():
 '5 - Run the game through the executable.'
 ),
 
-'Indiana Jones and the Great Circle':(  
+'Indiana Jones and the Great Circle':( 
+'Indy FG (Only RTX)\n' 
+'1. Select "Indy FG (Only RTX)" and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS FG\n\n'
+
+'Reshade\n'
 '1. Install ReShade.\n'
 '2. In the ReShade, select the game’s .exe and click next.\n'
 '3. Select DX 10/11/12 and click next.\n'
@@ -1132,6 +1138,15 @@ def text_guide():
 '3. To run the game in DX12, simply confirm the window that\nappears after confirming the GPU selection. Make sure the\nmentioned exe is in the selected folder. Alternatively, you can\nignore the window and do it manually, by creating a shortcut\nand adding \'-dx12\' after the quotes in the \'Target\' field.\n'
 '4. Run the game through the shortcut.\n'
 '• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
+),
+
+'Path of Exile II':(
+'The consequences of using this mod in online games are\nunknown, use at your own risk.\n\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. Select Nvidia Reflex to use AMD Anti Lag 2.\n'
+'5. In the menu, check the Frame Gen and Hud Fix boxes'
 ),
 
 'Ratchet and Clank':(
@@ -1964,15 +1979,9 @@ def backup_files():
     search_fl4 = select_mod
     select_fl4_name = 'Fallout 4 FSR3'
     
-    select_tlou_file = ['winmm.ini','winmm.dll','nvngx_dlssg.dll','nvngx_dlss.dll','nvngx.dll','libxess.dll']
-    search_tlou = select_mod
-    select_tlou_name = 'Uniscaler Tlou'
-    
     search_spider = select_mod
-    select_spider_name = 'Uniscaler Spider'
      
-    select_miles_file = ['winmm.dll','winmm.ini']
-    select_miles_name = 'Uni Custom Miles'
+    select_jedi_file = ['winmm.dll','winmm.ini']
     
     select_jedi_name = "Dlss Jedi"
     
@@ -2054,14 +2063,6 @@ def backup_files():
             for fl4_file in select_fl4_file:
                 sucess_message = search_dll_files(select_fl4_name,fl4_file,search_fl4)    
         
-        if select_mod == 'Uniscaler Tlou':
-            for tlou_file in select_tlou_file:
-                sucess_message = search_dll_files(select_tlou_name,tlou_file,search_tlou)
-        
-        if select_mod == 'Uniscaler Spider':
-            for spider_file in select_tlou_file:
-                sucess_message = search_dll_files (select_spider_name,spider_file,search_spider) 
-        
         if select_mod == 'Lords of The Fallen FSR3':
             for lotf_file in select_lotf_file:
                 sucess_message = search_dll_files (select_lotf_name,lotf_file,search_spider)
@@ -2082,12 +2083,8 @@ def backup_files():
             for hb2_file in select_hb2_file:
                 sucess_message = search_dll_files(select_hb2_name,hb2_file,search_spider)  
         
-        if select_mod == 'Uni Custom Miles':
-            for miles_files in select_miles_file:
-                sucess_message = search_dll_files(select_miles_name,miles_files,search_spider) 
-        
         if select_mod == "Dlss Jedi":
-            for jedi_files in  select_miles_file:
+            for jedi_files in  select_jedi_file:
                 sucess_message = search_dll_files(select_jedi_name,jedi_files,search_spider) 
         
         if select_option == "Cyberpunk 2077" and select_mod == "RTX DLSS FG":
@@ -2826,6 +2823,7 @@ def del_all_mods(mod_list,game_name,search_folder_name = None):
             for item in os.listdir(select_folder):
                 if item in mod_list:
                     os.remove(os.path.join(select_folder,item))
+                    return True            
             
             if search_folder_name != None:
                 mods_path = os.path.join(select_folder, search_folder_name)        
@@ -3326,20 +3324,6 @@ def clean_mod():
              
     except Exception:
         messagebox.showinfo('Error','Error copying the original files, please select the path to the game\'s root folder, or if you prefer, perform the restoration manually; the Backup folder is located in the root of the game.')
-     
-    try:
-        path_uni_tlou = os.path.join(select_folder,'uniscaler')
-        
-        if select_mod == 'Uniscaler Tlou':
-            for i_tlou in os.listdir(select_folder):
-                if i_tlou in del_fsr3_tlou3:
-                    os.remove(os.path.join(select_folder,i_tlou))
-                    
-            if os.path.exists(path_uni_tlou):
-                shutil.rmtree(path_uni_tlou)
-                
-    except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
         
     try:       
         if select_mod == 'Horizon Forbidden West FSR3':
@@ -3384,10 +3368,23 @@ def clean_mod():
     
     try:
         if select_option == 'Indiana Jones and the Great Circle':
-            if os.path.exists(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2') and messagebox.askyesno('Intro Skip', 'Do you want to remove the Intro Skip?')):
+            indy_config_file_path = os.path.join(os.environ['USERPROFILE'], 'Saved Games\\MachineGames\\TheGreatCircle\\base')
+            indy_old_config_file = os.path.join(indy_config_file_path, 'TheGreatCircleConfig.txt')
+
+            if select_mod == 'Indy FG (Only RTX)':
+
+                if del_all_mods(del_dlss_to_fg, 'Indiana Jones and the Great Circle'):
+                    os.remove(os.path.join(select_folder, 'dbghelp.dll'))
+                
+                if os.path.exists(indy_old_config_file):
+                    os.remove(os.path.join(indy_config_file_path, 'TheGreatCircleConfig.local'))
+                    os.rename(indy_old_config_file, os.path.join(indy_config_file_path, 'TheGreatCircleConfig.local'))
+
+            if os.path.exists(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2')) and messagebox.askyesno('Intro Skip', 'Do you want to remove the Intro Skip?'):
                 os.remove(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2'))
     except Exception as e:
-        messagebox.showinfo('Error','Error clearing Indiana Jones and the Great Circle files, please try again or do it manually')          
+        messagebox.showinfo('Error','Error clearing Indiana Jones and the Great Circle files, please try again or do it manually') 
+        print(e)         
 
     try:
         if select_option == 'Red Dead Redemption 2':
@@ -3651,9 +3648,6 @@ def clean_mod():
             gow_rag_disable_anti_stutter = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Anti-Stutter GoW Ragnarok\\Uninstall GoWR High CPU Priority.reg'
             gow_rag_intro_files = ['pss_studios.bk2','pss_studios_30.bk2','pss_studios_4k_30.bk2']
             gow_rag_path_intro = select_folder + '\\exec\\cinematics'
-
-            if select_mod == 'FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR':
-                del_all_mods_optiscaler(del_optiscaler,'FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR',True)
 
             if os.path.exists(os.path.join(select_folder,'exec')):
                 
@@ -4767,7 +4761,6 @@ folder_fake_gpu ={
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
     'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu\\uniscaler.config.toml'
 }
@@ -4781,7 +4774,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi','FSR 3.1 Custom Wukong']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi','FSR 3.1 Custom Wukong']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -4818,7 +4811,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi','FSR 3.1 Custom Wukong']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi','FSR 3.1 Custom Wukong']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -4949,7 +4942,6 @@ list_nvapi = {
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_nvapi():
@@ -5093,7 +5085,6 @@ default_path ={
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu\\uniscaler.config.toml'
 }
@@ -5125,7 +5116,6 @@ def replace_clean_file():
             'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\enable_fake_gpu',
             'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\enable_fake_gpu',
-            'Uni Custom Miles':'mods\\FSR2FSR3_Miles\\uni_miles_toml',
             'Dlss Jedi':'mods\\FSR2FSR3_Miles\\uni_miles_toml',
             'FSR 3.1 Custom Wukong':'mods\\FSR3_WUKONG\\WukongFSR31\\enable_fake_gpu'
         }
@@ -5149,7 +5139,6 @@ def replace_clean_file():
             'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu',
             'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu',
-            'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu',
             'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu',
             'FSR 3.1 Custom Wukong':'mods\\Temp\\Wukong_FSR31\\enable_fake_gpu'
         }
@@ -5456,11 +5445,10 @@ def edit_mod_operates():
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Uni Custom Miles':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
     'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 
-    list_ignore_uniscaler_custom = ['Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Uni Custom Miles','Dlss Jedi']
+    list_ignore_uniscaler_custom = ['Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi']
     
     if select_mod in mod_folder_list:
         mod_operates_folder = mod_folder_list[select_mod]
@@ -6280,12 +6268,41 @@ def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False, copy_dlss
             shutil.copy(update_dlssd,dest_path) if copy_dlssd else None)
         )
 
+def games_to_update_upscalers():
+    games_to_update_dlss = {
+        'Others Mods Sifu': select_folder,
+        'Others Mods Shadow Tomb': select_folder,
+        'Others Mods Tlou' : select_folder,
+        'Others Mods POEII': os.path.join(select_folder, 'Streamline'),
+        'Others Mods GK' :  os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
+    }
+    games_to_update_dlssd = {
+        'Others Mods Spider': select_folder,
+    }
+
+    if select_mod in games_to_update_dlss:
+        path_dlss = games_to_update_dlss.get(select_mod)
+        
+        if os.path.exists(os.path.join(path_dlss)):
+            update_upscalers(path_dlss, True)
+        else:
+            messagebox.showinfo('DLSS',f'To update DLSS, select the .exe path.')
+
+    elif select_mod in games_to_update_dlssd:
+        path_dlssd = games_to_update_dlssd.get(select_mod)
+        
+        if os.path.exists(os.path.join(path_dlssd)):
+            update_upscalers(path_dlssd, False, True)
+        else:
+            messagebox.showinfo('DLSSD',f'To update DLSSD, select the .exe path.')
+
 def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu']
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
     gpu_name = get_active_gpu()
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu']
+    games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II']
 
     try:
         if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
@@ -6294,8 +6311,11 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
             shutil.copy(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
         else:
             shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
+  
+        if select_option in games_to_use_anti_lag_2 and messagebox.askyesno('Anti Lag 2', f'Do you want to use AMD Anti Lag 2? Check the {select_option} guide in FSR Guide to see how to enable it.'):
+            shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
 
-        if copy_nvapi:
+        elif copy_nvapi:
             if any(gpus in gpu_name for gpus in ['amd', 'intel', 'gtx']) and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
                 shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
     except Exception as e:
@@ -6589,46 +6609,6 @@ def chernobylite_short_cut():
     
     if select_option == 'Chernobylite':
         auto_shortcut(shortcut_cbl_path,new_target_path,dx_12,game_name)
-
-def fsr3_tlou():
-    path_uni_tlou_1080p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1080p Monitors'
-    path_uni_tlou_1440p = 'mods\\FSR2FSR3_Uni_Custom\\Uniscaler Preview 7 Custom\\For 1440p Monitors'
-    dlss_update_tlou = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
-    
-    if select_mod == 'Uniscaler Tlou':
-        if messagebox.askyesno('Resolution','Is your resolution above 1080p?'):
-            shutil.copytree(path_uni_tlou_1440p,select_folder,dirs_exist_ok=True)
-        else:
-            shutil.copytree(path_uni_tlou_1080p,select_folder,dirs_exist_ok=True)
-    
-    if select_mod == 'Others Mods Tlou':
-        
-        # Update DLSS
-        handle_prompt(
-        'Update DLSS',
-        'Do you want to update DLSS? DLSS 3.8.10 will be installed.',
-        lambda _: (
-            shutil.copy(dlss_update_tlou, select_folder)
-            )
-        )
-
-def spider_fsr():
-    path_xess_spider = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
-    path_dlss_spider = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
-    path_uni5_spider = 'mods\\FSR2FSR3_Spider\\Uniscaler.asi'
-    path_uni_spider = 'mods\\FSR2FSR3_Uniscaler\\Uniscaler_4\\Uniscaler mod'
-
-    rtx_spider = messagebox.askyesno('RTX or AMD','Do you have an Nvidia Rtx?')
-    
-    if rtx_spider:
-        shutil.copytree(path_uni_spider,select_folder,dirs_exist_ok=True)
-        shutil.copy2(path_xess_spider,select_folder)
-        shutil.copy2(path_dlss_spider,select_folder)
-        shutil.copy2(path_uni5_spider,select_folder)
-    else:
-        shutil.copytree(path_uni_spider,select_folder,dirs_exist_ok=True)
-        shutil.copy2(path_xess_spider,select_folder)
-        shutil.copy2(path_uni5_spider,select_folder)
 
 def gtav_fsr3():
     dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
@@ -6978,14 +6958,6 @@ def fsr3_gow_rag():
     gow_reg_vram_6gb = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Unlock Vram\\6GB VRAM\\dxgi.dll'
     gow_reg_var_vram = 'mods\\FSR3_GOW_RAG\\God of War Ragnarök\\Unlock Vram\\Vram.txt'
     gow_rag_nvapi = 'mods\\Addons_mods\\Nvapi AMD'
-
-    if select_mod == 'FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR':
-        handle_prompt(
-        'AMD Anti Lag 2',
-        'Do you want to use AMD Anti Lag 2? (Check the FSR Guide for instructions on how to enable AMD Anti Lag 2.)',
-        lambda _: (optiscaler_fsr_dlss(True, False),
-        shutil.copytree(gow_rag_nvapi, select_folder, dirs_exist_ok=True))
-    )
 
     if select_mod == 'Others Mods Gow Rag':
         update_upscalers(select_folder)
@@ -7701,14 +7673,6 @@ def fsr3_re4():
     if select_mod == 'FSR 3.1.3/DLSS RE4':
         shutil.copytree(fsr_dlss_re4, select_folder, dirs_exist_ok=True)
 
-def fsr3_sifu():
-    if select_mod == 'Others Mods Sifu':
-        update_upscalers(select_folder,True)
-
-def fsr3_spider_man():
-    if select_mod == 'Others Mods Spider':
-        update_upscalers(select_folder, False, True)
-
 def fsr3_sskjl():
     root_path_sskjl = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
     path_dxgi_sskjl = os.path.join(select_folder, 'dxgi.dll')
@@ -7740,16 +7704,6 @@ def fsr3_sskjl():
             shutil.copytree(path_disable_eac, root_path_sskjl, dirs_exist_ok=True)
     except Exception as e:
         print(e)
-
-def fsr3_gk():
-    root_path_gk = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
-    path_dlss_gk = os.path.join(root_path_gk, 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')
-
-    if select_mod == 'Others Mods GK':
-        if os.path.exists(path_dlss_gk):
-            update_upscalers(path_dlss_gk,True)
-        else:
-            messagebox.showinfo('Exe','To update DLSS, select the .exe path. The path looks like "Mercury\\Binaries\\Win64"')
 
 def fsr3_ac_mirage():
     intro_skip_ac_mirage = 'mods\\FSR3_Ac_Mirage\\Intro_skip'
@@ -7854,10 +7808,6 @@ def fsr3_gta_trilogy():
         else:
             shutil.copy(dlss_gta, select_folder)
 
-def fsr3_shadow_tomb():
-    if select_mod == 'Others Mods Shadow Tomb':
-        update_upscalers(select_folder)
-
 def fsr3_dl2():
     custom_dl2 = 'mods\\FSR3_DL2\\Custom_FSR'
     if select_mod == 'FSR 3.1.3 Custom DL2':
@@ -7867,8 +7817,28 @@ def fsr3_indy():
     smooth_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Smooth\\TheGreatCircle .ini'
     normal_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Normal\\TheGreatCircle smooth.ini'
     intro_skip_indy = 'mods\\FSR3_Indy\\Others Mods\\Intro Skip'
+    fg_indy = 'mods\\FSR3_Indy\\FG\\Mod'
+    config_file_path_indy = os.path.join(os.environ['USERPROFILE'], 'Saved Games\\MachineGames\\TheGreatCircle\\base')
+    config_file_indy = 'mods\\FSR3_Indy\\FG\\Config File\\TheGreatCircleConfig.local'
+    old_config_file_indy = os.path.join(config_file_path_indy,'TheGreatCircleConfig.local')
+
+    if select_mod == 'Indy FG (Only RTX)':
+        shutil.copytree(fg_indy, select_folder, dirs_exist_ok=True)
+
+        if os.path.exists(old_config_file_indy):
+            os.rename(old_config_file_indy, os.path.join(config_file_path_indy,'TheGreatCircleConfig.txt'))
+            shutil.copy(config_file_indy, config_file_path_indy)
+        else:
+            shutil.copy(config_file_indy, select_folder)
+            messagebox.showinfo('Not Found','The file TheGreatCircleConfig.local was not found. Please check if it exists (C:\\Users\\YourName\\Saved Games\\MachineGames\\TheGreatCircle\\base). If it doesn\'t exist, open the game to have the file created. You can also manually copy the file to this path. The TheGreatCircleConfig.local file is in the folder selected in the Utility.')
 
     if select_mod == 'Others Mods Indy':
+        
+        if os.path.exists(os.path.join(select_folder, 'streamline')):
+            update_upscalers(os.path.join(select_folder, 'streamline'),True)
+        else:
+            messagebox.showinfo('DLSS','If you want to update the DLSS, select the game\'s root folder.')
+
         # Intro Skip
         handle_prompt(
         'intro Skip',
@@ -7901,11 +7871,6 @@ def fsr3_quiet_place():
     if select_mod == 'FSR 3.1.1/DLSS Quiet Place':
         shutil.copytree(optiscaler_quiet_place, select_folder, dirs_exist_ok=True)
         runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
-
-def fsr3_miles():
-    path_uni_custom_miles = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
-    
-    shutil.copytree(path_uni_custom_miles,select_folder,dirs_exist_ok=True)
 
 def fsr3_jedi():
     path_uni_jedi = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
@@ -8289,10 +8254,6 @@ def install(event=None):
 
         if select_mod == 'Palworld Build03':
             pw_fsr3()
-        if select_mod == 'Uniscaler Spider':
-            spider_fsr()
-        if select_mod == 'Uni Custom Miles':
-            fsr3_miles()
         if select_mod == "FSR 3.1.1/DLSS Optiscaler":
             optiscaler_fsr3()
         if select_mod == 'FSR 3.1.2/DLSS FG Custom':
@@ -8324,10 +8285,6 @@ def install(event=None):
             fsr3_until()
         if select_option == 'GTA Trilogy':
             fsr3_gta_trilogy()
-        if select_option  in ['Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales']:
-            fsr3_spider_man()
-        if select_option == 'Gotham Knights':
-            fsr3_gk()
         if select_option == 'Suicide Squad: Kill the Justice League':
             fsr3_sskjl()
         if select_option == 'Resident Evil 4 Remake':
@@ -8340,12 +8297,6 @@ def install(event=None):
             fsr3_sr()
         if select_option == 'Returnal':
             fsr3_returnal()
-        if select_option == 'Sifu':
-            fsr3_sifu()
-        if select_option == 'Shadow of the Tomb Raider':
-            fsr3_shadow_tomb()
-        if select_option == 'The Last of Us Part I':
-            fsr3_tlou()
         if select_option == 'S.T.A.L.K.E.R. 2':
             fsr3_stalker()
         if select_option == 'Red Dead Redemption 2':
@@ -8408,12 +8359,15 @@ def install(event=None):
             xess_fsr()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
+        
+        games_to_update_upscalers()
 
         if addon_contr:
             addon_mods()
         if select_addon_mods == 'OptiScaler':
             update_optiscaler_dx11_dx12()
             update_optiscaler_ini()
+
             if select_mod != 'FSR 3.1.1/DLSS Optiscaler':
                 if var_method is None:
                     messagebox.showinfo('Install Method','Select an Optiscaler installation method before proceeding with the mod installation.')
@@ -8650,6 +8604,7 @@ fsr_game_version={
     'Outpost: Infinity Siege':'2.2',
     'Pacific Drive':'SDK',
     'Palworld':'2.2',
+    'Path of Exile II':'2.2',
     'Ratchet & Clank - Rift Apart':'SDK',
     'Red Dead Redemption':'2.2',
     'Red Dead Redemption 2':'2.2',
@@ -8738,23 +8693,24 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'GTA Trilogy' : ['FSR 3.1.3/DLSS Custom GTA', *fsr_31_dlss_mods],
         'GTA V': ['Dinput 8', 'GTA V FSR3', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
         'God Of War 4': ['Gow 4 FSR 3.1', *fsr_31_dlss_mods],
-        'God of War Ragnarök': ['Others Mods Gow Rag','FSR 3.1.3/DLSS FG + AMD Anti Lag 2 GowR',*fsr_31_dlss_mods ,'Uniscaler FSR 3.1'],
+        'God of War Ragnarök': ['Others Mods Gow Rag',*fsr_31_dlss_mods ,'Uniscaler FSR 3.1'],
         'Hellblade 2': ['Hellblade 2 FSR3 (Only RTX)', 'Remove Black Bars', 'Remove Black Bars Alt', 'Remove Post Processing Effects', 'Remove All Post Processing Effects', 'Restore Post Processing', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Hogwarts Legacy': ['Others Mods HL', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Horizon Forbidden West': ['Horizon Forbidden West FSR3', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Horizon Zero Dawn': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Horizon Zero Dawn Remastered' : ['Others Mods HZD Rem', 'FSR 3.1.3 HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
-        'Indiana Jones and the Great Circle' : ['Others Mods Indy'],
+        'Indiana Jones and the Great Circle' : ['Others Mods Indy','Indy FG (Only RTX)'],
         'Kena: Bridge of Spirits': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Lego Horizon Adventures': [*fsr_31_dlss_mods, 'Others Mods Lego HZD'],
         'Lies of P': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Lords of the Fallen': ['Lords of The Fallen FSR3'],
-        'Marvel\'s Spider-Man Miles Morales': ['Others Mods Spider', 'Uni Custom Miles', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
-        'Marvel\'s Spider-Man Remastered': ['Others Mods Spider', 'Uniscaler Spider', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Marvel\'s Spider-Man Miles Morales': ['Others Mods Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Marvel\'s Spider-Man Remastered': ['Others Mods Spider', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
         'Palworld': ['Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Path of Exile II': ['Others Mods POEII', *fsr_31_dlss_mods],
         'Red Dead Redemption' : ['Others Mods RDR1',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Red Dead Redemption 2': ['FSR 3.1.3/DLSS FG Custom RDR2', 'RDR2 Mix', 'RDR2 FG Custom', *fsr_31_dlss_mods],
         'Resident Evil 4 Remake': ['FSR 3.1.3/DLSS RE4'],
@@ -8770,7 +8726,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'TEKKEN 8': ['Unlock Fps Tekken 8', *default_mods, *uniscaler_mods],
         'The Callisto Protocol': ['The Callisto Protocol FSR3', 'FSR 3.1/DLSS Callisto', 'FSR 3.1.3/DLSS Custom Callisto', '0.10.4', 'Uniscaler V3', 'Uniscaler V4'],
         'The Casting Of Frank Stone': ['0.10.4', *fsr_31_dlss_mods],
-        'The Last of Us Part I': ['Others Mods Tlou', 'Uniscaler Tlou', 'Uniscaler FSR 3.1'],
+        'The Last of Us Part I': ['Others Mods Tlou', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'The Witcher 3': [*fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Until Dawn': ['Others Mods UD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Warhammer: Space Marine 2': ['Others Mods Space Marine','FSR 3.1.3/DLSS FG Marine','Uniscaler FSR 3.1', *fsr_31_dlss_mods],
@@ -8818,7 +8774,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
          'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
