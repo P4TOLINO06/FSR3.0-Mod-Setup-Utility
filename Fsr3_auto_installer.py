@@ -18,32 +18,42 @@ import subprocess
 def uac():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
+    except Exception:
         return False
 
 unlock_screen = True
+
 def run_as_admin():
     global unlock_screen
     if uac():
         unlock_screen = True
     else:
         unlock_screen = False
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+        try:
+            ctypes.windll.shell32.ShellExecuteW(
+                None,
+                "runas",
+                sys.executable,
+                f'"{os.path.abspath(__file__)}"',
+                None,
+                1
+            )
+            sys.exit(0)
+        except Exception as e:
+            sys.exit(1)
 
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.8.2v")
+screen.title("FSR3.0 Mod Setup Utility - 2.8.3v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
     sys.exit()
 screen.protocol('WM_DELETE_WINDOW',exit_screen)
-if not unlock_screen:
-    sys.exit()
 
-icon_image = tk.PhotoImage(file="images\\FSR-3-Supported-GPUs-Games.gif")
+icon_image = tk.PhotoImage(file="images\\Hat.gif")
 screen.iconphoto(True, icon_image)
 
 change_text = False
@@ -266,7 +276,7 @@ def select_guide():
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
-                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
+                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
                 'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
@@ -923,9 +933,12 @@ def text_guide():
 ),
 
 'Hitman 3':(
-'Select a mod of your preference. (0.10.3 is recommended\nbut if it doesn\'t work, try 0.10.2)\n'
-'2 - Check the box for Fake Nvidia GPU (AMD/GTX).\n'
-'3 - In the game, select FSR and Frame Generation. If Frame\nGeneration is not available, you can check the Nvapi Results\nbox or download the file EnableDLSSFrameGenerationHitma\nnIII.reg and run it. This will activate Frame Generation even if\nit is not available.'  
+'FSR 3.1.3/DLSS FG (Only Optiscaler) \n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, check the Frame Gen and Hud Fix boxes\n'
+'5. To use AMD Anti Lag 2, select Reflex\n\n'
 ),
 
 'Horizon Forbidden West':(
@@ -1103,6 +1116,16 @@ def text_guide():
 '2 - Check the box Fake Nvidia GPU.\n'
 '3 - If you don\'t see any differences, check the box\nNvapi Results.\n'
 '4 - To fix flickering in the hud, activate DLSS and play for a\nfew seconds, then return to the menu and deactivate DLSS.'
+),
+
+'Mortal Shell':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Open the game and select DX12\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler), select the\npath MortalShell\\Dungeonhaven\\Binaries\\Win64 and install\n'
+'3. Check the Enable Signature Over box\n'
+'4. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'5. In the menu, check the Frame Gen, FG Hud Fix, and\nFG Extended\n'
+'6. Select FSR 3.x to use FSR 3.1.3'
 ),
 
 'Nobody Wants To Die':(
@@ -1438,6 +1461,15 @@ def text_guide():
 ),
 
 'Steelrising':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and enter the campaign\n'
+'4. In the campaign, press the "Insert" key to open the menu\n'
+'5. In the menu, check the Frame Gen, Hud Fix, and\nFG Extended\n'
+'6. Select FSR 3.x to use FSR 3.1.3\n\n'
+
+'Default Mods\n'
 '1 - Choose a version of the mod you prefer (version 0.10.3 is\nrecommended).\n'
 '2 - Enable Fake Nvidia GPU (only for AMD and GTX).\n'
 '3 - Enable NVAPI Results (only for GTX).\n'
@@ -1711,6 +1743,7 @@ def text_guide():
     '520x520': ['Warhammer: Space Marine 2'],
     '605x610': ['God of War Ragnarök'],
     '530x290': ['Sifu'],
+    '520x330': ['Steelrising'],
     '650x260': ['XESS/DLSS']
     }
 
@@ -6273,6 +6306,8 @@ def games_to_update_upscalers():
         'Others Mods Sifu': select_folder,
         'Others Mods Shadow Tomb': select_folder,
         'Others Mods Tlou' : select_folder,
+        'Others Mods Steel' : select_folder,
+        'Others Mods MShell': os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Binaries\\ThirdParty\\NVIDIA\\NGX\\Win64')),
         'Others Mods POEII': os.path.join(select_folder, 'Streamline'),
         'Others Mods GK' :  os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
     }
@@ -6301,8 +6336,8 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
     gpu_name = get_active_gpu()
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu']
-    games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell']
+    games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II', 'Hitman 3']
 
     try:
         if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
@@ -8598,6 +8633,7 @@ fsr_game_version={
     'Metro Exodus Enhanced Edition': '2.2',
     'Microsoft Flight Simulator 2024':'2.2',
     'Monster Hunter Rise':'2.2',
+    'Mortal Shell':'2.2',
     'MOTO GP 24':'SDK',
     'Nightingale':'2.0',
     'Nobody Wants To Die':'3.0',
@@ -8709,6 +8745,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Marvel\'s Spider-Man Remastered': ['Others Mods Spider', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
+        'Mortal Shell': ['Others Mods MShell', *fsr_31_dlss_mods],
         'Palworld': ['Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Path of Exile II': ['Others Mods POEII', *fsr_31_dlss_mods],
         'Red Dead Redemption' : ['Others Mods RDR1',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
@@ -8717,6 +8754,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Returnal': [*fsr_31_dlss_mods, 'Others Mods Returnal', *uniscaler_mods],
         'Saints Row': ['FSR 3.1.3/DLSS Custom SR', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'S.T.A.L.K.E.R. 2': ['DLSS FG (Only Nvidia)', 'Others Mods Stalker 2'],
+        'Steelrising' : ['Others Mods Steel',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Shadow of the Tomb Raider' : ['Others Mods Shadow Tomb',*fsr_31_dlss_mods,*uniscaler_mods],
         'Sifu': ['Others Mods Sifu',*fsr_31_dlss_mods],
         'Silent Hill 2': [*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX', 'FSR3 FG Native SH2', 'FSR3 FG Native SH2 + Optimization', 'FSR 3.1.1/DLSS FG RTX Custom', 'Others Mods Sh2'],
@@ -8774,7 +8812,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
          'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
