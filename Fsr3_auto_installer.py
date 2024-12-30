@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.8.3v")
+screen.title("FSR3.0 Mod Setup Utility - 2.8.4v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -276,7 +276,7 @@ def select_guide():
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
-                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
+                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu',
                 'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
@@ -531,10 +531,15 @@ def text_guide():
 ),
 
 'Control':(
-'1 - Select a mod of your preference (0.10.3 is recommended).\n'
-'2 - Check the Fake Nvidia Gpu box. (Amd/Gtx).\n'
-'3 - Check the Enable Signature Override box.\n'
-'4 - Before installing, configure the game as you wish, do not\nchange the settings or turn off DLSS after the mod is\ninstalled, as the game will crash.'    
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select the .exe path\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check the Enable Signature Over\n'
+'4. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'5. In the menu, check the Frame Gen, Hud Fix boxes and\nFG Extended\n'
+'6. Select FSR 3.x to use FSR 3.1.3\n'
+'7. If you want to update FSR/DLSS, do this before installing\nthe mod, select "Others Mods Control" to update\n'
+'8. The Utility may become unresponsive for a few seconds\nduring installation; just wait for the installation confirmation\nmessage.'
 ),
 
 'Crime Boss Rockay City':(
@@ -1207,7 +1212,6 @@ def text_guide():
 ),
 
 'Red Dead Redemption 2':(
-
 'FSR 3.1.3/DLSS FG Custom RDR2\n'
 '1. Disable Vsync, Triple Buffering, select Borderless Windowed, and run in DirectX 12.\n'
 '2. Select FSR 3.1.3/DLSS FG Custom RDR2 and install.\n'
@@ -1228,6 +1232,17 @@ def text_guide():
 '2. Select RDR2 Custom FG and install\n'
 '3. In the game, press the "END" key to open the menu.\n'
 '4. In the menu, select Frame Gen'
+),
+
+'Remanant II':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, check the Frame Gen, Hud Fix and FG\nExtended boxes.\n'
+'5. Select FSR 3x to use FSR 3.1.3\n'
+'6. If you want to update DLSS, select "Others Mods\nRemnant II", do this before installing the mod.\n'
+'7. It is not recommended to enable the game\'s Frame Gen\nalong with the mod\'s FG, the game may crash'
 ),
 
 'Resident Evil 4 Remake':(
@@ -1970,10 +1985,6 @@ def backup_files():
         unlock_view_message = False
     else:
         unlock_view_message = True
-  
-    if select_option == 'Baldurs Gate 3':
-        comp_files(bdg_origins)
-        unlock_view_message = False  
         
     if select_option == 'The Callisto Protocol':
         comp_files(callisto_origins)
@@ -3744,6 +3755,16 @@ def clean_mod():
         folder_ac = os.path.join(select_folder,'reshade-shaders')
         del_all_mods(del_valhalla_fsr3,'Assassin\'s Creed Valhalla','mods')
         shutil.rmtree(folder_ac)
+
+    try:
+        if select_option == 'Control':
+            bak_control_hdr = os.path.join(select_folder, 'HDR Control')
+            # Remove the files from the HDR Path.
+            if os.path.exists(bak_control_hdr):
+                shutil.copytree(bak_control_hdr, select_folder, dirs_exist_ok=True)
+                shutil.rmtree(bak_control_hdr)
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Controlfiles, please try again or do it manually')
 
     try:
         if select_option == 'Alan Wake 2':
@@ -6286,7 +6307,7 @@ def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False, copy_dlss
             shutil.copy(update_dlssd, dest_path)
     
     elif copy_dlss_fsr:
-        if messagebox.askyesno('DLSS/DLSSD', 'Do you want to update DLSS/FSR? DLSS 3.8.1 and FSR 3.1.3 will be installed.'):
+        if messagebox.askyesno('DLSS/FSR', 'Do you want to update DLSS/FSR? DLSS 3.8.1 and FSR 3.1.3 will be installed.'):
             shutil.copy(update_dlss, dest_path)
             shutil.copytree(update_fsr, dest_path, dirs_exist_ok=True)
 
@@ -6307,12 +6328,16 @@ def games_to_update_upscalers():
         'Others Mods Shadow Tomb': select_folder,
         'Others Mods Tlou' : select_folder,
         'Others Mods Steel' : select_folder,
+        'Others Mods Remanant II' : os.path.abspath(os.path.join(select_folder,'..\\..', 'Plugins\\Shared\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods MShell': os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Binaries\\ThirdParty\\NVIDIA\\NGX\\Win64')),
         'Others Mods POEII': os.path.join(select_folder, 'Streamline'),
         'Others Mods GK' :  os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
     }
     games_to_update_dlssd = {
         'Others Mods Spider': select_folder,
+    }
+    games_to_update_fsr_dlss = {
+        'Others Mods Control' : select_folder,
     }
 
     if select_mod in games_to_update_dlss:
@@ -6330,6 +6355,14 @@ def games_to_update_upscalers():
             update_upscalers(path_dlssd, False, True)
         else:
             messagebox.showinfo('DLSSD',f'To update DLSSD, select the .exe path.')
+    
+    elif select_mod in games_to_update_fsr_dlss:
+        path_fsr_dlss = games_to_update_fsr_dlss.get(select_mod)
+        
+        if os.path.exists(os.path.join(path_fsr_dlss)):
+            update_upscalers(path_fsr_dlss, False, False, False, True)
+        else:
+            messagebox.showinfo('FSR/DLSS',f'To update FSR/DLSS, select the .exe path.')
 
 def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscaler is used for games that don't work with Custom Optiscaler or other mods
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
@@ -6428,10 +6461,10 @@ def run_dis_anti_c():
     if var_anti_c:
         subprocess.call(del_anti_c_path)
 
-bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\\FSR3_BDG',
-               'Baldur\'s Gate 3 FSR3 V2':['mods\\FSR3_BDG','mods\\FSR3_BDG_2'],
-               'Baldur\'s Gate 3 FSR3 V3':['mods\\FSR3_BDG','mods\\FSR3_BDG_2']}
 def bdg_fsr3():
+    bdg_origins = {'Baldur\'s Gate 3 FSR3':'mods\\FSR3_BDG',
+               'Baldur\'s Gate 3 FSR3 V2':['mods\\FSR3_BDG','mods\\FSR3_BDG\\FSR3_BDG_2'],
+               'Baldur\'s Gate 3 FSR3 V3':['mods\\FSR3_BDG','mods\\FSR3_BDG\\FSR3_BDG_2']}
     
     if select_mod in bdg_origins:
         bdg_origin = bdg_origins[select_mod]
@@ -6821,10 +6854,45 @@ def fsr3_dg_veil():
             )
 
 def fsr3_control():
-    path_nvngx_control = 'mods\\FSR3_Control'
-    if select_option == 'Control':
-        shutil.copytree(path_nvngx_control,select_folder,dirs_exist_ok=True)
+    Hdr_control_paths = {
+        'Steam': 'mods\\FSR3_Control\\HDR\\Control HDR v1.5.1 (Steam)',
+        'Epic': 'mods\\FSR3_Control\\HDR\\Control HDR v1.5.1 (Epic Store)',
+        'Others': 'mods\\FSR3_Control\\HDR\\Control HDR v1.5.1 (No DRM)'
+    }
+    backup_hdr_control = os.path.join(select_folder, 'HDR Control')
+
+    if select_mod == 'FSR 3.1.3/DLSS FG (Only Optiscaler)':
+        if not os.path.exists(backup_hdr_control):
+            os.makedirs(backup_hdr_control)
+
+        path_to_backup = None
+        for store, path in Hdr_control_paths.items():
+            if store != 'Others' and messagebox.askyesno(store,f'Is your game on {store}?'):
+                path_to_backup = path
+                break
+    
+        if not path_to_backup:
+            path_to_backup = Hdr_control_paths['Others']
         
+        messagebox.showinfo('Await', 'Wait until the mod is installed.')
+
+        for root, _, files in os.walk(path_to_backup):
+            for file_name in files:
+                source_file = os.path.join(root, file_name)
+                relative_path = os.path.relpath(source_file, path_to_backup)
+                dest_file = os.path.join(select_folder, relative_path)
+                backup_file = os.path.join(backup_hdr_control, relative_path)
+
+                if os.path.exists(dest_file) and open(source_file, "rb").read() == open(dest_file, "rb").read():
+                    os.makedirs(os.path.dirname(backup_file), exist_ok=True)
+                    shutil.copy2(dest_file, backup_file)
+        
+        if path_to_backup:
+            shutil.copytree(path, select_folder, dirs_exist_ok=True)
+        else:
+            shutil.copytree(path_to_backup, select_folder, dirs_exist_ok=True)
+        
+    
 def fsr3_aw2():
     path_rtx = 'mods\\FSR3_AW2\\RTX'
     path_dlss = 'mods\\Temp\\nvngx_global\\nvngx\\nvngx_dlss.dll'
@@ -8274,8 +8342,6 @@ def install(event=None):
             fsr_sdk()
         elif select_mod in er_origins or select_mod == 'Unlock FPS Elden':
             elden_fsr3()
-        elif select_mod in bdg_origins:
-            bdg_fsr3()
         elif select_mod == 'Fallout 4 FSR3':
             fallout_fsr()
         elif select_mod  == 'Forza Horizon 5 FSR3':
@@ -8314,6 +8380,8 @@ def install(event=None):
             asyncio.run(fsr3_cyber())
         if select_option == 'Black Myth: Wukong':
             wukong_fsr3()
+        if select_mod == 'Baldur\'s Gate 3':
+            bdg_fsr3()
         if select_option == 'Silent Hill 2':
             fsr3_silent2()
         if select_option == 'Until Dawn':
@@ -8713,7 +8781,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Baldur\'s Gate 3': ['Baldur\'s Gate 3 FSR3', 'Baldur\'s Gate 3 FSR3 V2', 'Baldur\'s Gate 3 FSR3 V3'],
         'Black Myth: Wukong': ['Others Mods Wukong','DLSS FG (ALL GPUs) Wukong', 'FSR 3.1 Custom Wukong', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'COD MW3': ['COD MW3 FSR3'],
-        'Control': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Control': ['Others Mods Control', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Cyberpunk 2077': ['Others Mods 2077','RTX DLSS FG', 'FSR 3.1.3/XESS FG 2077', 'FSR 3.1.1/DLSS Optiscaler', 'FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.3/DLSS FG (Only Optiscaler)', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Dead Rising Remaster': ['FSR 3.1 FG DRR', 'Dinput8 DRR'],
         'Dragon Age: Veilguard' : ['Others Mods DG Veil','FSR 3.1.3/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
