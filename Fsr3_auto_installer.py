@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.8.5v")
+screen.title("FSR3.0 Mod Setup Utility - 2.8.6v")
 screen.geometry("700x620")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -716,12 +716,12 @@ def text_guide():
 ),
 
 'Final Fantasy XVI':(
-'FSR 3.1.2/DLSS FG Custom\n'
-
-'1. FSR 3.1.2/DLSS FG Custom\n'
-'2. Check the "GPU" box that will appear during installation\n'
-'3. In-game, press the "Insert" key to open the menu\n'
-'4. In the menu, select the upscaler you prefer\n\n'
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'   
+'1. If you want to update the DLSS, select "Others Mods FFVXI", do\nthis before installing the mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. In the game, select HDR in the menu, it is required for the mod to\nwork and  select DLSS and press the "Insert" key to open the menu\n'
+'5. In the menu, check the Frame Gen, Hud Fix and FG Extended\n\n'
 
 'Anti Stutter\n'
 'Prevents possible crashes during the game and optimizes CPU/GPU\nusage\n\n'
@@ -900,20 +900,28 @@ def text_guide():
 ),
 
 'Hellblade 2':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select the path Senua\'s Saga Hellblade II\\Hellblade2\\Binaries\\Win64\n'
+'2. If you want to update the DLSS, select "Others Mods HB2", do this before installing the mod\n'
+'3. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'4. Check the Enable Signature Over box\n'
+'5. In the game, select DLSS and press the "Insert" key to open the menu\n'
+'6. In the menu, check the Frame Gen, Hud Fix and FG Extended. In Hud Fix, click on the input\nbox and type 7\n'
+'7. It is recommended to select the Upscaler before activating Frame Gen, as FG is disabled every\ntime the upscaler is switched. To activate it again, type 1 and then 7 in the Hud Fix input box.\n\n'
+
 'Only RTX\n'
 '1 - Select Hellblade 2 FSR3 and install it.\n'
 '2 - In the game, select Frame Generation.\n'
 '3 - This mod only works for RTX.\n\n'
 'All GPUs\n'
 '1 - Select Uniscaler V2 (you can also test with the other mods)\n'
-'2 - Check the box for Fake Nvidia GPU (AMD) and check the\nbox for UE compatibility mode (AMD and Nvidia)\n'
+'2 - Check the box for Fake Nvidia GPU (AMD) and check the box for UE compatibility mode (AMD\nand Nvidia)\n'
 '3 - In-game, select Frame Generation\n'
-'• If you can\'t see the DLSS option in the game, select\n"YES" in the "DLSS Fix" window during installation. \n\n'
-'• To remove the black bars, select the Engine.ini file folder in\n\'Select Folder\' (if the file is not found automatically), select\n\'Remove Black Bars\' in mod version, and install. (The path to\nthe engine.ini file is something like: C:\\Users\\YourName\\nAppData\\Local\\Hellblade2\\Saved\\Config\\Windows or\nWinGDK)\n\n' 
-'• If the bars are not removed, select \'Remove Black Bars Alt\',\nthe removal of the black bars will be automatically performed if\nthe Engine.ini file is found. If it is not found, you need to select\nthe path in \'Select Folder\' and press \'Install\'.\n\n' 
-'• To remove only the main effects, such as Lens Distortion,\nBlack Bars, and Chromatic Aberration, select Remove Post\nProcessing.\n\n'
-'• To remove all effects, select Remove All Post Processing\n(includes film grain).\n\n'
-'• To restore the Post Processing effects, simply select\n\'Restore Post Processing\', and the Engine.ini file will be replaced\nwith the default file.\n\n'
+'• The black bars are removed automatically if the Engine.ini file is found. If it is not found, check if\nit is in the path C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK.\nIf it\'s not there, open the game to have the file created.\n\n' 
+'• If the bars are not removed, select \'Remove Black Bars Alt\', the removal of the black bars will be\nautomatically performed if the Engine.ini file is found. \n\n' 
+'• To remove only the main effects, such as Lens Distortion, Black Bars, and Chromatic Aberration,\n\n'
+'• To remove all effects,(includes film grain).\n\n'
+'• To restore the Post Processing effects, simply select\'Restore Post Processing\', and the\nEngine.ini file will be replaced\nwith the default file.\n\n'
 '• If the Frame Generation is not visible, remove the black bars.'
 ),
 
@@ -923,18 +931,22 @@ def text_guide():
 ),
 
 'Hogwarts legacy':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select the path Phoenix\\Binaries\\Win64\n'
+'2. If you want to update the DLSS, select "Others Mods HL",\ndo this before installing the mod.\n'
+'3. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'4. Check Enable Signature Over box\n'
+'5. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'6. In the menu, check the Frame Gen, Hud Fix and FG Extended\n'
+'7. Select Nvidia Reflex to use AMD Anti Lag 2\n\n'
+
+'Uniscaler/0.x\n'
 "1 - Select a version of the mod of your choice (versions from 0.9.0\nonwards are recommended to fix UI flickering).\n"
 "2 - Enable the 'Enable Signature Override' checkbox if the mod\ndoesn't work.\n"
 "3 - Enable Fake Nvidia GPU (Only for AMD GPUs).\n"
 "4 - Select 'Default' in Nvngx.dll.\n\n"
 
-'FSR 3.1.2/DLSS FG Custom / FSR 3.1.1/DLSS Optiscaler\n'
-'1. Select the FSR 3.1/DLSS mod. \n'
-'2. Check the "GPU" window that will appear.\n'
-'3. In-game, select DLSS before starting the campaign.\n'
-'4. During the campaign, press the "Insert" key to open the menu.\n'
-'5. In the menu, select the desired upscaler, check the Frame Gen\nand Hud Fix boxes.\n\n'
-
+'Reshade\n'
 '1. Install ReShade\n'
 '2. Inside ReShade, select the game’s .exe and click next\n'
 '3. Select DX 10/11/12 and click next\n'
@@ -1739,7 +1751,7 @@ def text_guide():
     '685x430': ['Red Dead Redemption 2'],
     '530x260': ['Dead Space Remake', 'Uniscaler', 'F1 2022', 'F1 2023'],
     '550x260': ['Hozizon Zero Dawn'],
-    '560x430': ['Hogwarts legacy'],
+    '560x530': ['Hogwarts legacy'],
     '740x270': ['Shadow of the Tomb Raider'],
     '573x260': ['Horizon Forbidden West'],
     '650x420': ['Rise of The Tomb Raider'],
@@ -1751,7 +1763,7 @@ def text_guide():
     '533x465': ['Palworld'],
     '520x305': ['TEKKEN 8'],
     '690x260': ['Icarus'],
-    '535x595': ['Hellblade 2'],
+    '735x660': ['Hellblade 2'],
     '620x790': ['Add-on Mods', 'Black Myth: Wukong'],
     '520x280': ['Spider Man/Miles'],
     '520x320': ['Ghost of Tsushima', 'The Witcher 3'],
@@ -1769,7 +1781,7 @@ def text_guide():
     '700x800': ['Silent Hill 2'],
     '520x520': ['Metro Exodus Enhanced'],
     '520x420': ['Alan Wake 2'],
-    '570x680': ['Final Fantasy XVI'],
+    '570x720': ['Final Fantasy XVI'],
     '600x300': ['Kena: Bridge of Spirits'],
     '580x270': ['Resident Evil 4 Remake'],
     '520x520': ['Warhammer: Space Marine 2'],
@@ -3750,23 +3762,29 @@ def clean_mod():
              
         runReg(got_reg)
         del_all_mods(del_got,'Ghost of Tsushima')
-             
-    if select_option == 'Hellblade 2':
-        cpu_reg = "mods\\FSR3_HB2\\Cpu_Hb2\\Uninstall Hellblade 2 CPU Priority.reg"
-        
-        if os.path.exists(os.path.join(select_folder,'DisableNvidiaSignatureChecks.reg')):
-            
-            del_all_mods(del_hb2,'Hellblade 2')
+
+    try:         
+        if select_option == 'Hellblade 2':
+            cpu_reg = "mods\\FSR3_HB2\\Cpu_Hb2\\Uninstall Hellblade 2 CPU Priority.reg"
             hb2_reg = "mods\\FSR3_GOT\\DLSS FG\\RestoreNvidiaSignatureChecks.reg"
             
-            runReg(hb2_reg)
-        
-        if os.path.exists(os.path.join(select_folder,"Install Hellblade 2 CPU Priority.reg")):
-            cpu_message = messagebox.askyesno("Anti Stutter","Would you like to remove the Anti Stutter?")
+            if select_mod == 'Hellblade 2 FSR3 (Only RTX)':               
+                del_all_mods3(del_hb2,'Hellblade 2')       
+                runReg(hb2_reg)
             
-            if cpu_message:
-                pass
-                runReg(cpu_reg)
+            if os.path.exists(os.path.join(select_folder,"Install Hellblade 2 CPU Priority.reg")):
+            
+                # Remove Anti Stutter
+                handle_prompt(
+                'Anti Stutter',
+                'Would you like to remove the Anti Stutter?',
+                lambda _: (
+                    runReg(cpu_reg),
+                    os.remove(os.path.join(select_folder,"Install Hellblade 2 CPU Priority.reg"))
+                    )
+                )
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Hellblade 2 files, please try again or do it manually')
             
     if select_option == 'Assassin\'s Creed Valhalla':
         folder_ac = os.path.join(select_folder,'reshade-shaders')
@@ -6345,6 +6363,9 @@ def games_to_update_upscalers():
         'Others Mods Shadow Tomb': select_folder,
         'Others Mods Tlou' : select_folder,
         'Others Mods Steel' : select_folder,
+        'Others Mods FFXVI' : select_folder,
+        'Others Mods HB2': os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')),
+        'Others Mods HL' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods GR2' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods Fist' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods Remnant II' : os.path.abspath(os.path.join(select_folder,'..\\..', 'Plugins\\Shared\\DLSS\\Binaries\\ThirdParty\\Win64')),
@@ -6388,8 +6409,8 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
     gpu_name = get_active_gpu()
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2']
-    games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI']
+    games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy']
 
     try:
         if os.path.exists(os.path.join(select_folder, 'nvngx_dlss.dll')) and copy_dlss:
@@ -7372,8 +7393,6 @@ def remove_post_processing_effects_hell2():
     }
     
     key_remove_post_processing = 'SystemSettings'
-    message_black_bars = 'The black bars have been successfully removed, you can now install the Hellblade 2 FSR3 mod or exit the Utility if you prefer.'
-    message_post_processing = 'The main post processing effects were successfully removed.'
     message_path_not_found_hb2 = 'Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If you need further instructions, refer to the Hellblade 2 FSR Guide'
     path_final = ""
 
@@ -7390,46 +7409,62 @@ def remove_post_processing_effects_hell2():
         manually_folder_ini = os.path.join(select_folder,'Engine.ini')
         if os.path.exists(manually_folder_ini):
             path_final = manually_folder_ini
-            
-    if select_mod  == 'Remove Black Bars':
-        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars,path_final,message_path_not_found_hb2,message_black_bars) 
-             
-    elif select_mod == 'Remove Black Bars Alt':  
-        Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_path_not_found_hb2,message_black_bars) 
-            
-    elif select_mod  == 'Remove Post Processing Effects':
-        Remove_ini_effect(key_remove_post_processing,value_remove_pos_processing,path_final,message_path_not_found_hb2,message_post_processing) 
     
-    elif select_mod  == 'Remove All Post Processing Effects':
-        Remove_ini_effect(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_path_not_found_hb2,message_post_processing) 
-    
-    if select_mod == 'Restore Post Processing':
-        path_replace_ini = 'mods\\FSR3_HB2\\Replace_ini\\Engine.ini'
-        
-        var_replace_ini = messagebox.askyesno('Replace INI','Would you like to revert to the post-processing options? (Black bars, film grain, etc.)')
-        
-        if var_replace_ini:
-            if os.path.exists(os.path.join(path_inihb2)):
-                shutil.copy2(path_replace_ini,path_inihb2)
-                messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
-            
-            elif os.path.exists(os.path.join(alt_path_hb2)):
-                shutil.copy2(path_replace_ini,alt_path_hb2) 
-                messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
-            
-            elif select_folder is None: 
-                messagebox.showinfo('Path Not Found','Path not found, please select manually. The path to the Engine.ini file is something like this: C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK and then select the option again. If you need further instructions, refer to the Hellblade 2 FSR Guide') 
-                return
-            
-            else:              
-                replace_ini_path = os.path.join(select_folder,'Engine.ini')
-                if os.path.exists(replace_ini_path):
-                    shutil.copy2(path_replace_ini,os.path.dirname(replace_ini_path)) 
-                    messagebox.showinfo('Success', 'The Post Processing options have been re-enabled.')
-                else:
-                    messagebox.showinfo('INI Not Found','File not found in the specified path. Please select another path or verify if the Engine.ini file is in the selected path.')
-                    return
-            
+    if path_final != "":
+
+        # Remove Black Bars   
+        handle_prompt(
+        'Remove Black Bars',
+        'Do you want to remove the Black Bars?',
+        lambda _: (
+            Remove_ini_effect(key_remove_post_processing,value_remove_black_bars,path_final,message_path_not_found_hb2) 
+            )
+        )
+
+        # Remove Black Bars Alt
+        handle_prompt(
+        'Remove Black Bars Alt',
+        'Do you want to remove the Black Bars? Select this option if the previous option did not work, the removal of the black bars will be\nautomatically performed if the Engine.ini file is found. If it is not found, you need to select the path\nin \'Select Folder\' and press \'Install\'.\n\n',
+        lambda _: (
+                Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_path_not_found_hb2)  
+            )
+        )    
+
+        # Remove Post Processing Effects
+        handle_prompt(
+        'Remove Post Processing Effects',
+        'Do you want to remove the main post-processing effects? (Lens Distortion, Black Bars, and Chromatic Aberration will be removed). If you want to remove all post-processing effects, select "No" and then select "Yes" in the next window.',
+        lambda _: (
+                Remove_ini_effect(key_remove_post_processing,value_remove_black_bars_alt,path_final,message_path_not_found_hb2)  
+            )
+        )   
+
+        # Remove All Post Processing Effects
+        handle_prompt(
+        'Remove All Post Processing Effects',
+        'Do you want to remove all post-processing effects?',
+        lambda _: (
+                Remove_ini_effect(key_remove_post_processing,value_remove_all_pos_processing,path_final,message_path_not_found_hb2) 
+            )
+        )   
+
+        handle_prompt(
+        'Restore Post Processing',
+        'Do you want to revert to the post-processing options? (Black bars, film grain, etc.)',
+        lambda _: (
+            path_replace_ini := 'mods\\FSR3_HB2\\Replace_ini\\Engine.ini',
+
+            os.path.exists(os.path.join(path_inihb2)) and shutil.copy2(path_replace_ini, path_inihb2) or
+            os.path.exists(os.path.join(alt_path_hb2)) and shutil.copy2(path_replace_ini, alt_path_hb2) or
+            select_folder is None or (
+                replace_ini_path := os.path.join(select_folder, 'Engine.ini'),
+                os.path.exists(replace_ini_path) and shutil.copy2(path_replace_ini, os.path.dirname(replace_ini_path))
+                )
+            )
+        )
+    else:
+        messagebox.showinfo('Not Found', 'Engine.ini not found, please check if it exists. The path is something like C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK. If it\'s not there, open the game to have the file created.')
+                    
 def fsr3_hellblade_2():
     global select_folder
     path_dlss_hb2 = 'mods\\FSR3_GOT\\DLSS FG'
@@ -7441,21 +7476,18 @@ def fsr3_hellblade_2():
         shutil.copytree(path_dlss_hb2,select_folder,dirs_exist_ok=True)
         runReg(hb2_reg)
     
-    if select_mod in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
+    if select_mod == 'Others Mods HB2':
         remove_post_processing_effects_hell2()
-
-    if select_mod not in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
-        fix_dlss = messagebox.askyesno('DLSS fix','Do you want to install the nvngx.dll file? (recommended for users who cannot see DLSS in the game)')
     
-        if fix_dlss:
-            shutil.copytree(fix_dlss_hb2,select_folder,dirs_exist_ok=True)
-    
-    if select_mod not in ['Remove Black Bars','Remove Black Bars Alt','Remove Post Processing Effects','Remove All Post Processing Effects','Restore Post Processing']:
-        cpu_message = messagebox.askyesno("Anti Stutter","Would you like to apply the Anti Stutter? It can reduce game stuttering.")
-        
-        if cpu_message:
-            runReg(cpu_reg)
+        # Anti Stutter
+        handle_prompt(
+        'High CPU Priority',
+        'Do you want to install Anti Stutter? (prevents possible stuttering in the game)',
+        lambda _: (
+            runReg(cpu_reg),
             shutil.copy2("mods\\FSR3_HB2\\Cpu_Hb2\\Install Hellblade 2 CPU Priority.reg",select_folder)
+            )
+        )
 
 def fsr3_silent2():
     root_path_sh2 = os.path.abspath(os.path.join(select_folder, '..\\..\\..'))
@@ -7642,7 +7674,7 @@ def fsr3_hog_legacy():
     hl_dxgi_dll_path = os.path.join(select_folder,'dxgi.dll')
 
     if select_mod == 'Others Mods HL':
-
+    
         # Graphics Preset
         if messagebox.askyesno('Graphics Preset',' Do you want to install the Graphics Preset? See the guide to learn how to complete the installation.'):
             shutil.copy(hl_preset,select_folder)
@@ -8822,7 +8854,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'GTA V': ['Dinput 8', 'GTA V FSR3', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
         'God Of War 4': ['Gow 4 FSR 3.1', *fsr_31_dlss_mods],
         'God of War Ragnarök': ['Others Mods Gow Rag',*fsr_31_dlss_mods ,'Uniscaler FSR 3.1'],
-        'Hellblade 2': ['Hellblade 2 FSR3 (Only RTX)', 'Remove Black Bars', 'Remove Black Bars Alt', 'Remove Post Processing Effects', 'Remove All Post Processing Effects', 'Restore Post Processing', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Hellblade 2': ['Others Mods HB2', 'Hellblade 2 FSR3 (Only RTX)', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Hogwarts Legacy': ['Others Mods HL', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Horizon Forbidden West': ['Horizon Forbidden West FSR3', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Horizon Zero Dawn': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
