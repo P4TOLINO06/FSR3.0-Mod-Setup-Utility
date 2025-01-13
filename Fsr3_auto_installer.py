@@ -45,8 +45,8 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 2.8.8v")
-screen.geometry("700x620")
+screen.title("FSR3.0 Mod Setup Utility - 2.9v")
+screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
 def exit_screen(event=None):
@@ -77,10 +77,10 @@ game_options_canvas = Canvas(screen,width=200,height=15,bg='white')
 game_options_canvas.place(x=101,y=37)
 
 exit_label = tk.Label(screen,text='Exit',font=font_select,bg='black',fg='#E6E6FA')
-exit_label.place(x=355,y=515)
+exit_label.place(x=355,y=506)
 
 install_label = tk.Label(screen,text='Install',font=font_select,bg='black',fg='#E6E6FA')
-install_label.place(x=295,y=515)
+install_label.place(x=295,y=506)
 
 def search_un():
     local_disk_names = []
@@ -197,7 +197,7 @@ def disable_epic_over(event=None):
          
 def guide_epic(event=None):
     epic_label_guide.config(text='Enable or disable the Epic Games Overlay, the Overlay along with the FSR3 mod can cause bugs and crashes in some games')
-    epic_label_guide.place(x=0,y=480)
+    epic_label_guide.place(x=0,y=470)
     epic_label_guide.lift()
 
 def close_guide_epic(event=None):
@@ -207,26 +207,26 @@ epic_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',
 epic_label_guide.place_forget()
 
 epic_over_label = tk.Label(screen,text='Epic Games Overlay:',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_label.place(x=0,y=455)
+epic_over_label.place(x=0,y=446)
 
 epic_over_canvas = tk.Canvas(screen,width=162,height=19,bg='white',highlightthickness=0)
-epic_over_canvas.place(x=152,y=460)
+epic_over_canvas.place(x=152,y=451)
 
 epic_over_browser_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 epic_over_browser_canvas.create_text(0,8,anchor='w',font=(font_select,9,'bold'),text='Browser',fill='black')
-epic_over_browser_canvas.place(x=340,y=460)
+epic_over_browser_canvas.place(x=340,y=451)
 
 epic_over_marc_label = tk.Label(screen,text='–',font=font_select,bg='black',fg='#C0C0C0')
-epic_over_marc_label.place(x=319,y=455)
+epic_over_marc_label.place(x=319,y=446)
 
 epic_over_disable_label = tk.Label(screen,text='Disable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_disable_label.place(x=330,y=485)
+epic_over_disable_label.place(x=330,y=476)
 
 epic_over_enable_label = tk.Label(screen,text='Enable',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_enable_label.place(x=270,y=485)
+epic_over_enable_label.place(x=270,y=476)
 
 epic_over_auto_label = tk.Label(screen,text='Auto Search',font=font_select,bg='black',fg='#E6E6FA')
-epic_over_auto_label.place(x=175,y=485)
+epic_over_auto_label.place(x=175,y=476)
 
 fsr_guide_cbox = None
 screen_guide = None
@@ -251,10 +251,10 @@ def fsr_guide(event=None):
             screen_guide.withdraw()
 
 fsr_guide_label = tk.Label(screen,text='FSR GUIDE',font=font_select,bg='black',fg='#C0C0C0')
-fsr_guide_label.place(x=260,y=393)
+fsr_guide_label.place(x=200,y=356)
 fsr_guide_var = tk.IntVar()
 fsr_guide_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fsr_guide_var,command=fsr_guide)
-fsr_guide_cbox.place(x=347,y=395)
+fsr_guide_cbox.place(x=282,y=358)
 
 def select_guide():
     global select_game_listbox,select_game_canvas,s_games_op,select_game_label
@@ -275,9 +275,9 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Hozizon Zero Dawn','Horizon Zero Dawn Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
-                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Uniscaler','XESS/DLSS']
+                'Smalland','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invicible','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -671,18 +671,20 @@ def text_guide():
 '5. It is possible that the game will crash the first 2 or 3 times after the mod\nis installed, so just close the game and open it again'
 ),
 
-'Dying Light 2': (   
-'Default Mods\n'   
+'Dying Light 2': (  
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Open the game and select DX12.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check the Enable Signature Over box\n'
+'4. In the game, select DLSS or Xess and press the "Insert"\nkey to open the menu\n'
+'5. In the menu, select FSR 3x and FSR 3.1.3 right below,\nif you have Nvidia GPU, select DLSS\n'
+'6. Check the Frame gen, Hud Fix and FG Extended boxes.\n\n'
+ 
+'Uniscaler/0.x\n'   
 '1 - Select a mod of your preference (0.10.3 is recommended).\n'
 '2 - Enable Fake Nvidia GPU (only for AMD and GTX).\n'
 '3 - In the game, select any upscaler and activate Frame\nGeneration.\n'
-'4 - If you experience any flickering or ghosting, go to Video >\nAdvanced Settings and decrease the Lod Range Multiplier.\n\n'
-
-'FSR 3.1.3\n'
-'1.Select the FSR 3.1.3 DL2 Custom and install.\n'
-'2.In the game, select FSR 2 and press the "Insert" key to\nopen the menu.\n'
-'3.In the menu, select FSR 3.x and select FSR 2.3.2 right\nbelow.\n'
-'4.Check the Hud Fix box to remove glitches.'
+'4 - If you experience any flickering or ghosting, go to Video >\nAdvanced Settings and decrease the Lod Range Multiplier.'
 ),
 
 'Elden Ring': (
@@ -979,20 +981,13 @@ def text_guide():
 '4 - Select Xess or FSR.'
 ),
 
-'Hozizon Zero Dawn':(
-'Optiscaler Custom HZD & FSR 3.1.1/DLSS Optiscaler\n'
-'1. Select Optiscaler Custom HZD or FSR 3.1.1/DLSS Optiscaler\n'
-'2. Check the "Enable Signature Over" box\n'
-'3. In the game, press the "Insert" key to open the mod menu\n'
-'4. In the menu, select the Upscaler of your choice\n'
-'5. (For FSR 3.1.1/DLSS Optiscaler), if you cannot open the menu,\nselect the desired upscaler in "Upscaler Optiscaler" and\nreinstall the mod'
-),
-
-'Horizon Zero Dawn Remastered':(
+'Horizon Zero Dawn/Remastered':(
 'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
-'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
-'2. In the game, select DLSS and press the \'Insert\'\nkey to open the menu\n'
-'3. In the menu, select FSR 3.1.3'
+'1. Select FSR 3.1.3/DLSS (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, check the Frame Gen, Hud Fix and FG\nExtended boxes.\n'
+'5. If you want to update DLSS/FSR, select "Others Mods HZD"\nand install, do this before installing the main mod.'
 ),
 
 'Icarus':(
@@ -1759,6 +1754,15 @@ def text_guide():
 '5. The consequences of using the mod in multiplayer are\nunknown; use at your own risk'
 ),
 
+'Wayfinder':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, select FSR 3x and FSR 3.1.3 right below,\nif you have Nvidia GPU, select DLSS\n'
+'5. Check the Frame gen and Hud Fix boxes.'
+),
+
 'Uniscaler':(
 'Enable frame generation in any upscaler the game has, choose\nbetween the 3 options FSR3, DLSS, and XESS. If the game\nsupports one of these 3 upscalers, simply select one of these\noptions in "Mod Operates".\n\n'
 'Even if the game does not have support for one of the 3\nupscalers, it is possible to activate them by selecting the\nupscaler in "Mod Operates".\n\n'
@@ -1800,7 +1804,7 @@ def text_guide():
     '520x350': ['The Casting Of Frank Stone', 'Lies of P'],
     '540x420': ['Death Stranding Director\'s Cut'],
     '520x400': ['Red Dead Redemption', 'Assassin\'s Creed Mirage'],
-    '520x290': ['Dying Light 2'],
+    '520x310': ['Dying Light 2'],
     '520x300': ['A Plague Tale Requiem'],
     '520x360': ['Ghostwire: Tokyo'],
     '540x320': ['Shadow Warrior 3'],
@@ -1842,7 +1846,8 @@ def exit_fsr_guide():
 
 def guide_fsr_guide(event=None):
     guide_fsr_label.config(text='Installation guide for specific games. To open the guide, simply click on the checkbox')
-    guide_fsr_label.place(x=260,y=420)
+    guide_fsr_label.place(x=200,y=379)
+    guide_fsr_label.tkraise()
 
 def close_guide_fsr(event=None):
     guide_fsr_label.place_forget()
@@ -1897,17 +1902,17 @@ def cbox_ignore_fg_resources():
         messagebox.showinfo('Uniscaler','Select Uniscaler V3 or Uniscaler FSR 3.1 to use this option.')
         return
 
-ignore_ingame_fg_label = tk.Label(screen,text='Ignore Ingame Fg',font=font_select,bg='black',fg='#C0C0C0')
-ignore_ingame_fg_label.place(x=0,y=365)
+ignore_ingame_fg_label = tk.Label(screen,text='Ignore Ingame FG',font=font_select,bg='black',fg='#C0C0C0')
+ignore_ingame_fg_label.place(x=0,y=326)
 ignore_ingame_fg_var = IntVar()
 ignore_ingame_fg_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ignore_ingame_fg_var,command=cbox_ignore_fg)
-ignore_ingame_fg_cbox.place(x=130,y=367)
+ignore_ingame_fg_cbox.place(x=130,y=329)
 
 ignore_ingame_fg_resources_label = tk.Label(screen,text='Ignore Fg Resources',font=font_select,bg='black',fg='#C0C0C0')
-ignore_ingame_fg_resources_label.place(x=200,y=365)
+ignore_ingame_fg_resources_label.place(x=0,y=356)
 ignore_ingame_fg_resources_var = IntVar()
 ignore_ingame_fg_resources_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ignore_ingame_fg_resources_var,command=cbox_ignore_fg_resources)
-ignore_ingame_fg_resources_cbox.place(x=350,y=367)
+ignore_ingame_fg_resources_cbox.place(x=147,y=359)
 
 path_remove_overlay_uni = {'Uniscaler V2':'mods\\Temp\\Uniscaler_V2\\enable_fake_gpu\\uniscaler.config.toml',
               'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
@@ -1942,10 +1947,10 @@ def remove_overlay():
         toml.dump(toml_d,file)
           
 remove_overlay_label = tk.Label(screen,text='Disable Overlay',font=font_select,bg='black',fg='#C0C0C0')
-remove_overlay_label.place(x=0,y=305)
+remove_overlay_label.place(x=0,y=266)
 remove_overlay_var = IntVar()
 remove_overlay_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=remove_overlay_var,command=cbox_remove_overlay)
-remove_overlay_cbox.place(x=117,y=308)
+remove_overlay_cbox.place(x=117,y=269)
 
 #Creates a Backup folder if there are files identical to those of the mod  
 var_copy_backup = False
@@ -2217,10 +2222,10 @@ def Backup_Dxgi(rename_file_name,path_dxgi): # Make a backup of the dxgi.dll fil
         os.rename(path_dxgi, os.path.join(select_folder, rename_file_name))
                   
 backup_label = tk.Label(screen,text='Backup',font=font_select,bg='black',fg='#C0C0C0')
-backup_label.place(x=160,y=393)
+backup_label.place(x=200,y=326)
 backup_var = IntVar()
 backup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=backup_var,command=cbox_backup)
-backup_cbox.place(x=219,y=395)
+backup_cbox.place(x=255,y=329)
 
 uni_custom_contr = False
 select_uni_custom = ""
@@ -2376,7 +2381,7 @@ def addon_mods_view(event=None):
             addon_view = False
             addon_mods_listbox.place_forget()
         else:
-            addon_mods_listbox.place(x=548,y=480)
+            addon_mods_listbox.place(x=548,y=418)
             addon_view = True
             
 def addon_listbox_contr():
@@ -2404,8 +2409,8 @@ def addon_dx12_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            addon_ups_dx12_listbox.place(x=570,y=539)
-            addon_ups_dx12_scroll.place(x=657,y=539, height=66)
+            addon_ups_dx12_listbox.place(x=563,y=476)
+            addon_ups_dx12_scroll.place(x=649,y=476, height=66)
 
 def options_optiscaler_view(event=None):
     global addon_view,addon_contr
@@ -2417,8 +2422,8 @@ def options_optiscaler_view(event=None):
             addon_view = False
         else:
             addon_view = True
-            options_optiscaler_listbox.place(x=537,y=511)
-            options_optiscaler_scroll.place(x=680, y=511, height=98)
+            options_optiscaler_listbox.place(x=537,y=448)
+            options_optiscaler_scroll.place(x=680, y=448, height=98)
 
 screen_method_open = False
 var_method = None
@@ -2706,31 +2711,29 @@ def replace_ini():
         shutil.copy2(path_ini_origin,folder_ini)
 
 addon_ups_dx12_label = tk.Label(screen,text='Upscaler Optiscaler',font=font_select,bg='black',fg='#C0C0C0')
-addon_ups_dx12_label.place(x=420,y=515)
+addon_ups_dx12_label.place(x=420,y=453)
 addon_ups_dx12_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_ups_dx12_canvas.place(x=570,y=519)
+addon_ups_dx12_canvas.place(x=563,y=456)
 addon_ups_dx12_scroll = tk.Scrollbar(screen)
 addon_ups_dx12_listbox = tk.Listbox(screen, width=14,height=4, bg='white', highlightthickness=0, yscrollcommand=addon_ups_dx12_scroll.set)
 addon_ups_dx12_scroll.config(command=addon_ups_dx12_listbox.yview)
 
 options_optiscaler_label = tk.Label(screen,text='Optiscaler Opts',font=font_select,bg='black',fg='#C0C0C0')
-options_optiscaler_label.place(x=420,y=485)
-options_optiscaler_canvas = tk.Canvas(width=150,height=19,bg='#C0C0C0',highlightthickness=0)
-options_optiscaler_canvas.place(x=537,y=489)
+options_optiscaler_label.place(x=420,y=423)
+options_optiscaler_canvas = tk.Canvas(width=159,height=19,bg='#C0C0C0',highlightthickness=0)
+options_optiscaler_canvas.place(x=537,y=427)
 options_optiscaler_scroll = tk.Scrollbar(screen)
 options_optiscaler_listbox = tk.Listbox(screen, width=24, height=6, bg='white', highlightthickness=0, yscrollcommand=options_optiscaler_scroll.set)
 options_optiscaler_scroll.config(command=options_optiscaler_listbox.yview)
 
 addon_mods_label = tk.Label(screen,text='Add-on Mods',font=font_select,bg='black',fg='#C0C0C0')   
-addon_mods_label.place(x=420,y=455)
+addon_mods_label.place(x=420,y=393)
 addon_mods_var = tk.IntVar()
 addon_mods_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=addon_mods_var,command=cbox_addon_mods)
-addon_mods_cbox.place(x=522,y=457)
+addon_mods_cbox.place(x=522,y=396)
 addon_mods_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-addon_mods_canvas.place(x=548,y=459)
+addon_mods_canvas.place(x=548,y=398)
 addon_mods_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-addon_mods_listbox.place(x=548,y=480)
-addon_mods_listbox.place_forget()
 
 #Modifies the operation of Auto Exposure in the Uniscaler mods via the .toml file (true/false).
 us_origin = {'Uniscaler':r'mods\\Temp\\Uniscaler\\enable_fake_gpu\\uniscaler.config.toml',
@@ -2778,10 +2781,10 @@ def cbox_var_auto_expo():
         return
 
 var_auto = tk.Label(screen,text='Auto Exposure',font=font_select,bg='black',fg='#C0C0C0')
-var_auto.place(x=200,y=245)
+var_auto.place(x=200,y=206)
 var_auto_expo_var = tk.IntVar()
 var_expo_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_auto_expo_var,command=cbox_var_auto_expo)
-var_expo_cbox.place(x=310,y=248)
+var_expo_cbox.place(x=310,y=209)
 
 def var_frame_gen_en():
     if select_mod in us_origin:
@@ -2824,10 +2827,10 @@ def cbox_var_frame_gen():
         return
         
 var_frame_gen_label = tk.Label(screen,text='Off Frame Gen',font=font_select,bg='black',fg='#C0C0C0')
-var_frame_gen_label.place(x=0,y=276)
+var_frame_gen_label.place(x=0,y=236)
 var_frame_gen_var = tk.IntVar()
 var_frame_gen_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=var_frame_gen_var,command=cbox_var_frame_gen)
-var_frame_gen_cbox.place(x=110,y=279)
+var_frame_gen_cbox.place(x=110,y=239)
 
 #Limit the game's Fps to the value provided by the user through the .toml file
 def fps_limit():
@@ -2867,9 +2870,9 @@ def unlock_fps_limit():
         fps_user_entry.configure(state='readonly',bg='#C0C0C0')
     
 fps_user_label = tk.Label(screen,text='FPS Limit:',font=font_select,bg='black',fg='#C0C0C0')
-fps_user_label.place(x=0,y=245)
+fps_user_label.place(x=0,y=206)
 fps_user_entry =  tk.Entry(screen,width=5,bg='#C0C0C0',state= 'readonly',borderwidth=0)
-fps_user_entry.place(x=80,y=250)
+fps_user_entry.place(x=80,y=209)
 fps_user_entry.lift()
 
 def cbox_del_dxgi():
@@ -2890,10 +2893,10 @@ def clean_dxgi():
             os.remove(os.path.join(select_folder,item))
 
 del_dxgi_label = tk.Label(screen,text='Del Only dxgi.dll',font=font_select,bg='black',fg='#E6E6FA')
-del_dxgi_label.place(x=0,y=515)
+del_dxgi_label.place(x=0,y=506)
 del_dxgi_var = IntVar()
 del_dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=del_dxgi_var,command=cbox_del_dxgi)
-del_dxgi_cbox.place(x=120,y=517) 
+del_dxgi_cbox.place(x=120,y=509) 
 
 #Remove the mod files, the files for deletion are passed in lists and are checked according to the mod version selected by the user 
 def cbox_cleanup():
@@ -3443,24 +3446,6 @@ def clean_mod():
             if os.path.exists(original_exe):
                 os.remove(os.path.join(select_folder,"HorizonForbiddenWest.exe"))
                 os.rename(original_exe,os.path.join(select_folder,"HorizonForbiddenWest.exe"))
-
-    except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-    
-    try:
-        if select_option == "Horizon Zero Dawn":
-            del_all_mods_optiscaler(del_optiscaler,'Optiscaler Custom HZD', False)
-    except Exception as e:
-        messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
-    
-    try:
-        if select_option == 'Horizon Zero Dawn Remastered':
-
-            if del_all_mods_optiscaler(del_optiscaler,'FSR 3.1.3 HZD Rem', True):
-                runReg('mods\\Temp\\disable signature override\\DisableSignatureOverride.reg')
-
-                if os.path.exists(os.path.join(select_folder,'nvgx.dll')):
-                    os.remove(os.path.join(select_folder,'nvgx.dll'))
 
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
@@ -4090,10 +4075,10 @@ def clean_mod():
         messagebox.showinfo('Error','It was not possible to remove the mod files from Star Wars Outlaws. Please close the game or any other folders related to the game and try again.')                             
                                               
 cleanup_label = tk.Label(screen,text='Cleanup Mod',font=font_select,bg='black',fg='#E6E6FA')
-cleanup_label.place(x=0,y=485) 
+cleanup_label.place(x=0,y=476) 
 cleanup_var = IntVar()
 cleanup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=cleanup_var,command=cbox_cleanup)
-cleanup_cbox.place(x=100,y=487)       
+cleanup_cbox.place(x=100,y=479)       
 
 #Disables the CMD console when starting the game,this function is only available in the mods listed below
 disable_var = None
@@ -4128,59 +4113,10 @@ def edit_disable_console():
             toml.dump(toml_dis,file)
         
 disable_console_label = tk.Label(screen,text='Disable Console',font=font_select,bg='black',fg='#C0C0C0')
-disable_console_label.place(x=0,y=336)
+disable_console_label.place(x=0,y=296)
 disable_console_var = IntVar()
 disable_console_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_console_var,command=cbox_disable_console)
-disable_console_cbox.place(x=117,y=339)
-
-#Copies the lfz file, this file can make old mods work
-lfz_list = {
-'0.7.4':'mods\\Temp\\FSR2FSR3_0.7.4\\lfz.sl.dlss',
-'0.7.5':'mods\\Temp\\FSR2FSR3_0.7.5_hotfix\\lfz.sl.dlss',
-'0.7.6':'mods\\Temp\\FSR2FSR3_0.7.6\\lfz.sl.dlss',
-'0.8.0':'mods\\Temp\\FSR2FSR3_0.8.0\\lfz.sl.dlssl',
-'0.9.0':'mods\\Temp\\FSR2FSR3_0.9.0\\lfz.sl.dlss',
-'0.10.0':'mods\\Temp\\global _lfz',
-'0.10.1':'mods\\Temp\\global _lfz',
-'0.10.1h1':'mods\\Temp\\global _lfz',
-'0.10.2h1':'mods\\Temp\\global _lfz',
-'0.10.3':'mods\\Temp\\global _lfz',
-'0.10.4':'mods\\Temp\\global _lfz',
-}
-
-def copy_lfz_sl ():
-    global lfz_sl_label_cbox,lfz_list
-    lfz_folder = None
-    lfz_folder = lfz_list.get(select_mod)
-    
-    try:
-        for item in os.listdir(lfz_folder):
-            lfz_path = os.path.join(lfz_folder,item)
-            if os.path.isfile(lfz_path):
-                shutil.copy2(lfz_path,select_folder)
-    except Exception as e:
-        pass
-    
-def var_mod_lfz():
-    global lfz_list
-    if select_mod not in lfz_list.keys():
-        messagebox.showinfo('Error','Please select a version starting from 0.7.4.')
-        lfz_sl_label_cbox.deselect()
-    elif select_folder is None:
-        messagebox.showinfo('Select Folder','Please, select a destination folder')
-        lfz_sl_label_cbox.deselect()
-
-def cbox_lfz_sl():
-    global lfz_list
-    if lfz_sl_var.get() == 1: 
-        var_mod_lfz()
-    
-lfz_sl_label = tk.Label(screen,text='Install lfz.sl.dlss',font=font_select,bg='black',fg='#C0C0C0')
-lfz_sl_label.place(x=0,y=393)
-lfz_sl_var = IntVar()
-lfz_sl_label_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=lfz_sl_var,command=cbox_lfz_sl)
-lfz_sl_label_cbox.place(x=120,y=395)
-guide_fsr_label.lift(lfz_sl_label)
+disable_console_cbox.place(x=117,y=299)
 
 #For enabling FSR3FG debug overlay, through the .toml file
 var_debug_tear = None
@@ -4221,9 +4157,9 @@ def edit_debug_tear_lines():
       
 debug_tear_lines_label = tk.Label(screen,text='Debug Tear Lines',font=font_select,bg='black',fg='#C0C0C0')
 debug_tear_lines_var = IntVar()
-debug_tear_lines_label.place(x=200,y=336)
+debug_tear_lines_label.place(x=200,y=296)
 debug_tear_lines_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_tear_lines_var,command=cbox_debug_tear_lines)
-debug_tear_lines_cbox.place(x=329,y=339)
+debug_tear_lines_cbox.place(x=329,y=299)
 
 var_deb_view = False
 def cbox_debug_view():
@@ -4263,45 +4199,39 @@ def edit_debug_view():
             toml.dump(toml_deb,file)
         
 debug_view_label = tk.Label(screen,text='Debug View',font=font_select,bg='black',fg='#C0C0C0')
-debug_view_label.place(x=200,y=306)
+debug_view_label.place(x=200,y=266)
 debug_view_var = IntVar()
 debug_view_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=debug_view_var,command=cbox_debug_view)
-debug_view_cbox.place(x=290,y=309)
+debug_view_cbox.place(x=290,y=269)
 
 #Helps the mod work in some specific games, for example, The Callisto Protocol, 2 values are added to the registry editor, the path is available in the .reg file in the Temp folder
 def enable_over():
-    global list_over
-    folder_en_over = 'mods\\Temp\\enable signature override\\EnableSignatureOverride.reg'
-    list_over = ['0.7.4','0.7.5','0.7.6','0.8.0','0.9.0','0.10.0','0.10.1','0.10.1h1','0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','FSR 3.1 Custom Wukong']
-
-    if select_mod in list_over:
-        subprocess.run(['regedit','/s',folder_en_over],capture_output=True)
+    en_sig_over = 'mods\\Temp\\enable signature override\\EnableSignatureOverride.reg'   
+    runReg(en_sig_over)
 
 def disable_over():
-    global list_over
-    folder_dis_over = 'mods\\Temp\\disable signature override\\DisableSignatureOverride.reg'
-    if select_mod in list_over:
-        subprocess.run(['regedit','/s',folder_dis_over],capture_output=True)
+    dis_sig_over = 'mods\\Temp\\disable signature override\\DisableSignatureOverride.reg'
+    runReg(dis_sig_over)
         
 def cbox_enable_sigover():
     if enable_sigover_var.get() == 1:
         enable_over()
     
 enable_sigover_label = tk.Label(screen,text='Enable Signature Over',font=font_select,bg='black',fg='#C0C0C0')
-enable_sigover_label.place(x=0,y=423)
+enable_sigover_label.place(x=0,y=386)
 enable_sigover_var = IntVar()
 enable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=enable_sigover_var,command=cbox_enable_sigover)
-enable_sigover_cbox.place(x=165,y=425)
+enable_sigover_cbox.place(x=165,y=389)
 
 def cbox_disable_sigover():
     if disable_sigover_var.get() == 1:
         disable_over()
 
 disable_sigover_label = tk.Label(screen,text='Disable Signature Over',font=font_select,bg='black',fg='#C0C0C0')
-disable_sigover_label.place(x=205,y=423)
+disable_sigover_label.place(x=200,y=386)
 disable_sigover_var = IntVar()
 disable_sigover_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=disable_sigover_var,command=cbox_disable_sigover)
-disable_sigover_cbox.place(x=373,y=425)
+disable_sigover_cbox.place(x=373,y=389)
 guide_fsr_label.lift(disable_sigover_label)
 guide_fsr_label.lift(disable_sigover_cbox)
 
@@ -4325,7 +4255,7 @@ def dxgi_cbox_view(event=None):
             dxgi_listbox.place_forget()
             dxgi_view = False
         else:
-            dxgi_listbox.place(x=520,y=448)
+            dxgi_listbox.place(x=295,y=441)
             dxgi_view = True
       
 def dxgi_listbox_contr():
@@ -4369,15 +4299,13 @@ def copy_dxgi():
             messagebox.showinfo('Error','Please select the destination folder')
            
 dxgi_label = tk.Label(screen,text='Dxgi.dll',font=font_select,bg='black',fg='#C0C0C0')
-dxgi_label.place(x=420,y=423)
+dxgi_label.place(x=210,y=416)
 dxgi_var = IntVar()
 dxgi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=dxgi_var,command=cbox_dxgi)
-dxgi_cbox.place(x=493,y=424)
+dxgi_cbox.place(x=270,y=418)
 dxgi_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-dxgi_canvas.place(x=520,y=427)
+dxgi_canvas.place(x=295,y=421)
 dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
-dxgi_listbox.place(x=520,y=448)
-dxgi_listbox.place_forget()
 
 #Copy .dll files that can help specific games to function. The Default option includes the default nvngx.dll, and it also has the files DLSS 3.7.0 and XESS 1.3
 nvngx_contr = False
@@ -4399,7 +4327,7 @@ def nvngx_cbox_view(event=None):
             nvngx_listbox.place_forget()
             nvngx_view = False
         else:
-            nvngx_listbox.place(x=520,y=420)
+            nvngx_listbox.place(x=100,y=442)
             nvngx_view = True
             
 def nvngx_listbox_contr():
@@ -4409,15 +4337,15 @@ def nvngx_listbox_contr():
         nvngx_view = False
     
 nvngx_label = tk.Label(screen,text='Nvngx.dll',font=font_select,bg='black',fg='#C0C0C0')
-nvngx_label.place(x=420,y=393)
+nvngx_label.place(x=0,y=416)
 nvngx_var = IntVar()
 nvngx_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvngx_var,command=cbox_nvngx)
-nvngx_cbox.place(x=493,y=395)
+nvngx_cbox.place(x=73,y=419)
 nvngx_canvas = tk.Canvas(screen,width=103,height=19,bg='#C0C0C0',highlightthickness=0)
-nvngx_canvas.place(x=520,y=398)
+nvngx_canvas.place(x=100,y=422)
 nvngx_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
 nvngx_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
-nvngx_listbox.place(x=520,y=420)
+nvngx_listbox.place(x=130,y=422)
 nvngx_listbox.place_forget()
 uni_custom_listbox.lift(nvngx_canvas)
 
@@ -4963,10 +4891,10 @@ def cbox_fakegpu():
         default_fake_gpu()
 
 fakegpu_label = tk.Label(screen,text='Fake NVIDIA GPU',font=font_select,bg='black',fg='#C0C0C0')
-fakegpu_label.place(x=0,y=185)
+fakegpu_label.place(x=0,y=146)
 fakegpu_cbox_var = tk.IntVar()
 fakegpu_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=fakegpu_cbox_var,command=cbox_fakegpu)
-fakegpu_cbox.place(x=133,y=187)
+fakegpu_cbox.place(x=133,y=148)
 
 #Workaround graphical artifacts in Unreal Engine games when selecting DLSS
 list_ue = {
@@ -5027,10 +4955,10 @@ def cbox_ue():
         default_ue()
         
 ue_label = tk.Label(screen,text='UE Compatibility Mode',bg='black',font=font_select,fg='#C0C0C0')
-ue_label.place(x=200,y=185)
+ue_label.place(x=200,y=146)
 ue_cbox_var = tk.IntVar()
 ue_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=ue_cbox_var,command=cbox_ue)
-ue_cbox.place(x=367,y=187)
+ue_cbox.place(x=367,y=149)
 
 #Fixes issues with DLSS/FG not available on GTX GPUs
 list_nvapi = {
@@ -5095,10 +5023,10 @@ def cbox_nvapi():
         nvapi_cbox_var.set == 1
 
 nvapi_label = tk.Label(screen,text='NVAPI Results',font=font_select,bg='black',fg='#C0C0C0')
-nvapi_label.place(x=0,y=215)
+nvapi_label.place(x=0,y=176)
 nvapi_cbox_var = tk.IntVar()
 nvapi_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=nvapi_cbox_var,command=cbox_nvapi)
-nvapi_cbox.place(x=118,y=218)
+nvapi_cbox.place(x=118,y=179)
 
 #Enable macOS-specific compatibility tweak
 list_macos = {
@@ -5161,10 +5089,10 @@ def cbox_macos():
         default_macos()
 
 macos_sup_label = tk.Label(screen,text='MacOS Crossover Support',font=font_select,bg='black',fg='#C0C0C0')
-macos_sup_label.place(x=200,y=215)
+macos_sup_label.place(x=200,y=176)
 macos_sup_var = tk.IntVar()
 macos_sup_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=macos_sup_var,command=cbox_macos)
-macos_sup_cbox.place(x=387,y=217)
+macos_sup_cbox.place(x=387,y=179)
 
 #Deletes the .toml file modified by the user and replaces it with a new one
 default_path ={
@@ -5332,10 +5260,10 @@ def screen_editor():
     screen_toml.mainloop()
 
 open_editor_label = tk.Label(screen,text='Open TOML Editor',font=font_select,bg='black',fg='#C0C0C0')
-open_editor_label.place(x=200,y=277)
+open_editor_label.place(x=200,y=236)
 open_editor_var = tk.IntVar()
 open_editor_cbox = tk.Checkbutton(screen,bg='black',activebackground='black',highlightthickness=0,variable=open_editor_var,command=cbox_editor)
-open_editor_cbox.place(x=335,y=279)
+open_editor_cbox.place(x=335,y=239)
 
 #Modify the sharpening via the .toml file, from 0.0 to 1.0, where 1.0 is the maximum and -1.0 disables it
 unlock_sharp_up_down = False
@@ -5589,48 +5517,6 @@ def mod_operates_view(event):
         else:
             mod_operates_listbox.place(x=532,y=60)
             mod_op_list_visible = True
-
-asi_label = tk.Label(screen,text='ASI Loader:',font=font_select,bg='black',fg='#C0C0C0')
-asi_label.place(x=0,y=146)
-asi_optional_label = tk.Label(screen,text='optional',font=(font_select, 7),bg='black',fg='#696969')
-asi_optional_label.place(x=10,y=166)
-asi_canvas = Canvas(screen,width=205,height=19,bg='white',highlightthickness=0)
-asi_canvas.place(x=101,y=150)
-
-asi_listbox = tk.Listbox(screen,bg='white',width=34,height=0,highlightthickness=0)
-asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(0,15),pady=(0,410))
-asi_listbox.pack_forget()
-
-select_asi_label = tk.Label(screen,text='ASI:',font=font_select,bg='black',fg='#C0C0C0')
-select_asi_label.place(x=313,y=145)
-select_asi_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
-select_asi_canvas.place(x=350,y=149)
-
-select_asi_listbox = tk.Listbox(screen,bg='white',width=8,height=0,highlightthickness=0)
-select_asi_listbox.pack(side=tk.RIGHT,expand=True,padx=(320,0),pady=(0,413))
-select_asi_listbox.pack_forget()
-
-asi_listbox_visible = False
-def asi_listbox_view(event):
-    global asi_listbox_visible
-    if asi_listbox_visible:
-        asi_listbox.place_forget()
-        asi_listbox_visible = False
-    else:
-        asi_listbox.place(x=101,y=171)
-        asi_listbox_visible = True
-        
-select_asi_visible = False  
-select_asi_notvisible = False      
-def select_asi_view(event):
-    global select_asi_visible,select_asi_notvisible
-    if select_asi_notvisible:
-        if select_asi_visible:
-            select_asi_listbox.place_forget()
-            select_asi_visible = False
-        else:
-            select_asi_listbox.place(x=350,y=170)
-            select_asi_visible = True
 
 select_folder_canvas = Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
 select_folder_canvas.place(x=350,y=75)
@@ -6395,6 +6281,7 @@ def games_to_update_upscalers():
     }
     games_to_update_fsr_dlss = {
         'Others Mods Control' : select_folder,
+        'Others Mods HZD' : select_folder,
     }
 
     if select_mod in games_to_update_dlss:
@@ -6425,7 +6312,7 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     path_optiscaler = 'mods\\Addons_mods\\OptiScaler'
     path_optiscaler_dlss = 'mods\\Addons_mods\\Optiscaler DLSS'
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD'
-    gpu_name = 'amd'
+    gpu_name = get_active_gpu()
     games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI']
     games_to_use_anti_lag_2 = ['God of War Ragnarök', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy']
 
@@ -6854,29 +6741,6 @@ def hfw_fsr3():
             shutil.copytree(hfw_ot_gpu,select_folder,dirs_exist_ok=True)
             shutil.copy2(xess_hfw,select_folder)
             runReg(hfw_ot_gpu_reg)
-    
-def fsr3_hzd():
-    if select_mod == 'Optiscaler Custom HZD':
-        optiscaler_fsr_dlss()
-
-def fsr3_hzd_rematered():
-    optiscaler_hzd_rem = 'mods\\FSR3_HZD_Remastered\\Optiscaler'
-    xess_hzd_rem = 'mods\\Temp\\nvngx_global\\nvngx\\libxess.dll'
-    dlss_hzd_rem = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
-
-    if select_mod == 'FSR 3.1.3 HZD Rem':
-        shutil.copytree(optiscaler_hzd_rem, select_folder, dirs_exist_ok=True)
-        runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
-    
-    if select_mod == 'Others Mods HZD Rem':
-        
-        # DLSS 3.8.10 and XESS 1.3.1
-        handle_prompt(
-            'Upscalers',
-            'Do you want to update the game\'s upscalers? Xess 1.3.1 and DLSS 3.8.10 will be installed.',
-            lambda _: (shutil.copy(xess_hzd_rem, select_folder),
-                       shutil.copy(dlss_hzd_rem, select_folder))
-        )
 
 def fsr3_dg_veil():
     amd_dg_veil = 'mods\\DLSS_Global\\For games that have native FG\\AMD'
@@ -7968,11 +7832,6 @@ def fsr3_gta_trilogy():
         else:
             shutil.copy(dlss_gta, select_folder)
 
-def fsr3_dl2():
-    custom_dl2 = 'mods\\FSR3_DL2\\Custom_FSR'
-    if select_mod == 'FSR 3.1.3 Custom DL2':
-        shutil.copytree(custom_dl2, select_folder, dirs_exist_ok=True)
-
 def fsr3_indy():
     smooth_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Smooth\\TheGreatCircle .ini'
     normal_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Normal\\TheGreatCircle smooth.ini'
@@ -8155,7 +8014,7 @@ nvngx_label_guide.place_forget()
 
 def guide_nvngx(event=None):
     nvngx_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    nvngx_label_guide.place(x=420,y=419)
+    nvngx_label_guide.place(x=0,y=440)
     
 def close_nvngx_guide(event=None):
     nvngx_label_guide.config(text="")
@@ -8166,31 +8025,18 @@ dxgi_label_guide.place_forget()
 
 def guide_dxgi(event=None):
     dxgi_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    dxgi_label_guide.place(x=420,y=448)
+    dxgi_label_guide.place(x=210,y=440)
      
 def close_dxgi_guide(event=None):
     dxgi_label_guide.config(text="")
     dxgi_label_guide.place_forget()
-    
-asi_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=250)
-asi_label_guide.place_forget()
-
-def guide_asi(event=None):
-    asi_label_guide.config(text="Default: Copies the ASI file from the selected mod/FSR.\n\n"
-    "Select ASI Loader: Copies the ASI file from the FSR version of the selected mod, FSR: 2.0, 2.1, 2.2, SDK.\n\n"
-    "Only select an option in the case of tests, choosing the wrong option may cause the mod not to work. If you have selected by mistake, choose Default.")
-    asi_label_guide.place(x=0,y=173)
-
-def close_asi_guide(event=None):
-    asi_label_guide.config(text="")
-    asi_label_guide.place_forget()
 
 fk_gpu_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=250)
 fk_gpu_label_guide.place_forget()
 
 def guide_fk_gpu(event=None):
     fk_gpu_label_guide.config(text="Enable GPU proxy/spoof, show as Nvidia 40-series, default = false.")
-    fk_gpu_label_guide.place(x=0,y=213)
+    fk_gpu_label_guide.place(x=0,y=168)
 
 def close_fk_gpu_guide(event=None):
     fk_gpu_label_guide.config(text="")
@@ -8201,7 +8047,7 @@ nvapi_label_guide.place_forget()
 
 def guide_nvapi(event=None):
     nvapi_label_guide.config(text="Only relevant for GTX users who had issues with DLSS/FG not being selectable, default = false.")
-    nvapi_label_guide.place(x=0,y=243)
+    nvapi_label_guide.place(x=0,y=200)
 
 def close_nvapiguide(event=None):
     nvapi_label_guide.config(text="")
@@ -8212,7 +8058,7 @@ ue_label_guide.place_forget()
 
 def guide_ue(event=None):
     ue_label_guide.config(text="Workaround for xmas/disco graphical artifacts in Unreal Engine games when selecting DLSS, default = false")
-    ue_label_guide.place(x=200,y=213)
+    ue_label_guide.place(x=200,y=170)
 
 def close_ueguide(event=None):
     ue_label_guide.config(text="")
@@ -8223,7 +8069,7 @@ mcos_label_guide.place_forget()
 
 def guide_mcos(event=None):
     mcos_label_guide.config(text="Enable macOS-specific compatibility tweaks, default = false")
-    mcos_label_guide.place(x=200,y=243)
+    mcos_label_guide.place(x=200,y=200)
 
 def close_mcosguide(event=None):
     mcos_label_guide.config(text="")
@@ -8274,7 +8120,7 @@ dis_con_label_guide.place_forget()
 
 def guide_dis_con_op (event=None):
     dis_con_label_guide.config(text="Disable the CMD that autostarts on game boot, default = false")
-    dis_con_label_guide.place(x=0,y=365)
+    dis_con_label_guide.place(x=0,y=320)
     
 def close_dis_conguide(event=None):
     dis_con_label_guide.config(text="")
@@ -8285,7 +8131,7 @@ debug_label_guide.place_forget()
 
 def guide_debug_op (event=None):
     debug_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
-    debug_label_guide.place(x=200,y=362)
+    debug_label_guide.place(x=200,y=320)
     
 def close_debugguide(event=None):
     debug_label_guide.config(text="")
@@ -8296,7 +8142,7 @@ debug_view_label_guide.place_forget()
 
 def guide_debug_view_op (event=None):
     debug_view_label_guide.config(text="For enabling FSR3FG debug overlay, default = false")
-    debug_view_label_guide.place(x=200,y=332)
+    debug_view_label_guide.place(x=200,y=290)
     
 def close_debug_viewguide(event=None):
     debug_view_label_guide.config(text="")
@@ -8307,29 +8153,18 @@ en_sig_label_guide.place_forget()
 
 def guide_en_sig (event=None):
     en_sig_label_guide.config(text="Enable Signature Override can help some games to work, it is also recommended to activate in older versions of the mod")
-    en_sig_label_guide.place(x=0,y=447)
+    en_sig_label_guide.place(x=0,y=410)
     
 def close_en_sigguide(event=None):
     en_sig_label_guide.config(text="")
     en_sig_label_guide.place_forget()
-
-lfz_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
-lfz_label_guide.place_forget()
-
-def guide_lfz(event=None):
-    lfz_label_guide.config(text="Files that can help the mod to work in some specific games.\n(We recommend copying these files only if the default mod doesn't work.")
-    lfz_label_guide.place(x=0,y=415)
-     
-def close_lfz_guide(event=None):
-    lfz_label_guide.config(text="")
-    lfz_label_guide.place_forget()
 
 addon_label_guide = tk.Label(text="",anchor='n',bd=1,relief=tk.SUNKEN,bg='black',fg='white',wraplength=150)
 addon_label_guide.place_forget()
 
 def guide_addon_mods(event=None):
     addon_label_guide.config(text="Addon Mods to assist the performance of FSR 3 mods, check the guide on FSR Guide for more information.")
-    addon_label_guide.place(x=420,y=480)
+    addon_label_guide.place(x=420,y=415)
 
 def close_addon_guide(event=None):
     addon_label_guide.config(text="")
@@ -8340,7 +8175,7 @@ addon_dx12_guide.place_forget()
 
 def guide_addon_dx12(event=None):
     addon_dx12_guide.config(text="Select the upscaler that the mod will use")
-    addon_dx12_guide.place(x=420,y=540)
+    addon_dx12_guide.place(x=420,y=480)
  
 def close_addon_dx12(event=None):
     addon_dx12_guide.config(text="")
@@ -8351,7 +8186,7 @@ ignore_ingame_fg_guide.place_forget()
 
 def guide_ignore_ingame_fg(event=None):
     ignore_ingame_fg_guide.config(text="Enables Frame Gen regardless of the ingame DLSS-FG/FSR3-FG setting.")
-    ignore_ingame_fg_guide.place(x=0,y=390)
+    ignore_ingame_fg_guide.place(x=0,y=350)
 
 def close_guide_ignore_ingame_fg(event=None):
     ignore_ingame_fg_guide.config(text="")
@@ -8362,7 +8197,7 @@ ignore_ingame_fg_resources_guide.place_forget()
 
 def guide_ignore_ingame_fg_resources(event=None):
     ignore_ingame_fg_resources_guide.config(text="Disables the use of game provided HUD less and UI resources. Will only cause more graphical issues in most games, so you should leave this turned off in most cases.")
-    ignore_ingame_fg_resources_guide.place(x=200,y=390)
+    ignore_ingame_fg_resources_guide.place(x=0,y=380)
 
 def close_guide_ignore_ingame_fg_resources(event=None):
     ignore_ingame_fg_resources_guide.config(text="")
@@ -8449,8 +8284,6 @@ def install(event=None):
             fsr3_sskjl()
         if select_option == 'Resident Evil 4 Remake':
             fsr3_re4()
-        if select_option == 'Dying Light 2':
-            fsr3_dl2()
         if select_option == 'Dead Island 2':
             fsr3_di2()
         if select_option == 'Returnal':
@@ -8473,8 +8306,6 @@ def install(event=None):
             fsr3_indy()
         if select_option == 'Red Dead Redemption':
             fsr3_rdr1()
-        if select_option == 'Horizon Zero Dawn Remastered':
-            fsr3_hzd_rematered()
         if select_option == 'Hogwarts Legacy':
             fsr3_hog_legacy()
         if select_option == 'Metro Exodus Enhanced Edition':
@@ -8509,8 +8340,6 @@ def install(event=None):
             chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
             fsr3_aw2()
-        if select_option == 'Horizon Zero Dawn':
-            fsr3_hzd()
         if select_mod == 'Unlock Fps Tekken 8':
             ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3.1' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
@@ -8543,8 +8372,6 @@ def install(event=None):
         if install_contr:
             replace_ini()
             backup_cbox.deselect()
-        if lfz_sl_var.get() == 1:
-            copy_lfz_sl()
         if install_contr and select_fsr != None or install_contr and select_option != 'Select FSR version':
             copy_fake_gpu()
         elif install_contr and select_option == 'Select FSR version' and select_fsr == None:
@@ -8620,18 +8447,6 @@ scroll_listbox = tk.Scrollbar(game_options_listbox,orient=tk.VERTICAL,command=ga
 scroll_listbox.pack(side=tk.RIGHT,fill=tk.Y,padx=(184,0),pady=(13,50))
 game_options_listbox.config(yscrollcommand=scroll_listbox.set)
 scroll_listbox.config(command=game_options_listbox.yview)
-
-select_asi_color = 'white'
-select_asi_bool = True
-select_asi_rec = select_asi_canvas.create_rectangle(0,0,50,30,fill=select_asi_color,outline='')
-
-def update_asi_color():
-    global select_asi_color
-    if select_asi_notvisible == True:
-        select_asi_color = 'white'
-    else:
-        select_asi_color = '#C0C0C0'
-    select_asi_canvas.itemconfig(select_asi_rec,fill=select_asi_color)
 
 def fsr_listbox_view():
     if color_rec_bool:
@@ -8738,8 +8553,7 @@ fsr_game_version={
     'High On Life':'2.0',
     'Hitman 3':'2.1',
     'Hogwarts Legacy':'2.2',
-    'Horizon Zero Dawn':'2.1',
-    'Horizon Zero Dawn Remastered':'2.2',
+    'Horizon Zero Dawn/Remastered':'2.2',
     'Horizon Forbidden West':'2.2',
     'Icarus':'ICR',
     'Indiana Jones and the Great Circle':'2.2',
@@ -8809,7 +8623,8 @@ fsr_game_version={
     'Wanted: Dead':'2.2',
     'Warhammer: Space Marine 2':'2.2',
     'Watch Dogs Legion':'2.2',
-    'Way Of The Hunter':'2.2'
+    'Way Of The Hunter':'2.2',
+    'Wayfinder':'2.2'
 }
 
 select_option = None
@@ -8846,7 +8661,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Dead Rising Remaster': ['FSR 3.1 FG DRR', 'Dinput8 DRR'],
         'Dragon Age: Veilguard' : ['Others Mods DG Veil','FSR 3.1.3/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Dragons Dogma 2': ['Dinput8 DD2', *fsr_31_dlss_mods],
-        'Dying Light 2': ['FSR 3.1.3 Custom DL2', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Dying Light 2': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Elden Ring': ['Disable_Anti-Cheat', 'Elden_Ring_FSR3', 'Elden_Ring_FSR3 V2', 'FSR 3.1.3/DLSS FG Custom Elden', 'Unlock FPS Elden'],
         'Fallout 4': ['Fallout 4 FSR3'],
         'Final Fantasy XVI': ['FFXVI DLSS RTX', 'Others Mods FFXVI', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
@@ -8863,8 +8678,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Hellblade 2': ['Others Mods HB2', 'Hellblade 2 FSR3 (Only RTX)', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Hogwarts Legacy': ['Others Mods HL', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Horizon Forbidden West': ['Horizon Forbidden West FSR3', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
-        'Horizon Zero Dawn': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
-        'Horizon Zero Dawn Remastered' : ['Others Mods HZD Rem', 'FSR 3.1.3 HZD Rem', *fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
+        'Horizon Zero Dawn/Remastered': ['Others Mods HZD',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
         'Indiana Jones and the Great Circle' : ['Others Mods Indy','Indy FG (Only RTX)'],
         'Kena: Bridge of Spirits': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
@@ -8901,7 +8715,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Until Dawn': ['Others Mods UD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Warhammer: Space Marine 2': ['Others Mods Space Marine','FSR 3.1.3/DLSS FG Marine','Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Watch Dogs Legion': ['Watch Dogs Legion Custom', *fsr_31_dlss_mods],
-        'Way Of The Hunter' : ['Others Mods 6Days', *fsr_31_dlss_mods]
+        'Way Of The Hunter' : ['Others Mods WOTH', *fsr_31_dlss_mods]
     }
 
     def mod_text():
@@ -8945,8 +8759,8 @@ def update_canvas(event=None): #game_options_canvas text configuration
     fsr_listbox_view()
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Atomic Heart','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn','Horizon Zero Dawn Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter']# Add Games
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
+        'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The Invincible','The Last of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
 
@@ -8997,41 +8811,6 @@ mod_options = ['FSR 3.1.1/DLSS Optiscaler','FSR 3.1.2/DLSS FG Custom', 'FSR 3.1.
 for mod_op in mod_options:
     mod_version_listbox.insert(tk.END,mod_op)
   
-def update_asi(event=None):
-    global option_asi,select_asi_bool,select_asi_notvisible
-    index_asi = asi_listbox.curselection()
-    if index_asi:
-        option_asi = asi_listbox.get(index_asi)
-        asi_canvas.delete('text')
-        asi_canvas.create_text(2,8,anchor='w',text=option_asi,fill='black',tags='text')
-    if option_asi == 'Default':
-        select_asi_notvisible = False
-        select_asi_notvisible = False
-        select_asi_canvas.delete('text')
-        select_asi_listbox.place_forget()
-    else:
-        select_asi_notvisible = True
-        select_asi_bool = True
-    update_asi_color()
-    asi_canvas.update()
-    
-asi_options = ['Default','Select ASI Loader']
-for asi_op in asi_options:
-    asi_listbox.insert(tk.END,asi_op)
-
-def update_select_asi(event=None):
-    global select_asi
-    index_select_asi = select_asi_listbox.curselection()
-    if index_select_asi:
-        select_asi = select_asi_listbox.get(index_select_asi)
-        select_asi_canvas.delete('text')
-        select_asi_canvas.create_text(2,8,anchor='w',text=select_asi,fill='black',tags='text')
-    select_asi_canvas.update()
-    
-select_asi_options =  ['2.0','2.1','2.2','SDK']
-for select_asi_op in select_asi_options:
-    select_asi_listbox.insert(tk.END,select_asi_op)
-    
 def update_mod_operates(event=None):
     global select_mod_operates
     index_select_mod_op = mod_operates_listbox.curselection()
@@ -9151,8 +8930,7 @@ def update_addon_mods(event=None):
         addon_mods_canvas.create_text(2,8,anchor='w',text=select_addon_mods,fill='black',tags='text')
     
     if select_addon_mods == 'OptiScaler':
-        if select_mod != 'The Witcher 3 Optiscaler FG':
-            install_method()
+        install_method()
         addon_ups_dx12_canvas.config(bg='white')
         options_optiscaler_canvas.config(bg='white')
 
@@ -9238,12 +9016,6 @@ epic_over_disable_label.bind('<Button-1>',disable_epic_over)
 epic_over_auto_label.bind('<Button-1>',epic_dis_over)
 mod_version_canvas.bind('<Button-1>',mod_listbox_view)
 mod_version_listbox.bind("<<ListboxSelect>>",update_mod_version)
-asi_canvas.bind('<Button-1>',asi_listbox_view)
-asi_listbox.bind('<<ListboxSelect>>',update_asi)
-asi_label.bind('<Enter>',guide_asi)
-asi_label.bind('<Leave>',close_asi_guide)
-select_asi_canvas.bind('<Button-1>',select_asi_view)
-select_asi_listbox.bind('<<ListboxSelect>>',update_select_asi)
 sharpness_value_label_up.bind('<Button-1>',cont_sharpness_value_up)
 sharpness_value_label_up.bind('<ButtonRelease-1>',color_sharpness_value_up)
 sharpness_value_label_down.bind('<Button-1>',cont_sharpness_value_down)
@@ -9312,8 +9084,6 @@ debug_view_label.bind('<Enter>',guide_debug_view_op)
 debug_view_label.bind('<Leave>',close_debug_viewguide)
 enable_sigover_label.bind('<Enter>',guide_en_sig)
 enable_sigover_label.bind('<Leave>',close_en_sigguide)
-lfz_sl_label.bind('<Enter>',guide_lfz)
-lfz_sl_label.bind('<Leave>',close_lfz_guide)
 epic_over_label.bind('<Enter>',guide_epic)
 epic_over_label.bind('<Leave>',close_guide_epic)
 fsr_guide_label.bind('<Enter>',guide_fsr_guide)
