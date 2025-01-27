@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 3.1.1v")
+screen.title("FSR3.0 Mod Setup Utility - 3.2v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -275,7 +275,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa EVO','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
                 'Smalland','Soulstice','Spider Man/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invicible','The Last Of Us','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
     
@@ -360,11 +360,17 @@ def text_guide():
 
 'Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)':(
 'Optiscaler FSR 3.1.3/DLSS FG (Only Optiscaler)\n'  
-'This mod works for most games that have DLSS; just \nollow the guide for the chosen game in the FSR Guide. (It is\nnecessary to run the game in DX12 for Frame Gen to work)\n\n'
+'This mod works for most games that have DLSS; just follow the guide for\nthe chosen game in the FSR Guide. (It is necessary to run the game in\nDX12 for Frame Gen to work)\n\n'
  
 
 'Optiscaler FSR 3.1.3/DLSSG FG (Only Optiscaler)\n'  
-'This version disables the mod\'s FG and uses the game\'s\nDLSS Frame Gen. It works only for games with this feature\nand is compatible with all GPUs. You can use the mod\'s\nupscalers (e.g., FSR 3.1.3) together with the game\'s DLSS\nFG.\n'
+'This version disables the mod\'s FG and uses the game\'s DLSS Frame Gen.\nIt works only for games with this feature and is compatible with all GPUs.\nYou can use the mod\'s upscalers (e.g., FSR 3.1.3) together with the game\'s\nDLSS FG.\n\n'
+
+'DLSS4 (Only RTX)\n'
+'In the mod menu, check the Render Presets Override and select Preset G for\nthe DLSS quality you are using. For example: if you are using DLSS Quality\nin the game, select Preset G in the Quality Preset in the mod.\n'
+'To update the game\'s DLSS to DLSS4, select "Others Mods" (only some\ngames have this option). The mod already includes DLSS4, and the update\nwill update the game\'s native DLSS in case you want to use DLSS without\nthe mod.\n'
+'To check if Preset J is selected, check "Yes" in the "DLSS Overlay" box that\nwill appear during installation. When selecting the preset in the mod menu,\nPreset J may not appear right away in the DLSS Overlay. Restart the game\nand select Preset G again in the mod menu.\n'
+
 ),
 
 'Achilles Legends Untold':(
@@ -448,7 +454,7 @@ def text_guide():
 '1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
 '2. Check the Enable Signature Over box\n'
 '3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
-'4. In the menu, select FSR 3x and FSR 3.1.3 right below,\nif you have Nvidia GPU, select DLSS to use DLSS 3.8.10\n'
+'4. In the menu, select FSR 3x and FSR 3.1.3 right below,\nif you have Nvidia GPU, select DLSS to use DLSS 4\n'
 '5. Check the Frame gen and Hud Fix boxes, in Hud Fix\nselect 2.\n'
 '6. If you are using ReShade, select FSR 3.1.1/DLSS FG\nCustom and follow the steps above\n\n'
 
@@ -679,7 +685,7 @@ def text_guide():
 '2. Open the game until the "Re Framework" menu appears,\nonce it appears, close the game and return to the Utility\n'
 '3. Select FSR 3.1 FG DRR and install\n'
 '4. In the game, select DLSS and Frame Gen\n'
-'5. The mod already includes DLSS 3.8.10'
+'5. The mod already includes DLSS 4'
 ),
 
 'Deathloop':(
@@ -765,6 +771,14 @@ def text_guide():
 '6 - Run the game launcher located in the root folder of the game, in the launcher set "depth of\nfield" to Low.\n'
 '7 - Run the game using the file f4se_loader.exe, also located in the root folder of the game.\n'
 '8 - In the game, press the "END" key to open the mod menu, select DLSS for RTX and FSR3 for\nnon-RTX.' 
+),
+
+'Final Fantasy VII Rebirth':(
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, check the Frame Gen, Hud Fix, and\nFG Extended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
 ),
 
 'Final Fantasy XVI':(
@@ -857,11 +871,11 @@ def text_guide():
 ),
 
 'GTA Trilogy':(
-'FSR 3.1.3/DLSS Custom GTA\n'
-'1. Select FSR 3.1.3/DLSS Custom GTA and install.\n'
+'FSR 3.1.3/DLSS (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS (Only Optiscaler) and install.\n'
 '2. Check the Enable Signature Over box.\n'
 '3. In the game, select DLSS and press the Insert key to\nopen the menu.\n'
-'4. In the menu, select an upscaler, check Frame Gen and\nFix Hud, then select 2 in Fix Hud.\n'
+'4. In the menu, check Frame Gen, Fix Hud and\nFG Extended\n'
 '5. The installation method is the same for the three GTA\nversions.'
 ),
 
@@ -1346,7 +1360,7 @@ def text_guide():
 'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
 '1. Select FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
 '2. Check the "Enable Signature Over" box\n'
-'3. To update DLSS in the game, check the "Nvngx.dll" box and select DLSS 3.8.10\n'
+'3. To update DLSS in the game, check the "Nvngx.dll" box and select DLSS 4\n'
 '4. Open the game, in the configuration menu that appears when the game starts,\nselect DX12 and DLSS if available (if DLSS does not appear in this menu, select it\nwithin the game)\n'
 '5. In the game, press the "Insert" key to open the menu\n'
 '6. In the menu, check the "Frame Gen," "Hud Fix," and "FG Extended" boxes\n\n'
@@ -1726,8 +1740,10 @@ def text_guide():
 '2. Select FSR 3.1.3/DLSSG FG (Only Optiscaler) and install\n'  
 '3. Check Enable Signature Over box\n'  
 '3. In the game, select FSR3, Frame Gen, and press the\n"Insert" key to open the menu\n'  
-'4. In the menu, select FSR 3.x to use FSR 3.1.3; if you have\nan RTX, select DLSS to use DLSS 3.8.10.\n'  
-'5. To update DLSS, select "Others Mods Tlou"; do this\nbefore installing the mod.\n'
+'4. It’s possible that the game may crash when selecting\nFSR FG; just open it again.\n'
+'5. In the menu, select FSR 3.x to use FSR 3.1.3; if you have\nan RTX, select DLSS to use DLSS 4.\n'  
+'6. To update DLSS, select "Others Mods Tlou"; do this\nbefore installing the mod.\n'
+'7. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it. (Game version 1.1.4.)'
 ),
 
 'The Medium':(
@@ -1864,7 +1880,7 @@ def text_guide():
 
 'XESS/DLSS':(
 '1 - Select Uniscaler in Mod Version (you can try using it with other mod versions\nbut you will likely encounter an error)\n'
-'2 - Check the NVNGX box and select XESS 1.3 or DLSS 3.7.0. For some games\nlike The Callisto Protocol, for example, it will '
+'2 - Check the NVNGX box and select XESS 1.3 or DLSS 3.8.10. For some games\nlike The Callisto Protocol, for example, it will '
 'be necessary to select \'Default\' in\nNVNGX. Then, you can select \'Default\' in NVNGX and choose any option in Mod\nOperates and install. '
 'After pressing install, a window will appear to confirm the\ninstallation of XESS/DLSS. This way, you can install the default Nvngx from\nUniscaler and XESS/DLSS together without needing to perform 2 installations.\n'
 '3 - If the game has a default Xess/Dlss file, this file is modified to serve as a\nbackup. If you want to remove the installed Xess/Dlss and revert to the old\nversion, just check the \'Cleanup Mod\' checkbox and confirm the deletion window\nthat appears.'  
@@ -1912,6 +1928,7 @@ def text_guide():
     '530x290': ['Sifu'],
     '520x330': ['Steelrising'],
     '590x400' : ['Alone in the Dark'],
+    '615x400' : ['Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)'],
     '650x260': ['XESS/DLSS']
     }
 
@@ -3407,7 +3424,7 @@ def clean_mod():
     try:
         if select_mod == 'Uniscaler' or select_mod == 'Uniscaler V2' or select_mod == 'Uniscaler V3' or select_mod == 'Uniscaler V4' or select_mod == 'Uniscaler FSR 3.1':
             if os.path.exists(name_dlss):
-                old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.7.0 and revert to the old version?')
+                old_dlss_rename = messagebox.askyesno('Old DLSS','Do you want to remove DLSS 3.8.10 and revert to the old version?')
                 
                 if old_dlss_rename:
                     os.remove(new_dlss)
@@ -3418,7 +3435,7 @@ def clean_mod():
                     os.remove(new_dlss)
 
     except Exception as e:
-        messagebox.showinfo('DLSS does not exist','DLSS 3.7.0 does not exist or has already been removed previously.')
+        messagebox.showinfo('DLSS does not exist','DLSS 3.8.10 does not exist or has already been removed previously.')
        
     try:
         if select_option == 'Forza Horizon 5':
@@ -3963,9 +3980,21 @@ def clean_mod():
     try:
         if select_mod in mods_to_install_optiscaler_fsr_dlss:
             disable_sig_over_fsr32 = 'mods\\Optiscaler FSR 3.1 Custom\\RestoreNvidiaSignatureChecks.reg'
+            disable_dlss_overlay = 'mods\\Addons_mods\\DLSS Preset Overlay\\Disable Overlay.reg'
         
             del_all_mods_optiscaler(del_optiscaler, select_mod, True)
             runReg(disable_sig_over_fsr32)
+
+            if os.path.exists(os.path.join(select_folder, 'Enable Overlay.reg')):
+                handle_prompt(
+                'DLSS Overlay',
+                'Do you want to disable the DLSS Overlay?',
+                lambda _: (
+                    runReg(disable_dlss_overlay),
+                    os.remove(os.path.join(select_folder, 'Enable Overlay.reg'))
+                    )
+                )
+
     except Exception as e:
         messagebox.showinfo("Error",f"Error clearing {select_mod} files, please try again or do it manually")
 
@@ -4129,12 +4158,6 @@ def clean_mod():
                         os.rename(os.path.join(select_folder, 'game\\vfx.txt'), os.path.join(select_folder, 'game\\vfx.rpf'))
     except Exception:
         messagebox.showinfo('Error','Error clearing Red Dead Redemption files, please try again or do it manually')
-
-    try:
-        if select_option == 'GTA Trilogy':
-            del_all_mods_optiscaler(del_optiscaler,'FSR 3.1.3/DLSS Custom GTA',True)
-    except Exception:
-        messagebox.showinfo('Error','Error clearing GTA Trilogy files, please try again or do it manually')
 
     try:
         if select_option == 'STAR WARS Jedi: Survivor':
@@ -4401,7 +4424,7 @@ dxgi_canvas = tk.Canvas(width=103,height=19,bg='#C0C0C0',highlightthickness=0)
 dxgi_canvas.place(x=295,y=421)
 dxgi_listbox = tk.Listbox(screen,width=17,height=0,bg='white',highlightthickness=0)
 
-#Copy .dll files that can help specific games to function. The Default option includes the default nvngx.dll, and it also has the files DLSS 3.7.0 and XESS 1.3
+#Copy .dll files that can help specific games to function. The Default option includes the default nvngx.dll, and it also has the files DLSS 3.8.10 and XESS 1.3
 nvngx_contr = False
 def cbox_nvngx():
     global nvngx_contr
@@ -4490,7 +4513,7 @@ def copy_nvngx():
                             os.rename(name_libxess,os.path.join(select_folder,rename_libxess))
                         shutil.copy2(nvn_path, select_folder)  
                 
-                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSS 3.7.0':
+                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSS 3.8.10':
                     if item == 'nvngx_dlss.dll':
                         name_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
                         name_old_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
@@ -4499,7 +4522,7 @@ def copy_nvngx():
                             os.rename(name_dlss,os.path.join(select_folder,rename_dlss))
                         shutil.copy2(nvn_path, select_folder)
                 
-                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSS 3.7.0 FG':
+                elif os.path.isfile(nvn_path) and select_nvngx == 'DLSSD 3.8.1':
                     if item == 'nvngx_dlssg.dll':
                         name_dlssg = os.path.join(select_folder,'nvngx_dlssg.dll')
                         name_old_dlssg = os.path.join(select_folder,'nvngx_dlg.txt')
@@ -4514,7 +4537,7 @@ def copy_nvngx():
                 
                 shutil.copy2(path_dlss, select_folder)
                 
-            if select_nvngx == 'DLSS 3.8.10':
+            if select_nvngx == 'DLSS 4':
                 path_dlss_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlss\\nvngx_dlss.dll'
                 name_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.dll')
                 name_old_dlss_371 = os.path.join(select_folder, 'nvngx_dlss.txt')
@@ -4522,7 +4545,7 @@ def copy_nvngx():
                 
                 copy_dlss(name_dlss_371,name_old_dlss_371,path_dlss_371,rename_dlss_371)
             
-            elif select_nvngx == 'DLSSG 3.8.1':
+            elif select_nvngx == 'DLSSG 4':
                 path_dlssg_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssg_3_7_1\\nvngx_dlssg.dll'
                 name_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.dll')
                 name_old_dlssg_371 = os.path.join(select_folder, 'nvngx_dlssg.txt')
@@ -4530,7 +4553,7 @@ def copy_nvngx():
                 
                 copy_dlss(name_dlssg_371,name_old_dlssg_371,path_dlssg_371,rename_dlssg_371)
             
-            elif select_nvngx == 'DLSSD 3.7.20':
+            elif select_nvngx == 'DLSSD 4':
                 path_dlssd_371 = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
                 name_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.dll')
                 name_old_dlssd_371 = os.path.join(select_folder, 'nvngx_dlssd.txt')
@@ -6236,12 +6259,12 @@ def dlss_fsr():
     
     rename_dlss = 'nvngx_dlss.txt'
     
-    put_dlss = messagebox.askyesno('DLSS 3.7.0','Do you want to enable DLSS 3.7.0?')
+    put_dlss = messagebox.askyesno('DLSS 3.8.10','Do you want to enable DLSS 3.8.10?')
     
-    if put_dlss and os.path.exists(name_dlss) and not os.path.exists(name_old_dlss) and select_nvngx != 'DLSS 3.7.0':
+    if put_dlss and os.path.exists(name_dlss) and not os.path.exists(name_old_dlss) and select_nvngx != 'DLSS 3.8.10':
         os.rename(name_dlss,os.path.join(select_folder,rename_dlss)) 
     
-    if put_dlss and select_nvngx != 'DLSS 3.7.0' or put_dlss and not nvngx_contr :
+    if put_dlss and select_nvngx != 'DLSS 3.8.10' or put_dlss and not nvngx_contr :
         shutil.copytree(path_dlss,select_folder,dirs_exist_ok=True)
 
 def get_active_gpu():
@@ -6329,16 +6352,16 @@ def update_upscalers(dest_path, only_dlss = False, copy_dlssd = False, copy_dlss
     update_dlssd = 'mods\\Temp\\nvngx_global\\nvngx\\Dlssd_3_7_1\\nvngx_dlssd.dll'
 
     if only_dlss:
-        if messagebox.askyesno('DLSS', 'Do you want to update DLSS? DLSS 3.8.10 will be installed'):
+        if messagebox.askyesno('DLSS', 'Do you want to update DLSS? DLSS 4 will be installed'):
             shutil.copy(update_dlss, dest_path)
 
     elif copy_dlss_dlssd:
-        if messagebox.askyesno('DLSS/DLSSD', 'Do you want to update DLSS/DLSSD? DLSS 3.8.10 and DLSSD 3.7.20 will be installed.'):
+        if messagebox.askyesno('DLSS/DLSSD', 'Do you want to update DLSS/DLSSD? DLSS 4 and DLSSD 4 will be installed.'):
             shutil.copy(update_dlss, dest_path)
             shutil.copy(update_dlssd, dest_path)
     
     elif copy_dlss_fsr:
-        if messagebox.askyesno('DLSS/FSR', 'Do you want to update DLSS/FSR? DLSS 3.8.10  and FSR 3.1.3 will be installed.'):
+        if messagebox.askyesno('DLSS/FSR', 'Do you want to update DLSS/FSR? DLSS 4 and FSR 3.1.3 will be installed.'):
             shutil.copy(update_dlss, dest_path)
             shutil.copytree(update_fsr, dest_path, dirs_exist_ok=True)
 
@@ -6373,6 +6396,8 @@ def games_to_update_upscalers():
         'Others Mods EW' : default_dlss_path,
         'Others Mods TFBK' : default_dlss_path,
         'Others Mods STC' : default_dlss_path,
+        'Others GTA Trilogy' : default_dlss_path,
+        'Others Mods FF7RBT' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\DLSSSubset\\Binaries\\ThirdParty\\Win64')),
         'Others Mods B4B' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Binaries\\ThirdParty\\Nvidia\\NGX\\Win64')),
         'Others Mods AITD' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods GR2' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
@@ -6423,6 +6448,7 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     nvapi_amd = 'mods\\Addons_mods\\Nvapi AMD\\Nvapi'
     nvapi_ini = 'mods\\Addons_mods\\Nvapi AMD\\Nvapi Ini\\nvngx.ini'
     nvapi_ini_dlssg = 'mods\\Addons_mods\\Nvapi AMD\\DLSSG Nvapi Ini\\nvngx.ini'
+    enable_dlss_overlay = 'mods\\Addons_mods\\DLSS Preset Overlay\\Enable Overlay.reg'
     gpu_name = get_active_gpu()
     games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2']
     games_to_use_anti_lag_2 = ['God of War Ragnarök', 'God Of War 4', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy', 'The First Berserker: Khazan']
@@ -6464,6 +6490,17 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
 
         if select_option in games_with_anti_cheat:
             messagebox.showinfo('Anti Cheat','Do not use the mod in Online mode, or you may be banned')
+        
+        # Enable DLSS Overlay
+        if 'rtx' in gpu_name:
+            handle_prompt(
+            'DLSS Overlay',
+            'Do you want to enable the DLSS Overlay? (It is useful for verifying if the preset selected for DLSS 4 in Optiscaler is correct (Preset J), but it is not required. It cannot be disabled in the game for now; to remove it, uninstall the mod and reinstall it.)',
+            lambda _: (
+                runReg(enable_dlss_overlay),
+                shutil.copy(enable_dlss_overlay, select_folder)
+                )
+            )
 
     except Exception as e:
         print(e)
@@ -7926,7 +7963,7 @@ def fsr3_returnal():
             if os.path.exists(path_default_folder_dlss_returnal):
                 handle_prompt(
                 'Update DLSS',
-                'Do you want to update DLSS? DLSS 3.8.10 will be installed',
+                'Do you want to update DLSS? DLSS 4 will be installed',
                 lambda _: (
                     shutil.copy(path_dlss_returnal, path_default_folder_dlss_returnal)
                     )
@@ -7935,19 +7972,6 @@ def fsr3_returnal():
                 messagebox.showinfo('Exe', 'If you want to install the other Returnal mods, select the .exe folder; it should be something like "Returnal\\Binaries\\Win64".')
     except Exception as e:
         print(e)
-
-def fsr3_gta_trilogy():
-    optiscaler_gta = 'mods\\FSR3_Gta_Trilogy\\Optiscaler_GTA'
-    dlss_gta = 'mods\\FSR3_Gta_Trilogy\\DLSS\\nvngx.dll'
-    path_default_dlss_gta = os.path.abspath(os.path.join(select_folder,'..\\..\\..\\Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64\\nvngx_dlss.dll'))
-
-    if select_mod == 'FSR 3.1.3/DLSS Custom GTA':
-        shutil.copytree(optiscaler_gta, select_folder, dirs_exist_ok=True)
-
-        if os.path.exists(path_default_dlss_gta):
-            shutil.copy(path_default_dlss_gta, os.path.join(select_folder, 'nvngx.dll'))
-        else:
-            shutil.copy(dlss_gta, select_folder)
 
 def fsr3_indy():
     smooth_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Smooth\\TheGreatCircle .ini'
@@ -8395,8 +8419,6 @@ def install(event=None):
             fsr3_silent2()
         if select_option == 'Until Dawn':
             fsr3_until()
-        if select_option == 'GTA Trilogy':
-            fsr3_gta_trilogy()
         if select_option == 'Suicide Squad: Kill the Justice League':
             fsr3_sskjl()
         if select_option == 'Resident Evil 4 Remake':
@@ -8459,7 +8481,7 @@ def install(event=None):
             ulck_fps_tekken()
         if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'XESS 1.3.1' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             xess_fsr()
-        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.7.0' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
+        if select_mod == 'Uniscaler' and select_mod_operates != None and select_nvngx != 'DLSS 3.8.10' or select_mod == 'Uniscaler' and select_mod_operates != None and not nvngx_contr:
             dlss_fsr()
         
         games_to_update_upscalers()
@@ -8647,6 +8669,7 @@ fsr_game_version={
     'Everspace 2':'2.2',
     'Evil West':'2.2',
     'Fallout 4':'PD',
+    'Final Fantasy VII Rebirth' :'2.2',
     'Final Fantasy XVI':'2.2',
     'F1 2022':'2.2',
     'F1 2023':'2.2',
@@ -8789,6 +8812,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Elden Ring': ['Disable_Anti-Cheat', 'Elden_Ring_FSR3', 'Elden_Ring_FSR3 V2', 'FSR 3.1.3/DLSS FG Custom Elden', 'Unlock FPS Elden'],
         'Evil West' : ['Others Mods EW', *fsr_31_dlss_mods],
         'Fallout 4': ['Fallout 4 FSR3'],
+        'Final Fantasy VII Rebirth' : ['Others Mods FF7RBT', *fsr_31_dlss_mods],
         'Final Fantasy XVI': ['FFXVI DLSS RTX', 'Others Mods FFXVI', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Flintlock: The Siege of Dawn': [*fsr_31_dlss_mods],
         'FIST: Forged In Shadow Torch' : [ 'Others Mods Fist', *fsr_31_dlss_mods,*default_mods, *uniscaler_mods],
@@ -8796,7 +8820,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Ghost of Tsushima': ['Ghost of Tsushima FG DLSS', 'Uniscaler FSR 3.1'],
         'Ghostrunner 2' : ['Others Mods GR2', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Gotham Knights': ['Others Mods GK', *fsr_31_dlss_mods],
-        'GTA Trilogy' : ['FSR 3.1.3/DLSS Custom GTA', *fsr_31_dlss_mods],
+        'GTA Trilogy' : ['Others GTA Trilogy',*fsr_31_dlss_mods],
         'GTA V': ['Dinput 8', 'GTA V FSR3', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
         'God Of War 4': ['FSR 3.1.3/DLSS Gow4'],
         'God of War Ragnarök': ['Others Mods Gow Rag',*fsr_31_dlss_mods ,'Uniscaler FSR 3.1'],
@@ -8894,7 +8918,7 @@ def change_cursor(event=None):
 def revert_cursor(event=None):
     event.widget.config(cursor="")
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy VII Rebirth','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
         'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','Soulslinger Envoy of Death','Soulstice','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invincible','The Last Of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
 for option in options:
@@ -9016,7 +9040,7 @@ def update_nvngx(event=None):
     if select_mod == 'Uniscaler + Xess + Dlss':
         nvngx_op = ['Default', 'NVNGX Version 1']
     else:
-        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSS 3.7.0 FG','DLSS 3.8.10','DLSSG 3.8.1','DLSSD 3.7.20']
+        nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1','DLSS 3.8.10','DLSSD 3.8.1','DLSS 4','DLSSG 4','DLSSD 4']
 
     nvngx_listbox.delete(0, tk.END) 
     for nvngx_options in nvngx_op:
@@ -9030,12 +9054,12 @@ def update_nvngx(event=None):
 
     text_canvas_nvngx = nvngx_canvas.itemcget(get_canvas, "text")
     
-    if select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'XESS 1.3.1' or select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'DLSS 3.7.0':
+    if select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'XESS 1.3.1' or select_mod == 'Uniscaler + Xess + Dlss' and text_canvas_nvngx == 'DLSS 3.8.10':
         nvngx_canvas.delete('text')
     
     nvngx_canvas.update()
 
-nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.7.0','DLSSG 3.7.0 FG','DLSS 3.8.10','DLSSG 3.8.1','DLSSD 3.7.20']
+nvngx_op = ['Default', 'NVNGX Version 1', 'XESS 1.3.1', 'DLSS 3.8.10','DLSSG 3.7.0 FG','DLSS 4','DLSSG 4','DLSSD 4']
 for nvngx_options in nvngx_op:
     nvngx_listbox.insert(tk.END, nvngx_options)
     
