@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 3.2.2v")
+screen.title("FSR3.0 Mod Setup Utility - 3.2.3v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -65,7 +65,7 @@ except tk.TclError:
     font_select = tkFont.Font(family="Arial",size=10)
     change_text = True
 
-title_page = tk.Label(screen, text="FSR 3 Mods", font=("Arial", 11, "bold"), fg="#778899", bg="black") 
+title_page = tk.Label(screen, text="FSR3/DLSS FG Mods", font=("Arial", 11, "bold"), fg="#778899", bg="black") 
 title_page.pack(anchor='w',pady=0)
 
 select_label = tk.Label(screen, text="Game select:",font=font_select,bg='black',fg='#C0C0C0')
@@ -276,8 +276,8 @@ def select_guide():
     
     s_games_op = ['Initial Information','Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa EVO','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
                 'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
-                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Ninja Gaiden 2 Black','Nobody Wants To Die','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
-                'Smalland','Soulstice','Spider Man/2/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invicible','The Last Of Us','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Thaumaturge','Thymesia','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
+                'Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
+                'Smalland','Soulstice','Spider Man/2/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invicible','The Last Of Us','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
     
     for select_games_op in s_games_op:  
         select_game_listbox.insert(tk.END,select_games_op)
@@ -1251,11 +1251,20 @@ def text_guide():
 '2 - For AMD/GTX users: Check the boxes for Fake Nvidia\nGPU, Ue compatibility Mode, Nvapi Results and Disable\nSignature Over.'
 ),
 
+'Orcs Must Die! Deathtrap':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
+),
+
 'Outpost Infinity Siege':(
-'1 - Select a mod of your preference; (0.10.3 is recommended)\n'
-'2 - Check the box Fake Nvidia GPU (AMD/GTX).\n'
-'3 - In the game, select DLSS and Frame Generation.\n'
-'4 - If you have any issues, in Nvngx.dll, select Default.'   
+'1. Select a mod of your preference; (0.10.3 is recommended)\n'
+'2. Check the box Fake Nvidia GPU (AMD/GTX).\n'
+'3. In the game, select DLSS and Frame Generation.\n'
+'4. If you have any issues, in Nvngx.dll, select Default.'   
 ),
 
 'Pacific Drive':(
@@ -1544,7 +1553,8 @@ def text_guide():
 '2. In the game, select DLSS, Frame Gen and press the "Insert" key\nto open the menu\n'  
 '3. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see how to\nuse DLSS 4. (Only RTX)\n'  
 '4. If you have a non-RTX GPU, select FSR or Xess in the mod menu.\n' 
-'5. Select FSR 3x to use FSR 3.1.3\n\n' 
+'5. Select FSR 3x to use FSR 3.1.3\n'
+'6. Select the game\'s DLSS Frame Gen before starting the campaign.\nIf you start the campaign without selecting it, only the FSR3 Frame\nGen will be available (Only RTX).\n\n'
 
 'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
 '1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'  
@@ -1795,6 +1805,15 @@ def text_guide():
 '3 - To fix the HUD flickering, play for a few seconds, return to the\nmenu, and deactivate Fsr. (This will slightly decrease FPS).'  
 ),
 
+'The Talos Principle 2':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'2. Check the Enable Signature Over box\n'
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
+),
+
 'The Thaumaturge':(
 '1 - Select a version of the mod of your choice (it is recommended 0.10.3\nonwards or Uniscaler)\n'
 '2 - Select the folder where the game\'s exe is located.\n'
@@ -1946,7 +1965,7 @@ def text_guide():
     '690x260': ['Icarus'],
     '735x660': ['Hellblade 2'],
     '620x790': ['Add-on Mods', 'Black Myth: Wukong'],
-    '565x450': ['Spider Man/2/Miles'],
+    '565x490': ['Spider Man/2/Miles'],
     '520x320': ['Ghost of Tsushima', 'The Witcher 3'],
     '550x750': ['Cyberpunk 2077'],
     '830x720': ['The Callisto Protocol'],
@@ -5705,140 +5724,12 @@ select_folder_label = tk.Label(screen,text='–',font=font_select,bg='black',fg=
 select_folder_label.place(x=318,y=70)
 select_folder = None
 
-search_game_exe_canvas = tk.Canvas(screen,width=50,height=19,bg='white',highlightthickness=0)
-search_game_exe_canvas.place(x=350,y=95)
-search_game_exe_canvas.create_text(9,8,anchor='w',font=('Arial',9,'bold'),text='Auto',fill='black')
-
 #Function to select the game folder and create the selected path text on the Canvas
 def open_explorer(event=None): 
     global select_folder
     select_folder = filedialog.askdirectory()
     game_folder_canvas.delete('text')
     game_folder_canvas.create_text(2,8, anchor='w',text=select_folder,fill='black',tags='text') 
-
-def auto_search(path_origin,alt_path_origin,exe_name,game_select): #auto search for the exe path
-    global select_folder
-    user_disk_part = search_un()
-    path_over = None
-    
-    try:
-        for disk_name in user_disk_part:
-            default_path = os.path.join(disk_name,path_origin)
-            if os.path.exists(default_path):
-                for root, dirs, files in os.walk(default_path):
-                    for file_name in files:
-                        if file_name.endswith(exe_name):
-                            game_path = os.path.abspath(root)
-                            if game_select in game_path:
-                                path_over = os.path.join(root, file_name)
-                                break
-                    if path_over:
-                        break
-                if path_over:
-                    break
-            
-            alt_path = os.path.join(disk_name, alt_path_origin)
-            if os.path.exists(alt_path):
-                for root, dirs, files in os.walk(alt_path):
-                    for file_name in files:
-                        if file_name.endswith(exe_name):
-                            game_path = os.path.abspath(root)
-                            if game_select in game_path: 
-                                path_over = os.path.join(root, file_name)
-                                break
-                    if path_over:
-                        break
-                if path_over:
-                    break
-    except Exception:
-            messagebox.showinfo('Error','Error while fetching the path, please verify if you have selected the game correctly and try again.')
-            return
-    
-    if path_over is not None:
-        select_folder = os.path.dirname(path_over)
-        game_folder_canvas.delete('text')
-        game_folder_canvas.create_text(2,8, anchor='w',text=path_over,fill='black',tags='text') 
-        messagebox.showinfo('Sucess',f'Path found, please verify if it\'s correct: {path_over}')
-    else:
-        messagebox.showinfo('Not Found', 'Exe not found, please select the path manually')
-    
-def search_game_exe(event=None):
-        exe_name = "Win64-Shipping.exe"
-        if select_option is not None:
-            game_select = select_option.replace(":", "").replace(" ", "")
-            
-        path_steam = 'Program Files (x86)\\Steam\\steamapps\\common'
-        alt_path_steam = 'SteamLibrary\\steamapps\\common'
-        
-        path_epic = 'Program Files\\Epic Games'
-        alt_path_epic = 'Epic Games'
-        
-        game_select_tlou = select_option
-        tlou_name = 'tlou-i.exe'
-        rdr2_name = 'RDR2.exe'
-        hfw_name = 'HorizonForbiddenWest.exe'
-        u4_name = 'u4.exe',
-        hzd_name = 'HorizonZeroDawn.exe'
-        aw2_name = 'AlanWake2.exe'
-        bg3_name = 'bg3.exe'
-        cyber2077_name = 'Cyberpunk2077.exe'
-        er_name = 'eldenring.exe'
-        spider_name = 'Spider-Man.exe'
-        spider_miles_name = 'MilesMorales.exe'
-        dd2_name = 'DD2.exe'
-        fl4_name = 'Fallout4.exe',
-        hogw_name = 'HogwartsLegacy.exe',
-        hellbalde_name = 'HellbladeGame-Win64-Shipping.exe',
-        lop_name = 'LOP-Win64-Test.exe',
-        ratchet_name = 'RiftApart.exe',
-        es2_name  = 'ES2-Win64-Shipping.exe'
-        sr_name = 'Steelrising.exe'
-        
-        game_search_origins = {'The Last of Us Part I':tlou_name,
-                                'Red Dead Redemption 2':rdr2_name,
-                                'Horizon Forbidden West':hfw_name,
-                                'Horizon Zero Dawn':hzd_name,
-                                'Uncharted Legacy of Thieves Collection':u4_name,
-                                'Alan Wake 2':aw2_name,
-                                'Baldur\'s Gate 3':bg3_name,
-                                'Cyberpunk 2077':cyber2077_name,
-                                'Marvel\'s Spider-Man Remastered':spider_name,
-                                'Marvel\'s Spider-Man Miles Morales':spider_miles_name,
-                                'Dragons Dogma 2':dd2_name,
-                                'Fallout 4':fl4_name,
-                                'Ratchet & Clank - Rift Apart':ratchet_name,
-                                'Steelrising': sr_name
-                               
-                               }
-        
-        if select_option is not None:
-            steam_path = messagebox.askyesno('Steam','Is your game on Steam?')
-            if steam_path:
-                if select_option in game_search_origins:
-                    auto_search(path_steam, alt_path_steam, game_search_origins[select_option], game_select_tlou)
-                elif select_option == 'Elden Ring':
-                    auto_search(path_steam, alt_path_steam,er_name,'ELDEN RING')
-                elif select_option == 'Hellblade: Senua\'s Sacrifice':
-                    auto_search(path_steam, alt_path_steam,hellbalde_name,'Hellblade')
-                elif select_option == 'Hogwarts Legacy':
-                    auto_search(path_steam+'\\Hogwarts Legacy\\Phoenix\\Binaries\\Win64', alt_path_steam+'\\Hogwarts Legacy\\Phoenix\\Binaries\\Win64',hogw_name,'Hogwarts Legacy')
-                elif select_option == 'Lies of P':
-                    auto_search(path_steam, alt_path_steam,lop_name,'Lies of P')     
-                elif select_option == 'Everspace 2':     
-                    auto_search(path_steam, alt_path_steam,es2_name,'Everspace 2')  
-                else:
-                    auto_search(path_steam,alt_path_steam,exe_name,game_select)
-            else:
-                epic_path = messagebox.askyesno('Epic Games','Is your game on Epic Games?')
-                if epic_path:
-                    if select_option in game_search_origins:
-                        auto_search(path_epic, alt_path_epic, game_search_origins[select_option], game_select_tlou)
-                    else:
-                        auto_search(path_epic,alt_path_epic,exe_name,game_select)
-                else:
-                    messagebox.showinfo('Select Folder','Please select the path manually')
-        else:            
-            messagebox.showinfo('Error','Please select a game')
                
 asi_global={
     '0.7.4':{
@@ -6535,11 +6426,14 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
             shutil.copytree(path_optiscaler, select_folder, dirs_exist_ok=True)
             os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'dxgi.dll'))
 
-            if not select_option in games_no_nvngx and 'rtx' in gpu_name:
+            if not select_option in games_no_nvngx or gpu_name in ['amd', 'rx', 'intel', 'arc', 'gtx']:
                 shutil.copy(os.path.join(select_folder, 'nvngx_dlss.dll'), os.path.join(select_folder, 'nvngx.dll'))
         else:
             shutil.copytree(path_optiscaler_dlss, select_folder, dirs_exist_ok=True)
-        
+
+            if select_option in games_no_nvngx and 'rtx' in gpu_name and os.path.exists(os.path.join(select_folder, 'nvngx.dll')):
+                os.replace(os.path.join(select_folder, 'nvngx.dll'), os.path.join(select_folder, 'nvngx_dlss.dll'))
+
         if select_mod == 'FSR 3.1.3/DLSSG FG (Only Optiscaler)':
             shutil.copy(path_optiscaler_dlssg, select_folder)
 
@@ -8804,6 +8698,7 @@ fsr_game_version={
     'Nightingale':'2.0',
     'Ninja Gaiden 2 Black':'2.2',
     'Nobody Wants To Die':'3.0',
+    'Orcs Must Die! Deathtrap':'2.2',
     'Outpost: Infinity Siege':'2.2',
     'Pacific Drive':'SDK',
     'Palworld':'2.2',
@@ -8847,6 +8742,7 @@ fsr_game_version={
     'The Invincible':'2.2',
     'The Last Of Us Part I':'US',
     'The Medium':'2.2',
+    'The Talos Principle 2':'2.2',
     'The Thaumaturge':'2.2',
     'The Outer Worlds: Spacer\'s Choice Edition':'2.0',
     'Thymesia':'2.2',
@@ -8926,6 +8822,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Lords of the Fallen': ['Lords of The Fallen FSR3'],
         'Marvel\'s Spider-Man Miles Morales': ['Others Mods Spider',*default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
         'Marvel\'s Spider-Man Remastered': ['Others Mods Spider', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'Marvel\'s Spider-Man 2': ['Others Mods Spider',*fsr_31_dlss_mods],
         'Marvel\'s Midnight Suns' : [*fsr_31_dlss_mods],
         'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
@@ -9008,8 +8905,8 @@ def revert_cursor(event=None):
     event.widget.config(cursor="")
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy VII Rebirth','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man 2','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Ninja Gaiden 2 Black','Nobody Wants To Die','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
-        'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','Soulslinger Envoy of Death','Soulstice','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invincible','The Last Of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','Thymesia','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man 2','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
+        'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','Soulslinger Envoy of Death','Soulstice','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invincible','The Last Of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
 
@@ -9258,9 +9155,6 @@ fakegpu_label.bind('<Leave>',close_fk_gpu_guide)
 select_folder_canvas.bind('<Button-1>',open_explorer)
 select_folder_canvas.bind('<Enter>',change_cursor)
 select_folder_canvas.bind('<Leave>',revert_cursor)
-search_game_exe_canvas.bind('<Button-1>',search_game_exe)
-search_game_exe_canvas.bind('<Enter>',change_cursor)
-search_game_exe_canvas.bind('<Leave>',revert_cursor)
 epic_over_browser_canvas.bind('<Button-1>',epic_explorer)
 epic_over_browser_canvas.bind('<Enter>',change_cursor)
 epic_over_browser_canvas.bind('<Leave>',revert_cursor)
