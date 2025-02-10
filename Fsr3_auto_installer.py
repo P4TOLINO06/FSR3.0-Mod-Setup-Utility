@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 3.2.4v")
+screen.title("FSR3.0 Mod Setup Utility - 3.2.5v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -275,7 +275,7 @@ def select_guide():
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
     s_games_op = ['Initial Information','Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa EVO','Atomic Heart','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis','Forza Horizon 5','F1 2022','F1 2023','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Hot Wheels Unleashed','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kingdom Come: Deliverance II','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Loopmancer','Lords of the Fallen','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
                 'Smalland','Soulstice','Spider Man/2/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invicible','The Last Of Us','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
     
@@ -390,24 +390,37 @@ def text_guide():
 ),
 
 'Alan Wake 2':(
-'RTX\n'
-'1 - Select Alan Wake 2 FG RTX and install it.\n'
-'2 - In the game, select DLSS and enable Frame Generation.\n'
-'3 - It is also possible to use other versions of the mod.\n\n'
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the "Insert" key to open the menu\n'  
+'4. In the menu, select FG Enabled, Active, Hud Fix and Extended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only Optiscaler) guide to see how\nto use it.\n\n'  
 
-'AMD/GTX\n'
-'1 - Select Alan Wake 2 Uniscaler Custom and install it.\n'
-'2 - In the game, select DLSS and enable Frame Generation\nif it is not enabled by default.\n'
-'3 - Do not switch to FSR as the game will crash.\n'
-'4 - It is also possible to use other versions of the mod,\nexcept Alan Wake 2 FG RTX.\n\n'
+'FSR 3.1.3/DLSSG FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSSG FG (Only Optiscaler) and install\n'  
+'2. Check "yes" in the "DLSS/FSR" window that will appear during installation.\n(RTX 20/30 users, only check "yes" if it\'s not possible to activate the game\'s FG).\n'
+'3. In the game, select DLSS, Frame Gen and press the "Insert" key to open the\nmenu\n'  
+'4. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see how to use DLSS 4.\n(Only RTX)\n\n'  
+
+'Alan Wake 2 FG RTX\n'
+'1. Select Alan Wake 2 FG RTX and install it.\n'
+'2. In the game, select DLSS and enable Frame Generation.\n'
+'3. It is also possible to use other versions of the mod.\n\n'
+
+'Alan Wake 2 Uniscaler Custom (AMD\\GTX)\n'
+'1. Select Alan Wake 2 Uniscaler Custom and install it.\n'
+'2. In the game, select DLSS and enable Frame Generation if it is not enabled by\ndefault.\n'
+'3. Do not switch to FSR as the game will crash.\n'
+'4. It is also possible to use other versions of the mod, except Alan Wake 2 FG RTX.\n\n'
 
 'Preset\n'
 '1. Install ReShade\n'
 '2. Inside ReShade, select the game’s .exe and click next\n'
 '3. Select DX 10/11/12 and click next\n'
-'4. Click "Browse" and locate the file Realistic Reshade.ini\nthat was installed in the folder selected in the Utility and\nclick Next\n'
-'5. In the game, press the Home key to open the menu and\nselect the options you prefer\n'
-'6. Install the Preset first and then the FSR3 mod if you plan\nto use it'
+'4. Click "Browse" and locate the file Realistic Reshade.ini that was installed in the\nfolder selected in the Utility and click Next\n'
+'5. In the game, press the Home key to open the menu and select the options you\nprefer\n'
+'6. Install the Preset first and then the FSR3 mod if you plan to use it'
 ),
 
 'Alan Wake Remastered':(
@@ -1083,6 +1096,14 @@ def text_guide():
 '5. If you want to update DLSS/FSR, select "Others Mods HZD"\nand install, do this before installing the main mod.'
 ),
 
+'Hot Wheels Unleashed':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'  
+'2. Check the Enable Signature Over box\n'  
+'3. In the game, select DLSS and press the "Insert" key to\nopen the menu\n'  
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended'
+),
+
 'Icarus':(
 '1 - Select Icarus FSR3 in mod version.\n'
 '2 - If the option selected is RTX, confirm the window that appears.\n'
@@ -1305,19 +1326,23 @@ def text_guide():
 
 'Palworld':(
 'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
-'1. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'  
-'2. Check the Enable Signature Over box\n'  
-'3. In the game, select DLSS and press the "Insert" key to open\nthe menu\n'  
-'4. In the menu, check the Frame Gen, Hud Fix and Fg\nExtended boxes\n'  
-'5. Not recommended to utilize the mod in online mode.\n\n'
+'1. Install in the Palworld\\Content\\Pal\\Binaries\\WinGDK or 64\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'  
+'3. Check the Enable Signature Over box\n'  
+'4. In the game, select DLSS and press the "Insert" key to open\nthe menu\n'  
+'5. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n' 
+'6. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.\n\n'
 
 'Others Mods\n'
-'For standard mods (0.10+ and Uniscaler), simply enable \nthe fake Nvidia GPU (for AMD and GTX) and UE Compatibility\nmode (for AMD) and set the game to DX12. Throughout the\nguide, it will be explained how to do this.\n\n'
+'(0.10+ and Uniscaler), simply enable the fake Nvidia GPU\n(for AMD and GTX) and UE Compatibility mode (for AMD)\n\n'
+'Palworld Build03\n'
 '1. Select Palworld Build03 and locate the game folder with the\nending binaries/win64 and see if the executable with the ending\nWin64-shipping.exe is present.\n'
-'2. Install, confirm the GPU selection window that will appear.\n'
-'3. To run the game in DX12, simply confirm the window that\nappears after confirming the GPU selection. Make sure the\nmentioned exe is in the selected folder. Alternatively, you can\nignore the window and do it manually, by creating a shortcut\nand adding \'-dx12\' after the quotes in the \'Target\' field.\n'
-'4. Run the game through the shortcut.\n'
-'• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.'  
+'• Currently, the mod only works on Steam versions and \nalternative versions with Steam files.\n\n' 
+
+'Steam: Library > Game > Gear icon to the right of\nAchievements > Properties > Launch Options, add -dx12.\n' 
+'For Xbox Game Pass/Microsoft Store, DX12 does not need to\nbe enabled during installation.\n'
+
+'It is not recommended to use mods in online mode.'
 ),
 
 'Path of Exile II':(
@@ -2010,7 +2035,8 @@ def text_guide():
     '540x320': ['Shadow Warrior 3', 'The First Berserker: Khazan'],
     '700x800': ['Silent Hill 2'],
     '520x520': ['Metro Exodus Enhanced'],
-    '520x420': ['Alan Wake 2', 'Atomic Heart'],
+    '520x420': ['Atomic Heart'],
+    '650x650': ['Alan Wake 2'],
     '570x720': ['Final Fantasy XVI'],
     '600x300': ['Kena: Bridge of Spirits'],
     '630x270': ['Resident Evil 4 Remake'],
@@ -3493,6 +3519,15 @@ def clean_mod():
     
     try: #clear the mods for rdr2 and palworld
         if select_mod == 'RDR2 Mix' or select_mod == 'RDR2 FG Custom' or select_option == 'Palworld':
+            appdata_pw = os.getenv("LOCALAPPDATA")
+            path_ini_pw = os.path.join(appdata_pw, 'Pal\\Saved\\Config\\WinGDK')
+
+            if select_option == 'Palworld':
+                if os.path.exists(os.path.abspath(os.path.join(path_ini_pw, '..', 'Engine.ini'))):
+                    shutil.copy(os.path.abspath(os.path.join(path_ini_pw, '..', 'Engine.ini')), path_ini_pw)
+
+                    os.remove(os.path.abspath(os.path.join(path_ini_pw, '..', 'Engine.ini')))  
+
             for item_rdr2 in os.listdir(select_folder):
                 if item_rdr2 in del_rdr2_fsr3:
                     os.remove(os.path.join(select_folder,item_rdr2))
@@ -3503,10 +3538,11 @@ def clean_mod():
                 shutil.rmtree(path_rdr2_mod)
                 shutil.rmtree(path_rdr2_shader)  
                 if os.path.exists(os.path.join(select_folder,'PalworldUpscalerPreset.ini')):
-                    os.remove(os.path.join(select_folder,'PalworldUpscalerPreset.ini')) 
-                            
+                    os.remove(os.path.join(select_folder,'PalworldUpscalerPreset.ini'))     
+
     except Exception as e:
         messagebox.showinfo('Error','Please close the game or any other folders related to the game.')
+        print(e)
     
     name_dlss = os.path.join(select_folder,'nvngx_dlss.txt')
     new_dlss = os.path.join(select_folder,'nvngx_dlss.dll')
@@ -6368,6 +6404,7 @@ def games_to_update_upscalers():
         'Others Mods FFXVI' : select_folder,
         'Others Mods ACE' : select_folder,
         'Others Mods Legion' : select_folder,
+        'Others Mods AW2' : select_folder, 
         'Others Mods 6Days' : default_dlss_path,
         'Others Mods HB2':  default_dlss_path,
         'Others Mods Fist' : default_dlss_path,
@@ -6379,6 +6416,7 @@ def games_to_update_upscalers():
         'Others Mods STC' : default_dlss_path,
         'Others GTA Trilogy' : default_dlss_path,
         'Others Mods ATH' : default_dlss_path,
+        'Others Mods PW' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods KCD2' : os.path.abspath(os.path.join(select_folder, '..' , 'Win64Shared')),
         'Others Mods LOP' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Marketplace\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods FF7RBT' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\DLSSSubset\\Binaries\\ThirdParty\\Win64')),
@@ -6450,7 +6488,7 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2']
     games_to_use_anti_lag_2 = ['God of War Ragnarök', 'God Of War 4', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy', 'The First Berserker: Khazan']
     games_only_upscalers = ['The Last Of Us Part I']
-    games_with_dlssg = ['The First Berserker: Khazan']
+    games_with_dlssg = ['The First Berserker: Khazan', 'Atomic Heart','Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2', 'Alan Wake 2' ]
     games_with_anti_cheat = ['Back 4 Blood']
     games_no_nvngx = ['Red Dead Redemption 2', 'Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2'] # Games that don't need the file nvngx_dlss.dll renamed to nvngx.dll (Only RTX)
 
@@ -6476,7 +6514,7 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
             shutil.copy(path_optiscaler_dlssg, select_folder)
 
             # Install the dlss_to_fsr file if the mod does not work with the default files
-            if select_option in games_with_dlssg or any(gpus in gpu_name for gpus in ['amd', 'rx', 'intel', 'arc', 'gtx', 'rtx']) and select_option not in games_only_upscalers and messagebox.askyesno('DLSS/FSR','Do you want to install the dlssg_to_fsr3_amd_is_better.dll file? It is recommended to install this only if you are unable to enable the game\'s DLSS Frame Generation (this mod does not have its own FG; the game\'s DLSS FG is used).'):
+            if any(gpus in gpu_name for gpus in ['amd', 'rx', 'intel', 'arc', 'gtx', 'rtx']) and select_option not in games_only_upscalers and messagebox.askyesno('DLSS/FSR','Do you want to install the dlssg_to_fsr3_amd_is_better.dll file? It is recommended to install this only if you are unable to enable the game\'s DLSS Frame Generation (this mod does not have its own FG; the game\'s DLSS FG is used).' or select_option in games_with_dlssg ):
                 shutil.copy(path_dlss_to_fsr, select_folder)
 
         if select_option in games_only_upscalers:
@@ -6490,7 +6528,7 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
             shutil.copy(nvapi_ini_file, select_folder)
 
         # Nvapi for non-RTX users
-        elif copy_nvapi and any(gpus in gpu_name for gpus in ['amd', 'rx', 'intel', 'arc', 'gtx', 'rtx']) and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
+        elif copy_nvapi and any(gpus in gpu_name for gpus in ['amd', 'rx', 'intel', 'arc', 'gtx']) and select_option in games_to_install_nvapi_amd and messagebox.askyesno('Nvapi', 'Do you want to install Nvapi? Only select "Yes" if the mod doesn\'t work with the default files.'):
             shutil.copytree(nvapi_amd, select_folder, dirs_exist_ok=True)
             
             nvapi_ini_file = nvapi_ini_dlssg if select_mod == 'FSR 3.1.3/DLSSG FG (Only Optiscaler)' else nvapi_ini
@@ -6690,45 +6728,38 @@ def fh_fsr3():
         shutil.copytree(path_ot_gpu,select_folder,dirs_exist_ok=True)
 
 def pw_fsr3():
-    var_gpu = messagebox.askyesno('Select GPU','Do you have an Nvidia RTX GPU?')
+    gpu_name = get_active_gpu()  
+    path_pw_mod = 'mods\\FSR3_PW\\FG'
+    path_ini_fg_rtx = 'mods\\FSR3_PW\\Ini FG RTX\\PalworldUpscaler.ini'
+    appdata_pw = os.getenv("LOCALAPPDATA")
+    path_ini_pw = os.path.join(appdata_pw, 'Pal\\Saved\\Config\\WinGDK')
+    dx12_ini_pw = 'mods\\FSR3_PW\\Dx12\\Engine.ini'
+
+    if select_mod == 'Palworld Build03':
+        shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
+
+        if 'rtx' in gpu_name and os.path.exists(os.path.join(select_folder, 'mods')):
+            shutil.copy(path_ini_fg_rtx, os.path.join(select_folder, 'mods'))
+
+    try:
+        if os.path.exists(os.path.join(select_folder, 'Palworld-WinGDK-Shipping.exe')):
+
+            if os.path.exists(path_ini_pw):
+                if not os.path.exists(os.path.abspath(os.path.join(path_ini_pw, '..', 'Engine.ini'))):
+                    shutil.copy(os.path.join(path_ini_pw, 'Engine.ini'), os.path.abspath(os.path.join(path_ini_pw, '..'))) # Engine.ini Backup
+
+                    shutil.copy(dx12_ini_pw, path_ini_pw)
+            else:
+                shutil.copy(dx12_ini_pw, select_folder)
+                messagebox.showinfo('Error', 'Unable to activate DX12 (it is required for the mod to work). Try reinstalling or copy the Engine.ini file, which was installed in the selected folder in Utility, to the following path:"C:\\Users\\YourName\\AppData\\Local\\Pal\\Saved\\Config\\WinGDK".')
+        
+        elif os.path.exists(os.path.join(select_folder, 'Palworld-Win64-Shipping.exe')):
+            messagebox.showinfo('DX12', 'Check the "Palworld" guide in FSR Guide on how to enable DX12 (it is required for the mod to work).')
+
+    except:
+        shutil.copy(dx12_ini_pw, select_folder)
+        messagebox.showinfo('Error', 'Unable to activate DX12 (it is required for the mod to work). Try reinstalling or copy the Engine.ini file, which was installed in the selected folder in Utility, to the following path:"C:\\Users\\YourName\\AppData\\Local\\Pal\\Saved\\Config\\WinGDK".')
     
-    path_pw_mod = 'mods\\FSR3_PW'
-    path_ini = 'mods\\FSR3_PW\\mods\\PalworldUpscaler.ini'
-            
-    if not os.path.exists(path_ini):
-            messagebox.showinfo('Error','File PalworldUpscaler.ini not found, please see if the file PalworldUpscaler.ini is in the "mods" folder in the directory where the mod was installed.", if necessary reinstall the mod.')
-    else:
-        if var_gpu:
-            config_ini = ConfigObj(path_ini)
-
-            if 'Settings' not in config_ini:
-                config_ini['Settings'] = {}
-
-            config_ini['Settings']['mUpscaleType'] = 0
-
-            config_ini.write()
-            
-            shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
-                
-        elif not var_gpu:
-            config_ini = ConfigObj(path_ini)
-
-            if 'Settings' not in config_ini:
-                config_ini['Settings'] = {}
-
-            config_ini['Settings']['mUpscaleType'] = 3
-
-            config_ini.write()
-            
-            shutil.copytree(path_pw_mod,select_folder,dirs_exist_ok=True)
-     
-    shortcut_pw_path = os.path.join(select_folder,'Palworld-Win64-Shipping.exe')
-    new_target_path = ('Palworld') 
-    dx_12 = "-dx12"
-    game_name = 'Palworld'
-    
-    auto_shortcut(shortcut_pw_path,new_target_path,dx_12,game_name)
-
 def ulck_fps_tekken():
     path_tekken = 'mods\\Unlock_fps_Tekken'
     
@@ -7009,7 +7040,7 @@ def fsr3_aw2():
             "m_bVignette": False
         } 
 
-    if select_mod == 'Others Mods Aw2':
+    if select_mod == 'Others Mods AW2':
 
         # Anti Stutter
         handle_prompt(
@@ -8403,8 +8434,6 @@ def install(event=None):
         elif select_option == 'Horizon Forbidden West':
             hfw_fsr3()
 
-        if select_mod == 'Palworld Build03':
-            pw_fsr3()
         if select_mod == "FSR 3.1.1/DLSS Optiscaler":
             optiscaler_fsr3()
         if select_mod == 'FSR 3.1.2/DLSS FG Custom':
@@ -8432,6 +8461,8 @@ def install(event=None):
             wukong_fsr3()
         if select_mod == 'Baldur\'s Gate 3':
             bdg_fsr3()
+        if select_option == 'Palworld':
+            pw_fsr3()
         if select_option == 'Silent Hill 2':
             fsr3_silent2()
         if select_option == 'Until Dawn':
@@ -8714,6 +8745,7 @@ fsr_game_version={
     'Hogwarts Legacy':'2.2',
     'Horizon Zero Dawn/Remastered':'2.2',
     'Horizon Forbidden West':'2.2',
+    'Hot Wheels Unleashed':'2.2',
     'Icarus':'ICR',
     'Indiana Jones and the Great Circle':'2.2',
     'Judgment':'2.1',
@@ -8817,7 +8849,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
     game_mods_config = {
         'A Plague Tale Requiem': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'A Quiet Place: The Road Ahead': ['FSR 3.1.1/DLSS Quiet Place', *fsr_31_dlss_mods],
-        'Alan Wake 2': ['Alan Wake 2 FG RTX', 'Alan Wake 2 Uniscaler Custom', *fsr_31_dlss_mods, 'Others Mods Aw2', '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Alan Wake 2': ['Others Mods AW2','Alan Wake 2 FG RTX', 'Alan Wake 2 Uniscaler Custom', *fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Alan Wake Remastered': [*fsr_31_dlss_mods],
         'Alone in the Dark' : ['Others Mods AITD',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods ],
         'Assassin\'s Creed Mirage': ['Others Mods Mirage', *fsr_31_dlss_mods],
@@ -8868,7 +8900,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
         'Mortal Shell': ['Others Mods MShell', *fsr_31_dlss_mods],
-        'Palworld': ['Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'Palworld': ['Others Mods PW', *fsr_31_dlss_mods,'Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Path of Exile II': ['Others Mods POEII', *fsr_31_dlss_mods],
         'Red Dead Redemption' : ['Others Mods RDR1',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Red Dead Redemption 2': ['FSR 3.1.3/DLSS FG Custom RDR2', 'RDR2 Mix', 'RDR2 FG Custom', *fsr_31_dlss_mods],
@@ -8946,7 +8978,7 @@ def revert_cursor(event=None):
     event.widget.config(cursor="")
     
 options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy VII Rebirth','Final Fantasy XVI','FIST: Forged In Shadow Torch','Flintlock: The Siege of Dawn','Fort Solis',
-        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kingdom Come: Deliverance II','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man 2','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
+        'Forza Horizon 5','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Hot Wheels Unleashed','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kingdom Come: Deliverance II','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Lords of the Fallen','Loopmancer','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man 2','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Mortal Shell','MOTO GP 24','Nightingale','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','Soulslinger Envoy of Death','Soulstice','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invincible','The Last Of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
 for option in options:
     game_options_listbox.insert(tk.END,option)
