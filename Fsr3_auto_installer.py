@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 3.2.11v")
+screen.title("FSR3.0 Mod Setup Utility - 3.2.12v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -274,8 +274,8 @@ def select_guide():
     select_game_listbox.config(yscrollcommand=scroll_s_games_listbox.set)
     scroll_s_games_listbox.config(command=select_game_listbox.yview)
     
-    s_games_op = ['Initial Information','Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa EVO','Atomic Heart','AVOWED','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Choo-Choo Charles','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
-                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Eternal Strands','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Five Nights at Freddy’s: Security Breach','Flintlock: The Siege of Dawn','Fobia – St. Dinfna Hotel','Fort Solis','Forza Horizon 5','Frostpunk 2','F1 2022','F1 2023','GreedFall II: The Dying World','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Hot Wheels Unleashed','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
+    s_games_op = ['Initial Information','Optiscaler FSR 3.1.3/DLSS (Only Optiscaler)','Add-on Mods','Optiscaler Method','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa EVO','Atomic Heart','AVOWED','Baldur\'s Gate 3','Black Myth: Wukong','Blacktail','Banishers Ghost of New Eden','Bright Memory','Bright Memory: Infinite','Brothers a Tale of Two Sons','Chernobylite','Choo-Choo Charles','Chorus','Cod Black Ops Cold War','Cod MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077',
+                'Dakar Desert Rally','Dead Space Remake','Dead Island 2', 'Dead Rising Remaster','Death Stranding Director\'s Cut','Deathloop','Dragon Age: Veilguard','Dragons Dogma 2', 'Deliver Us Mars','Deliver Us The Moon','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Eternal Strands','Everspace 2','Evil West','Fallout 4','Final Fantasy VII Rebirth','Final Fantasy XVI','Fist Forged in Shadow Torch','Five Nights at Freddy’s: Security Breach','Flintlock: The Siege of Dawn','Fobia – St. Dinfna Hotel','Fort Solis','Forza Horizon 5','Frostpunk 2','F1 2022','F1 2023','GreedFall II: The Dying World','Gotham Knights','GTA Trilogy','GTA V','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts legacy','Horizon Forbidden West','Horizon Zero Dawn/Remastered','Hot Wheels Unleashed','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant',
                 'Kingdom Come: Deliverance II','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Like a Dragon: Pirate Yakuza in Hawaii','Loopmancer','Lords of the Fallen','Lost Records Bloom And Rage','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Midnight Suns','Metro Exodus Enhanced','Microsoft Flight Simulator 2024','Monster Hunter Rise','Monster Hunter Wilds','Mortal Shell','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet and Clank','Remanant II','Rise of The Tomb Raider','Ready or Not','Red Dead Redemption','Red Dead Redemption 2','Resident Evil 4 Remake','Returnal','Ripout','Saints Row','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow of the Tomb Raider','Shadow Warrior 3','Silent Hill 2','Sifu','Six Days in Fallujah',
                 'Smalland','Soulstice','Spider Man/2/Miles','S.T.A.L.K.E.R. 2','Star Wars: Jedi Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invicible','The Last Of Us','The Medium',"The Outer Worlds: Spacer's Choice Edition",'The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted','Unknown 9: Awakening','Until Dawn','Wanted Dead','Warhammer: Space Marine 2','Watch Dogs Legion','Way Of The Hunter','Wayfinder','Uniscaler','XESS/DLSS']
     
@@ -741,9 +741,13 @@ def text_guide():
 ),
 
 'Chernobylite':(
-'1 - Select a mod of your preference (0.10.3 is recommended).\n'
-'2 - Check the box \'Fake Nvidia Gpu\' (only for Amd/Gtx).\n'
-'3 - To fix flickering in the hub, select Dlss, play for a few\nseconds, then select Fsr3 and repeat the process, finally\nselect Dlss.' 
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'   
+'1. Start the game in DX12.\n'
+'2. If you want to update the DLSS, select "Others Mods CBL", do\nthis before installing the mod.\n'
+'3. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'4. Check Enable Signature Over box\n'
+'5. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
+'6. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
 ),
 
 'Choo-Choo Charles':(
@@ -752,6 +756,15 @@ def text_guide():
 '2. Check the Enable Signature Over box.\n'  
 '3. Select DLSS and press the Insert key to open the menu.\n'  
 '4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'    
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
+),
+
+'Chorus':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'   
+'1. If you want to update the DLSS, select "Others Mods\nChorus", do this before installing the mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
 '5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'
 ),
 
@@ -787,6 +800,24 @@ def text_guide():
 '3. Close the game, in Utility select FSR 3.1.3/DLSS FG Custom and\ninstall (it is recommended to select "Yes" when the message to delete the\nshader file appears).\n'
 '4. In the game, select DLSS and Frame Gen.\n'
 '5. It is possible that the game will crash the first 2 or 3 times after the mod\nis installed, so just close the game and open it again'
+),
+
+'Deliver Us Mars':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'   
+'1. If you want to update the DLSS, select "Others Mods DUM", do\nthis before installing the mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'    
+),
+
+'Deliver Us The Moon':(
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'   
+'1. If you want to update the DLSS, select "Others Mods DUM", do\nthis before installing the mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n'
+'5. DLSS4, see the Optiscaler FSR 3.1.3/DLSS (Only\nOptiscaler) guide to see how to use it.'    
 ),
 
 'Dying Light 2': (  
@@ -1823,17 +1854,19 @@ def text_guide():
 ),
 
 'Star Wars: Jedi Survivor':(
-'DLSS Jedi (if you have RTX, use this mod if you want to use\nnative DLSS)\n'
-'1 - Check the box Fake Nvidia GPU (GTX and AMD), Nvapi\nResults (GTX and AMD), and UE Compatibility (AMD)\n'
-'2 - If you can\'t see DLSS in-game, select "DLSS" under\n"Mod Operates"\n'
-'3 - In-game, select DLSS 3 and Frame Gen\n\n'
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. If you want to update upscalers, select "Others Mods Jedi", do this before installing\nthe mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. In the game, select DLSS and press the "Insert" key to open the menu\n'
+'5. In the menu, select FG Enabled, Active, Hud Fix and Extended\n'
+'6. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see how to use DLSS 4.\n(Only RTX)\n\n'
 
-'ALL GPUs\n'
-'1. Select Uniscaler FSR 3.1.\n'
-'2. Check the "Enable Signature Over" box.\n'
-'3. If you cannot see DLSS in the game, check the Nvngx.dll\nbox, select Default, and reinstall the mod.\n'
-'4. If you have an RTX GPU and want to use native DLSS,\nselect DLSS in "Mod Operates." Other GPUs can use\nFSR 3.1/XESS.\n'
-'5. In the game, select DLSS FG.\n\n'
+'FSR 3.1.3/DLSSG FG (Only Optiscaler)\n'
+'1. Select FSR 3.1.3/DLSSG FG (Only Optiscaler) and install\n'  
+'2. Check "yes" in the "DLSS/FSR" window that will appear during installation.\n'
+'3. In the game, select DLSS, Frame Gen and press the "Insert" key to open the menu\n'  
+'4. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see how to use DLSS 4.\n(Only RTX)\n\n'
 
 'Others Mods\n'
 'Intro Skip\n'
@@ -1845,15 +1878,15 @@ def text_guide():
 '3. Optimized CPU and GPU Utilization\n\n'
 
 'Fix RT\n'
-'Fixes any crashes you experience with ray tracing\nenabled and also fixes occlusion culling. When you turn the\ncamera and see white flashing at the corners of the screen,\nthis resolves it and any crashes.\n\n'
+'Fixes any crashes you experience with ray tracing enabled and also fixes occlusion\nculling. When you turn the camera and see white flashing at the corners of the screen,\nthis resolves it and any crashes.\n\n'
 
 'Graphic Preset\n'
 '1. Install ReShade\n'
 '2. In ReShade, select Star Wars Jedi: Survivor\n'
 '3. Select DirectX 10/11/12\n'
-'4. Click "Browse" and locate the file\nSTARWAR-ULTRA-REALISTA.ini that was installed in the\ndestination folder selected in the Utility\n'
+'4. Click "Browse" and locate the file STARWAR-ULTRA-REALISTA.ini that was\ninstalled in the destination folder selected in the Utility\n'
 '5. Finish the installation and open the game\n'
-'6. In the game, press the "Home" key to open the menu and\nselect the graphic options you prefer.'
+'6. In the game, press the "Home" key to open the menu and select the graphic options\nyou prefer.'
 ),
 
 'Star Wars Outlaws':(
@@ -2215,7 +2248,7 @@ def text_guide():
     '550x750': ['Cyberpunk 2077'],
     '830x720': ['The Callisto Protocol'],
     '520x330': ['Star Wars Outlaws'],
-    '520x720': ['Star Wars: Jedi Survivor'],
+    '670x720': ['Star Wars: Jedi Survivor'],
     '520x350': ['The Casting Of Frank Stone', 'Lies of P'],
     '540x420': ['Death Stranding Director\'s Cut'],
     '520x400': ['Red Dead Redemption', 'Assassin\'s Creed Mirage'],
@@ -2605,11 +2638,7 @@ def backup_files():
         if select_mod == 'Hellblade 2 FSR3 (Only RTX)':
             for hb2_file in select_hb2_file:
                 sucess_message = search_dll_files(select_hb2_name,hb2_file,search_spider)  
-        
-        if select_mod == "Dlss Jedi":
-            for jedi_files in  select_jedi_file:
-                sucess_message = search_dll_files(select_jedi_name,jedi_files,search_spider) 
-        
+
         if select_option == "Cyberpunk 2077" and select_mod == "RTX DLSS FG":
             for cb2077_files in select_cb2077_file:
                 sucess_message = search_dll_files(select_cb2077_name,cb2077_files,search_spider)
@@ -5260,7 +5289,6 @@ folder_fake_gpu ={
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
     'The Callisto Protocol FSR3':'mods\\FSR3_Callisto\\enable_fake_gpu\\fsr2fsr3.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
 }
 
 def fake_gpu_mod():
@@ -5272,7 +5300,7 @@ def fake_gpu_mod():
     if select_mod in folder_fake_gpu:
        folder_gpu = folder_fake_gpu[select_mod]  
        
-    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi']
+    edit_fake_gpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1']
     
     if select_mod in edit_fake_gpu_list:
         with open(folder_gpu, 'r') as file:
@@ -5309,7 +5337,7 @@ def default_fake_gpu():
     if select_mod in folder_fake_gpu:
         folder_gpu = folder_fake_gpu[select_mod]
         
-    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi']
+    edit_fakegpu_list = ['0.10.2h1','0.10.3','0.10.4','Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1']
     
     if select_mod in edit_fakegpu_list:
         with open(folder_gpu,'r') as file:
@@ -5384,7 +5412,6 @@ list_ue = {
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 
 def edit_ue():
@@ -5444,7 +5471,6 @@ list_nvapi = {
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 def edit_nvapi():
     global list_nvapi
@@ -5587,7 +5613,6 @@ default_path ={
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml',
 }
 
 replace_flag = False 
@@ -5617,7 +5642,6 @@ def replace_clean_file():
             'Uniscaler V3':'mods\\FSR2FSR3_Uniscaler_V3\\enable_fake_gpu',
             'Uniscaler V4':'mods\\FSR2FSR3_Uniscaler_V4\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\FSR2FSR3_Uniscaler_FSR3\\enable_fake_gpu',
-            'Dlss Jedi':'mods\\FSR2FSR3_Miles\\uni_miles_toml',
         }
         
         clean_file_rep = {
@@ -5639,7 +5663,6 @@ def replace_clean_file():
             'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu',
             'The Callisto Protocol FSR3':'mods\\Temp\\FSR3_Callisto\\enable_fake_gpu',
             'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu',
-            'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu',
         }
         
         if select_mod in clean_file and select_mod in clean_file_rep:
@@ -5944,10 +5967,9 @@ def edit_mod_operates():
     'Uniscaler V3':'mods\\Temp\\Uniscaler_V3\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler V4':'mods\\Temp\\Uniscaler_V4\\enable_fake_gpu\\uniscaler.config.toml',
     'Uniscaler FSR 3.1':'mods\\Temp\\Uniscaler_FSR31\\enable_fake_gpu\\uniscaler.config.toml',
-    'Dlss Jedi':'mods\\Temp\\FSR3_Miles\\enable_fake_gpu\\uniscaler.config.toml'
     }
 
-    list_ignore_uniscaler_custom = ['Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1','Dlss Jedi']
+    list_ignore_uniscaler_custom = ['Uniscaler','Uniscaler + Xess + Dlss','Uniscaler V2','Uniscaler V3','Uniscaler V4','Uniscaler FSR 3.1']
     
     if select_mod in mod_folder_list:
         mod_operates_folder = mod_folder_list[select_mod]
@@ -6657,6 +6679,10 @@ def games_to_update_upscalers():
         'Others Mods ATH' : default_dlss_path,
         'Others Mods CCC' : default_dlss_path,
         'Others Mods FNAF' : default_dlss_path,
+        'Others Mods Kena' : default_dlss_path,
+        'Others Mods DUTM' : default_dlss_path,
+        'Others Mods CBL' : default_dlss_path,
+        'Others Mods Chorus' : default_dlss_path,
         'Others Mods PD' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Others Mods BM' : os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Binaries\\ThirdParty\\NVIDIA\\NGX\\Win64')),
         'Others Mods Fobia' : os.path.abspath(os.path.join(select_folder, '..\\..', 'Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')),
@@ -6678,6 +6704,10 @@ def games_to_update_upscalers():
 
     games_to_update_dlss_dlssg = {
         'Others Mods Requiem' : select_folder,
+        'Others Mods TW3' : select_folder,
+        'Others Mods DL2' : select_folder,
+        'Others Mods DUM' : (default_dlss_path, default_dlssg_path),
+        'Others Mods Jedi' : (default_dlss_path, default_dlssg_path),
         'Others Mods FP2' : (os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Elb\\DLSS\\Binaries\\ThirdParty\\Win64')), os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Elb\\Streamline\\Binaries\\ThirdParty\\Win64'))),
         'Others Mods LRBR' : (os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\NvidiaDLSS\\Plugins\\DLSS\\Binaries\\ThirdParty\\Win64')), os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\NvidiaDLSS\\Plugins\\Streamline\\Binaries\\ThirdParty\\Win64'))),
         'Others Mods Stalker 2' : (os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Marketplace\\DLSS\\Binaries\\ThirdParty\\Win64')), os.path.abspath(os.path.join(select_folder, '..\\..\\..', 'Engine\\Plugins\\Marketplace\\Streamline\\Binaries\\ThirdParty\\Win64')))
@@ -6790,10 +6820,10 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     nvapi_ini = 'mods\\Addons_mods\\Nvapi AMD\\Nvapi Ini\\OptiScaler.ini'
     nvapi_ini_dlssg = 'mods\\Addons_mods\\Nvapi AMD\\DLSSG Nvapi Ini\\OptiScaler.ini'
     gpu_name = get_active_gpu()
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2', 'S.T.A.L.K.E.R. 2', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2', 'S.T.A.L.K.E.R. 2', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars']
     games_to_use_anti_lag_2 = ['God of War Ragnarök', 'God Of War 4', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy', 'The First Berserker: Khazan']
     games_only_upscalers = ['The Last Of Us Part I']
-    games_with_dlssg = ['The First Berserker: Khazan', 'Atomic Heart','Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2', 'Alan Wake 2', 'S.T.A.L.K.E.R. 2', 'Eternal Strands', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'God of War Ragnarök' ]
+    games_with_dlssg = ['The First Berserker: Khazan', 'Atomic Heart','Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2', 'Alan Wake 2', 'S.T.A.L.K.E.R. 2', 'Eternal Strands', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'God of War Ragnarök', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars' ]
     games_with_anti_cheat = ['Back 4 Blood']
     games_no_nvngx = ['Red Dead Redemption 2', 'Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2'] # Games that don't need the file nvngx_dlss.dll renamed to nvngx.dll (Only RTX)
 
@@ -7116,15 +7146,6 @@ def icarus_fsr3():
     game_name = 'Icarus'
     
     auto_shortcut(shortcut_icr_path,new_target_path,dx_12,game_name)
-
-def chernobylite_short_cut():
-    shortcut_cbl_path = os.path.join(select_folder,'ChernobylGame-Win64-Shipping.exe')
-    new_target_path = ('Chernobylite') 
-    dx_12 = "-dx12"
-    game_name = 'Chernobylite'
-    
-    if select_option == 'Chernobylite':
-        auto_shortcut(shortcut_cbl_path,new_target_path,dx_12,game_name)
 
 def gtav_fsr3():
     dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
@@ -8394,30 +8415,27 @@ def fsr3_quiet_place():
         runReg('mods\\Temp\\enable signature override\\EnableSignatureOverride.reg')
 
 def fsr3_jedi():
-    path_uni_jedi = 'mods\\FSR2FSR3_Miles\\Uni_Custom_miles'
     jedi_preset = 'mods\\FSR3_Jedi\\Mods\\Jedi Preset\\STARWAR-ULTRA-REALISTA.ini'
     jedi_fix_rt = 'mods\\FSR3_Jedi\\Mods\\Jedi Fix RT\\pakchunk99-Mods_CustomMod_P.pak'
     jedi_anti_stutter = 'mods\\FSR3_Jedi\\Mods\\Jedi Anti Stutter\\SWJS - FAI\\SWJSFAI.pak'
     jedi_intro_skip = 'mods\\FSR3_Jedi\\Mods\\Jedi Intro Skip\\Content'
     origin_folder_jedi = os.path.abspath(os.path.join(select_folder,'..\\..\\..\\SwGame'))
 
-    if select_mod == 'Dlss Jedi':
-        shutil.copytree(path_uni_jedi,select_folder,dirs_exist_ok=True)
-
-    if messagebox.askyesno('Graphics Preset','Do you want to install Graphics Preset?'):
-        shutil.copy(jedi_preset,select_folder)
-    
-    if os.path.exists(origin_folder_jedi + '\\Content\\Paks'):
-        if messagebox.askyesno('Fix RT','Do you want to install fix Ray Tracing?'):
-            shutil.copy(jedi_fix_rt,origin_folder_jedi + '\\Content\\Paks')
+    if select_mod == 'Others Mods Jedi':
+        if messagebox.askyesno('Graphics Preset','Do you want to install Graphics Preset?'):
+            shutil.copy(jedi_preset,select_folder)
         
-        if messagebox.askyesno('Anti Stutter','Do you want to install Anti Stutter?'):
-            shutil.copy(jedi_anti_stutter,origin_folder_jedi + '\\Content\\Paks')
-    
-        if messagebox.askyesno('Intro Skip','Do you want to skip the game\'s initial intro?'):
-            shutil.copytree(jedi_intro_skip,origin_folder_jedi + '\\Content',dirs_exist_ok=True)
-    else:
-        messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutter, Fix Rt, and Intro Skip), select the path to the game\'s .exe file. The path should look like: Jedi Survivor\\SwGame\\Binaries\\Win64')
+        if os.path.exists(origin_folder_jedi + '\\Content\\Paks'):
+            if messagebox.askyesno('Fix RT','Do you want to install fix Ray Tracing?'):
+                shutil.copy(jedi_fix_rt,origin_folder_jedi + '\\Content\\Paks')
+            
+            if messagebox.askyesno('Anti Stutter','Do you want to install Anti Stutter?'):
+                shutil.copy(jedi_anti_stutter,origin_folder_jedi + '\\Content\\Paks')
+        
+            if messagebox.askyesno('Intro Skip','Do you want to skip the game\'s initial intro?'):
+                shutil.copytree(jedi_intro_skip,origin_folder_jedi + '\\Content',dirs_exist_ok=True)
+        else:
+            messagebox.showinfo('Path Not Found','If you want to install the other mods (Anti Stutter, Fix Rt, and Intro Skip), select the path to the game\'s .exe file. The path should look like: Jedi Survivor\\SwGame\\Binaries\\Win64')
 
 async def fsr3_cyber():
     path_mods = {
@@ -8836,8 +8854,6 @@ def install(event=None):
             fsr3_got()
         if select_option == 'The Medium':
             fsr3_the_medium()
-        if select_option == 'Chernobylite':
-            chernobylite_short_cut()
         if select_option == 'Alan Wake 2':
             fsr3_aw2()
         if select_mod == 'Unlock Fps Tekken 8':
@@ -9014,6 +9030,7 @@ fsr_game_version={
     'Bright Memory: Infinite':'2.2',
     'Brothers: A Tale of Two Sons Remake':'2.0',
     'Chernobylite':'2.1',
+    'Chorus':'2.2',
     'Choo-Choo Charles':'2.2',
     'Cod Black Ops Cold War':'2.2',
     'Cod MW3':'3.0',
@@ -9029,6 +9046,8 @@ fsr_game_version={
     'Dead Space (2023)':'2.1',
     'Dragon Age: Veilguard':'2.2',
     'Dragons Dogma 2':'US',
+    'Deliver Us Mars':'2.2',
+    'Deliver Us The Moon':'2.2',
     'Dying Light 2':'2.0',
     'Dynasty Warriors: Origins':'2.2',
     'Elden Ring':'PD',
@@ -9186,7 +9205,9 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Baldur\'s Gate 3': ['Baldur\'s Gate 3 FSR3', 'Baldur\'s Gate 3 FSR3 V2', 'Baldur\'s Gate 3 FSR3 V3'],
         'Black Myth: Wukong': ['Others Mods Wukong',*fsr_31_dlss_mods,'DLSS FG (ALL GPUs) Wukong'],
         'Bright Memory' : ['Others Mods BM', *fsr_31_dlss_mods],
+        'Chernobylite' : ['Others Mods CBL',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods ],
         'Choo-Choo Charles' : ['Others Mods CCC', *fsr_31_dlss_mods],
+        'Chorus' : ['Others Mods Chorus', *fsr_31_dlss_mods],
         'Lost Records Bloom And Rage' : ['Others Mods LRBR', *fsr_31_dlss_mods],
         'COD MW3': ['COD MW3 FSR3'],
         'Control': ['Others Mods Control', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
@@ -9194,7 +9215,9 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Dead Rising Remaster': ['FSR 3.1 FG DRR', 'Dinput8 DRR'],
         'Dragon Age: Veilguard' : ['Others Mods DG Veil','FSR 3.1.3/DLSS DG Veil',*fsr_31_dlss_mods,*default_mods,*uniscaler_mods],
         'Dragons Dogma 2': ['Dinput8 DD2', *fsr_31_dlss_mods],
-        'Dying Light 2': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Deliver Us Mars' : ['Others Mods DUM', *fsr_31_dlss_mods],
+        'Deliver Us The Moon' : ['Others Mods DUTM', *fsr_31_dlss_mods],
+        'Dying Light 2': ['Others Mods DL2',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Elden Ring': ['Disable_Anti-Cheat', 'Elden_Ring_FSR3', 'Elden_Ring_FSR3 V2', 'FSR 3.1.3/DLSS FG Custom Elden', 'Unlock FPS Elden'],
         'Evil West': ['Others Mods EW', *fsr_31_dlss_mods],
         'Fallout 4': ['Fallout 4 FSR3'],
@@ -9222,7 +9245,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
         'Indiana Jones and the Great Circle' : ['Others Mods Indy','Indy FG (Only RTX)'],
         'Kingdom Come: Deliverance II' : ['Others Mods KCD2',*fsr_31_dlss_mods],
-        'Kena: Bridge of Spirits': [*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
+        'Kena: Bridge of Spirits': ['Others Mods Kena',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Lego Horizon Adventures': [*fsr_31_dlss_mods, 'Others Mods Lego HZD'],
         'Lies of P': ['Others Mods LOP',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Like a Dragon: Pirate Yakuza in Hawaii': ['Others Mods LDPYH', 'DLSSG Yakuza'],
@@ -9248,7 +9271,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Sifu': ['Others Mods Sifu',*fsr_31_dlss_mods],
         'Silent Hill 2': [*fsr_31_dlss_mods, 'Ultra Plus Complete', 'Ultra Plus Optimized', 'DLSS FG RTX', 'FSR3 FG Native SH2', 'FSR3 FG Native SH2 + Optimization', 'FSR 3.1.1/DLSS FG RTX Custom', 'Others Mods Sh2'],
         'Six Days in Fallujah' : ['Others Mods 6Days', *fsr_31_dlss_mods],
-        'STAR WARS Jedi: Survivor': ['Dlss Jedi', *default_mods, *uniscaler_mods, *fsr_31_dlss_mods],
+        'STAR WARS Jedi: Survivor': ['Others Mods Jedi',*fsr_31_dlss_mods,*default_mods, *uniscaler_mods],
         'Star Wars Outlaws': ['Outlaws DLSS RTX', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'S.T.A.L.K.E.R. 2': ['Others Mods Stalker 2', *fsr_31_dlss_mods, 'DLSS FG (Only RTX)'],
         'Steelrising' : ['Others Mods Steel',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
@@ -9258,7 +9281,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'The Casting Of Frank Stone': ['0.10.4', *fsr_31_dlss_mods],
         'The First Berserker: Khazan' : ['Others Mods TFBK', *fsr_31_dlss_mods],
         'The Last Of Us Part I': ['Others Mods Tlou', *fsr_31_dlss_mods],
-        'The Witcher 3': [*fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
+        'The Witcher 3': ['Others Mods TW3',*fsr_31_dlss_mods, '0.9.0', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
         'Until Dawn': ['Others Mods UD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Warhammer: Space Marine 2': ['Others Mods Space Marine','FSR 3.1.3/DLSS FG Marine','Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Watch Dogs Legion': ['Others Mods Legion', *fsr_31_dlss_mods],
@@ -9313,7 +9336,7 @@ def change_cursor(event=None):
 def revert_cursor(event=None):
     event.widget.config(cursor="")
     
-options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','AVOWED','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Choo-Choo Charles','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Eternal Strands','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy VII Rebirth','Final Fantasy XVI','FIST: Forged In Shadow Torch','Five Nights at Freddy’s: Security Breach','Flintlock: The Siege of Dawn','Fobia – St. Dinfna Hotel','Fort Solis',
+options = ['Select FSR version','Achilles Legends Untold','Alan Wake 2','Alan Wake Remastered','Alone in the Dark','A Plague Tale Requiem', 'A Quiet Place: The Road Ahead','Assassin\'s Creed Mirage','Assassin\'s Creed Valhalla','Assetto Corsa Evo','Atomic Heart','AVOWED','Back 4 Blood','Baldur\'s Gate 3','Banishers: Ghosts of New Eden','Black Myth: Wukong','Blacktail','Bright Memory','Bright Memory: Infinite','Brothers: A Tale of Two Sons Remake','Chernobylite','Choo-Choo Charles','Chorus','Cod Black Ops Cold War','COD MW3','Control','Crime Boss Rockay City', 'Crysis 3 Remastered','Cyberpunk 2077','Dakar Desert Rally','Dead Island 2','Dead Rising Remaster','Deathloop','Death Stranding Director\'s Cut','Dead Space (2023)','Dragon Age: Veilguard','Dragons Dogma 2','Deliver Us Mars','Deliver Us The Moon','Dying Light 2','Dynasty Warriors: Origins','Elden Ring','Empire of the Ants','Everspace 2','Eternal Strands','Evil West','Fallout 4','F1 2022','F1 2023','Final Fantasy VII Rebirth','Final Fantasy XVI','FIST: Forged In Shadow Torch','Five Nights at Freddy’s: Security Breach','Flintlock: The Siege of Dawn','Fobia – St. Dinfna Hotel','Fort Solis',
         'Forza Horizon 5','Frostpunk 2','Ghost of Tsushima','Ghostrunner 2','Ghostwire: Tokyo','God Of War 4','God of War Ragnarök','Gotham Knights','GreedFall II: The Dying World','GTA Trilogy','GTA V','Hellblade: Senua\'s Sacrifice','Hellblade 2','High On Life','Hitman 3','Hogwarts Legacy','Horizon Zero Dawn/Remastered','Horizon Forbidden West','Hot Wheels Unleashed','Icarus','Indiana Jones and the Great Circle','Judgment','Jusant','Kingdom Come: Deliverance II','Kena: Bridge of Spirits','Layers of Fear','Lego Horizon Adventures','Lies of P','Like a Dragon: Pirate Yakuza in Hawaii','Lords of the Fallen','Loopmancer','Lost Records Bloom And Rage','Manor Lords','Martha Is Dead','Marvel\'s Avengers','Marvel\'s Guardians of the Galaxy','Marvel\'s Spider-Man Remastered','Marvel\'s Spider-Man 2','Marvel\'s Spider-Man Miles Morales','Marvel\'s Midnight Suns','Metro Exodus Enhanced Edition','Microsoft Flight Simulator 2024','Monster Hunter Rise','Monster Hunter Wilds','Mortal Shell','MOTO GP 24','Nightingale','Ninja Gaiden 2 Black','Nobody Wants To Die','Orcs Must Die! Deathtrap','Outpost: Infinity Siege','Pacific Drive','Palworld','Path of Exile II','Ratchet & Clank - Rift Apart',
         'Red Dead Redemption','Red Dead Redemption 2','Ready or Not','Remnant II','Resident Evil 4 Remake','Returnal','Rise of The Tomb Raider','Ripout','RoboCop: Rogue City','Saints Row','Satisfactory','Sackboy: A Big Adventure','Scorn','Sengoku Dynasty','Shadow Warrior 3','Shadow of the Tomb Raider','Sifu','Silent Hill 2','Smalland','Soulslinger Envoy of Death','Soulstice','S.T.A.L.K.E.R. 2','Starfield','STAR WARS Jedi: Survivor','Star Wars Outlaws','Steelrising','Suicide Squad: Kill the Justice League','TEKKEN 8','Test Drive Ultimate Solar Crown','The Ascent','The Callisto Protocol','The Casting Of Frank Stone','The Chant','The First Berserker: Khazan','The Invincible','The Last Of Us Part I','The Medium','The Outer Worlds: Spacer\'s Choice Edition','The Talos Principle 2','The Thaumaturge','Thymesia','The Witcher 3','Uncharted Legacy of Thieves Collection','Unknown 9: Awakening','Until Dawn','Wanted: Dead','Warhammer: Space Marine 2', 'Watch Dogs Legion', 'Way Of The Hunter','Wayfinder']# Add Games
 for option in options:
@@ -9390,7 +9413,7 @@ def select_mod_op_lock():
         unlock_listbox_mod_op = True
         mod_operates_canvas.config(bg='white')
         
-    elif select_mod in list_uni and select_mod != 'Uniscaler V3' and select_mod  != 'Uniscaler V4' and select_mod != 'Uniscaler FSR 3.1' or select_mod == 'Uni Custom Miles' or select_mod == 'Dlss Jedi':
+    elif select_mod in list_uni and select_mod != 'Uniscaler V3' and select_mod  != 'Uniscaler V4' and select_mod != 'Uniscaler FSR 3.1' or select_mod == 'Uni Custom Miles':
         mod_op_list = ['FSR3','DLSS','XESS']
         mod_operates_listbox.delete(0,tk.END)
         unlock_listbox_mod_op = True
