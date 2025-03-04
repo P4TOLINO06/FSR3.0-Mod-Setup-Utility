@@ -45,7 +45,7 @@ def run_as_admin():
 run_as_admin()
 
 screen = tk.Tk()
-screen.title("FSR3.0 Mod Setup Utility - 3.2.12v")
+screen.title("FSR3.0 Mod Setup Utility - 3.2.13v")
 screen.geometry("700x580")
 screen.resizable(0,0)
 screen.configure(bg='black')
@@ -1071,13 +1071,14 @@ def text_guide():
 ),
 
 'GTA V':(
-"Single Player and Multiplayer\n"
-'1. Select Dinput 8 and install. (only single player)\n'
-'2. Open the game and disable MSAA and TXAA and select\nborderless window. If the mod doesn\'t work, disable FXAA.\n'
-'3. Close the game and select GTA V FSR3/DLSS4 and install\n'
-'4. Press "Home" to open the menu. If the mod is disabled,\ncheck "Enable Frame Generation".\n'
-'5. DLSS4, in the menu, select Default in the DLSS Preset\nand Auto Exposure in the Advanced Settings. If you enabled\nthe DLSS Overlay during installation, check if Preset K is\nactivated in the overlay. (The overlay is located in the bottom\nleft corner of the screen). (Only RTX)\n'
-'6. All mods have DLSS4.'  
+'FSR 3.1.3/DLSS FG (Only Optiscaler)\n'
+'1. If you want to update the DLSS, select "Others Mods GTA V"\ndo this before installing the mod.\n'
+'2. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
+'3. Check Enable Signature Over box\n'
+'4. Rockstar Launcher, go to settings and uncheck the "Battleye"\nbox.\n'
+'5. In the game, select DLSS and press the "Insert" key to open\nthe menu\n'
+'6. In the menu, select FG Enabled, Active, Hud Fix and\nExtended\n' 
+'7. It is not recommended to use mods in Online mode, or you\nmay get banned. Use at your own risk.\n'
 ),
 
 'Ghost of Tsushima':(
@@ -1174,17 +1175,19 @@ def text_guide():
 '3. Select FSR 3.1.3/DLSS FG (Only Optiscaler) and install\n'
 '4. Check the Enable Signature Over box\n'
 '5. In the game, select DLSS and press the "Insert" key to open the menu\n'
-'6. In the menu, select FG Enabled, Active, Hud Fix and Extended. In Hud Fix, click on the input\nbox and type 7\n'
-'7. It is recommended to select the Upscaler before activating Frame Gen, as FG is disabled every\ntime the upscaler is switched. To activate it again, type 1 and then 7 in the Hud Fix input box.\n\n'
+'6. In the menu, select FG Enabled, Active, Hud Fix and Extended.\n'
+'7. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see how to use DLSS 4. (Only Nvidia)\n\n' 
 
 'Only RTX\n'
-'1 - Select Hellblade 2 FSR3 and install it.\n'
-'2 - In the game, select Frame Generation.\n'
-'3 - This mod only works for RTX.\n\n'
+'1. Select Hellblade 2 FSR3 and install it.\n'
+'2. In the game, select Frame Generation.\n'
+'3. This mod only works for RTX.\n\n'
+
 'All GPUs\n'
-'1 - Select Uniscaler V2 (you can also test with the other mods)\n'
-'2 - Check the box for Fake Nvidia GPU (AMD) and check the box for UE compatibility mode (AMD\nand Nvidia)\n'
-'3 - In-game, select Frame Generation\n'
+'1. Select Uniscaler V2 (you can also test with the other mods)\n'
+'2. Check the box for Fake Nvidia GPU (AMD) and check the box for UE compatibility mode (AMD\nand Nvidia)\n'
+'3. In-game, select Frame Generation\n\n'
+
 '• The black bars are removed automatically if the Engine.ini file is found. If it is not found, check if\nit is in the path C:\\Users\\YourName\\AppData\\Local\\Hellblade2\\Saved\\Config\\Windows or WinGDK.\nIf it\'s not there, open the game to have the file created.\n\n' 
 '• If the bars are not removed, select \'Remove Black Bars Alt\', the removal of the black bars will be\nautomatically performed if the Engine.ini file is found. \n\n' 
 '• To remove only the main effects, such as Lens Distortion, Black Bars, and Chromatic Aberration,\n\n'
@@ -1271,6 +1274,16 @@ def text_guide():
 ),
 
 'Indiana Jones and the Great Circle':( 
+'FSR 3.1.3/DLSS FG (Only Optiscaler Indy)\n'
+'1. In the game, select FSR and disable Frame Gen.\n'  
+'2. In the utility, select FSR 3.1.3/DLSS FG (Only Optiscaler\nIndy) and install.\n'  
+'3. Check the "Enable Signature Over" box\n'
+'4. To install DLSS 4, select "Others Mods Indy".\n'  
+'5. In the game, before enabling Frame Gen, press the "Insert"\nkey and select your preferred upscaler in the mod menu.\n'  
+'6. Enable Frame Gen in the game menu.\n'
+'7. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see\nhow to use DLSS 4. (Only Nvidia)\n'
+'8. This mod works with cinematic mode.\n\n'
+
 'Indy FG (Only RTX)\n' 
 '1. Select "Indy FG (Only RTX)" and install\n'  
 '2. Check the Enable Signature Over box\n'  
@@ -1470,7 +1483,12 @@ def text_guide():
 '1. Select FSR 3.1.3/DLSSG FG (Only Optiscaler) and install\n'  
 '2. Check "yes" in the "DLSS/FSR" window that will appear\nduring installation.\n'
 '3. In the game, select DLSS, Frame Gen and press the\n"Insert" key to open the menu\n'  
-'4. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see\nhow to use DLSS 4. (Only RTX)\n\n'  
+'4. Check the FSR 3.1.3/DLSS (Only Optiscaler) guide to see\nhow to use DLSS 4. (Only RTX)\n\n' 
+
+'DLSSG Wilds (Only RTX)\n'
+'1. Select DLSSG Wilds (Only RTX) and install\n'
+'2. Close the "ReFramework" menu that will appear when\nlaunching the game.\n'
+'3. In the game, select DLSS and Frame Gen'
 ),
 
 'Mortal Shell':(
@@ -2255,16 +2273,15 @@ def text_guide():
     '520x310': ['Dying Light 2'],
     '640x380': ['A Plague Tale Requiem'],
     '520x360': ['Ghostwire: Tokyo'],
-    '540x320': ['Shadow Warrior 3', 'The First Berserker: Khazan'],
+    '540x320': ['Shadow Warrior 3', 'The First Berserker: Khazan', 'GTA V'],
     '700x800': ['Silent Hill 2'],
     '800x740': ['Black Myth: Wukong'],
-    '520x520': ['Metro Exodus Enhanced'],
-    '520x420': ['Atomic Heart', 'Monster Hunter Wilds', 'AVOWED'],
+    '520x420': ['Atomic Heart', 'AVOWED'],
     '650x650': ['Alan Wake 2'],
     '570x720': ['Final Fantasy XVI'],
     '600x300': ['Kena: Bridge of Spirits'],
     '630x270': ['Resident Evil 4 Remake'],
-    '520x520': ['Warhammer: Space Marine 2', 'S.T.A.L.K.E.R. 2'],
+    '530x520': ['Warhammer: Space Marine 2', 'S.T.A.L.K.E.R. 2', 'Indiana Jones and the Great Circle', 'Metro Exodus Enhanced', 'Monster Hunter Wilds'],
     '605x710': ['God of War Ragnarök'],
     '530x290': ['Sifu', 'Fort Solis', 'Frostpunk 2'],
     '520x330': ['Steelrising', 'Eternal Strands', 'Lost Records Bloom And Rage', 'Bright Memory', 'Pacific Drive'],
@@ -2506,8 +2523,7 @@ def backup_files():
         comp_files(er_origins)
         unlock_view_message = False
     
-    origins_gtav = {'GTA V FSR3/DLSS4':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
-                    'GTA V FiveM':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
+    origins_gtav = {'GTA V FiveM':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
                     'GTA Online':'mods\\FSR3_GTAV\\GtaV_B02_FSR3',
                     'GTA V Epic':'mods\\FSR3_GTAV\\GtaV_B02_FSR3'}
     if select_option == 'GTA V':
@@ -3566,7 +3582,7 @@ def clean_mod():
 
     del_tcp_sr = ['dlsstweaks.ini','DLSSTweaksConfig.exe','FSRBridge.asi','winmm.dll','winmm.ini','nvngx.dll','EnableNvidiaSigOverride.reg','DisableNvidiaSigOverride.reg','winmm.ini','winmm.dll']
 
-    del_optiscaler = ['OptiScaler.ini','nvngx.dll','libxess.dll','winmm.dll', 'nvapi64.dll','fakenvapi.ini','dlssg_to_fsr3_amd_is_better.dll']
+    del_optiscaler = ['OptiScaler.ini','nvngx.dll','libxess.dll','winmm.dll', 'nvapi64.dll','fakenvapi.ini','dlssg_to_fsr3_amd_is_better.dll','nvngx.ini']
 
     del_optiscaler_custom = [
     'amd_fidelityfx_dx12.dll', 'amd_fidelityfx_vk.dll', 'DisableNvidiaSignatureChecks.reg', 'dlss-enabler-upscaler.dll', 'dlss-enabler.dll', 'dlss-enabler.log', 'dlss-finder.exe', 'dlssg_to_fsr3.ini', 'dlssg_to_fsr3.log', 
@@ -3927,8 +3943,10 @@ def clean_mod():
             indy_config_file_path = os.path.join(os.environ['USERPROFILE'], 'Saved Games\\MachineGames\\TheGreatCircle\\base')
             indy_old_config_file = os.path.join(indy_config_file_path, 'TheGreatCircleConfig.txt')
 
-            if select_mod == 'Indy FG (Only RTX)':
+            del_all_mods_optiscaler(del_optiscaler,'FSR 3.1.3/DLSS FG (Only Optiscaler Indy)')
 
+            if select_mod == 'Indy FG (Only RTX)':
+                
                 del_all_mods(del_dlss_to_fg, 'Indiana Jones and the Great Circle')
                 
                 if os.path.exists(indy_old_config_file):
@@ -3939,7 +3957,17 @@ def clean_mod():
                 os.remove(os.path.join(select_folder, 'base\\video\\boot_sequence\\boot_sequence_pc.bk2'))
     except Exception as e:
         messagebox.showinfo('Error','Error clearing Indiana Jones and the Great Circle files, please try again or do it manually') 
-        print(e)         
+        print(e)  
+
+    try:
+        if select_option == 'Monster Hunter Wilds':
+            if select_mod == 'DLSSG Wilds (Only RTX)':
+                del_all_mods2(del_dlss_to_fg, 'DLSSG Wilds (Only RTX)')
+
+                if os.path.exists(os.path.join(select_folder, 'dinput8.dll')):
+                    os.remove(os.path.join(select_folder, 'dinput8.dll'))
+    except Exception as e:
+        messagebox.showinfo('Error','Error clearing Monster Hunter Wilds files, please try again or do it manually')
 
     try:
         if select_option == 'Red Dead Redemption 2':
@@ -4018,12 +4046,14 @@ def clean_mod():
             disable_dlss_overlay = 'mods\\Addons_mods\\DLSS Preset Overlay\\Disable Overlay.reg'
 
             del_all_mods2(del_gtav_fsr3,select_mod,'mods\\UpscalerBasePlugin')
-            if os.path.exists(os.path.join(select_folder, 'mods\\Shaders')):
-                shutil.rmtree(os.path.join(select_folder, 'mods\\Shaders'))
-
-            if os.path.exists(path_dxgi):
-                os.rename(path_dxgi,os.path.join(select_folder,'dxgi.asi'))
             
+            if select_mod not in ['Others Mods GTA V','FSR 3.1.3/DLSS FG (Only Optiscaler)']:
+                if os.path.exists(os.path.join(select_folder, 'mods\\Shaders')):
+                    shutil.rmtree(os.path.join(select_folder, 'mods\\Shaders'))
+
+                if os.path.exists(path_dxgi):
+                    os.rename(path_dxgi,os.path.join(select_folder,'dxgi.asi'))
+                
             if os.path.exists(os.path.join(select_folder, 'Enable Overlay.reg')):
                 handle_prompt(
                 'DLSS Overlay',
@@ -6666,6 +6696,7 @@ def games_to_update_upscalers():
         'Others Mods Legion' : select_folder,
         'Others Mods AW2' : select_folder, 
         'Others Mods Greed 2' : select_folder,
+        'Others Mods GTA V' : select_folder,
         'Others Mods 6Days' : default_dlss_path,
         'Others Mods HB2':  default_dlss_path,
         'Others Mods Fist' : default_dlss_path,
@@ -6699,7 +6730,8 @@ def games_to_update_upscalers():
     }
     
     games_to_update_dlss_dlssg_dlssd = {
-        'Others Mods Wukong': (default_dlss_path, default_dlssg_path)
+        'Others Mods Wukong': (default_dlss_path, default_dlssg_path),
+        'Others Mods Indy' : (os.path.join(select_folder, 'streamline'), os.path.join(select_folder, 'streamline'))
     }
 
     games_to_update_dlss_dlssg = {
@@ -6820,11 +6852,11 @@ def optiscaler_fsr_dlss(copy_dlss = True, copy_nvapi = True): # Default Optiscal
     nvapi_ini = 'mods\\Addons_mods\\Nvapi AMD\\Nvapi Ini\\OptiScaler.ini'
     nvapi_ini_dlssg = 'mods\\Addons_mods\\Nvapi AMD\\DLSSG Nvapi Ini\\OptiScaler.ini'
     gpu_name = get_active_gpu()
-    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2', 'S.T.A.L.K.E.R. 2', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars']
+    games_to_install_nvapi_amd = ['Microsoft Flight Simulator 2024', 'Death Stranding Director\'s Cut', 'Shadow of the Tomb Raider', 'Rise of The Tomb Raider', 'The Witcher 3', 'Uncharted Legacy of Thieves Collection', 'Suicide Squad: Kill the Justice League','Sifu', 'Mortal Shell', 'FIST: Forged In Shadow Torch', 'Ghostrunner 2', 'Final Fantasy XVI', 'Sengoku Dynasty', 'Red Dead Redemption 2', 'S.T.A.L.K.E.R. 2', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars', 'GTA V']
     games_to_use_anti_lag_2 = ['God of War Ragnarök', 'God Of War 4', 'Path of Exile II', 'Hitman 3', 'Marvel\'s Midnight Suns', 'Hogwarts Legacy', 'The First Berserker: Khazan']
     games_only_upscalers = ['The Last Of Us Part I']
     games_with_dlssg = ['The First Berserker: Khazan', 'Atomic Heart','Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2', 'Alan Wake 2', 'S.T.A.L.K.E.R. 2', 'Eternal Strands', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'God of War Ragnarök', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars' ]
-    games_with_anti_cheat = ['Back 4 Blood']
+    games_with_anti_cheat = ['Back 4 Blood', 'GTA V']
     games_no_nvngx = ['Red Dead Redemption 2', 'Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2'] # Games that don't need the file nvngx_dlss.dll renamed to nvngx.dll (Only RTX)
 
     print(gpu_name)
@@ -7148,7 +7180,6 @@ def icarus_fsr3():
     auto_shortcut(shortcut_icr_path,new_target_path,dx_12,game_name)
 
 def gtav_fsr3():
-    dinput8_gtav = 'mods\\FSR3_GTAV\\dinput8_gtav'
     gtav_fsr3_path ='mods\\FSR3_GTAV\\GtaV_B02_FSR3'
     gta_v_epic = 'mods\\FSR3_GTAV\\Gtav_Epic'
     file_dxgi_asi = os.path.join(select_folder,'dxgi.asi')
@@ -7160,9 +7191,8 @@ def gtav_fsr3():
     rename_gtavups_org = 'GTAVUpscaler.org.dll'
     gpu_name = get_active_gpu()  
     enable_dlss_overlay = 'mods\\Addons_mods\\DLSS Preset Overlay\\Enable Overlay.reg'
-    dinput8_var = os.path.exists(os.path.join(select_folder,'dinput8.dll'))
 
-    if 'rtx' in gpu_name:
+    if 'nvidia' in gpu_name and select_mod not in ['Others Mods GTA V','FSR 3.1.3/DLSS FG (Only Optiscaler)']:
         handle_prompt(
         'DLSS Overlay',
         'Do you want to enable the DLSS Overlay? (It is useful for verifying if the preset selected for DLSS 4 in Optiscaler is correct (Preset K), but it is not required. It cannot be disabled in the game for now; to remove it, uninstall the mod and reinstall it.)',
@@ -7171,26 +7201,21 @@ def gtav_fsr3():
             shutil.copy(enable_dlss_overlay, select_folder)
             )
         )
-
-    if select_mod == 'Dinput 8':
-        shutil.copytree(dinput8_gtav,select_folder,dirs_exist_ok=True)
-        return True
-        
-    elif select_mod == 'GTA V FSR3/DLSS4' and dinput8_var:
-        shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
-        return True
     
-    elif select_mod == 'GTA V FiveM':
+    if select_mod == 'GTA V FiveM':
+
+        if messagebox.askyesno('Ban','We are not responsible if you get banned. Do you want to proceed with the installation of the mod?'):
+            shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        else:
+            return
+
         fivem_ui = messagebox.askyesno('UI Fix','Do you want to fix the delay in the FiveM user interface?')
-        shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
+        
         if fivem_ui:
             os.rename(file_dxgi_asi,os.path.join(select_folder,rename_asi))
-        return True
     
-    elif select_mod == 'GTA Online':
-        ban_var = messagebox.askyesno('Ban','We are not responsible if you get banned. Do you want to proceed with the installation of the mod?')
-        
-        if ban_var:
+    if select_mod == 'GTA Online':     
+        if messagebox.askyesno('Ban','We are not responsible if you get banned. Do you want to proceed with the installation of the mod?'):
             shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
             if os.path.exists(os.path.join(select_folder,file_dxgi_asi)):
                 
@@ -7203,19 +7228,18 @@ def gtav_fsr3():
                 shutil.copy2(os.path.join(select_folder,rename_gtavups_org),os.path.join(select_folder,'mods'))
         else:
             return
-        return True
-    
-    elif select_mod == 'GTA V FSR3/DLSS4' and not dinput8_var and select_mod :
-        messagebox.showinfo('Dinput 8 not found', 'Please install the \'dinput8\' file. Refer to the GTA V FSR Guide if you need assistance.')
-        return False
 
-    elif select_mod == 'GTA V Epic':
+    if select_mod == 'GTA V Epic':
         shutil.copytree(gtav_fsr3_path,select_folder,dirs_exist_ok=True)
-        return True
-    
-    elif select_mod == 'GTA V Epic V2':
-        shutil.copytree(gta_v_epic,select_folder,dirs_exist_ok=True)
-        return True
+         
+    if select_mod == 'GTA V Epic V2':
+        shutil.copytree(gta_v_epic,select_folder,dirs_exist_ok=True)     
+
+def mhw_fsr3():
+    dlssg_rtx_mhw = 'mods\\FSR3_Wilds\\DLSSG RTX' 
+
+    if select_mod == 'DLSSG Wilds (Only RTX)':
+        shutil.copytree(dlssg_rtx_mhw, select_folder, dirs_exist_ok=True)
 
 def lotf_fsr3():
     rtx_fsr3 = 'mods\\FSR3_LOTF\\RTX\\LOTF_DLLS_3_RTX'
@@ -8356,6 +8380,7 @@ def fsr3_returnal():
         print(e)
 
 def fsr3_indy():
+    optiscaler_indy = 'mods\\FSR3_Indy\\Optiscaler Indy'
     smooth_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Smooth\\TheGreatCircle .ini'
     normal_reshade_indy = 'mods\\FSR3_Indy\\Others Mods\\Reshade\\Normal\\TheGreatCircle smooth.ini'
     intro_skip_indy = 'mods\\FSR3_Indy\\Others Mods\\Intro Skip'
@@ -8363,6 +8388,9 @@ def fsr3_indy():
     config_file_path_indy = os.path.join(os.environ['USERPROFILE'], 'Saved Games\\MachineGames\\TheGreatCircle\\base')
     config_file_indy = 'mods\\FSR3_Indy\\FG\\Config File\\TheGreatCircleConfig.local'
     old_config_file_indy = os.path.join(config_file_path_indy,'TheGreatCircleConfig.local')
+
+    if select_mod == 'FSR 3.1.3/DLSS FG (Only Optiscaler Indy)':
+        shutil.copytree(optiscaler_indy, select_folder,dirs_exist_ok=True)
 
     if select_mod == 'Indy FG (Only RTX)':
         shutil.copytree(fg_indy, select_folder, dirs_exist_ok=True)
@@ -8375,11 +8403,6 @@ def fsr3_indy():
             messagebox.showinfo('Not Found','The file TheGreatCircleConfig.local was not found. Please check if it exists (C:\\Users\\YourName\\Saved Games\\MachineGames\\TheGreatCircle\\base). If it doesn\'t exist, open the game to have the file created. You can also manually copy the file to this path. The TheGreatCircleConfig.local file is in the folder selected in the Utility.')
 
     if select_mod == 'Others Mods Indy':
-        
-        if os.path.exists(os.path.join(select_folder, 'streamline')):
-            update_upscalers(os.path.join(select_folder, 'streamline'),True)
-        else:
-            messagebox.showinfo('DLSS','If you want to update the DLSS, select the game\'s root folder.')
 
         # Intro Skip
         handle_prompt(
@@ -8778,10 +8801,7 @@ def install(event=None):
             cod_mw3_fsr3()
         
         if select_option == 'GTA V':
-            var_dinput_gtav = gtav_fsr3()
-            if not var_dinput_gtav:
-                return
-        
+            gtav_fsr3()                
         if select_option == 'Dead Rising Remaster':
             if not fsr3_drr():
                 return
@@ -8812,6 +8832,8 @@ def install(event=None):
             fsr3_stalker()
         if select_option == 'Red Dead Redemption 2':
             fsr3_rdr2()
+        if select_option == 'Monster Hunter Wilds':
+            mhw_fsr3()
         if select_option == 'Lego Horizon Adventures':
             fsr3_lego_horizon()
         if select_option == 'Dragons Dogma 2':
@@ -9234,7 +9256,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Gotham Knights': ['Others Mods GK', *fsr_31_dlss_mods],
         'GreedFall II: The Dying World' : ['Others Mods Greed 2', *fsr_31_dlss_mods],
         'GTA Trilogy' : ['Others GTA Trilogy',*fsr_31_dlss_mods],
-        'GTA V': ['Dinput 8', 'GTA V FSR3/DLSS4', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
+        'GTA V': ['Others Mods GTA V','FSR 3.1.3/DLSS FG (Only Optiscaler)', 'GTA V FiveM', 'GTA Online', 'GTA V Epic', 'GTA V Epic V2'],
         'God Of War 4': ['FSR 3.1.3/DLSS Gow4'],
         'God of War Ragnarök': ['Others Mods Gow Rag',*fsr_31_dlss_mods ,'Uniscaler FSR 3.1'],
         'Hellblade 2': ['Others Mods HB2', 'Hellblade 2 FSR3 (Only RTX)', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
@@ -9243,7 +9265,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Horizon Forbidden West': ['Horizon Forbidden West FSR3', 'Uniscaler FSR 3.1', *fsr_31_dlss_mods],
         'Horizon Zero Dawn/Remastered': ['Others Mods HZD',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Icarus': ['Icarus FSR3 AMD/GTX', 'Icarus FSR3 RTX'],
-        'Indiana Jones and the Great Circle' : ['Others Mods Indy','Indy FG (Only RTX)'],
+        'Indiana Jones and the Great Circle' : ['Others Mods Indy','FSR 3.1.3/DLSS FG (Only Optiscaler Indy)','Indy FG (Only RTX)'],
         'Kingdom Come: Deliverance II' : ['Others Mods KCD2',*fsr_31_dlss_mods],
         'Kena: Bridge of Spirits': ['Others Mods Kena',*fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Lego Horizon Adventures': [*fsr_31_dlss_mods, 'Others Mods Lego HZD'],
@@ -9256,7 +9278,7 @@ def update_canvas(event=None): #game_options_canvas text configuration
         'Marvel\'s Midnight Suns' : [*fsr_31_dlss_mods],
         'Metro Exodus Enhanced Edition': ['Others Mods Metro', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Microsoft Flight Simulator 2024': ['FSR 3.1 Custom MSFS', *fsr_31_dlss_mods],
-        'Monster Hunter Wilds' : ['Others Mods MHW', *fsr_31_dlss_mods],
+        'Monster Hunter Wilds' : ['Others Mods MHW', *fsr_31_dlss_mods, 'DLSSG Wilds (Only RTX)'],
         'Mortal Shell': ['Others Mods MShell', *fsr_31_dlss_mods],
         'Pacific Drive' : ['Others Mods PD', *fsr_31_dlss_mods, *default_mods, *uniscaler_mods],
         'Palworld': ['Others Mods PW', *fsr_31_dlss_mods,'Palworld Build03', '0.10.0', '0.10.1', '0.10.1h1', '0.10.2h1', '0.10.3', '0.10.4', *uniscaler_mods],
