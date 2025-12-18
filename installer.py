@@ -118,6 +118,7 @@ class ModInstaller:
         games_with_dlssg = ['The First Berserker: Khazan', 'Atomic Heart','Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2', 'Alan Wake 2', 'S.T.A.L.K.E.R. 2', 'Eternal Strands', 'Monster Hunter Wilds', 'AVOWED', 'Frostpunk 2', 'God of War Ragnarök', 'STAR WARS Jedi: Survivor', 'Deliver Us Mars', 'Chernobylite 2: Exclusion Zone', 'Assassin\'s Creed Shadows', 'The Last of Us Part II', 'Star Wars Outlaws', 'Elder Scrolls IV Oblivion Remaster', 'The Alters', 'Satisfactory' ]
         games_with_anti_cheat = ['Back 4 Blood', 'GTA V']
         games_no_nvngx = ['Red Dead Redemption 2', 'Marvel\'s Spider-Man Remastered', 'Marvel\'s Spider-Man Miles Morales', 'Marvel\'s Spider-Man 2'] # Games that don't need the file nvngx_dlss.dll renamed to nvngx.dll (Only RTX)
+        games_with_d3d12 = ['GTA Trilogy'] # Some games (especially Rockstar) do not work with the nvngx.dll file renamed to dxgi.dll; it must be renamed to d3d12.dll instead
 
         print(self.gpu_name)
         
@@ -138,6 +139,10 @@ class ModInstaller:
 
                 if game_selected in games_no_nvngx and 'rtx' in self.gpu_name and os.path.exists(os.path.join(dest_path, 'nvngx.dll')):
                     os.replace(os.path.join(dest_path, 'nvngx.dll'), os.path.join(dest_path, 'nvngx_dlss.dll'))
+            
+            # Rename the DLSS file (nvngx_dlss.dll) to d3d12.dll
+            if os.path.exists(os.path.join(dest_path, 'dxgi.dll')) and game_selected in games_with_d3d12:
+                os.replace(os.path.join(dest_path, 'dxgi.dll'), os.path.join(dest_path, 'd3d12.dll'))
 
             if mod_selected == 'FSR4/DLSSG FG (Only Optiscaler)':
                 self.copy_progress(path_optiscaler_dlssg, dest_path)

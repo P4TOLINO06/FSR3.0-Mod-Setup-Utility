@@ -61,7 +61,13 @@ class FsrGuide:
                 "dimension": custom.get("dimension", "800x560"),
         }
 
-        self.game_data = dict(sorted(self.game_data.items(),key=lambda x: (x[0].lower() != "initial information", x[0].lower())))
+        self.game_data = dict(sorted(
+            self.game_data.items(),
+            key=lambda x: (
+                not x[0].lower().startswith("initial information"),
+                x[0].lower()
+            )
+        ))
 
     def toggle_guide(self):
         if self.fsr_guide_var.get() == 1:

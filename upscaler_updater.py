@@ -13,43 +13,47 @@ def update_upscalers(dest_path, copy_dlss = False, copy_dlss_dlssd = False, copy
     try: 
         # DLSS
         if copy_dlss:
-            copy_with_progress(update_dlss, dest_path, progress_callback)
+            copy_with_progress(update_dlss, dest_path, progress_callback, True)
 
         # DLSSG
         if copy_dlss_dlssg:
             if dlssg_path and os.path.exists(os.path.dirname(dlssg_path)):
-                copy_with_progress(update_dlssg, dlssg_path, progress_callback)
+                copy_with_progress(update_dlssg, dlssg_path, progress_callback, True)
             else:
-                copy_with_progress(update_dlssg, dest_path, progress_callback)
+                copy_with_progress(update_dlssg, dest_path, progress_callback, True)
 
         # DLSSD
         if copy_dlss_dlssd:
-            copy_with_progress(update_dlssd, dest_path, progress_callback)
+            copy_with_progress(update_dlssd, dest_path, progress_callback, True)
 
         # XESS
         if copy_dlss_xess:
-            copy_with_progress(update_xess, dest_path, progress_callback)
+            copy_with_progress(update_xess, dest_path, progress_callback, True)
 
         # FSR
         if copy_dlss_fsr4:
-            copy_with_progress(update_fsr4, dest_path, progress_callback)
+            copy_with_progress(update_fsr4, dest_path, progress_callback, True)
         
         if copy_dlss_fsr3:
-            copy_with_progress(update_fsr3, dest_path, progress_callback)
+            copy_with_progress(update_fsr3, dest_path, progress_callback, True)
 
         if all([copy_dlss, copy_dlss_dlssg, copy_dlss_dlssd, copy_dlss_xess, copy_dlss_fsr4]):
-            copy_with_progress(update_fsr4, dest_path, progress_callback)
-            copy_with_progress(update_dlss, dest_path, progress_callback)
-            copy_with_progress(update_dlssg, dest_path, progress_callback)
-            copy_with_progress(update_xess, dest_path, progress_callback)
-            copy_with_progress(update_dlssd, dest_path, progress_callback)
+            copy_with_progress(update_fsr4, dest_path, progress_callback, True)
+            copy_with_progress(update_dlss, dest_path, progress_callback, True)
+            copy_with_progress(update_dlssg, dest_path, progress_callback, True)
+            copy_with_progress(update_xess, dest_path, progress_callback, True)
+            copy_with_progress(update_dlssd, dest_path, progress_callback, True)
 
     except Exception as e:
         print(e)
 
-def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,copy_dlss=False,copy_dlss_dlssg=False,copy_dlss_dlssd=False,copy_dlss_xess=False,copy_dlss_fsr4=False, copy_dlss_fsr3=False):
-    default_dlss_path = os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
-    default_dlssg_path = os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\Streamline\\Binaries\\ThirdParty\\Win64'))
+def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,copy_dlss=False,copy_dlss_dlssg=False,copy_dlss_dlssd=False,copy_dlss_xess=False,copy_dlss_fsr4=False, copy_dlss_fsr3=False, absolute_path = False):
+    if absolute_path:
+        default_dlss_path = dest_path
+        default_dlssg_path = dest_path
+    else:
+        default_dlss_path = os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
+        default_dlssg_path = os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\Streamline\\Binaries\\ThirdParty\\Win64'))
 
     games_to_update_dlss = {
         'Sifu': dest_path,
@@ -73,7 +77,6 @@ def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,cop
         'Evil West' : default_dlss_path,
         'The First Berserker: Khazan' : default_dlss_path,
         'Soulstice' : default_dlss_path,
-        'GTA Trilogy' : default_dlss_path,
         'Alone in the Dark' : default_dlss_path,
         'Choo-Choo Charles' : default_dlss_path,
         'Five Nights at Freddy’s: Security Breach' : default_dlss_path,
@@ -99,6 +102,7 @@ def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,cop
         'Remnant II' : os.path.abspath(os.path.join(dest_path,'..\\..', 'Plugins\\Shared\\DLSS\\Binaries\\ThirdParty\\Win64')),
         'Mortal Shell': os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Binaries\\ThirdParty\\NVIDIA\\NGX\\Win64')),
         'Path of Exile II': os.path.join(dest_path, 'Streamline'),
+        'GTA Trilogy' : os.path.abspath(os.path.join(dest_path, '..\\..\\..', 'Engine\\Plugins\\Runtime\\Nvidia\\DLSS\\Binaries\\ThirdParty\\Win64'))
     }
     
     games_to_update_dlss_dlssg_dlssd = {
@@ -145,14 +149,27 @@ def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,cop
         all_paths.update(games_to_update_fsr4_dlss)
         all_paths.update(games_to_update_all_upscalers)
 
-        path_target = all_paths.get(game_selected, dest_path)
-        if isinstance(path_target, tuple):
-            existing_paths = [p for p in path_target if isinstance(p, str) and os.path.exists(p)]
-            
-            path_target = existing_paths[0] if existing_paths else dest_path
-        if not isinstance(path_target, str):
+       # Absoluth path -> addons_path  (gui)
+        if absolute_path:
             path_target = dest_path
-                 
+
+        else:
+            path_target = all_paths.get(game_selected)
+
+            if isinstance(path_target, tuple):
+                existing_paths = [
+                    p for p in path_target
+                    if isinstance(p, str) and os.path.exists(p)
+                ]
+                path_target = existing_paths[0] if existing_paths else dest_path # dest_path ->  same folder selected for mod installation (gui , Game folder)
+
+            if not isinstance(path_target, str) or not os.path.exists(path_target):
+                path_target = dest_path
+
+        if not isinstance(path_target, str) or not os.path.exists(path_target):
+            print(" No valid path found. (upscalers)")
+            return
+                        
         update_upscalers(
             path_target,
             copy_dlss=copy_dlss,

@@ -47,7 +47,6 @@ def hide_tip(obj):
             pass
         widget._tipwindow = None
 
-
 def bind_tooltip(widget, text, limit=33):
     ul= getattr(widget, "widget", widget)
     try:
@@ -72,65 +71,55 @@ def run_dis_anti_c(dest_path):
     if var_anti_c:
         subprocess.call(del_anti_c_path)
 
-def copy_with_progress(src, dst, progress_callback=None):
+def copy_with_progress(src, dst, progress_callback=None, safe_mode=False):
+
+    if safe_mode and not os.path.exists(dst):
+        print(f"safe_mode active, destination does not exist: {dst}")
+        return
 
     if isinstance(src, (list, tuple)):
         for item in src:
-            copy_with_progress(item, dst, progress_callback)
+            copy_with_progress(item, dst, progress_callback, safe_mode)
         return
 
-    # 1: file -> file (ex: nvngx_dlss.dll -> nvngx.dll)
+    # 1: file -> file
     if os.path.isfile(src) and (dst.lower().endswith(".dll") or os.path.splitext(dst)[1] != ""):
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        if not safe_mode:
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy2(src, dst)
         if progress_callback:
             progress_callback()
         return
 
-    # 2: file -> folder 
-    if os.path.isfile(src) and not os.path.exists(dst):
-        os.makedirs(dst, exist_ok=True)
+    # 2: file -> folder
+    if os.path.isfile(src):
+        if not os.path.exists(dst):
+            if safe_mode:
+                print(f"[SKIP] Pasta destino não existe: {dst}")
+                return
+            os.makedirs(dst, exist_ok=True)
         shutil.copy2(src, os.path.join(dst, os.path.basename(src)))
         if progress_callback:
             progress_callback()
         return
 
     # 3: folder -> folder
-    items = []
     if os.path.isdir(src):
-        for root, dirs, filenames in os.walk(src):
+        for root, dirs, files in os.walk(src):
             for d in dirs:
-                items.append(os.path.join(root, d))
-            for f in filenames:
-                items.append(os.path.join(root, f))
-    else:
-        items.append(src)
+                dest_dir = os.path.join(dst, os.path.relpath(os.path.join(root, d), src))
+                if not safe_mode:
+                    os.makedirs(dest_dir, exist_ok=True)
 
-    total = len(items)
-    if total == 0:
-        if progress_callback:
-            progress_callback()
-        return
-    
-    if progress_callback:
-        progress_callback()
-
-    for i, item in enumerate(items, 1):
-        rel_path = os.path.relpath(item, src)
-        dest_item = os.path.join(dst, rel_path)
-
-        if os.path.isdir(item):
-            os.makedirs(dest_item, exist_ok=True)
-        else:
-            os.makedirs(os.path.dirname(dest_item), exist_ok=True)
-            shutil.copy2(item, dest_item)
-
-        if progress_callback:
-            progress_callback()
-    
-    if progress_callback:
-        progress_callback()
-
+            for f in files:
+                src_file = os.path.join(root, f)
+                dest_file = os.path.join(dst, os.path.relpath(src_file, src))
+                if safe_mode and not os.path.isdir(os.path.dirname(dest_file)):
+                    continue
+                os.makedirs(os.path.dirname(dest_file), exist_ok=True)
+                shutil.copy2(src_file, dest_file)
+                if progress_callback:
+                    progress_callback()
 
 def handle_prompt(window_title, window_message,action_func=None):
     user_choice = messagebox.askyesno(window_title, window_message)

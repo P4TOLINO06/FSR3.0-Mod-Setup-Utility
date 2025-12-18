@@ -25,14 +25,14 @@ windll.shcore.SetProcessDpiAwareness(1)  # Per-monitor DPI aware
 
 UPDATE_STATE_FILE = os.path.join(os.getenv('LOCALAPPDATA'), "FSR-Mod-Utility", "update_state.json")
 GITHUB_API_URL = "https://api.github.com/repos/P4TOLINO06/FSR3.0-Mod-Setup-Utility/releases/latest"
-CURRENT_VERSION = "4.0v" 
+CURRENT_VERSION = "4.1v" 
 
 class Gui:
     def __init__(self):
         self.root = CTk()
         icon = tk.PhotoImage(file="images/Hat.gif")   
         self.root.wm_iconphoto(True, icon) 
-        self.root.title("FSR3.0 Mod Setup Utility - 4.0v")
+        self.root.title("FSR3.0 Mod Setup Utility - 4.1v")
         self.root.configure(bg='')  
         self.font = get_font()
         self.root.geometry("450x360")
@@ -653,7 +653,10 @@ class Gui:
                                 copy_dlss_fsr3=bool(selected_upscalers["FSR3"]),
                                 copy_dlss_fsr4=bool(selected_upscalers["FSR4"]),
                                 progress_callback=self.update_progress,
+                                absolute_path = True if dest_path == self.addons_dest_folder else False
                             )
+
+                            print(dest_path)
                         except Exception as e:
                             print(e)
                         finally:
