@@ -457,7 +457,7 @@ class ModInstaller:
     # Red Dead Redemption 2
     def install_rdr2(self):
         rdr2_mix = 'mods\\FSR3_RDR2\\RDR2_FSR3_mix'
-        rdr2_fg_custom = 'mods\\FSR3_RDR2\\RDR2 FG Custom'
+        rdr2_fg_custom = 'mods\\FSR3_RDR2\\RDR2 FG Custom\\FG'
         rdr2_amd_ini  = 'mods\\FSR3_RDR2\\RDR2 FG Custom\\Amd Ini\\RDR2Upscaler.ini'   
         rdr2_optiscaler = 'mods\\FSR3_RDR2\\Optiscaler_fsr_dlss'
 
@@ -640,8 +640,3 @@ class ModInstaller:
 
             except Exception as e:
                 print("Error", f"Error installing the addon'{addon_name}': {e}")
-
-            
-                    
-                    
-      

@@ -1,7 +1,9 @@
+from single_instance import single_instance
 from gui import *
-from admin import run_as_admin 
+from ctypes import windll
+
 windll.shcore.SetProcessDpiAwareness(1)  # Per-monitor DPI aware
 
 if __name__ == "__main__":
-    run_as_admin()
+    single_instance()
     Gui().run()

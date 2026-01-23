@@ -22,6 +22,10 @@ addons_files = {
         "target": "nvngx_dlss.dll",
         "addon_path": r"mods\Temp\Upscalers\Nvidia\\Dlss\nvngx_dlss.dll"
     },
+    "DLSS 4.5":{
+        "target": "nvngx_dlss.dll",
+        "addon_path": r"mods\Temp\Upscalers\Nvidia\\Dlss 4.5\nvngx_dlss.dll"
+    },
     "DLSSD":{
         "target": "nvngx_dlssd.dll",
         "addon_path": r"mods\Temp\Upscalers\Nvidia\\Dlssd\nvngx_dlssd.dll"

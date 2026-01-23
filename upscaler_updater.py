@@ -2,10 +2,11 @@ import os
 from helpers import copy_with_progress
 from games_mods_config import addons_files
 
-def update_upscalers(dest_path, copy_dlss = False, copy_dlss_dlssd = False, copy_dlss_fsr4 = False, copy_dlss_fsr3 = False,copy_dlss_xess = False, copy_dlss_dlssg = False,dlssg_path = None, progress_callback = None):
+def update_upscalers(dest_path, copy_dlss = False, copy_dlss_4_5 = False ,copy_dlss_dlssd = False, copy_dlss_fsr4 = False, copy_dlss_fsr3 = False,copy_dlss_xess = False, copy_dlss_dlssg = False,dlssg_path = None, progress_callback = None):
     update_fsr3 = addons_files["FSR3"]["addon_path"]
     update_fsr4 = addons_files["FSR4"]["addon_path"]
     update_dlss = addons_files["DLSS"]["addon_path"]
+    update_dlss_45 = addons_files["DLSS 4.5"]["addon_path"]
     update_dlssg = addons_files["DLSSG"]["addon_path"]
     update_xess = addons_files["XESS"]["addon_path"]
     update_dlssd = addons_files["DLSSD"]["addon_path"]
@@ -14,6 +15,9 @@ def update_upscalers(dest_path, copy_dlss = False, copy_dlss_dlssd = False, copy
         # DLSS
         if copy_dlss:
             copy_with_progress(update_dlss, dest_path, progress_callback, True)
+        
+        if copy_dlss_4_5:
+             copy_with_progress(update_dlss_45, dest_path, progress_callback, True)
 
         # DLSSG
         if copy_dlss_dlssg:
@@ -47,7 +51,7 @@ def update_upscalers(dest_path, copy_dlss = False, copy_dlss_dlssd = False, copy
     except Exception as e:
         print(e)
 
-def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,copy_dlss=False,copy_dlss_dlssg=False,copy_dlss_dlssd=False,copy_dlss_xess=False,copy_dlss_fsr4=False, copy_dlss_fsr3=False, absolute_path = False):
+def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,copy_dlss=False, copy_dlss_45=False,copy_dlss_dlssg=False,copy_dlss_dlssd=False,copy_dlss_xess=False,copy_dlss_fsr4=False, copy_dlss_fsr3=False, absolute_path = False):
     if absolute_path:
         default_dlss_path = dest_path
         default_dlssg_path = dest_path
@@ -173,6 +177,7 @@ def games_to_update_upscalers(dest_path,game_selected,progress_callback=None,cop
         update_upscalers(
             path_target,
             copy_dlss=copy_dlss,
+            copy_dlss_4_5=copy_dlss_45,
             copy_dlss_dlssg=copy_dlss_dlssg,
             copy_dlss_dlssd=copy_dlss_dlssd,
             copy_dlss_xess=copy_dlss_xess,

@@ -7,6 +7,11 @@ import psutil
 import tkinter as tk
 import os, json, shutil
 import sys
+import ctypes
+
+FILE_ATTRIBUTE_NORMAL   = 0x80
+FILE_ATTRIBUTE_HIDDEN = 0x02
+FILE_ATTRIBUTE_READONLY = 0x01
 
 # TOOLTIP
 def show_tip(obj, text=None):
@@ -69,7 +74,7 @@ def run_dis_anti_c(dest_path):
 
     del_anti_c_path = os.path.join(dest_path,'toggle_anti_cheat.exe')
     if var_anti_c:
-        subprocess.call(del_anti_c_path)
+        subprocess.call(del_anti_c_path, creationflags=subprocess.CREATE_NO_WINDOW)
 
 def copy_with_progress(src, dst, progress_callback=None, safe_mode=False):
 
@@ -95,7 +100,7 @@ def copy_with_progress(src, dst, progress_callback=None, safe_mode=False):
     if os.path.isfile(src):
         if not os.path.exists(dst):
             if safe_mode:
-                print(f"[SKIP] Pasta destino não existe: {dst}")
+                print(f"Dest path not found (helpers): {dst}")
                 return
             os.makedirs(dst, exist_ok=True)
         shutil.copy2(src, os.path.join(dst, os.path.basename(src)))
@@ -132,7 +137,7 @@ def handle_prompt(window_title, window_message,action_func=None):
 def runReg(path_reg):
     reg_path = ['regedit.exe', '/s', path_reg]
 
-    subprocess.run(reg_path,check=True)    
+    subprocess.run(reg_path,check=True, creationflags=subprocess.CREATE_NO_WINDOW)    
 
 def dlss_to_fsr(dest_path, progress_callback):
     path_dlss_to_fsr = 'mods\\DLSS_TO_FSR'
@@ -221,6 +226,35 @@ def var_gpu_copy(dest_path, path_amd, path_rtx, progress_callback=None):
         src = path_rtx if messagebox.askyesno('GPU', 'Do you have an Nvidia GPU?') else path_amd
         copy_with_progress(src, dest_path, progress_callback)
 
+
+def set_attrs(path, hidden=False, readonly=False, normal=False):
+    if os.name != "nt" or not path:
+        return
+
+    path = str(path) 
+
+    if not os.path.exists(path):
+        return
+    if normal:
+        attrs = FILE_ATTRIBUTE_NORMAL
+    else:
+        attrs = 0
+        if hidden:
+            attrs |= FILE_ATTRIBUTE_HIDDEN
+        if readonly:
+            attrs |= FILE_ATTRIBUTE_READONLY
+
+    ctypes.windll.kernel32.SetFileAttributesW(path, attrs)
+
+def hide_only(path):
+    set_attrs(path, hidden=True)
+
+def hide_and_protect(path):
+    set_attrs(path, hidden=True, readonly=True)
+
+def make_writable(path):
+    set_attrs(path, normal=True)
+
 def load_or_create_json(filename, default_data):
 
     if getattr(sys, "frozen", False):
@@ -235,24 +269,6 @@ def load_or_create_json(filename, default_data):
     appdir = os.path.join(os.getenv("LOCALAPPDATA"), "FSR-Mod-Utility")
     os.makedirs(appdir, exist_ok=True)
     appdata_file = os.path.join(appdir, filename)
-
-    def hide_only(path):
-        """ J/Json hidden. """
-        if os.path.exists(path) and os.name == "nt":
-            subprocess.call(["attrib", "+h", path],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    def hide_and_protect_appdata(path):
-        """ Hidden + Read only appdata json """
-        if os.path.exists(path) and os.name == "nt":
-            subprocess.call(["attrib", "+h", "+r", path],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-    def make_writable(path):
-        """ disable read only """
-        if os.path.exists(path) and os.name == "nt":
-            subprocess.call(["attrib", "-h", "-r", path],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     # J/Json load
     exe_json_valid = False
@@ -271,18 +287,18 @@ def load_or_create_json(filename, default_data):
 
         if exe_json_valid:
             shutil.copy2(exe_file, appdata_file)
-            hide_and_protect_appdata(appdata_file)
+            hide_and_protect(appdata_file)
             return exe_json_data
 
         with open(appdata_file, "w", encoding="utf-8") as f:
             json.dump(default_data, f, indent=4)
-        hide_and_protect_appdata(appdata_file)
+        hide_and_protect(appdata_file)
         return default_data
 
     try:
         with open(appdata_file, "r", encoding="utf-8") as f:
             data = json.load(f)
-        hide_and_protect_appdata(appdata_file)
+        hide_and_protect(appdata_file)
         return data
 
     except:
@@ -290,12 +306,12 @@ def load_or_create_json(filename, default_data):
 
         if exe_json_valid:
             shutil.copy2(exe_file, appdata_file)
-            hide_and_protect_appdata(appdata_file)
+            hide_and_protect(appdata_file)
             return exe_json_data
 
         with open(appdata_file, "w", encoding="utf-8") as f:
             json.dump(default_data, f, indent=4)
-        hide_and_protect_appdata(appdata_file)
+        hide_and_protect(appdata_file)
         return default_data
 
 def config_json(path_json, values_json,ini_message=None):

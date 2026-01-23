@@ -10,7 +10,6 @@ import threading
 import json
 import requests
 import webbrowser
-import subprocess
 
 from theme import *
 from cleanup import *
@@ -19,30 +18,35 @@ from installer import ModInstaller
 from helpers import runReg, bind_tooltip
 from guide import FsrGuide
 from upscaler_updater import games_to_update_upscalers
-from helpers import load_or_create_json
+from helpers import load_or_create_json, hide_and_protect, make_writable
+from update import Update
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1)  # Per-monitor DPI aware
 
 UPDATE_STATE_FILE = os.path.join(os.getenv('LOCALAPPDATA'), "FSR-Mod-Utility", "update_state.json")
 GITHUB_API_URL = "https://api.github.com/repos/P4TOLINO06/FSR3.0-Mod-Setup-Utility/releases/latest"
-CURRENT_VERSION = "4.1v" 
+CURRENT_VERSION = "5.0v" 
 
 class Gui:
     def __init__(self):
         self.root = CTk()
         icon = tk.PhotoImage(file="images/Hat.gif")   
         self.root.wm_iconphoto(True, icon) 
-        self.root.title("FSR3.0 Mod Setup Utility - 4.1v")
+        self.root.title("FSR3.0 Mod Setup Utility - 5.0v")
         self.root.configure(bg='')  
         self.font = get_font()
         self.root.geometry("450x360")
         self.root.resizable(0,0)
         self.root.configure(bg="#222223")
 
-        self.update_available = False
+        self.utility_update_available = False
+        self.mods_update_available = False
+        self.mods_updated_name = []
+        self.mods_update_count = 0
         self.update_version = None
         self.update_state = self.load_update_state()
-        self.check_for_update()
+        self.check_for_utility_update()
+        self.check_for_mods_update()
         self.game_selected = None
         self.dest_folder = None
         self.addons_dest_folder = None
@@ -83,25 +87,33 @@ class Gui:
 
     def load_update_state(self):
         os.makedirs(os.path.dirname(UPDATE_STATE_FILE), exist_ok=True)
-        return load_or_create_json("update_state.json", {"hidden": False})
+        return load_or_create_json(UPDATE_STATE_FILE, { "hidden_mods": False, "hidden_utility": False, "last_update_mods_count": self.mods_update_count, "last_utility_update_available": self.utility_update_available})
 
     def save_update_state(self):
         try:
-            # Remove all atributtes
-            subprocess.call(["attrib", "-h", "-r", UPDATE_STATE_FILE],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if os.path.exists(UPDATE_STATE_FILE):
+                make_writable(UPDATE_STATE_FILE)
 
             with open(UPDATE_STATE_FILE, "w", encoding="utf-8") as f:
-                json.dump(self.update_state, f, indent=4)
+                json.dump(self.update_state, f, indent=4),
 
-            # Hidden + ReadOnly
-            subprocess.call(["attrib", "+h", "+r", UPDATE_STATE_FILE],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            hide_and_protect(UPDATE_STATE_FILE)
 
         except Exception as e:
             print("Error saving update_state:", e)
+    
+    def restore_update_btn(self):
+       # If there is a Utility update and it has not been hidden by clicking the "X" 
+        if self.utility_update_available and not self.update_state.get("hidden_utility", False):
+            return True
 
-    def check_for_update(self):
+        # If there are mods and the hidden_mods flag is False (because there was a change or it was never hidden)
+        if self.mods_update_count > 0 and not self.update_state.get("hidden_mods", False):
+            return True
+
+        return False
+
+    def check_for_utility_update(self):
         def fetch_latest():
             try:
                 response = requests.get(GITHUB_API_URL, timeout=5)
@@ -109,61 +121,227 @@ class Gui:
                     data = response.json()
                     tag = data.get("tag_name") or data.get("name") or ""
                     if tag and tag.replace("v", "") > CURRENT_VERSION.replace("v", ""):
-                        self.update_available = True
+                        self.utility_update_available = True
                         self.update_version = tag
-                        self.root.after(0, self.show_update_button)
+                        self.root.after(0, lambda: (
+                            self.update_button() if self.restore_update_btn()
+                            else (self.show_discreet_update_icon() if self.utility_update_available else None)
+                        ))
             except Exception as e:
                 print("Error checking for update:", e)
 
         threading.Thread(target=fetch_latest, daemon=True).start()
 
-    def show_update_button(self):
-        if self.update_state.get("hidden"):
-            self.show_discreet_update_icon()
+    def check_for_mods_update(self):
+        try:
+            self.start_mod_update()
+        except Exception as e:
+            print("Error checking mods update:", e)
+        
+    def start_mod_update(self):
+        threading.Thread(target=self._run_mod_update,args=(False,),daemon=True).start()
+    
+    def _finish_mod_update(self, count):
+        last_saved_count = self.update_state.get("last_update_mods_count", 0)
+
+        if count != last_saved_count:
+            # Show update_btn again if count is different from "last_update_mods_count" in the JSON (even if update_btn was closed by clicking the "X")
+            self.update_state["hidden_mods"] = False
+            self.update_state["last_update_mods_count"] = count
+            self.save_update_state()
+        
+        if self.utility_update_available or self.mods_update_available:
+            if self.restore_update_btn():
+                self.update_button()
+            else:
+                self.show_discreet_update_icon()
+        else:
+            if hasattr(self, "update_icon_btn") and self.update_icon_btn:
+                self.update_icon_btn.place_forget()
+                self.update_icon_btn = None
+            
+    def _run_mod_update(self, apply=False):
+        updater = Update()
+
+        has_update, count, mods = updater.check_updates()
+
+        self.mods_update_available = has_update
+        self.mods_update_count = count
+
+        for mod in mods:
+            self.mods_updated_name.append(mod)
+
+        self.mod_info = [
+            mod["remote"].get("display_name") or mod["name"]
+            for mod in mods
+        ]
+
+        self.total_mods = self.mod_info
+        self.lines = []
+
+        for i in range(0, len(self.total_mods), 5):
+            self.lines.append(", ".join(self.total_mods[i:i + 5]))
+
+        self.display_mod_name = "\n".join(self.lines)
+
+        if apply:
+            if getattr(self, "update_btn", None) and self.update_btn.winfo_exists():
+                self.update_btn.configure(state="disabled", width=80,text="Updating...")
+                self.close_update_btn.configure(state="disabled", cursor="arrow")
+                self.close_update_btn.place(x=255, y=228)
+            
+            if getattr(self, "update_icon_btn", None) and self.update_icon_btn.winfo_exists():
+                self.update_icon_btn.configure(state="disabled", width=30)
+
+            self.update_progress_bar(count)
+            updater.run_updater(progress_callback=self.update_update_progress)
             return
 
-        if not self.update_available:
-            return
+        self.root.after(0,lambda: self._finish_mod_update(count))
+    
+    def update_progress_bar(self, count):
+        self.update_total_steps = count
+        self.update_completed_steps = 0
 
-        # Update btn
-        self.update_btn = CTkButton(
+        self.update_progress = CTkProgressBar(
             self.root,
-            text="Update",
-            width=70,
-            height=25,
-            corner_radius=8,
-            fg_color="#ff9933",
-            hover_color="#ffb366",
-            text_color="white",
-            command=self.open_latest_release
+            width=153,
+            height=15,
+            corner_radius=8
         )
-        self.update_btn.place(x=170, y=227)
+        self.update_progress.set(0)
 
-        bind_tooltip(self.update_btn, f"Update available ({self.update_version})", 0)
+        if hasattr(self, "progress") and self.progress.winfo_ismapped():
+            self.update_progress.place(x=275, y=232)
+        elif not self.update_progress.winfo_ismapped():
+            self.update_progress.place(x=0, y=285)
+        
+    def update_update_progress(self):
+        self.update_completed_steps += 1
+        value = min(self.update_completed_steps / self.update_total_steps, 1.0)
+        self.update_progress.set(value)
 
-        # Close btn
-        self.close_update_btn = CTkButton(
+        if self.update_completed_steps >= self.update_total_steps:
+            self.root.after(0, self._finish_update)
+
+    def _finish_update(self):
+        if hasattr(self, "update_progress"):
+            self.update_progress.place_forget()
+            self.update_progress = None
+
+        if hasattr(self, "update_btn"):
+            self.update_btn.place_forget()
+            self.update_btn = None
+
+        if hasattr(self, "close_update_btn"):
+            self.close_update_btn.place_forget()
+            self.close_update_btn = None
+        
+        if hasattr(self, "update_icon_btn"):
+            self.update_icon_btn.place_forget()
+            self.update_icon_btn = None
+
+        self.mods_update_available = False
+        self.mods_update_count = 0
+
+        self.update_success_label = CTkLabel(
             self.root,
-            text="X",
-            width=25,
-            height=25,
-            corner_radius=8,
-            fg_color="#555a64",
-            hover_color="#777",
-            text_color="white",
-            command=self.hide_update_button
+            text="Mods updated successfully!",
+            font=(self.font[0], 15, "bold"),
+            fg_color="#222223",
+            text_color="#A8B0C0"
         )
-        self.close_update_btn.place(x=245, y=227)
 
-        bind_tooltip(self.close_update_btn, "Close", 0)
+        if hasattr(self, "sucess") and self.sucess.winfo_ismapped():
+            self.update_success_label.place(x=170, y=227)
+        else:
+            self.update_success_label.place(x=0, y=275)
+
+        # Reset the JSON after updating the mods
+        self.update_state["hidden_mods"] = False
+        self.update_state["last_update_mods_count"] = 0 
+        self.update_state["last_utility_update_available"] = self.utility_update_available
+        self.save_update_state()
+        
+        self.root.after(3000, self.update_success_label.destroy)
+
+    def update_button(self):
+        if self.utility_update_available:
+            if self.update_state.get("hidden_utility"):
+                self.show_discreet_update_icon()
+                return
+
+        elif self.mods_update_available:
+            if self.update_state.get("hidden_mods"):
+                self.show_discreet_update_icon()
+                return
+        
+        if not hasattr(self, "update_btn"):
+            self.update_btn = CTkButton(
+                self.root,
+                width=70,
+                height=25,
+                corner_radius=8,
+                text_color="white",
+                command=self.on_update
+            )
+            self.update_btn.place(x=170, y=227)
+
+            self.close_update_btn = CTkButton(
+                self.root,
+                text="X",
+                width=25,
+                height=25,
+                corner_radius=8,
+                fg_color="#555a64",
+                hover_color="#777",
+                text_color="white",
+                command=self.hide_update_button
+            )
+            self.close_update_btn.place(x=250, y=227)
+            bind_tooltip(self.close_update_btn, "Close", 0)
+
+        if self.utility_update_available:
+            self.update_btn.configure(
+                text= "Update",
+                fg_color= "#ff6633",
+                hover_color= "#ff8566",
+            )
+            bind_tooltip(self.update_btn,f"Update Utility available ({self.update_version})",0)
+        
+        elif self.mods_update_available:
+            self.update_btn.configure(
+                text= "Update",
+                fg_color="#9966cc",
+                hover_color="#b38cd9"
+            )
+            bind_tooltip(self.update_btn,f"Update Mods available ({self.mods_update_count}):\n{self.display_mod_name}",0)
+        
+    def on_update(self):
+        if self.utility_update_available:
+            self.open_latest_release()
+
+        elif self.mods_update_available:
+            threading.Thread(target=self._run_mod_update,args=(True,),daemon=True).start()
 
     def hide_update_button(self):
         if hasattr(self, "update_btn"):
-            self.update_btn.destroy()
-        if hasattr(self, "close_update_btn"):
-            self.close_update_btn.destroy()
+            self.update_btn.place_forget()
+            self.update_btn = None
 
-        self.update_state["hidden"] = True
+        if hasattr(self, "close_update_btn"):
+            self.close_update_btn.place_forget()
+            self.close_update_btn = None
+
+        if self.utility_update_available:
+            self.update_state["hidden_utility"] = True
+            self.update_state["last_utility_update_available"] = self.utility_update_available
+
+        elif self.mods_update_available:
+            self.update_state["hidden_mods"] = True
+            self.update_state["last_update_mods_count"] = self.mods_update_count
+            print(self.mods_update_count)
+
         self.save_update_state()
         self.show_discreet_update_icon()
 
@@ -174,18 +352,21 @@ class Gui:
         self.update_icon_btn = CTkButton(
             self.root,
             text="⬇",
-            width=25,
+            width=30,
             height=25,
             corner_radius=50,
             fg_color="#3a3f4b",
             hover_color="#5b6373",
             text_color="white",
-            command=self.open_latest_release
+            command=self.on_update
         )
         self.update_icon_btn.place(x=415, y=330)
-        bind_tooltip(self.update_icon_btn, f"Update available ({self.update_version})", 0)
+        bind_tooltip(self.update_icon_btn, f"Utility Update available ({self.update_version})" if self.utility_update_available else f"Update Mods available ({self.mods_update_count}):\n{self.display_mod_name}" if self.mods_update_available else "", 0)
 
     def open_latest_release(self):
+        self.update_state["hidden_utility"] = False
+        self.update_state["last_utility_update_available"] = True
+        self.save_update_state()
         webbrowser.open("https://github.com/P4TOLINO06/FSR3.0-Mod-Setup-Utility/releases/latest")
 
     def main_screen(self):
@@ -343,7 +524,7 @@ class Gui:
             hover_color="#6b7180"
         )
 
-        addons_opt = ["FSR4", "FSR3", "DLSS", "DLSSG", "DLSSD", "XESS"]
+        addons_opt = ["FSR4", "FSR3", "DLSS", "DLSS 4.5","DLSSG", "DLSSD", "XESS"]
         self.sub_addons = {n: IntVar() for n in addons_opt}          
 
         self._addons_dropdown = None
@@ -622,7 +803,7 @@ class Gui:
             dest_path=self.dest_folder,
             game_selected=self.game_selected.get() if self.game_selected else None,
             mod_selected=self.mod_selected.get() if self.mod_selected else None,
-            progress_callback=self.update_progress
+            progress_callback=self.update_progress_install
             )
 
             if self.missing_fields(fields, True):
@@ -647,12 +828,13 @@ class Gui:
                                 dest_path,
                                 self.game_selected.get(),
                                 copy_dlss=bool(selected_upscalers["DLSS"]),
+                                copy_dlss_45=bool(selected_upscalers["DLSS 4.5"]),
                                 copy_dlss_dlssg=bool(selected_upscalers["DLSSG"]),
                                 copy_dlss_dlssd=bool(selected_upscalers["DLSSD"]),
                                 copy_dlss_xess=bool(selected_upscalers["XESS"]),
                                 copy_dlss_fsr3=bool(selected_upscalers["FSR3"]),
                                 copy_dlss_fsr4=bool(selected_upscalers["FSR4"]),
-                                progress_callback=self.update_progress,
+                                progress_callback=self.update_progress_install,
                                 absolute_path = True if dest_path == self.addons_dest_folder else False
                             )
 
@@ -683,6 +865,7 @@ class Gui:
         # Addons
         upscaler_paths = {
             "DLSS": r'mods\Temp\Upscalers\Nvidia\Dlss',
+            "DLSS 4.5": r"mods\Temp\Upscalers\Nvidia\Dlss 4.5",
             "DLSSG": r'mods\Temp\Upscalers\Nvidia\Dlssg',
             "DLSSD": r'mods\Temp\Upscalers\Nvidia\Dlssd',
             "XESS": r'mods\Temp\Upscalers\Intel',
@@ -690,10 +873,12 @@ class Gui:
             "FSR4": r'mods\Temp\Upscalers\AMD\FSR4'
         }
 
-
         # Only marked addons
         if selected_upscalers.get("DLSS"):
             mod_dirs.append(upscaler_paths["DLSS"])
+        
+        if selected_upscalers.get("DLSS 4.5"):
+            mod_dirs.append(upscaler_paths["DLSS 4.5"])
 
         if selected_upscalers.get("DLSSG"):
             mod_dirs.append(upscaler_paths["DLSSG"])
@@ -738,7 +923,7 @@ class Gui:
         self.sucess.place(x=5, y=260)
         self.root.after(3000, self.sucess.destroy)
     
-    def update_progress(self):
+    def update_progress_install(self):
         if self.progress_finished or not self.total_steps_progress:
             return
 
@@ -1046,7 +1231,6 @@ class Gui:
         setattr(self, var_name, var)
         return checkbox
     
-
     def follow_root(self, window, button, width, height):
         if window and window.winfo_exists():
             x = button.winfo_rootx()
